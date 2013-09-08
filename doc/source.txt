@@ -1,0 +1,9 @@
+==Tileset.png==
+http://opengameart.org/content/whispers-of-avalon-grassland-tileset
+http://opengameart.org/content/whispers-of-avalon-desert-tileset
+http://opengameart.org/content/whispers-of-avalon-animated-ocean-tileset
+
+Multi Licensed Under:
+Creative Commons By SA 3.0
+GPL
+LGPL

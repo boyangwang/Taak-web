@@ -1,0 +1,171 @@
+# Blob Defense
+
+## Milestone 0
+
+It solves boredom. :)
+
+## Milestone 1
+
+Describe:
+
+The overall game mechanic is simple, place towers at strategic positions, and prevent blobs from reaching their destination.
+
+Passives: Defense-mechanisms player can place between stages
+Actives: Mechanisms player activates when blobs are attacking
+
+The player cannot place mechanisms on tiles to be travelled by blobs.
+
+Why cloud compute?:
+
+Game progress can be synchronized to the cloud. You can use any device, log into the game, and your game is just where you left it.
+
+**Caveat: We are not planning to do multiplayer because that would be _very_ difficult to complete within 2 weeks.
+
+Target platforms:
+	iOS, Chrome (Desktop)
+
+## Milestone 2
+
+Target users: General public, but particularly casual gamers. The game could be played while travelling between destinations (just like popular games such as BeJeweled)
+
+## Milestone 3
+
+Blob defense (tentative)
+
+## Milestone 4
+
+PRIMARY VARCHAR(255) userID
+PRIMARY TEXT parameter
+TEXT value
+
+General purpose table that is very flexible and future-proof.
+
+## Milestone 5
+
+RESTFUL will be used for synchronizing game progress.
+
+If the phone is not connected to the Internet, current progress is stored in localStorage.
+When the phone is connected, the current state in storage is uploaded (if it is newer), or downloaded.
+
+In the event of conflict, the union would be taken.
+
+Game progress is defined as the stages cleared. E.g. if the player has completed stage 1, when they come back to the game on another device/computer stage 2 is unlocked.
+
+1. GET status update from server
+2. DELETE state on server if local is newer
+3. PUT state on server
+4. POST use for login
+
+## Milestone 6
+
+SQL is performed on server-side, normally as a response to GET/DELETE/PUT/POST.
+
+# Milestone 7
+
+[QSA] = Query string append. 
+	Suppose /PRETTY/URL/VALUES/ rewrite to "pretty.php?url=values"
+	then /PRETTY/URL/VALUES?p=123 rewrite to "pretty.php?url=values&p=123"
+	Without QSA, the URL would have rewrite to "pretty.php?url=values" instead.
+
+[L] = Last
+	If this rule is matched, then the matching will stop here and not continue.
+
+[QSA,L] means combining both [QSA] and [L] flags.
+
+---
+
+URL rewrite for our application:
+
+GET /game/status/
+GET /game/update/
+POST /game/login/
+PUT /game/state/?s=1302419024
+DELETE /game/state/?s=130241212
+
+
+Actions:
+	Status
+		Get game status, e.g. version numbers.
+	Update
+		DLCs can be put here (e.g. extra downloable stages)
+	Login
+		Account login, so that the game can be resumed from other devices
+	State
+		Alter the progress.
+		*DELETE only works if there are at least 2 saved states. Only used on non-latest state.
+		*PUT uploads the current state. server takes union
+	
+
+
+/game/[action]/[parameter]
+	=> game.php?action=[action]&[parameters appended via QSA]
+
+## Milestone 8
+
+	**Tentative
+
+## Milestone 9
+
+	**Tentative
+
+## Milestone 10
+
+We will be using WebStorage (known as LocalStorage)
+
+LocalStorage acts as a "resume" feature.
+After each stage clear, LocalStorage is updated so that the player can resume on the next stage.
+
+The resume feature is particularly important because
+	1. In the mobile context, people would want to interrupt the game (say they had to leave the train, or if someone called them)
+	2. Offline mode is needed because we needed a placed to store state temporarily when there is no network access (very likely in mobile scenario - especially since bandwidth for 3G and 4G is quite expensive)
+
+## Milestone 11
+
+On connect
+	Resync
+
+On disconnect
+	Stop resync
+
+Game always write to localStorage even if connected, in case of sudden interruption.
+Synchronization usually occurs after stage completion.
+
+
+## Milestone 12
+
+Basic authentication is vunerable to several security flaws like replay attack. Also, in the suggested basic authentication, the user's password is sent in clear (encoding is not encryption; it can be easily reversed), which can be eavesdrop by others.
+
+Cookies - can be stolen by XSS if they can be accessed using JavaSCript (i.e. non-HTTP-only cookies). Not so secure.
+Digest - Allows for authenticity to be verified and password will not be sent in clear. However, because the client's source is known, digest is still not very secure.
+OAuth - Most secure, requires user to actually visit the site to authenticate (allowing HTTP-only cookies to be used). However, this can disrupt interaction flow because the user cannot authenticate within the same page. Authentication via OAuth (3.0) cannot be done via AJAX because it would defeat the purpose of OAuth.
+
+## Milestone 13
+
+	Tentative
+
+## Milestone 14
+
+Will be done.
+
+## Milestone 15 (optional)
+
+Integration with Social network would most likely be in the form of OAuth login (e.g. Google, Facebook account login). This is probably for convenience for the user, since they do not need to create a new account.
+
+## Milestone 16 (optional)
+
+We won't be using this because it is not relevant.
+
+## Milestone 17 (optional)
+
+May be using
+http://www.html5canvastutorials.com/kineticjs/html5-canvas-events-tutorials-introduction-with-kineticjs/
+
+
+
+# Mobile interaction
+
+At the moment only taps are going to be supported. If time permits we can utilize drag-and-drop.
+
+# Platforms
+
+The application would be tested using iPads (Safari) and Google Chrome. Android browser may be supported if time permits.
