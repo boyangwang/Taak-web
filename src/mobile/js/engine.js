@@ -26,6 +26,7 @@ Game.context = cv.getContext("2d");
 Game.instance = null;
 Game.prototype.load = function() {
 	var map = new Map();
+	/*
 	var tileSet = new TileSet();
 	tileSet.load("img/tileset.png");
 	tileSet.generateIndices(32,32,416,576);
@@ -42,18 +43,43 @@ Game.prototype.load = function() {
 		[0, 0, 0, 68, 70],
 	];
 	map.load(mapData);
+	*/
+	map.loadTMXfile("map.json");
 	
 	this.sprites[map.name] = map;
 
 	var path = new Path();
-	path.entries[0] = {distance:0, x: 0, y: 0};
-	path.entries[1] = {distance:1, x: 0, y: 1};
-	path.entries[2] = {distance:2, x: 1, y: 1};
-	path.entries[3] = {distance:3, x: 2, y: 1};
-	path.entries[4] = {distance:4, x: 3, y: 1};
-	path.entries[5] = {distance:5, x: 3, y: 2};
-	path.entries[6] = {distance:6, x: 3, y: 3};
-	path.entries[7] = {distance:7, x: 3, y: 4};
+	path.entries[0] = {distance:0, x: 1, y: 0};
+	path.entries[1] = {distance:1, x: 1, y: 1};
+	path.entries[2] = {distance:2, x: 1, y: 2};
+	path.entries[3] = {distance:3, x: 2, y: 2};
+	path.entries[4] = {distance:4, x: 3, y: 2};
+	path.entries[5] = {distance:5, x: 3, y: 1};
+	path.entries[6] = {distance:6, x: 3, y: 0};
+	path.entries[7] = {distance:7, x: 4, y: 0};
+	path.entries[8] = {distance:8, x: 5, y: 0};
+	path.entries[9] = {distance:9, x: 6, y: 0};
+	path.entries[10] = {distance:10, x: 7, y: 0};
+	path.entries[11] = {distance:11, x: 7, y: 1};
+	path.entries[12] = {distance:12, x: 7, y: 2};
+	path.entries[13] = {distance:13, x: 6, y: 2};
+	path.entries[14] = {distance:14, x: 5, y: 2};
+	path.entries[15] = {distance:15, x: 5, y: 3};
+	path.entries[16] = {distance:16, x: 5, y: 4};
+	path.entries[17] = {distance:17, x: 4, y: 4};
+	path.entries[18] = {distance:18, x: 3, y: 4};
+	path.entries[19] = {distance:19, x: 2, y: 4};
+	path.entries[20] = {distance:20, x: 1, y: 4};
+	path.entries[21] = {distance:21, x: 1, y: 5};
+	path.entries[22] = {distance:22, x: 1, y: 6};
+	path.entries[23] = {distance:23, x: 2, y: 6};
+	path.entries[24] = {distance:24, x: 3, y: 6};
+	path.entries[25] = {distance:25, x: 4, y: 6};
+	path.entries[26] = {distance:26, x: 5, y: 6};
+	path.entries[27] = {distance:27, x: 6, y: 6};
+	path.entries[28] = {distance:28, x: 7, y: 6};
+	path.entries[29] = {distance:29, x: 7, y: 5};
+	path.entries[30] = {distance:30, x: 7, y: 4};
 
 	var blob = new Blob();
 	blob.name = "blob_1";
@@ -69,8 +95,8 @@ Game.prototype.load = function() {
 	defense.texture = new Image();
 	defense.texture.src = "img/blob-1.png";
 	defense.texture.onload = function() { defense.ready = true; };
-	defense.x = 2.5;
-	defense.y = 2.5;
+	defense.x = 2;
+	defense.y = 1;
 	this.defenses[defense.name] = defense;
 	this.sprites[defense.name] = defense;
 }
@@ -117,6 +143,34 @@ function Map() {
 	this.tiles = { };
 	this.width = 0;
 	this.height = 0;
+	this.tileWidth = 0;
+	this.tileHeight = 0;
+}
+Map.prototype.loadTMXfile = function(file) {
+	var self = this;
+	$.getJSON(file, function(data) {
+		self.loadTMX(data);
+	});
+}
+Map.prototype.loadTMX = function(data) {
+	this.width = data.width;
+	this.height = data.height;
+	this.tileHeight = data.tileheight;
+	this.tileWidth = data.tilewidth;
+	this.tileSet = new TileSet();
+	this.tileSet.loadTMXSet(data.tilesets);
+	this.loadTMXGrid(data.layers[0]);
+	console.log(data);
+	console.log(this);
+}
+Map.prototype.loadTMXGrid = function(grid) {
+	this.tiles = { };
+	var c = 0;
+	for (var i = 0; i < grid.height; i++) {
+		for (var j = 0; j < grid.width; j++) {
+			this.tiles[j + "_" + i] = grid.data[c++];
+		}
+	}
 }
 Map.prototype.load = function(grid) {
 	this.tiles = { };
@@ -142,44 +196,56 @@ Map.prototype.draw = function() {
 Map.prototype.update = function() { };
 
 function TileSet() {
-	this.texture = null;
-	this.ready = false;
+	this.first = 0;
+	this.texture = { };
+	//this.ready = false;
 	this.indexOffset = 0;
-	this.indices = new Array();
+	this.indices = { };
 	this.tileWidth = 0;
 	this.tileHeight = 0;
 	this.offsetX = 0;
 	this.offsetY = 0;
 }
+TileSet.prototype.loadTMXSet = function(data) {
+	for (var i = 0; i < data.length; i++) {
+		var setData = data[i];
+		this.first = setData.firstgid;
+		this.load(setData.image);
+		this.generateIndices(setData.tilewidth, setData.tileheight, setData.imagewidth, setData.imageheight);
+	}
+}
 TileSet.prototype.load = function(texture) {
-	this.texture = new Image();
-	this.texture.src = texture;
-	var self = this;
-	this.texture.onload = function() { self.ready = true; };
+	this.texture[this.first] = new Image();
+	this.texture[this.first].src = texture;
+	var self = this.texture[this.first];
+	this.texture[this.first].onload = function() { self.ready = true; };
 }
 TileSet.prototype.generateIndices = function(tileWidth, tileHeight, imageWidth, imageHeight) {
 	var x = Math.floor(imageWidth/tileWidth);
 	var y = Math.floor(imageHeight/tileHeight);
 	this.tileWidth = tileWidth;
 	this.tileHeight = tileHeight;
-	var c = 0;
+	var c = this.first;
 	for (var j = 0; j < y; j++) {
 		for (var i = 0; i < x; i++) {
-			this.indices[c++] = {x: i * tileWidth, y: j * tileHeight};
+			this.indices[c++] = {x: i * tileWidth, y: j * tileHeight, first: this.first};
 		}
 	}
 }
 TileSet.prototype.draw = function(index, x, y, width, height) {
-	Game.debug(this.indices[index].x + "," + y + "," + width);
-	if (this.ready) {
-		Game.context.drawImage(this.texture, this.indices[index].x, this.indices[index].y, this.tileWidth, this.tileHeight, x, y, width, height);
+	//Game.debug(this.indices[index].x + "," + y + "," + width);
+	var tile = this.indices[index];
+	if (tile != null) {
+		if (this.texture[tile.first].ready) {
+			Game.context.drawImage(this.texture[tile.first], tile.x, tile.y, this.tileWidth, this.tileHeight, x, y, width, height);
+		}
 	}
 }
 
 // Static class for transforming coordinates
 var Coordinates = {
-	tileWidth: 32,
-	tileHeight: 32
+	tileWidth: 48,
+	tileHeight: 48
 }
 Coordinates.toGrid = function(x, y) {
 	return {s: x/Coordinates.tileWidth, t: y/Coordinates.tileHeight};
