@@ -21,9 +21,12 @@
  <tileset firstgid="7" name="tile-1-horizontal" tilewidth="46" tileheight="46">
   <image source="img/td/tile-1-horizontal.gif" width="46" height="46"/>
  </tileset>
+ <tileset firstgid="8" name="metaltile" tilewidth="46" tileheight="46">
+  <image source="img/td/metaltile.png" width="46" height="46"/>
+ </tileset>
  <layer name="Tile Layer 1" width="8" height="8">
   <data encoding="base64" compression="zlib">
-   eJxjYGBgYGSAABYgZkfCbFBxRjSaAY3PDFXPimYOKwN2gG4Our3I5mBTj8t+dIzLfmQAAE50AJM=
+   eJzjYGBgYARiDiBmAWJ2JMwGFWdEoznQ+MxQ9axo5rCiqUfXx4HDXmRzsKnHZT86xmU/MgYAx/QBmw==
   </data>
  </layer>
 </map>

@@ -1,7 +1,7 @@
 { "height":8,
  "layers":[
         {
-         "data":[0, 1, 0, 4, 7, 7, 7, 6, 0, 1, 0, 1, 0, 0, 0, 1, 0, 3, 7, 5, 0, 4, 7, 5, 0, 0, 0, 0, 0, 1, 0, 0, 0, 4, 7, 7, 7, 5, 0, 4, 0, 1, 0, 0, 0, 0, 0, 1, 0, 3, 7, 7, 7, 7, 7, 5, 0, 0, 0, 0, 0, 0, 0, 0],
+         "data":[8, 1, 8, 4, 7, 7, 7, 6, 8, 1, 8, 1, 8, 8, 8, 1, 8, 3, 7, 5, 8, 4, 7, 5, 8, 8, 8, 8, 8, 1, 8, 8, 8, 4, 7, 7, 7, 5, 8, 4, 8, 1, 8, 8, 8, 8, 8, 1, 8, 3, 7, 7, 7, 7, 7, 5, 8, 8, 8, 8, 8, 8, 8, 8],
          "height":8,
          "name":"Tile Layer 1",
          "opacity":1,
@@ -115,6 +115,21 @@
          "imagewidth":46,
          "margin":0,
          "name":"tile-1-horizontal",
+         "properties":
+            {
+
+            },
+         "spacing":0,
+         "tileheight":46,
+         "tilewidth":46
+        }, 
+        {
+         "firstgid":8,
+         "image":"img\/td\/metaltile.png",
+         "imageheight":46,
+         "imagewidth":46,
+         "margin":0,
+         "name":"metaltile",
          "properties":
             {
 
