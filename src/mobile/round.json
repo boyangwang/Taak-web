@@ -1,0 +1,48 @@
+{
+"paths":{
+	"path_1":[
+		{"distance":0, "x": 1, "y": 0},
+		{"distance":1, "x": 1, "y": 1},
+		{"distance":2, "x": 1, "y": 2},
+		{"distance":3, "x": 2, "y": 2},
+		{"distance":4, "x": 3, "y": 2},
+		{"distance":5, "x": 3, "y": 1},
+		{"distance":6, "x": 3, "y": 0},
+		{"distance":7, "x": 4, "y": 0},
+		{"distance":8, "x": 5, "y": 0},
+		{"distance":9, "x": 6, "y": 0},
+		{"distance":10, "x": 7, "y": 0},
+		{"distance":11, "x": 7, "y": 1},
+		{"distance":12, "x": 7, "y": 2},
+		{"distance":13, "x": 6, "y": 2},
+		{"distance":14, "x": 5, "y": 2},
+		{"distance":15, "x": 5, "y": 3},
+		{"distance":16, "x": 5, "y": 4},
+		{"distance":17, "x": 4, "y": 4},
+		{"distance":18, "x": 3, "y": 4},
+		{"distance":19, "x": 2, "y": 4},
+		{"distance":20, "x": 1, "y": 4},
+		{"distance":21, "x": 1, "y": 5},
+		{"distance":22, "x": 1, "y": 6},
+		{"distance":23, "x": 2, "y": 6},
+		{"distance":24, "x": 3, "y": 6},
+		{"distance":25, "x": 4, "y": 6},
+		{"distance":26, "x": 5, "y": 6},
+		{"distance":27, "x": 6, "y": 6},
+		{"distance":28, "x": 7, "y": 6},
+		{"distance":29, "x": 7, "y": 5},
+		{"distance":30, "x": 7, "y": 4}
+	]
+},
+"rounds":[[
+	{"template":"mob_1","spawn":0,"path":"path_1"},
+	{"template":"mob_2","spawn":1000,"path":"path_1"},
+	{"template":"mob_3","spawn":2000,"path":"path_1"},
+	{"template":"mob_1","spawn":3000,"path":"path_1"}
+]],
+"mobtemplate":{
+	"mob_1":{"name":"mob_1", "texture":"img/td/animated-creep/creep-1-blue/1.png"},
+	"mob_2":{"name":"mob_3", "texture":"img/td/animated-creep/creep-1-red/1.png"},
+	"mob_3":{"name":"mob_3", "texture":"img/td/animated-creep/creep-1-yellow/1.png"}
+}
+}
