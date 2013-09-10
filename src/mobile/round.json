@@ -1,7 +1,9 @@
 {
 "paths":{
-	"path_1":[
-		{"distance":0, "x": 1, "y": 0},
+	"path_1":{
+	"offset": {"x": 0.5, "y": 0.5},
+	"entries":
+		[{"distance":0, "x": 1, "y": 0},
 		{"distance":1, "x": 1, "y": 1},
 		{"distance":2, "x": 1, "y": 2},
 		{"distance":3, "x": 2, "y": 2},
@@ -31,8 +33,8 @@
 		{"distance":27, "x": 6, "y": 6},
 		{"distance":28, "x": 7, "y": 6},
 		{"distance":29, "x": 7, "y": 5},
-		{"distance":30, "x": 7, "y": 4}
-	]
+		{"distance":30, "x": 7, "y": 4}]
+	}
 },
 "rounds":[[
 	{"template":"mob_1","spawn":0,"path":"path_1"},
@@ -40,9 +42,11 @@
 	{"template":"mob_3","spawn":2000,"path":"path_1"},
 	{"template":"mob_1","spawn":3000,"path":"path_1"}
 ]],
-"mobtemplate":{
+"template":{
 	"mob_1":{"name":"mob_1", "texture":"img/td/animated-creep/creep-1-blue/1.png"},
 	"mob_2":{"name":"mob_3", "texture":"img/td/animated-creep/creep-1-red/1.png"},
-	"mob_3":{"name":"mob_3", "texture":"img/td/animated-creep/creep-1-yellow/1.png"}
+	"mob_3":{"name":"mob_3", "texture":"img/td/animated-creep/creep-1-yellow/1.png"},
+	"turret_1":{"name":"turret_1", "texture":"img/td/turret-1-cannon.gif"},
+	"turret_2":{"name":"turret_2", "texture":"img/td/turret-2-cannon.gif"}
 }
 }

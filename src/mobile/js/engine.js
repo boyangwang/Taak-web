@@ -1,14 +1,10 @@
 // Animation frame
-
-
-function flush() {
-	context.fillStyle = "black";
-	context.fillRect(0, 0, canvas.width, canvas.height);
-}
-
-function render() {
-
-}
+window.requestAnimFrame = (function() {
+	return window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame ||
+	function(callback) {
+	  window.setTimeout(callback, 1000 / 60);
+	};
+})();
 
 function Game() {
 	this.sprites = { };
@@ -16,22 +12,61 @@ function Game() {
 	this.defenses = { };
 	Game.instance = this;
 	this.paths = { };
-	this.mobTemplate = { };
+	this.template = { };
 	this.rounds = new Array();
+	Game.input.addListener("mousedown", this.onMouseDown());
 }
-window.requestAnimFrame = (function() {
-	return window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame ||
-	function(callback) {
-	  window.setTimeout(callback, 1000 / 60);
+Game.prototype.onMouseDown = function() {
+	var self = this;
+	return function(data) {
+		self.handleMouseDown(data);
 	};
-})();
+}
 Game.context = cv.getContext("2d");
 Game.instance = null;
+Game.input = new Input(cv);
+Game.idGen = 0;
 // Set ready state for arbitrary sprite object
 Game.prototype.preload = function(obj) {
 	obj.texture.onload = function() {
 		obj.ready = true;
 	}
+}
+Game.prototype.handleMouseDown = function(data) {
+	var gridCoordinate = Coordinates.toGrid(data.x, data.y);
+	this.addTower({template:"turret_1"},gridCoordinate);
+}
+Game.prototype.addBlob = function(data, position) {
+	var currentTime = Date.now();
+	var mob = new Blob();
+	var template = this.template[data.template];
+	mob.name = "mob_" + Game.idGen++;
+	mob.texture = new Image();
+	this.preload(mob);
+	mob.texture.src = template.texture;
+	mob.path = this.paths[data.path];
+	if (data.spawn != null) {
+		mob.spawnTime = currentTime + data.spawn;
+	} else {
+		mob.spawnTime = currentTime;
+	}
+	if (position != null) {
+		mob.x = position.x;
+		mob.y = position.y;
+	}
+	this.blobs[mob.name] = mob;
+}
+Game.prototype.addTower = function(data, position) {
+	var defense = new Defense();
+	var template = this.template[data.template];
+	console.log(this.template);
+	defense.name = "defense_" + Game.idGen++;
+	defense.texture = new Image();
+	this.preload(defense);
+	defense.texture.src = template.texture;
+	defense.x = position.x;
+	defense.y = position.y;
+	this.defenses[defense.name] = defense;
 }
 Game.prototype.loadRounds = function(file, callback) {
 	this.blobs = { };
@@ -39,7 +74,7 @@ Game.prototype.loadRounds = function(file, callback) {
 
 	$.getJSON(file, function(data) {
 		self.paths = data.paths;
-		self.mobTemplate = data.mobtemplate;
+		self.template = data.template;
 		self.rounds = data.rounds;
 		console.log(self);
 		callback();
@@ -48,18 +83,9 @@ Game.prototype.loadRounds = function(file, callback) {
 Game.prototype.loadRound = function(roundNumber) {
 	var self = this;
 	var mobs = this.rounds[roundNumber];
-	var currentTime = Date.now();
+	
 	for (var i = 0; i < mobs.length; i++) {
-		var mob = new Blob();
-		var template = this.mobTemplate[mobs[i].template];
-		mob.name = "mob_" + i;
-		mob.texture = new Image();
-		self.preload(mob);
-		mob.texture.src = template.texture;
-		mob.path = this.paths[mobs[i].path];
-		mob.spawnTime = currentTime + mobs[i].spawn;
-		self.blobs[mob.name] = mob;
-		//self.sprites[mob.name] = mob;
+		this.addBlob(mobs[i]);
 	}
 }
 Game.prototype.load = function() {
@@ -69,30 +95,11 @@ Game.prototype.load = function() {
 	this.sprites[map.name] = map;
 
 	var self = this;
-	this.loadRounds("round.json", function() { self.loadRound(0); });
-	
-	var defense = new Defense();
-	defense.name = "defense_1";
-	defense.texture = new Image();
-	defense.texture.src = "img/td/turret-1-cannon.gif";
-	defense.texture.onload = function() { defense.ready = true; };
-	defense.x = 2;
-	defense.y = 1;
-	this.defenses[defense.name] = defense;
-	//this.sprites[defense.name] = defense;
-	
-	
-	var defense2 = new Defense();
-	defense2.name = "defense_2";
-	defense2.texture = new Image();
-	defense2.texture.src = "img/td/turret-2-cannon.gif";
-	defense2.texture.onload = function() { defense2.ready = true; };
-	defense2.affectRadius = 2;
-	defense2.x = 4;
-	defense2.y = 2;
-	this.defenses[defense2.name] = defense2;
-	//this.sprites[defense2.name] = defense2;
-	
+	this.loadRounds("round.json", function() {
+		// Test data here
+		self.addTower({template:"turret_1"},{x:2.5,y:1.5});
+		self.addTower({template:"turret_2"},{x:4.5,y:2.5});
+	});
 	
 }
 Game.prototype.update = function() {
@@ -250,7 +257,7 @@ var Coordinates = {
 	tileHeight: 48
 }
 Coordinates.toGrid = function(x, y) {
-	return {s: x/Coordinates.tileWidth, t: y/Coordinates.tileHeight};
+	return {x: x/Coordinates.tileWidth, y: y/Coordinates.tileHeight};
 }
 // Inverse operation of toGrid.
 Coordinates.toDraw = function(s, t) {
@@ -265,23 +272,24 @@ function Path() {
 */
 Path = { };
 Path.getPosition = function(path, distance) {
-	for (var i = 0; i < path.length; i++) {
-		if (path[i].distance > distance) {
-			var next = path[i];
-			var current = path[i-1];
+	var entries = path.entries;
+	for (var i = 0; i < entries.length; i++) {
+		if (entries[i].distance > distance) {
+			var next = entries[i];
+			var current = entries[i-1];
 			// interpolate
 			var distanceGap = next.distance - current.distance;
 			var fraction = (distance - current.distance)/distanceGap;
 			var x = fraction * (next.x - current.x) + current.x;
 			var y = fraction * (next.y - current.y) + current.y;
 			var direction = Math.atan2((next.y - current.y),(next.x - current.x));
-			return {x: x, y: y, dir: direction};
+			return {x: x + path.offset.x, y: y + path.offset.y, dir: direction};
 		}
 	}
-	if (path.length > 0) {
-		return {x: path[path.length-1].x, y: path[path.length-1].y, dir: 0};
+	if (entries.length > 0) {
+		return {x: entries[entries.length-1].x + path.offset.x, y: entries[entries.length-1].y + path.offset.y, dir: 0};
 	} else {
-		return {x: 0, y: 0, dir: 0};
+		return {x: 0 + path.offset.x, y: 0 + path.offset.y, dir: 0};
 	}
 }
 
@@ -294,8 +302,8 @@ function Blob() {
 	// Base values
 	this.x = 0;
 	this.y = 0;
-	this.offsetX = 24;
-	this.offsetY = 24;
+	this.offsetX = 0;
+	this.offsetY = 0;
 	this.v = 1;
 	this.width = 32;
 	this.height = 32;
@@ -336,14 +344,6 @@ Blob.prototype.update = function() {
 	this.x = position.x;
 	this.y = position.y;
 	this.direction = position.dir;
-	/*
-	this.x += vx * delta;
-	this.y += vy * delta;
-	//Game.debug(vx + "," + vy);
-	*/
-	
-	//Game.debug(this.x + "," + this.y);
-	
 
 	this.lastUpdate = currentTime;
 	
@@ -359,10 +359,10 @@ Blob.prototype.draw = function() {
 		Game.context.save();
 		Game.context.translate(position.x + this.offsetX, position.y + this.offsetY);
 		Game.context.rotate(this.direction);
-		//Game.debug(this.direction);
-		//Game.context.drawImage(this.texture, position.x + this.offsetX, position.y + this.offsetY, this.width, this.height);
 		Game.context.drawImage(this.texture, -this.width/2, -this.height/2, this.width, this.height);
 		Game.context.restore();
+		
+		//Game.debugRect(position.x, position.y);
 	}
 }
 
@@ -371,8 +371,8 @@ function Defense() {
 	this.ready = false;
 	this.x = 0;
 	this.y = 0;
-	this.offsetX = 20;
-	this.offsetY = 20;
+	this.offsetX = 0;
+	this.offsetY = 0;
 	this.width = 32;
 	this.height = 32;
 	this.affectRadius = 1;
@@ -388,12 +388,10 @@ Defense.prototype.draw = function() {
 		Game.context.save();
 		Game.context.translate(position.x + this.offsetX, position.y + this.offsetY);
 		Game.context.rotate(this.direction);
-		//Game.debug(this.direction);
-		//Game.context.drawImage(this.texture, position.x + this.offsetX, position.y + this.offsetY, this.width, this.height);
 		Game.context.drawImage(this.texture, -this.width/2, -this.height/2, this.width, this.height);
 		Game.context.restore();
 		
-		//Game.context.drawImage(this.texture, position.x + this.offsetX, position.y + this.offsetY, this.width, this.height);
+		//Game.debugRect(position.x, position.y);
 	}
 }
 Defense.prototype.affects = function(blob) {
