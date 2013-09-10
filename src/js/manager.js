@@ -10,6 +10,10 @@ try {
 
 }
 
+function hideKeyboard() {
+	document.activeElement.blur();
+}
+
 var idgen = 0;
 function addEntry(target) {
 	var newEntry = document.getElementById(target);
@@ -31,6 +35,7 @@ function addEntry(target) {
 function submit(e, callback, argument) {
 	if (e.keyCode == 13 && !e.shiftKey) {
 		callback(argument);
+		hideKeyboard();
 	}
 }
 
