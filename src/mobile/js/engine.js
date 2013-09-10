@@ -14,6 +14,7 @@ function Game() {
 	this.paths = { };
 	this.template = { };
 	this.rounds = new Array();
+	this.scale = 1;
 	Game.input.addListener("mousedown", this.onMouseDown());
 }
 Game.prototype.onMouseDown = function() {
@@ -23,9 +24,10 @@ Game.prototype.onMouseDown = function() {
 	};
 }
 Game.prototype.resize = function() {
-	var aspectRatio = 16/9;
+	var aspectRatio = 4/3;
 	var baseWidth = 800;
 	var baseHeight = 600;
+	
 }
 Game.canvas = cv;
 Game.context = cv.getContext("2d");
@@ -118,6 +120,8 @@ Game.prototype.update = function() {
 	}
 }
 Game.prototype.draw = function() {
+	Game.context.save();
+	Game.context.scale(this.scale, this.scale);
 	for (var id in this.sprites) {
 		this.sprites[id].draw();
 	}
@@ -127,6 +131,7 @@ Game.prototype.draw = function() {
 	for (var id in this.defenses) {
 		this.defenses[id].draw();
 	}
+	Game.context.restore();
 }
 var z = 0;
 Game.prototype.render = function() {
