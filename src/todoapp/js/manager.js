@@ -56,7 +56,7 @@ var user = "demo";
 
 function serverGet() {
 	$.ajax({
-		url: 'api.php',
+		url: 'api/',
 		type: 'GET',
 		data: "user="+user,
 		success: function(result) {
@@ -67,7 +67,7 @@ function serverGet() {
 function serverPut(entry) {
 	var entryStr = JSON.stringify(entry);
 	$.ajax({
-		url: 'api.php',
+		url: 'api/',
 		type: 'PUT',
 		data: "user=" + user + "&entry="+entryStr,
 		success: function(result) {
@@ -78,7 +78,7 @@ function serverPut(entry) {
 function serverDelete(id) {
 	var entryStr = JSON.stringify(entry);
 	$.ajax({
-		url: 'api.php',
+		url: 'api/',
 		type: 'DELETE',
 		data: "id="+id,
 		success: function(result) {

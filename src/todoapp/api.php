@@ -31,12 +31,10 @@ if (isset($_SERVER['REQUEST_METHOD'])) {
 function addEntry($user, $entry) {
 	global $db;
 	// TODO: Use prepared statements
-	//$raw = json_decode($entry);
 	$id = $db->quote($entry['id']);
 	$user = $db->quote($user);
 	$value = $db->quote(json_encode($entry));
 	$query = "INSERT INTO entries(id, user, value) VALUES($id, $user, $value) ON DUPLICATE KEY UPDATE value=$value";
-	echo $query;
 	$db->exec($query) or die();
 	$result["code"] = "200";
 	return $result;
@@ -46,6 +44,7 @@ function deleteEntry($id) {
 	global $db;
 	$id = $db->quote($id);
 	//$query = "DELETE FROM entries WHERE id=$id";
+	// Use UPDATE to allow for synchronization after delete online on another device
 	$query = "UPDATE entries SET value='' WHERE id=$id";
 	$db->exec($query);
 	
