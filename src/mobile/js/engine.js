@@ -22,6 +22,12 @@ Game.prototype.onMouseDown = function() {
 		self.handleMouseDown(data);
 	};
 }
+Game.prototype.resize = function() {
+	var aspectRatio = 16/9;
+	var baseWidth = 800;
+	var baseHeight = 600;
+}
+Game.canvas = cv;
 Game.context = cv.getContext("2d");
 Game.instance = null;
 Game.input = new Input(cv);
@@ -98,7 +104,7 @@ Game.prototype.load = function() {
 	this.loadRounds("round.json", function() {
 		// Test data here
 		self.addTower({template:"turret_1"},{x:2.5,y:1.5});
-		self.addTower({template:"turret_2"},{x:4.5,y:2.5});
+		self.addTower({template:"turret_2"},{x:4.5,y:1.5});
 	});
 	
 }
@@ -253,8 +259,8 @@ TileSet.prototype.draw = function(index, x, y, width, height) {
 
 // Static class for transforming coordinates
 var Coordinates = {
-	tileWidth: 48,
-	tileHeight: 48
+	tileWidth: 85,
+	tileHeight: 85
 }
 Coordinates.toGrid = function(x, y) {
 	return {x: x/Coordinates.tileWidth, y: y/Coordinates.tileHeight};
@@ -305,8 +311,8 @@ function Blob() {
 	this.offsetX = 0;
 	this.offsetY = 0;
 	this.v = 1;
-	this.width = 32;
-	this.height = 32;
+	this.width = 80; //32
+	this.height = 80; //32
 	this.damage = 1;
 	this.hp = 1;
 	this.direction = 0;
@@ -373,8 +379,8 @@ function Defense() {
 	this.y = 0;
 	this.offsetX = 0;
 	this.offsetY = 0;
-	this.width = 32;
-	this.height = 32;
+	this.width = 80;//32
+	this.height = 80;//32
 	this.affectRadius = 1;
 	this.affectDamage = 1;
 	this.cooldown = 1;
