@@ -54,8 +54,8 @@ function deleteEntry($id) {
 
 function getEntries($user) {
 	global $db;
-	$id = $db->quote($entry['id']);
-	$query = "SELECT * FROM entries WHERE id=$id";
+	$user = $db->quote($user);
+	$query = "SELECT * FROM entries WHERE user=$user";
 	$result = $db->query($query);
 	return $result->fetchAll(PDO::FETCH_ASSOC);
 }
