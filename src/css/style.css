@@ -23,10 +23,16 @@ html, body {
 .maintable .content {
 	/*height: 100%;*/
 	
-	background: #eee;
+	background: #ffdf8a;
 }
 .addButton {
-	width: 100%;
+	width: 30px;
+	height: 30px;
+	margin-top: -9px;
+	background: transparent;
+	border: 0px;
+	font-family: HelveticaNeue-Bold;
+	color: #e26700;
 }
 .header td {
 	padding: 5px;
@@ -37,21 +43,59 @@ html, body {
 .header td input {
 	font-size: 1.2em;
 }
-#entryBox {
-	width: 100%;
+
+.tableHead{
+	/* fallback */
+  background-color: #fe9d00;
+  background-repeat: repeat-x;
+
+  /* Safari 4-5, Chrome 1-9 */
+  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#1a82f7), to(#2F2727));
+
+  /* Safari 5.1, Chrome 10+ */
+  background: -webkit-linear-gradient(top, #ffb100, #ff9200);
+
+  /* Firefox 3.6+ */
+  background: -moz-linear-gradient(top, #ffb100, #ff9200);
+
+  /* IE 10 */
+  background: -ms-linear-gradient(top, #ffb100, #ff9200);
+
+  /* Opera 11.10+ */
+  background: -o-linear-gradient(top, #ffb100, #ff9200);
 }
+
+#entryBox {
+	width: 93%;
+	margin-left: 10px;
+	border: 0px;
+	font-size: 14px;
+	color: #e47213;
+}
+
+#entryContainer{
+	width: 100%;
+	border-radius: 10px;
+	background-color: white;
+}
+
+.entryText{
+	color: #e26700;
+	font-family: HelveticaNeue-Light;
+	font-size: 24px;
+	margin-left: 50px;
+}
+
 #listings {
 	height: 100%;
 	overflow: auto;
 }
 #listings .entry {
-	background: #fff;
-	border: 1px solid #ccc;
 	margin: 5px;
 	margin-bottom: 10px;
-	padding: 5px;
-	box-shadow: 0 2px 2px rgba(0,0,0,0.3);
+	padding: 15px;
 	font-size: 1.2em;
+	border-bottom: 2px solid #f7bd63;
 }
 .deleteButton {
 	float: right;
