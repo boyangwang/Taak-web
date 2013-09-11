@@ -1,0 +1,100 @@
+===========================================================================
+PB:3:0x, LD:4:0x, SD:3:0x, UX:3:0x, JS:1:0x			Type:Total:Completed x RemainingFast Med Slow
+===========================================================================
+Important Features
+Indicator of whether you are Offline or Online
+
+===========================================================================
+Phase 1
+
+Milestone 0: @@PB
+Describe the problem that your application solves.
+
+We want to make it easy for people to maintain and keep ahead of their daily routines and to-do tasks.
+### There are many people who have busy schedules with many to-do tasks to track, and wished that their their to-do task list could manage itself, without much manual intervention or rearrangement.
+There are 3 main subsets to this problem.
+1. You want to just know what you need to do when you open the app, instead of using some app where you have to click through numerous places just to see what you need to do.
+2. You do not want to add tasks and then try to manually arrange them. You should have everything arranged nicely for you, immediately after adding the task to do.
+3. Many a times, tasks also do not just take one day to complete, and needs to be kept on the calendar for many days.
+Yet it is troublesome to have to keep shifting these tasks.
+
+The way we intend to solve these problems through well-designed interfaces that makes it easy to manage to-do tasks.
+
+
+Milestone 1: @@PB
+Describe your application and explain how you intend to exploit the characteristics of mobile cloud computing to achieve your application’s objectives, i.e. why does it make most sense to implement your application as a mobile cloud application?
+
+It should be a mobile application because you need to be able to refer to your to-do task list on the go, any time anywhere.
+It should use the cloud because many interactions happen online and you need to be able to sync those online interactions and to-do tasks into the app.
+Another reason is that you should be able to access your data on any device, without having to manually transfer your data, since this syncing can be better done via the cloud.
+
+Milestone 2: @@PB
+Describe your target users. Explain how you plan to promote your application to attract your target users.
+
+### Our target users are university students and young working adults who have busy schedules with many to-do tasks to track, and wished that their their to-do list could manage itself, without much manual intervention or rearrangement.
+### There are 3 main ways that we can promote the app.
+### First, we can allow users to share their schedules and allow other people to add tasks to their schedules. This increases exposure of the app to other people.
+### Second, some awesome features are unlockable only after you have invited X number of friends who use the app, which gives the user an incentive to invite more friends.
+### Third, further promotion can be done through Facebook/Twitter/Tumblr shares.
+
+Milestone 3: Pick a name for your mobile cloud application. (Not graded).
+DTaak (Daily Taak)
+(Boyang: Taak is "task" in Dutch)
+
+Milestone 4: @@LD
+Draw the database schema of your application.
+
+Milestone 5: @@SD
+Design and document (at least 3) most prominent requests of your REST API. The documentation should describe the requests in terms of the triplet mentioned above. Do provide us with a brief explanation on the purpose of each request for reference. Also, explain how your API conforms to the REST principles and why you have chosen to ignore certain practices(if any).
+
+===========================================================================
+Phase 2
+
+Milestone 6: @@SD
+Tell us some of the more interesting queries (at least 3) in your application that requires database access. Provide the actual SQL queries you used.
+
+Milestone 7: @@SD
+Find out and explain what [QSA,L] means. Tell us about your most interesting rewrite rule.
+
+===========================================================================
+Phase 3
+UI, SN
+Milestone 8: @@UX
+Create an attractive icon and splash screen for your application. Try adding your application to the home screen to make sure that they are working properly.
+
+Milestone 9: @@UX
+Style different UI components within the application using CSS in a structured way (i.e. marks will be deducted if you submit messy code). Explain why your UI design is the best possible UI for your application.
+
+Milestone 10: @@LD
+Implement and explain briefly the offline functionality of your application. Make sure that you are able to run and use the application from the home screen without any internet connection. State if you have used Web Storage, Web SQL Database or both in your application. Explain your choice.
+
+Milestone 11: @@LD
+Explain how you will keep your client in sync with the server. Elaborate on the cases you have taken into consideration and how it will be handled.
+
+Milestone 12: @@LD
+Compare the pros and cons of basic access authentication to other schemes such as using cookies, digest access authentication or even OAuth. Justify your choice of authentication scheme.
+
+Milestone 13: @@UX
+Describe 1-3 user interactions within the application and explain why those interactions help make it better.
+
+Milestone 14: @@JS
+Embed Google Analytics in your application and give us a screenshot of the report. Make sure you embed the tracker at least 48 hours before submission deadline as updates are reported once per day.
+
+===========================================================================
+OPTIONAL
+
+Milestone 15: @@JS
+Identify and integrate any social network(s) with users belonging to your target group. State the social plugins you have used. Explain your choice of social network(s) and plugins. (Optional)
+
+Milestone 16: @@JS
+Make use of the Geolocation API in your application. Plot it with Bing or Google Maps or even draw out possible routes for the convenience of your user. (Optional)
+
+Milestone 17: @@JS
+Justify your choice of framework/library by comparing it against others. Explain why the one you have chosen best fulfils your needs. (Optional)
+
+===========================================================================
+MISC NOTES
+During the user’s first visit to the site, we will tell the browser to quietly download and save the program for future use.
+The Application Cache is how we will instruct it to retain all resources required for this “web page” to run in the absence of an internet connection. When used in conjunction with Web Storage or Web SQL Database, which allow storage of data on the local file system, your application can function like a native one.
+After which, the client can operate with limited functionality when it is offline and communicate with the server using AJAX calls while it has internet access. Requests typically take the form of JSON or XML formatted messages and they contain details of a job to be processed by the server, such as querying the database for some information or to update its records.
+The server then replies with a similarly formatted message response, which the client is responsible for decoding and notifying the user of.
