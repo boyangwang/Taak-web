@@ -1,14 +1,15 @@
 <!DOCTYPE html>
-<html>
+<html manifest="cache.manifest">
 <head><title>Taak</title>
 	<meta charset="utf8">
 	<meta name="viewport" content="width=768, initial-scale=1">
 	<!--<meta name="viewport" content="width=device-width, user-scalable=false">-->
 	<link rel="icon" type="image/png" href="img/icon.png">
 	<link rel="apple-touch-icon-precomposed" href="img/icon.png" />
-	<link rel="stylesheet" href="style.css" type="text/css" />
+	<link rel="stylesheet" href="css/style.css" type="text/css" />
 </head>
 <body>
+<!--<a href="javascript:reload();">Reload</a>-->
 <table class="maintable" cellpadding="0" cellspacing="0">
 	<tr class="header"><td><input type="text" class="box" id="entryBox" onkeydown="javascript:submit(event, addEntry, 'entryBox');"></td><td style="width:50px;"><input class="addButton box" type="button" onclick="javascript:addEntry('entryBox')" value="+"></td></tr>
 	<tr><td class="content" colspan="2"><div id="listings">

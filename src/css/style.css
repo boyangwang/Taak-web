@@ -4,6 +4,11 @@ html, body {
 	font-family: verdana;
 	height: 100%;
 }
+.round {
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
 .box {
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
@@ -33,9 +38,7 @@ html, body {
 	font-size: 1.2em;
 }
 #entryBox {
-	/*width: 100%;*/
 	width: 100%;
-
 }
 #listings {
 	height: 100%;

@@ -1,2 +1,4 @@
+AddType text/cache-manifest .manifest
+
 RewriteEngine on
 RewriteRule ^api(?:/([^/]+))?/?$ api.php?id=$1 [QSA,L]

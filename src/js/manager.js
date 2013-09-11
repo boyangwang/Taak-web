@@ -10,6 +10,10 @@ try {
 
 }
 
+function reload() {
+	window.location.reload();
+}
+
 function hideKeyboard() {
 	document.activeElement.blur();
 }
@@ -52,7 +56,7 @@ function deleteEntry(id) {
 function showEntries() {
 	var result = "";
 	for (var entry in entries) {
-		result += "<div class=\"entry\"><span class=\"entryText\">" + entries[entry] + " " + "</span><span class=\"editbox\" id=\"edit_" + entry + "\"><input id=\"editinput_" + entry + "\" type=\"text\"></span><a class=\"deleteButton\" href=\"javascript:deleteEntry(\'" + entry + "\');\">x</a>" + "</div>";
+		result += "<div class=\"entry round\"><span class=\"entryText\">" + entries[entry] + " " + "</span><span class=\"editbox\" id=\"edit_" + entry + "\"><input id=\"editinput_" + entry + "\" type=\"text\"></span><a class=\"deleteButton\" href=\"javascript:deleteEntry(\'" + entry + "\');\">x</a>" + "</div>";
 	}
 	$("#listings").get(0).innerHTML = result;
 }
