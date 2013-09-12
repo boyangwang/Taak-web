@@ -53,10 +53,23 @@ function deleteEntry(id) {
 	showEntries();
 }
 
+var entryHighlighted = false;
+function highlightEntry(target) {
+	unhighlightAll();
+	entryHighlighted = true;
+	$(target).addClass("entry-active");
+}
+function unhighlightAll() {
+	if (!entryHighlighted) {
+		$(".entry").removeClass("entry-active");
+	}
+	entryHighlighted = false;
+}
+
 function showEntries() {
 	var result = "";
 	for (var entry in entries) {
-		result += "<div class=\"entry round\"><span class=\"entryText\">" + entries[entry] + " " + "</span><span class=\"editbox\" id=\"edit_" + entry + "\"><input id=\"editinput_" + entry + "\" type=\"text\"></span><a class=\"deleteButton\" href=\"javascript:deleteEntry(\'" + entry + "\');\">x</a>" + "</div>";
+		result += "<div onclick=\"javascript:highlightEntry(this);\" class=\"entry round\"><a class=\"deleteButton\" href=\"javascript:deleteEntry(\'" + entry + "\');\">x</a><span class=\"editbox\" id=\"edit_" + entry + "\"><input class=\"box\" id=\"editinput_" + entry + "\" type=\"text\" value=\"" + entries[entry] + "\"></span><span class=\"entrytext\">" + entries[entry] + " " + "</span><div class=\"clear\"></div></div>";
 	}
 	$("#listings").get(0).innerHTML = result;
 }
