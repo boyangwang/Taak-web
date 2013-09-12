@@ -36,6 +36,15 @@ function addEntry(target) {
 	serverPut(entry);
 }
 
+function updateEntry(entry) {
+	return function(target) {
+		var newEntry = document.getElementById(target);
+		entries[entry] = newEntry.value;
+		syncLocal();
+		showEntries();
+	}
+}
+
 function submit(e, callback, argument) {
 	if (e.keyCode == 13 && !e.shiftKey) {
 		callback(argument);
@@ -69,7 +78,7 @@ function unhighlightAll() {
 function showEntries() {
 	var result = "";
 	for (var entry in entries) {
-		result += "<div onclick=\"javascript:highlightEntry(this);\" class=\"entry round\"><a class=\"deleteButton\" href=\"javascript:deleteEntry(\'" + entry + "\');\">x</a><span class=\"editbox\" id=\"edit_" + entry + "\"><input class=\"box\" id=\"editinput_" + entry + "\" type=\"text\" value=\"" + entries[entry] + "\"></span><span class=\"entrytext\">" + entries[entry] + " " + "</span><div class=\"clear\"></div></div>";
+		result += "<div onclick=\"javascript:highlightEntry(this);\" class=\"entry round\"><a class=\"deleteButton\" href=\"javascript:deleteEntry(\'" + entry + "\');\">x</a><span class=\"editbox\" id=\"edit_" + entry + "\"><input class=\"box\" onkeydown=\"javascript:submit(event, updateEntry('" + entry + "'), 'editinput_" + entry + "');\" id=\"editinput_" + entry + "\" type=\"text\" value=\"" + entries[entry] + "\"></span><span class=\"entrytext\">" + entries[entry] + " " + "</span><div class=\"clear\"></div></div>";
 	}
 	$("#listings").get(0).innerHTML = result;
 }
