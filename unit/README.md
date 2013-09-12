@@ -1,5 +1,7 @@
 # Installation
 
+These unit tests use mocha, which runs on NodeJS.
+
 Install mocha globally on the development machine.
 
 	npm install -g mocha
