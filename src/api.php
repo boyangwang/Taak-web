@@ -1,18 +1,28 @@
 <?php
+
+include_once "./auth.php";
+
 error_reporting(E_ALL);
 $db = new PDO('mysql:host=localhost;dbname=deployas3;chatset=utf8', 'deployas3', 'deployas3');
-$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); 
+$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
 if (isset($_SERVER['REQUEST_METHOD'])) {
-	switch($_SERVER['REQUEST_METHOD']) {
+	switch ($_SERVER['REQUEST_METHOD']) {
 		case 'GET':
 			if (isset($_GET["token"])) {
 				echo json_encode(getEntries($_GET["token"]));
 			}
 			break;
 		case 'POST':
-			$header = $_SERVER['HTTP_X_REQUESTED_WITH'];			
-//			$isAuth = authenticate();
-			echo $header;
+			$action = $_POST["action"];
+//			echo $action;
+			switch ($action) {
+				case 'auth':
+					$isAuth = Auth::authenticate($_SERVER['PHP_AUTH_USER'], $_SERVER['PHP_AUTH_PW']);
+					echo $isAuth;
+					break;
+			}
+
 			break;
 		case 'PUT':
 			parse_str(file_get_contents('php://input'), $_PUT);
@@ -33,14 +43,14 @@ if (isset($_SERVER['REQUEST_METHOD'])) {
 	}
 }
 
-/**  Adding entries **/
+/**  Adding entries * */
 function addEntries($token, $entries) {
 	$user = $token; // TODO: use actual user id
 	$message = "";
 	foreach ($entries as $entry) {
 		$queryResult = addEntry($user, $entry);
 		if ($queryResult) {
-			$message .= $entry["id"]." is updated\n";
+			$message .= $entry["id"] . " is updated\n";
 		}
 	}
 	$result["code"] = 200;
@@ -92,20 +102,4 @@ function getEntries($token) {
 	return $result->fetchAll(PDO::FETCH_ASSOC);
 }
 
-function authenticate($user, $password) {
-	// Should check with db here
-	// for now dummy
-	$authPwd = getPwdByUsername();
-	
-	if ($authPwd == $password) {
-		return true;
-	}
-	else {
-		return false;
-	}
-}
-
-function getPwdByUsername($user) {
-	
-}
 ?>

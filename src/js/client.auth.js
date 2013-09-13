@@ -11,12 +11,27 @@ function sendAuth(e) {
 	}
 	$.ajax({
 		type: 'POST',
-		url: 'api:/auth/',
+		url: 'api/',
+		data: "action=auth",
 		headers: {'Authorization': 'Basic ' + window.btoa($username.val()+':'+CryptoJS.SHA1($pwd.val()))},
 		success: function(response) {
-			console.log(response);
+			if (response == true) {
+				var loginBtn = $('.loginBtn').eq(0)
+				loginBtn.html('Logout');
+				
+				loginBtn.off('click').click(logout);
+				var authOverlay = $('#authOverlay');
+				$('.close', authOverlay).click();
+			}
+			else {
+				alert("Credential wrong! Please check");
+			}
 		}
 	});
 	$username.val();
 	$pwd.val();
+}
+
+function logout(e) {
+	
 }

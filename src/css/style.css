@@ -1,12 +1,13 @@
 /* @boyang 
 	feel free to change these*/
-.loginBtn {
-	font-size: 1.2em;
+.authTrigger {
 	position: absolute;
 	right: 0%;
 	top: 50%;
 }
-
+.authTrigger .loginBtn {
+	font-size: 1.2em;
+}
 #authForm {
 	font-family: consolas;
 }
