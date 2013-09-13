@@ -4,7 +4,15 @@ function TaskSync() {
 	this.remoteCopy = new Array();
 	this.pendingPUT = { };
 	this.pendingDELETE = { };
-	this.token = "";
+	this.net = new TaskNet();
+	this.net.token = "";
+}
+// Fetch token from local storage
+TaskSync.prototype.getToken = function() {
+	if (localStorage.token == null) {
+		localStorage.token = "token_" + Date.now();
+	}
+	this.net.token = localStorage.token;
 }
 // Set the local copy (usually from localStorage)
 TaskSync.prototype.setLocal = function(localCopy) {
@@ -124,7 +132,28 @@ TaskSync.prototype.queuePUT = function(entry) {
 TaskSync.prototype.queueDELETE = function(entry) {
 	this.pendingDELETE[entry.id] = entry;
 }
+// Perform all synchronization steps
+TaskSync.prototype.performSynchronize = function(manager) {
+	manager.readLocal();
+	var localCopy = manager.entries;
+	var remoteCopy = net.doGet();
+	this.setLocal(localCopy);
+	this.setRemote(remoteCopy);
+	var syncCopy = sync.synchronize();
+	// TODO: use this.pendingPUT instead of syncCopy
+	this.net.doPut(syncCopy, this.synchronizeCallback(syncCopy));
+}
+// Called on successful synchronization
+TaskSync.prototype.synchronizeCallback = function(synchronizeCopy, manager) {
+	return function(data) {
+		if (data != "") {
+			manager.setLocal(synchronizeCopy);
+			console.log("Synchronize success");
+		}
+	}
+}
 
+// Export for mocha unit test
 if (typeof(global) != "undefined") {
 	global.TaskSync = TaskSync;
 }

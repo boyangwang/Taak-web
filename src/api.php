@@ -1,4 +1,5 @@
 <?php
+error_reporting(E_ALL);
 $db = new PDO('mysql:host=localhost;dbname=deployas3;chatset=utf8', 'deployas3', 'deployas3');
 $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); 
 if (isset($_SERVER['REQUEST_METHOD'])) {
@@ -12,13 +13,13 @@ if (isset($_SERVER['REQUEST_METHOD'])) {
 			break;
 		case 'PUT':
 			parse_str(file_get_contents('php://input'), $_PUT);
+			//print_r($_PUT);
 			if (isset($_PUT['token']) && isset($_PUT['entries'])) {
 				//print_r($_PUT['entries']);
 				//$entry = json_decode($_PUT['entry'],true);
 				//echo json_encode(addEntry($_PUT['user'], $entry));
 				echo json_encode(addEntries($_PUT['token'], $_PUT['entries']));
 			}
-			//print_r($_PUT);
 			break;
 		case 'DELETE':
 			parse_str(file_get_contents('php://input'), $_DELETE);
@@ -32,11 +33,15 @@ if (isset($_SERVER['REQUEST_METHOD'])) {
 /**  Adding entries **/
 function addEntries($token, $entries) {
 	$user = $token; // TODO: use actual user id
+	$message = "";
 	foreach ($entries as $entry) {
-		addEntry($user, $entry);
+		$queryResult = addEntry($user, $entry);
+		if ($queryResult) {
+			$message .= $entry["id"]." is updated\n";
+		}
 	}
 	$result["code"] = 200;
-	$result["message"] = "success";
+	$result["message"] = $message;
 	return $result;
 }
 
@@ -46,9 +51,13 @@ function addEntry($user, $entry) {
 	$id = $db->quote($entry['id']);
 	$user = $db->quote($user);
 	$value = $db->quote(json_encode($entry));
-	$query = "INSERT INTO entries(id, user, value) VALUES($id, $user, $value) ON DUPLICATE KEY UPDATE value=$value";
-	$db->exec($query) or die();
-	return true;
+	$query = "INSERT INTO entries(id, user, value) VALUES($id, $user, $value) ON DUPLICATE KEY UPDATE id=$id, user=$user, value=$value;";
+	$result = $db->exec($query);
+	if ($result != null) {
+		return true;
+	} else {
+		return false;
+	}
 }
 
 function deleteEntries($token, $entries) {

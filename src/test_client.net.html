@@ -10,12 +10,38 @@
 </head>
 <body>
 <a href="javascript:testPut();">Test put</a><br>
-<a href="javascript:testGet();">Test get</a>
+<a href="javascript:testGet();">Test get</a><br>
+<a href="javascript:run();">Run</a>
 <script src="js/jquery_1.10.2.js"></script>
 <script src="js/client.net.js"></script>
+<script src="js/client.sync.js"></script>
+<script src="js/client.manager.js"></script>
 <script>
 var net = new TaskNet();
-net.token = "NetTester";
+var sync = new TaskSync();
+var manager = new TaskManager();
+net.token = "NetTester3";
+
+function run() {
+	manager.readLocal();
+	var localCopy = manager.entries;
+	var remoteCopy = net.doGet();
+	sync.setLocal(localCopy);
+	sync.setRemote(remoteCopy);
+	var syncCopy = sync.synchronize();
+	net.doPut(syncCopy, syncCallback(syncCopy));
+	//console.log(syncCopy);
+}
+function syncCallback(syncCopy) {
+	// Replace local with synchronized copy only if updated successfully
+	return function(data) {
+		if (data != "") {
+			manager.setLocal(syncCopy);
+			console.log(data);
+		}
+	}
+}
+
 function testPut() {
 	var entries = { };
 	entries["1"] = { id: "1", time: Date.now(), value: "TestValue" };
