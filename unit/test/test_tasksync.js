@@ -83,7 +83,7 @@ describe('Sync', function(){
 			expected["25"] = remote["25"];
 			expected["26"] = local["26"];
 			
-			var result = sync.synchronize();
+			var result = sync.synchronize(true);
 			// Check from expected perspective
 			for (var entry in expected) {
 				assert.equal(expected[entry], result[entry]);

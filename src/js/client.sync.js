@@ -4,7 +4,11 @@ function TaskSync() {
 	this.remoteCopy = new Array();
 	this.pendingPUT = { };
 	this.pendingDELETE = { };
-	this.net = new TaskNet();
+	if (typeof(TaskNet) != "undefined") {
+		this.net = new TaskNet();
+	} else {
+		this.net = { };
+	}
 	this.net.token = "";
 	this.online = false;
 	this.latestTransaction = 0;
@@ -47,17 +51,19 @@ TaskSync.prototype.merge = function() {
 	var remoteClone = this.remoteCopy.slice(0);
 	
 	// Perform merging (similar algorithm to merge sort)
+	var localEntry = null;
+	var remoteEntry = null;
 	while (this.localCopy.length > 0) {
-		var localEntry = null;
-		if (this.localCopy.length > 0) {
+		if (localEntry == null && this.localCopy.length > 0) {
 			localEntry = this.localCopy.pop();
 		}
-		var remoteEntry = null;
-		if (this.remoteCopy.length > 0) {
+		if (remoteEntry == null && this.remoteCopy.length > 0) {
 			remoteEntry = this.remoteCopy.pop();
 		}
 		
+		// Both are not null
 		if (localEntry != null && remoteEntry != null) {
+			// ID match
 			if (localEntry.id == remoteEntry.id) {
 				// Same entry, check last modified time
 				//console.log(localEntry.time, remoteEntry.time, (localEntry.time >= remoteEntry.time));
@@ -66,14 +72,29 @@ TaskSync.prototype.merge = function() {
 				} else {
 					this.workingCopy.push(remoteEntry);
 				}
+				localEntry = null;
+				remoteEntry = null;
+				continue;
+			} else {
+				if (localEntry.id > remoteEntry.id) {
+					this.workingCopy.push(localEntry);
+					localEntry = null;
+				} else {
+					this.workingCopy.push(remoteEntry);
+					remoteEntry = null;
+				}
 				continue;
 			}
 		}
+		
+		// Push remaining copies
 		if (localEntry != null) {
 			this.workingCopy.push(localEntry);
+			localEntry = null;
 		}
 		if (remoteEntry != null) {
 			this.workingCopy.push(remoteEntry);
+			remoteEntry = null;
 		}
 	}
 	// Copy remaining part of remote copy
@@ -91,7 +112,7 @@ TaskSync.prototype.merge = function() {
 // Perform client-side synchronization, returns synchronized data
 // Note: Network synchronization is not performed by this function
 // The result from this function should only be used after network synchronization is completed
-TaskSync.prototype.synchronize = function() {
+TaskSync.prototype.synchronize = function(removeEmpty) {
 	// Empty pending queues
 	this.pendingPUT = { };
 	this.pendingDELETE = { };
@@ -123,15 +144,18 @@ TaskSync.prototype.synchronize = function() {
 		}
 		merged[i].sync = true;
 	}
-	return this.truncate(merged);
+	return this.truncate(merged, removeEmpty);
 }
 // Truncate empty/deleted entries and convert to object form
-TaskSync.prototype.truncate = function(merged) {
+TaskSync.prototype.truncate = function(merged, removeEmpty) {
+	if (removeEmpty == null) {
+		removeEmpty = false;
+	}
 	var result = { };
 	for (var i = 0; i < merged.length; i++) {
-		//if (merged[i].value != null && merged[i].value != "") {
+		if (!removeEmpty || merged[i].value != null && merged[i].value != "") {
 			result[merged[i].id] = merged[i];
-		//}
+		}
 	}
 	return result;
 }
