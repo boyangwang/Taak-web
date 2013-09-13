@@ -1,6 +1,6 @@
 CACHE MANIFEST
 # Change version number when updating files so cached files are updated
-# version 0.16
+# version 0.17
 
 # Note:
 # To update files on browser after changing them
@@ -13,8 +13,10 @@ CACHE MANIFEST
 index.html
 css/style.css
 js/client.manager.js
+js/client.sync.js
 js/client.js
 img/icon.png
+img/favicon.png
 js/jquery_1.10.2.js
 js/jquery-1.10.2.min.map
 
