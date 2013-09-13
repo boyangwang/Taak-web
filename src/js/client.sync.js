@@ -129,9 +129,9 @@ TaskSync.prototype.synchronize = function() {
 TaskSync.prototype.truncate = function(merged) {
 	var result = { };
 	for (var i = 0; i < merged.length; i++) {
-		if (merged[i].value != null && merged[i].value != "") {
+		//if (merged[i].value != null && merged[i].value != "") {
 			result[merged[i].id] = merged[i];
-		}
+		//}
 	}
 	return result;
 }
@@ -191,10 +191,11 @@ TaskSync.prototype.performSynchronize = function(manager, callback) {
 				hasPUTs = true;
 				break;
 			}
+			manager.setLocal(syncCopy);
 			if (!hasPUTs) {
 				// Nothing to send to server, update own copy
 				// TODO: Update only if got changes to local copy
-				manager.setLocal(syncCopy);
+				//manager.setLocal(syncCopy);
 				console.log(manager.entries);
 				if (!sync.isEqual(localCopy, syncCopy)) {
 					if (callback != null) {
@@ -224,9 +225,7 @@ TaskSync.prototype.synchronizeCallback = function(synchronizeCopy, manager, call
 			console.log(transactionTime, sync.lastTransaction);
 			if (transactionTime == sync.lastTransaction) {
 				// Only use latest transaction to prevent abrupt desynchronization
-				
-				//console.log(synchronizeCopy);
-				manager.setLocal(synchronizeCopy);
+				//manager.setLocal(synchronizeCopy);
 				console.log("Synchronize success");
 				if (callback != null) {
 					callback();
