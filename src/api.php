@@ -9,6 +9,9 @@ $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 if (isset($_SERVER['REQUEST_METHOD'])) {
 	switch ($_SERVER['REQUEST_METHOD']) {
 		case 'GET':
+			if (isset($_GET["id"])) {
+				echo $_GET["id"];
+			}
 			if (isset($_GET["token"])) {
 				echo json_encode(getEntries($_GET["token"]));
 			}
@@ -26,12 +29,10 @@ if (isset($_SERVER['REQUEST_METHOD'])) {
 			break;
 		case 'PUT':
 			parse_str(file_get_contents('php://input'), $_PUT);
-			//print_r($_PUT);
-			if (isset($_PUT['token']) && isset($_PUT['entries'])) {
-				//print_r($_PUT['entries']);
-				//$entry = json_decode($_PUT['entry'],true);
-				//echo json_encode(addEntry($_PUT['user'], $entry));
-				echo json_encode(addEntries($_PUT['token'], $_PUT['entries']));
+			if (isset($_PUT['token']) && isset($_PUT['time']) && isset($_PUT['entries'])) {
+				$result = addEntries($_PUT['token'], $_PUT['entries']);
+				$result['time'] = $_PUT['time'];
+				echo json_encode($result);
 			}
 			break;
 		case 'DELETE':
@@ -65,6 +66,7 @@ function addEntry($user, $entry) {
 	$user = $db->quote($user);
 	$value = $db->quote(json_encode($entry));
 	$query = "INSERT INTO entries(id, user, value) VALUES($id, $user, $value) ON DUPLICATE KEY UPDATE id=$id, user=$user, value=$value;";
+	//echo $query;
 	$result = $db->exec($query);
 	if ($result != null) {
 		return true;

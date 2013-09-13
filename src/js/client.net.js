@@ -11,6 +11,7 @@ TaskNet.prototype.toEntries = function(input) {
 	var result = { };
 	for (var i = 0; i < inputObj.length; i++) {
 		var entryObj = JSON.parse(inputObj[i].value);
+		entryObj.time = parseInt(entryObj.time);
 		result[entryObj.id] = entryObj;
 	}
 	return result;
@@ -32,10 +33,13 @@ TaskNet.prototype.doGet = function(callback) {
 	});
 }
 // Send PUT request
-TaskNet.prototype.doPut = function(entries, callback) {
-	//var entryStr = JSON.stringify(entry);
+TaskNet.prototype.doPut = function(entries, callback, time) {
+	if (time == null) {
+		time = Date.now();
+	}
 	var data = {
 		token: this.token,
+		time: time,
 		entries: entries
 	};
 	$.ajax({
@@ -50,9 +54,13 @@ TaskNet.prototype.doPut = function(entries, callback) {
 	});
 }
 // Send DELETE request
-TaskNet.prototype.doDelete = function(entries, callback) {
+TaskNet.prototype.doDelete = function(entries, callback, time) {
+	if (time == null) {
+		time = Date.now();
+	}
 	var data = {
 		token: this.token,
+		time: time,
 		entries: entries
 	};
 	$.ajax({

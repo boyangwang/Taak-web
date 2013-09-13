@@ -9,47 +9,6 @@
 		<link rel="stylesheet" href="css/style.css" type="text/css" />
 	</head>
 	<body>
-		<div id="fb-root"></div>
-		<script>
-			// Additional JS functions here
-			window.fbAsyncInit = function() {
-				FB.init({
-					appId: '472743636174429', // App ID
-					status: true, // check login status
-					cookie: true, // enable cookies to allow the server to access the session
-					xfbml: true, // parse XFBML
-					oauth: true
-				});
-				FB.getLoginStatus(FBLoginChange);
-				FB.Event.subscribe('auth.authResponseChange', FBLoginChange);
-			};
-
-			// Load the SDK asynchronously
-			(function(d) {
-				var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
-				if (d.getElementById(id)) {
-					return;
-				}
-				js = d.createElement('script');
-				js.id = id;
-				js.async = true;
-				js.src = "//connect.facebook.net/en_US/all.js";
-				ref.parentNode.insertBefore(js, ref);
-			}(document));
-			function FBLoginChange(response) {
-				console.log(response);
-				if (response.authResponse) {
-					//user is already logged in and connected
-					FB.api('/me', function(response) {
-						var fbpic = $('#fbpic');
-						fbpic.attr('src', 'https://graph.facebook.com/' + response.id + '/picture');
-					});
-				}
-				
-			}
-		</script>
-
-
 		<!--<a href="javascript:reload();">Reload</a>-->
 		<table class="maintable" cellpadding="0" cellspacing="0">
 			<tr class="header"><td><input type="text" class="box" id="entryBox" onkeydown="javascript:submit(event, addEntry, 'entryBox');"></td><td style="width:50px;"><input class="addButton box" type="button" onclick="javascript:addEntry('entryBox')" value="+"></td></tr>
@@ -62,9 +21,7 @@
 					</tr>-->
 		</table>
 		<div class="authTrigger">
-			<img id="fbpic" /><br>
-			<!--<button class="loginBtn" rel="#authOverlay">Login</button><br>-->
-			<fb:login-button show-faces="false" width="200" max-rows="1" autologoutlink="true"></fb:login-button>
+			<button class="loginBtn" rel="#authOverlay">Login</button>
 		</div>
 		<div class="simpleOverlay" id="authOverlay">
 			<a class="close"></a>
@@ -83,19 +40,18 @@
 		<script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/sha1.js"></script>
 		<script type="text/javascript" src="js/client.auth.js"></script>
 		<script type="text/javascript">
-					var _gaq = _gaq || [];
-					_gaq.push(['_setAccount', 'UA-43901195-1']);
-					_gaq.push(['_trackPageview']);
+				var _gaq = _gaq || [];
+				_gaq.push(['_setAccount', 'UA-43901195-1']);
+				_gaq.push(['_trackPageview']);
 
-					(function() {
-						var ga = document.createElement('script');
-						ga.type = 'text/javascript';
-						ga.async = true;
-						ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-						var s = document.getElementsByTagName('script')[0];
-						s.parentNode.insertBefore(ga, s);
-				}
-				)();
+				(function() {
+					var ga = document.createElement('script');
+					ga.type = 'text/javascript';
+					ga.async = true;
+					ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+					var s = document.getElementsByTagName('script')[0];
+					s.parentNode.insertBefore(ga, s);
+				})();
 		</script>
 	</body>
 </html>

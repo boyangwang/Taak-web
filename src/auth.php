@@ -7,7 +7,6 @@ class Auth {
 		// Should check with db here
 		// for now dummy
 		$authPwd = Auth::getPwdByUsername($user);
-
 		return true;
 	}
 	
