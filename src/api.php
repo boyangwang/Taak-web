@@ -5,6 +5,9 @@ $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 if (isset($_SERVER['REQUEST_METHOD'])) {
 	switch($_SERVER['REQUEST_METHOD']) {
 		case 'GET':
+			if (isset($_GET["id"])) {
+				echo $_GET["id"];
+			}
 			if (isset($_GET["token"])) {
 				echo json_encode(getEntries($_GET["token"]));
 			}
