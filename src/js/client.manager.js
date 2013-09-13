@@ -21,6 +21,10 @@ TaskManager.prototype.readLocal = function() {
 		console.log(ex);
 	}
 }
+TaskManager.prototype.setLocal = function(entries) {
+	this.entries = entries;
+	this.writeLocal();
+}
 // Write entries to local storage
 TaskManager.prototype.writeLocal = function() {
 	localStorage.entries = JSON.stringify(this.entries);

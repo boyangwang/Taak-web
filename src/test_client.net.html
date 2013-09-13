@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head><title>Taak</title>
+	<meta charset="utf8">
+	<meta name="viewport" content="width=768, initial-scale=1">
+	<!--<meta name="viewport" content="width=device-width, user-scalable=false">-->
+	<link rel="icon" type="image/png" href="img/favicon.png">
+	<link rel="apple-touch-icon-precomposed" href="img/icon.png" />
+	<link rel="stylesheet" href="css/style.css" type="text/css" />
+</head>
+<body>
+<a href="javascript:testPut();">Test put</a><br>
+<a href="javascript:testGet();">Test get</a><br>
+<a href="javascript:run();">Run</a>
+<script src="js/jquery_1.10.2.js"></script>
+<script src="js/client.net.js"></script>
+<script src="js/client.sync.js"></script>
+<script src="js/client.manager.js"></script>
+<script>
+var net = new TaskNet();
+var sync = new TaskSync();
+var manager = new TaskManager();
+net.token = "NetTester3";
+
+function run() {
+	manager.readLocal();
+	var localCopy = manager.entries;
+	var remoteCopy = net.doGet();
+	sync.setLocal(localCopy);
+	sync.setRemote(remoteCopy);
+	var syncCopy = sync.synchronize();
+	net.doPut(syncCopy, syncCallback(syncCopy));
+	//console.log(syncCopy);
+}
+function syncCallback(syncCopy) {
+	// Replace local with synchronized copy only if updated successfully
+	return function(data) {
+		if (data != "") {
+			manager.setLocal(syncCopy);
+			console.log(data);
+		}
+	}
+}
+
+function testPut() {
+	var entries = { };
+	entries["1"] = { id: "1", time: Date.now(), value: "TestValue" };
+	net.doPut(entries, putCallback);
+}
+
+function putCallback(result) {
+	console.log(result);
+}
+
+function testGet() {
+	net.doGet(getCallback);
+}
+
+function getCallback(result) {
+	//console.log(result);
+	var result = net.toEntries(result);
+	console.log(result);
+}
+</script>
+</body>
+</html>
