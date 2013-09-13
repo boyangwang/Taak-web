@@ -6,7 +6,7 @@
 	http://stackoverflow.com/questions/7306328/pull-down-to-refresh-on-mobile-web-browser
 	https://github.com/funayoi/jquery.mobile.pulltorefresh
 
-Synchronization will be automatically triggered when the "online" event on the Window object is triggered.
+Synchronization will be automatically triggered when the "online" event on the Window object is triggered, or when the user refreshes the application.
 
 # Technical details
 
@@ -27,38 +27,44 @@ This allows for unique IDs to be generated even by offline clients.
 
 ## Performing synchronization
 
-1. Client pulls server copy
-2. Performs synchronization procedure, updating its own copy
-3. Performs relevant PUT/UPDATE/DELETE requests to update copy on server
+1. Client pulls server copy using GET
+2. Performs synchronization procedure, and updates its own copy
+3. Performs relevant PUT/DELETE requests to update copy on server
 
 ## Synchronization procedure
 
-For each entry compare with that of server
+Both local and server side sets are merged into one larger set. Each entry in the merged set is then compared with that on the server side. 
 
-	1. The entry value on the server copy is an empty string
-		Entry is deleted on server. This entry with this Id will be removed from client
-	2. The server does not have it
-		Entry should be added to server. Queue a PUT request for this entry.
-	3. The TimeStamp for local copy is newer than server copy
-		Entry should be updated on server. Queue a UPDATE request for this entry.
-		If this entry value is an empty string, queue a DELETE request instead.
-	4. The TimeStamp for local copy is older than server copy
-		Entry should be updated on local.
-	5. The TimeStamp for both copies is the same
-		Do nothing. The entry is already the latest copy.
+Algorithm for merging (similar to the merging algorithm for merge sort):
 
-Alternatively
+	1. Treat both sets as a queue. Sort both queues by ID. Looking at the head/tail of the queue, we check for the following cases:
+		a. IDs from both are different
+			We add the one with the lowest/highest ID to the merged set (lowest if sort IDs from low to high, highest if sort the opposite way). The other one that is not yet added would be put back to the queue in case later entries may match. 
+		b. IDs from both are the same
+			We add the one with the later last modified time, and delete the one that is not added.
+	2. The resulting items will contain only the latest copies of all entries.
+			
+The merged set is then compared to the server copy. There are several cases that a certain entry can belong to:
 
-	1. Sort entries by ID on both sides.
-	2. Entries from both sides are merged (in merge-sort fashion).
-		For entries with the same ID, pick the one with the latest time stamps.
-	3. Finally, compare with the server copy and perform UPDATE on all the entries that are different.
+	1. The entry does not exist on server copy
+	 		This entry is new. Queue the entry for PUT.
+	2. The entry's last modified time is the same for both
+			This entry is unchanged. Do nothing.
+	3. The entry's last modified time is newer than the server copy
+			This entry is modified. Queue the entry for PUT.
+			If the entry value is an empty string, queue the entry for DELETE.
 
-Note that the local copy will treat entries with value equal to empty strings as deleted entries.
+The PUT and DELETE queues are converted to a PUT or DELETE transaction and sent to the server.
 
-Semi-deleted entries will be deleted from client side after synchronization.
+We do not need to consider if the server's copy is newer than the client's copy, because that scenario is already considered when using the merging algorithm. The merged set will contain the newest entries from both sides.
+
+The local copy will treat entries with value equal to empty strings as deleted entries.
+
+Semi-deleted entries can be deleted from client side **after** synchronization. 
 
 On the server-side, all deleted entries will be retained, but their values set to empty strings (so they do not contain user data). This is for synchronization purposes.
+
+The client can perform "short-circuiting". In other words, the effects of add/modify/delete will appear immediately, without needing to wait for server response. Even if the update to the server is interrupted, synchronization can be performed again without any data loss, since the entire set of entries is compared.
 
 # Server API
 
@@ -69,6 +75,8 @@ Server will reply with JSON data for all cases.
 The token should be usable even after the app is closed. This is to improve user experience because the user do not need to log in again.
 
 Logging out will remove the token (and maybe invalidate it so it cannot be replayed).
+
+The server should be able to translate tokens to the relevant user ID.
 
 ## GET
 
@@ -109,10 +117,11 @@ Parameters:
 
 Response:
 
-	message: Message indicating success or failure
+	code: Message code
+	message: Message indicating what entries are modified
 
 All entries will be inserted. Entries that already exist will be replaced.
-This is a general purpose query, which can also be used for "deleting" entries (set value to empty string).
+This is a general purpose query, and can also be used for "deleting" entries (set value of the entry to an empty string).
 
 ## DELETE
 
@@ -124,7 +133,8 @@ Parameters:
 
 Response:
 
-	message: Message indicating success or failure
+	code: Message code
+	message: Message indicating what entries are deleted
 
 All entries will be removed. Only the Id parameter of each entry will be looked at.
 
