@@ -16,12 +16,10 @@ if (isset($_SERVER['REQUEST_METHOD'])) {
 			break;
 		case 'PUT':
 			parse_str(file_get_contents('php://input'), $_PUT);
-			//print_r($_PUT);
-			if (isset($_PUT['token']) && isset($_PUT['entries'])) {
-				//print_r($_PUT['entries']);
-				//$entry = json_decode($_PUT['entry'],true);
-				//echo json_encode(addEntry($_PUT['user'], $entry));
-				echo json_encode(addEntries($_PUT['token'], $_PUT['entries']));
+			if (isset($_PUT['token']) && isset($_PUT['time']) && isset($_PUT['entries'])) {
+				$result = addEntries($_PUT['token'], $_PUT['entries']);
+				$result['time'] = $_PUT['time'];
+				echo json_encode($result);
 			}
 			break;
 		case 'DELETE':

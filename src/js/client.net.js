@@ -33,10 +33,13 @@ TaskNet.prototype.doGet = function(callback) {
 	});
 }
 // Send PUT request
-TaskNet.prototype.doPut = function(entries, callback) {
-	//var entryStr = JSON.stringify(entry);
+TaskNet.prototype.doPut = function(entries, callback, time) {
+	if (time == null) {
+		time = Date.now();
+	}
 	var data = {
 		token: this.token,
+		time: time,
 		entries: entries
 	};
 	$.ajax({
@@ -51,9 +54,13 @@ TaskNet.prototype.doPut = function(entries, callback) {
 	});
 }
 // Send DELETE request
-TaskNet.prototype.doDelete = function(entries, callback) {
+TaskNet.prototype.doDelete = function(entries, callback, time) {
+	if (time == null) {
+		time = Date.now();
+	}
 	var data = {
 		token: this.token,
+		time: time,
 		entries: entries
 	};
 	$.ajax({

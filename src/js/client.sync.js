@@ -7,6 +7,7 @@ function TaskSync() {
 	this.net = new TaskNet();
 	this.net.token = "";
 	this.online = false;
+	this.latestTransaction = 0;
 }
 // Fetch token from local storage
 TaskSync.prototype.getToken = function() {
@@ -84,7 +85,7 @@ TaskSync.prototype.merge = function() {
 	this.localCopy = localClone;
 	this.remoteCopy = remoteClone;
 	this.workingCopy.sort(this.compareEntry);
-	console.log("Working", this.workingCopy);
+	//console.log("Working", this.workingCopy);
 	return this.workingCopy;
 }
 // Perform client-side synchronization, returns synchronized data
@@ -176,8 +177,8 @@ TaskSync.prototype.performSynchronize = function(manager, callback) {
 		var sync = this;
 		this.net.doGet(function(remoteCopy) {
 			remoteCopy = sync.net.toEntries(remoteCopy);
-			console.log("Local", localCopy);
-			console.log("Remote", remoteCopy);
+			//console.log("Local", localCopy);
+			//console.log("Remote", remoteCopy);
 			
 			sync.setLocal(localCopy);
 			sync.setRemote(remoteCopy);
@@ -202,7 +203,8 @@ TaskSync.prototype.performSynchronize = function(manager, callback) {
 				}
 			} else {
 				// Wait for response from server, then update copy
-				sync.net.doPut(sync.pendingPUT, sync.synchronizeCallback(syncCopy, manager, callback));
+				sync.lastTransaction = "" + Date.now();
+				sync.net.doPut(sync.pendingPUT, sync.synchronizeCallback(syncCopy, manager, callback), sync.lastTransaction);
 			}
 		});
 	} else {
@@ -213,14 +215,22 @@ TaskSync.prototype.performSynchronize = function(manager, callback) {
 //localStorage.entries = ""; // reset local storage
 // Called on successful synchronization
 TaskSync.prototype.synchronizeCallback = function(synchronizeCopy, manager, callback) {
+	var sync = this;
 	return function(data) {
 		if (data != "") {
-			console.log(data);
-			//console.log(synchronizeCopy);
-			manager.setLocal(synchronizeCopy);
-			console.log("Synchronize success");
-			if (callback != null) {
-				callback();
+			var response = JSON.parse(data);
+			console.log(response);
+			var transactionTime = response.time;
+			console.log(transactionTime, sync.lastTransaction);
+			if (transactionTime == sync.lastTransaction) {
+				// Only use latest transaction to prevent abrupt desynchronization
+				
+				//console.log(synchronizeCopy);
+				manager.setLocal(synchronizeCopy);
+				console.log("Synchronize success");
+				if (callback != null) {
+					callback();
+				}
 			}
 		} else {
 			console.log("Error on API");
