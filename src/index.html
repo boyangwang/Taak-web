@@ -1,39 +1,57 @@
 <!DOCTYPE html>
 <html manifest="cache.manifest">
-<head><title>Taak</title>
-	<meta charset="utf8">
-	<meta name="viewport" content="width=768, initial-scale=1">
-	<!--<meta name="viewport" content="width=device-width, user-scalable=false">-->
-	<link rel="icon" type="image/png" href="img/favicon.png">
-	<link rel="apple-touch-icon-precomposed" href="img/icon.png" />
-	<link rel="stylesheet" href="css/style.css" type="text/css" />
-</head>
-<body>
-<!--<a href="javascript:reload();">Reload</a>-->
-<table class="maintable" cellpadding="0" cellspacing="0">
-	<tr class="header"><td><input type="text" class="box" id="entryBox" onkeydown="javascript:submit(event, addEntry, 'entryBox');"></td><td style="width:50px;"><input class="addButton box" type="button" onclick="javascript:addEntry('entryBox')" value="+"></td></tr>
-	<tr><td class="content" colspan="2"><div id="listings" onclick="javascript:unhighlightAll();">
-	
-	</div></td></tr>
-	<!--<tr>
-		<td class="bottombar">Synchronize</td>
-	</tr>-->
-</table>
-<script type="text/javascript" src="js/jquery_1.10.2.js"></script>
-<script type="text/javascript" src="js/client.net.js"></script>
-<script type="text/javascript" src="js/client.sync.js"></script>
-<script type="text/javascript" src="js/client.manager.js"></script>
-<script type="text/javascript" src="js/client.js"></script>
-<script type="text/javascript">
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-43901195-1']);
-  _gaq.push(['_trackPageview']);
+	<head><title>Taak</title>
+		<meta charset="utf8">
+		<meta name="viewport" content="width=768, initial-scale=1">
+		<!--<meta name="viewport" content="width=device-width, user-scalable=false">-->
+		<link rel="icon" type="image/png" href="img/favicon.png">
+		<link rel="apple-touch-icon-precomposed" href="img/icon.png" />
+		<link rel="stylesheet" href="css/style.css" type="text/css" />
+	</head>
+	<body>
+		<!--<a href="javascript:reload();">Reload</a>-->
+		<table class="maintable" cellpadding="0" cellspacing="0">
+			<tr class="header"><td><input type="text" class="box" id="entryBox" onkeydown="javascript:submit(event, addEntry, 'entryBox');"></td><td style="width:50px;"><input class="addButton box" type="button" onclick="javascript:addEntry('entryBox')" value="+"></td></tr>
+			<tr><td class="content" colspan="2"><div id="listings" onclick="javascript:unhighlightAll();">
 
-  (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
-</script>
-</body>
+
+					</div></td></tr>
+					<!--<tr>
+						<td class="bottombar">Synchronize</td>
+					</tr>-->
+		</table>
+		<div class="authTrigger">
+			<button class="loginBtn" rel="#authOverlay">Login</button>
+		</div>
+		<div class="simpleOverlay" id="authOverlay">
+			<a class="close"></a>
+			<form id="authForm">
+				Username: <input type="text" name="username"><br>
+				Password: <input type="password" name="pwd"><br>
+				<input id="authSubmit" value="Submit" type="button">
+			</form>
+		</div>
+		<script type="text/javascript" src="js/jquery_1.10.2.js"></script>
+		<script type="text/javascript" src="js/client.net.js"></script>
+		<script type="text/javascript" src="js/client.sync.js"></script>
+		<script type="text/javascript" src="js/client.manager.js"></script>
+		<script type="text/javascript" src="js/client.js"></script>
+		<script src="http://cdn.jquerytools.org/1.2.7/full/jquery.tools.min.js"></script>
+		<script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/sha1.js"></script>
+		<script type="text/javascript" src="js/client.auth.js"></script>
+		<script type="text/javascript">
+				var _gaq = _gaq || [];
+				_gaq.push(['_setAccount', 'UA-43901195-1']);
+				_gaq.push(['_trackPageview']);
+
+				(function() {
+					var ga = document.createElement('script');
+					ga.type = 'text/javascript';
+					ga.async = true;
+					ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+					var s = document.getElementsByTagName('script')[0];
+					s.parentNode.insertBefore(ga, s);
+				})();
+		</script>
+	</body>
 </html>

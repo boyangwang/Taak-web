@@ -10,6 +10,9 @@ if (isset($_SERVER['REQUEST_METHOD'])) {
 			}
 			break;
 		case 'POST':
+			$header = $_SERVER['HTTP_X_REQUESTED_WITH'];			
+//			$isAuth = authenticate();
+			echo $header;
 			break;
 		case 'PUT':
 			parse_str(file_get_contents('php://input'), $_PUT);
@@ -90,4 +93,20 @@ function getEntries($token) {
 	return $result->fetchAll(PDO::FETCH_ASSOC);
 }
 
+function authenticate($user, $password) {
+	// Should check with db here
+	// for now dummy
+	$authPwd = getPwdByUsername();
+	
+	if ($authPwd == $password) {
+		return true;
+	}
+	else {
+		return false;
+	}
+}
+
+function getPwdByUsername($user) {
+	
+}
 ?>
