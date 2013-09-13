@@ -28,6 +28,11 @@ html, body {
 .addButton {
 	width: 100%;
 }
+.bottombar {
+	height: 30px;
+	font-size: 1.2em;
+	padding: 5px;
+}
 .header td {
 	padding: 5px;
 	font-size: 1.2em;

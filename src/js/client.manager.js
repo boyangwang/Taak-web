@@ -11,15 +11,17 @@ TaskManager.prototype.generateID = function() {
 }
 // Read from local storage
 TaskManager.prototype.readLocal = function() {
-	try {
+	//try {
 		if (localStorage.entries == null) {
 			localStorage.entries = "";
 		}
-		this.entries = JSON.parse(localStorage.entries);
-		this.onupdate();
-	} catch(ex) {
+		if (localStorage.entries != "") {
+			this.entries = JSON.parse(localStorage.entries);
+		}
+		//this.onupdate();
+	/*} catch(ex) {
 		console.log(ex);
-	}
+	}*/
 }
 TaskManager.prototype.setLocal = function(entries) {
 	this.entries = entries;
@@ -33,32 +35,40 @@ TaskManager.prototype.writeLocal = function() {
 TaskManager.prototype.add = function(value) {
 	var entry = {
 		id: this.generateID(),
+		time: Date.now(),
 		value: value
 	};
 	this.entries[entry.id] = entry;
 	
 	this.writeLocal();
-	this.serverPut(entry);
+	//this.serverPut(entry);
 	this.onupdate();
 }
 // Update existing entry
 TaskManager.prototype.update = function(id, value) {
+/*
 	var entry = {
 		id: id,
+		time: Date.now(),
 		value: value
 	};
 	this.entries[id] = entry;
+	*/
+	this.entries[id].time = Date.now();
+	this.entries[id].value = value;
 	
 	this.writeLocal();
-	this.serverPut(entry);
+	//this.serverPut(entry);
 	this.onupdate();
 }
 // Remove entry
 TaskManager.prototype.remove = function(id) {
-	delete this.entries[id];
+	this.entries[id].time = Date.now();
+	this.entries[id].value = "";
 	this.writeLocal();
 	this.onupdate();
 }
+/*
 // Send GET request
 TaskManager.prototype.serverGet = function() {
 	$.ajax({
@@ -94,3 +104,4 @@ TaskManager.prototype.serverDelete = function(id) {
 		}
 	});
 }
+*/

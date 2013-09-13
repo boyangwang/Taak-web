@@ -52,6 +52,7 @@ function addEntry($user, $entry) {
 	$user = $db->quote($user);
 	$value = $db->quote(json_encode($entry));
 	$query = "INSERT INTO entries(id, user, value) VALUES($id, $user, $value) ON DUPLICATE KEY UPDATE id=$id, user=$user, value=$value;";
+	//echo $query;
 	$result = $db->exec($query);
 	if ($result != null) {
 		return true;

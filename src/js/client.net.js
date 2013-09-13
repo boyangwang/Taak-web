@@ -11,6 +11,7 @@ TaskNet.prototype.toEntries = function(input) {
 	var result = { };
 	for (var i = 0; i < inputObj.length; i++) {
 		var entryObj = JSON.parse(inputObj[i].value);
+		entryObj.time = parseInt(entryObj.time);
 		result[entryObj.id] = entryObj;
 	}
 	return result;
