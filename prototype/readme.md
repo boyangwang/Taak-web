@@ -1,0 +1,1 @@
+PrototypeEverything inside this folder is self contained.This is for prototyping UI elements. There is no back end whatsoever.Delete when final UI/featureset is confirmed.
