@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head><title>Taak</title>
+	<meta charset="utf8">
+	<meta name="viewport" content="width=768, initial-scale=1">
+	<!--<meta name="viewport" content="width=device-width, user-scalable=false">-->
+	<link rel="icon" type="image/png" href="img/favicon.png">
+	<link rel="apple-touch-icon-precomposed" href="img/icon.png" />
+	<link rel="stylesheet" href="css/style.css" type="text/css" />
+</head>
+<body>
+<a href="javascript:testPut();">Test put</a><br>
+<a href="javascript:testGet();">Test get</a>
+<script src="js/jquery_1.10.2.js"></script>
+<script src="js/client.net.js"></script>
+<script>
+var net = new TaskNet();
+net.token = "NetTester";
+function testPut() {
+	var entries = { };
+	entries["1"] = { id: "1", time: Date.now(), value: "TestValue" };
+	net.doPut(entries, putCallback);
+}
+
+function putCallback(result) {
+	console.log(result);
+}
+
+function testGet() {
+	net.doGet(getCallback);
+}
+
+function getCallback(result) {
+	//console.log(result);
+	var result = net.toEntries(result);
+	console.log(result);
+}
+</script>
+</body>
+</html>
