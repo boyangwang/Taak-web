@@ -1,0 +1,77 @@
+#headerBar{
+	height: 45px;
+	background-color: white;
+	border-bottom: 1px solid #d3d3d3;
+	/*border-top: 1px solid grey;*/
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	width: 100%;
+	z-index: 1;
+}
+
+#addButton{
+	width: 25%;
+	height: 45px;
+	left: 0%;
+	position: absolute;
+	cursor: pointer;
+}
+
+#editButton{
+	width: 25%;
+	height: 45px;
+	left: 25%;
+	position: absolute;
+	cursor: pointer;
+}
+
+#tagButton{
+	width: 25%;
+	height: 45px;
+	left: 50%;
+	position: absolute;
+	cursor: pointer;
+}
+
+#logoutButton{
+	width: 25%;
+	height: 45px;
+	left: 75%;
+	position: absolute;
+	cursor: pointer;
+}
+
+.topIcons{
+	width: 30px;
+	height: 30px;
+	max-width: 100%;
+	left: 50%;
+	top: 50%;
+	margin-left: -15px;
+	margin-top: -15px;
+	position: absolute;
+}
+
+#content{
+	top: 45px;
+	height: auto;
+	width: 100%;
+	position: absolute;
+}
+
+.task{
+	width: 100%;
+	border-bottom: 1px solid #d3d3d3;
+}
+
+.taskText{
+	height: auto;
+	width: 60%;
+	word-wrap:break-word;
+	border: 0px;
+	font-size: 24px;
+	font-family: HelveticaNeue-Light;
+	color: #a1a1a1;
+	margin-left: 20%;
+}
