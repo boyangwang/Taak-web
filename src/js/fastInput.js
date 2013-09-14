@@ -1,5 +1,5 @@
 
-window.fastInputs = {
+var fastInputs = {
 	actions: [
 		//Get/Give Information
 		"Ask", "Tell", "Check", "Call", "Email",
@@ -16,6 +16,8 @@ window.fastInputs = {
 	],
 };//Endof fastInputs
 
+
+
 function searchFastInputs(query, process){
 	;
 }
@@ -26,7 +28,7 @@ $(function(){
 
 	//should be #inputField. but wont change name in case break other stuff.
 	$("#entryBox.typeahead").typeahead({
-		local: window.fastInputs_ver1,
+		local: fastInputs_ver1,
 		// source: function(query, process){ /// https://www.google.com.sg/search?q=typeahead+dynamic+source&start=10	/// http://fusiongrokker.com/post/heavily-customizing-a-bootstrap-typeahead
 		// 	alert("ok");
 		// },
@@ -42,7 +44,7 @@ $(function(){
 
 });
 
-window.fastInputs_ver1 = [
+var fastInputs_ver1 = [
 	//Get/Give Information
 	"Ask", "Tell", "Check", "Call", "Email",
 	//Transport Things
