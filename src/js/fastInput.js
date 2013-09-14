@@ -31,6 +31,7 @@ $(function(){
 	//should be #inputField. but wont change name... in case break other stuff.
 	$("#entryBox.typeahead").typeahead({
 		local: fastInputs_ver1,
+		source: function(query,process){searchFastInputs(query, process);},
 		// source: function(query, process){ /// https://www.google.com.sg/search?q=typeahead+dynamic+source&start=10	/// http://fusiongrokker.com/post/heavily-customizing-a-bootstrap-typeahead
 		// 	alert("ok");
 		// },
