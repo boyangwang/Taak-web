@@ -23,12 +23,14 @@ var userPersonalDict = {
 
 
 function searchFastInputs(query, process){
-	;
+	console.log(query);console.log(process);
 }
 
 
 $(function(){
 	//should be #inputField. but wont change name... in case break other stuff.
+	$("#entryBox").attr("data-provide", "typeahead");
+	$("#entryBox").attr("autocomplete", "off");
 	$("#entryBox.typeahead").typeahead({
 		local: fastInputs_ver1,
 		source: function(query,process){searchFastInputs(query, process);},
