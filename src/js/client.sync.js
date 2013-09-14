@@ -243,17 +243,21 @@ TaskSync.prototype.synchronizeCallback = function(synchronizeCopy, manager, call
 	var sync = this;
 	return function(data) {
 		if (data != "") {
-			var response = JSON.parse(data);
-			console.log(response);
-			var transactionTime = response.time;
-			console.log(transactionTime, sync.lastTransaction);
-			if (transactionTime == sync.lastTransaction) {
-				// Only use latest transaction to prevent abrupt desynchronization
-				//manager.setLocal(synchronizeCopy);
-				console.log("Synchronize success");
-				if (callback != null) {
-					callback();
+			try {
+				var response = JSON.parse(data);
+				console.log(response);
+				var transactionTime = response.time;
+				//console.log(transactionTime, sync.lastTransaction);
+				if (transactionTime == sync.lastTransaction) {
+					// Only use latest transaction to prevent abrupt desynchronization
+					//manager.setLocal(synchronizeCopy);
+					//console.log("Synchronize success");
+					if (callback != null) {
+						callback();
+					}
 				}
+			} catch (ex) {
+				console.log("Error on API", data);
 			}
 		} else {
 			console.log("Error on API");

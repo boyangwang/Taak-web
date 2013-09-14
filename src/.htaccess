@@ -1,6 +1,9 @@
 AddType text/cache-manifest .manifest
 
 RewriteEngine on
+# REST API for entry
+RewriteRule ^api/entry(?:/([^/]+))?(?:/([^/]+))?/?$ api.php?action=entry&id=$1&entryid=$2 [QSA,L]
+# Backward compatible
 RewriteRule ^api(?:/([^/]+))?/?$ api.php?id=$1 [QSA,L]
 
 #php_flag  display_errors        on
