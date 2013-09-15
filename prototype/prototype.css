@@ -1,10 +1,29 @@
+body{
+	background-image: url("images/background.png");
+}
+
+#siteHeader{
+	width: 70%;
+	height: 8%;
+	position: fixed;
+	top: 5px;
+	left: 15%;
+	font-family: HelveticaNeue-Light;
+	font-size: 30px;
+	/*border-bottom: 1px solid white;*/
+	color: white;
+	text-align: center;
+	opacity: 0.6;
+}
+
 #headerBar{
-	height: 45px;
-	background-color: white;
+	height: 14%;
+	background-color: rgba(255,255,255,0.6);
 	border-bottom: 1px solid #d3d3d3;
 	/*border-top: 1px solid grey;*/
 	position: fixed;
-	top: 0px;
+	/*top: 0px;*/
+	bottom: 0px;
 	left: 0px;
 	width: 100%;
 	z-index: 1;
@@ -12,7 +31,7 @@
 
 #addButton{
 	width: 25%;
-	height: 45px;
+	height: 100%;
 	left: 0%;
 	position: absolute;
 	cursor: pointer;
@@ -20,7 +39,7 @@
 
 #editButton{
 	width: 25%;
-	height: 45px;
+	height: 100%;
 	left: 25%;
 	position: absolute;
 	cursor: pointer;
@@ -28,7 +47,7 @@
 
 #tagButton{
 	width: 25%;
-	height: 45px;
+	height: 100%;
 	left: 50%;
 	position: absolute;
 	cursor: pointer;
@@ -36,42 +55,80 @@
 
 #logoutButton{
 	width: 25%;
-	height: 45px;
+	height: 100%;
 	left: 75%;
 	position: absolute;
 	cursor: pointer;
 }
 
 .topIcons{
-	width: 30px;
-	height: 30px;
+	width: 60%;
+	height: auto;
 	max-width: 100%;
-	left: 50%;
+	left: 20%;
 	top: 50%;
-	margin-left: -15px;
-	margin-top: -15px;
 	position: absolute;
 }
 
 #content{
-	top: 45px;
+	top: 12%;
+	width: 94%;
+	left: 3%;
 	height: auto;
-	width: 100%;
 	position: absolute;
+	overflow: hidden;
+}
+
+.tickBox{
+	width: 8%;
+	height: auto;
+	font-size: 26px;
+	margin-left:2%;
+	color: white;
+	top: 10px;
+	opacity: 0.5;
+	display: none;
+}
+
+.changeIcon{
+	display: none;
+	width: 7%;
+	max-width: 100%;
+	height: auto;
+	opacity: 0.7;
 }
 
 .task{
+	margin-left: -8px;
 	width: 100%;
-	border-bottom: 1px solid #d3d3d3;
+	padding: 20px;
+	margin-bottom: 5px;
+	/*background-color: rgba(255,255,255,0.3);*/ /*This is for card view*/
+	border-bottom: 1px solid white; /*This is for list view*/
 }
 
 .taskText{
 	height: auto;
+	width: 70%;
+	word-wrap:break-word;
+	border: 0px;
+	font-size: 22px;
+	font-family: HelveticaNeue-Light;
+	color: #a1a1a1;
+	margin-left: 7%;
+	color: white;
+	display: inline-block;
+}
+
+.taskContent{
+	height: auto;
 	width: 60%;
 	word-wrap:break-word;
 	border: 0px;
-	font-size: 24px;
+	font-size: 15px;
 	font-family: HelveticaNeue-Light;
 	color: #a1a1a1;
-	margin-left: 20%;
+	margin-left: 15%;
+	color: white;
+	padding-top: 15px;
 }
