@@ -45,7 +45,10 @@ $(function(){
 	//AAAHHHH. Temporary Hack Fix for typeahead screwing up existing CSS -> it creates some span and newly encloses your input field.
 	///https://www.google.com.sg/search?q=twitter+typeahead+control+width	/// https://github.com/twitter/typeahead.js/issues/276
 	$(".twitter-typeahead").css('width', "100%"); // cannot $(".typeahead").width() + "px" because the typeahead input is using 100% inherit from parent, and this DOM is the parent.
-	$('.tt-hint').css('width', "99.5%"); //needs to be 99.5%. cannot 99% or 100%. or else will have some crap appearing on the right side.
+	
+	// To developer: Fixed via CSS (use box-sizing)
+	// Using width 99.5% will break in mobile Safari
+	//$('.tt-hint').css('width', "99.5%"); //needs to be 99.5%. cannot 99% or 100%. or else will have some crap appearing on the right side.
 	$('.tt-dropdown-menu').css('width', "100%");
 });
 

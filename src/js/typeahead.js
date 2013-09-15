@@ -868,7 +868,7 @@
                 position: "absolute",
                 top: "0",
                 left: "0",
-                borderColor: "transparent",
+                //borderColor: "transparent",
                 boxShadow: "none"
             },
             query: {

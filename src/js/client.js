@@ -51,6 +51,9 @@ function addEntry(target) {
 	}
 	manager.add(newEntry.value);
 	newEntry.value = "";
+	
+	// Bugfix for using typeahead
+	$('.typeahead').typeahead('setQuery', '');
 }
 // Update an entry
 function updateEntry(entry) {
