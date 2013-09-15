@@ -18,7 +18,7 @@ TaskSync.prototype.getToken = function() {
 	if (localStorage.token == null) {
 		localStorage.token = "token_" + Date.now();
 	}
-	this.net.token = localStorage.token;
+	this.net.setToken(localStorage.token);
 }
 // Set the local copy (usually from localStorage)
 TaskSync.prototype.setLocal = function(localCopy) {

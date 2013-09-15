@@ -1,10 +1,11 @@
 // Network helper class
 function TaskNet() {
-	this.token = "";
-	this.user = "test-user";
+	this.token = "TOKEN";
+	this.user = "USER";
 }
 TaskNet.prototype.setToken = function(token) {
 	this.token = token;
+	this.user = token; // TODO: Use actual user id
 }
 // Convert array to object form
 TaskNet.prototype.toEntries = function(input) {

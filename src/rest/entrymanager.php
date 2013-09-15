@@ -3,9 +3,11 @@
 class EntryManager {
 	private $db;
 	public function __construct() {
+		// Set up database connection
 		$this->db = new PDO('mysql:host=localhost;dbname=deployas3;chatset=utf8', 'deployas3', 'deployas3');
 		$this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 	}
+	// Batch modify
 	public function putEntries($user, $entries) {
 		$message = "";
 		foreach ($entries as $entry) {
@@ -18,6 +20,7 @@ class EntryManager {
 		$result["message"] = $message;
 		return $result;
 	}
+	// Modify an entry
 	public function putEntry($user, $entry) {
 		$db = $this->db;
 		$id = $db->quote($entry['id']);
@@ -31,6 +34,7 @@ class EntryManager {
 			return false;
 		}
 	}
+	// Batch delete
 	public function deleteEntries($token, $entries) {
 		$user = $token; // TODO: use actual user id
 		foreach ($entries as $entry) {
@@ -40,8 +44,10 @@ class EntryManager {
 		$result["message"] = "success";
 		return $result;
 	}
+	// Delete an entry
 	public function deleteEntry($user, $id) {
 		$db = $this->db;
+		$user = $db->quote($user);
 		$id = $db->quote($id);
 		//$query = "DELETE FROM entries WHERE id=$id";
 		// Use UPDATE to allow for synchronization after delete online on another device
@@ -49,7 +55,7 @@ class EntryManager {
 		$db->exec($query);
 		return true;
 	}
-	// Get entris for this user
+	// Get entries for this user
 	public function getEntries($user) {
 		$db = $this->db;
 		$user = $db->quote($user);
@@ -57,15 +63,45 @@ class EntryManager {
 		$result = $db->query($query);
 		return $result->fetchAll(PDO::FETCH_ASSOC);
 	}
-	public function handleGet($user) {
-		if ($user == "") {
-			return;
+	// Get an entry
+	public function getEntry($user, $id) {
+		$db = $this->db;
+		$user = $db->quote($user);
+		$id = $db->quote($id);
+		$query = "SELECT value FROM entries WHERE user=$user AND id=$id";
+		$result = $db->query($query);
+		$entry = $result->fetch(PDO::FETCH_ASSOC);
+		if (!$this->verifyUser($user)) {
+			$rawEntry = json_decode($entry["value"], true); // attempt to read meta-data from entry
+			if ($rawEntry == null) {
+				// Entry is not JSON
+				return null;
+			}
+			if (isset($rawEntry["public"]) && $rawEntry["public"] == "true") {
+				// Entry is public
+				return $entry;
+			} else {
+				return null;
+			}
 		}
-		echo json_encode($this->getEntries($user));
+		return $entry;
+	}
+	// Process query from URL parameters for GET request
+	public function handleGet($user) {
+		if ($_GET['entryid'] == "") { // URL rewrite parameter
+			if (!$this->verifyUser($user)) {
+				return;
+			}
+			// User must be verified to view entire collection
+			echo json_encode($this->getEntries($user));
+		} else {
+			echo json_encode($this->getEntry($user, $_GET['entryid']));
+		}
 	}
 	// Process query from URL parameters for PUT request
 	public function handlePut($user, $_PUT) {
-		if ($user == "") {
+		// User must be verified to perform modifications
+		if (!$this->verifyUser($user)) {
 			return;
 		}
 		if ($_GET['entryid'] == "") { // URL rewrite parameter
@@ -86,7 +122,8 @@ class EntryManager {
 	}
 	// Process query from URL parameters for DELETE request
 	public function handleDelete($user, $_DELETE) {
-		if ($user == "") {
+		// User must be verified to perform deletion
+		if (!$this->verifyUser($user)) {
 			return;
 		}
 		if ($_GET['entryid'] == "") { // URL rewrite parameter
@@ -104,6 +141,12 @@ class EntryManager {
 				echo json_encode($result);
 			}
 		}
+	}
+	public function verifyUser($user) {
+		if ($user == "") {
+			return false;
+		}
+		return ($user == $_GET["userid"]);
 	}
 }
 
