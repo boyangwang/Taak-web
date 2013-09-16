@@ -3,9 +3,14 @@ function TaskNet() {
 	this.token = "TOKEN";
 	this.user = "USER";
 }
-TaskNet.prototype.setToken = function(token) {
+// Set the authentication token
+TaskNet.prototype.setToken = function(token, user) {
 	this.token = token;
-	this.user = token; // TODO: Use actual user id
+	if (user == null) {
+		this.user = token;
+	} else {
+		this.user = user;
+	}
 }
 // Convert array to object form
 TaskNet.prototype.toEntries = function(input) {
@@ -79,4 +84,23 @@ TaskNet.prototype.doDelete = function(entries, callback, time) {
 			}
 		}
 	});
+}
+// Get parameters from client URI
+TaskNet.prototype.getParameters = function() {
+	var result = { };
+	
+	var uriParams = window.location.search.substring(1);
+	if (uriParams == "") {
+		return result;
+	}
+	var params = uriParams.split("&");
+	for (var i = 0; i < params.length; i++) {
+		var param = params[i];
+		var parts = param.split("=", 2);
+		result[parts[0]] = "";
+		if (parts.length > 1) {
+			result[parts[0]] = parts[1];
+		}
+	}
+	return result;
 }

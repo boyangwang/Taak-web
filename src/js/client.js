@@ -1,3 +1,4 @@
+// Set up sychronizer
 var sync = new TaskSync();
 if ( navigator.onLine ) {
 	sync.online = true;
@@ -13,11 +14,9 @@ window.addEventListener( 'offline', function( event ) {
 	sync.online = false;
 }, false);
 
-
-
+// Set up manager
 var manager = new TaskManager();
 manager.onupdate = function() {
-	//showEntries;
 	showEntries();
 	sync.performSynchronize(manager, showEntries);
 }
@@ -90,13 +89,13 @@ function unhighlightAll() {
 
 // Display all entries
 function showEntries() {
-	//console.log(sync);
-	//console.log(sync.performSynchronize);
-
 	var result = "";
 	var entries = manager.entries;
 	for (var entry in entries) {
 		var value = entries[entry].value;
+		if (typeof(entries[entry].archive) != "undefined" && entries[entry].archive) {
+			continue;
+		}
 		if (value != "") {
 			result += "<div onclick=\"javascript:highlightEntry(this);\" class=\"entry round\"><a class=\"deleteButton\" href=\"javascript:deleteEntry(\'" + entry + "\');\">x</a><span class=\"editbox\" id=\"edit_" + entry + "\"><input class=\"box\" onkeydown=\"javascript:submit(event, updateEntry('" + entry + "'), 'editinput_" + entry + "');\" id=\"editinput_" + entry + "\" type=\"text\" value=\"" + value + "\"></span><span class=\"entrytext\">" + value + " " + "</span><div class=\"clear\"></div></div>";
 		}
