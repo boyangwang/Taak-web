@@ -100,6 +100,13 @@ function addTask(){
 		});
 	});
 	task.append(taskText);
+
+	var dateLabel = $(document.createElement('div')).attr('class','dateLabel');
+	var dayArray = new Array("Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday");
+	var day = new Date();
+	var dayText = dayArray[day.getDay()];
+	dateLabel.text(dayText);
+	task.append(dateLabel);
 	/*
 	
 	*/
