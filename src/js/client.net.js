@@ -104,3 +104,15 @@ TaskNet.prototype.getParameters = function() {
 	}
 	return result;
 }
+// Get server application version
+TaskNet.prototype.getVersion = function(callback) {
+	$.ajax({
+		url: "api/version/",
+		type: "GET",
+		success: function(result) {
+			if (callback != null) {
+				callback(result);
+			}
+		}
+	});
+}

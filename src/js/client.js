@@ -1,6 +1,9 @@
-// Set up sychronizer
+var version = "0.17";
 var sync = new TaskSync();
-if ( navigator.onLine ) {
+var manager = new TaskManager();
+
+// Set up sychronizer
+if (navigator.onLine) {
 	sync.online = true;
 	synchronize();
 } else {
@@ -15,14 +18,13 @@ window.addEventListener( 'offline', function( event ) {
 }, false);
 
 // Set up manager
-var manager = new TaskManager();
 manager.onupdate = function() {
 	showEntries();
 	sync.performSynchronize(manager, showEntries);
 }
 manager.readLocal();
 showEntries(); // show current local entries first
-manager.onupdate(); // do synchronization if needed
+//manager.onupdate(); // do synchronization if needed
 
 /** UI Interactions **/
 
@@ -30,15 +32,24 @@ manager.onupdate(); // do synchronization if needed
 function reload() {
 	window.location.reload();
 }
-
 // Hide mobile keyboard
 function hideKeyboard() {
 	document.activeElement.blur();
 }
-
+// Perform synchronization
 function synchronize() {
-	sync.getToken();
+	sync.getToken(); // Set the token
+	sync.performSynchronize(manager, showEntries);
 }
+// Checks for server update
+function checkUpdate() {
+	sync.net.getVersion(function(serverVersion) {
+		if (serverVersion != version) {
+			console.log("New update is available");
+		}
+	});
+}
+checkUpdate();
 
 /** UI Wrapper **/
 
