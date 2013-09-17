@@ -83,7 +83,9 @@ function deleteEntry(id) {
 // Trigger callback when user hits enter key
 function submit(e, callback, argument) {
 	if (e.keyCode == 13 && !e.shiftKey) {
-		callback(argument);
+		if (callback) {
+			callback(argument);
+		}
 		hideKeyboard();
 	}
 }
@@ -154,10 +156,15 @@ function UI_scrollTo(obj) {
     }, 0);
 }
 // Update an entry
-function UI_updateEntry(entry) {
-	return function(target) {
-		var newEntry = document.getElementById(target);
-		manager.update(entry, newEntry.innerHTML);
+function UI_updateEntry(target) {
+	var left = target.parent().css("left");
+	var top = target.parent().css("top");
+
+	var value = target.html();
+	var positionCheck = left + "_" + top;
+	if (value != target.attr("data-taskvalue") || positionCheck != target.attr("data-taskposition")) {
+		//console.log("Update", target.html(), target.attr("data-taskvalue"), positionCheck, target.attr("data-taskposition"));
+		manager.update(target.attr("data-taskid"), value, left, top);
 	}
 }
 // Add task using entry object
@@ -168,6 +175,7 @@ function UI_showTaskPanel(entry) {
 	if (!$("#task_" + entry.id).get(0)) {
 		UI_addTaskPanel(entry);
 	} else {
+		$("#task_" + entry.id).attr("data-taskvalue", entry.value)
 		$("#task_" + entry.id).html(entry.value);
 	}
 }
@@ -176,7 +184,11 @@ function UI_addTaskPanel(entry) {
 	var task = $(document.createElement("div")).attr("class", "task");
 	
 	task.draggable({
-		stack: ".task" // bring to front on drag
+		stack: ".task", // bring to front on drag
+		stop: function() {
+			UI_updateEntry(task.children(".taskText"));
+			console.log("STOP");
+		}
 	}).resizable({
 		minHeight:80,
 		minWidth:80
@@ -198,19 +210,29 @@ function UI_addTaskPanel(entry) {
 		task.removeClass("selected");
 		task.draggable("option", "disabled", false);
 		$(this).removeClass("selected");
+		
+		UI_updateEntry($(this));
 	});
 
 	task.append(taskText);
 	$(".workflowView").append(task);
 	
 	// Set initial position
-	// TODO: More smarter positioning/user-custom positioning
-	task.css({
-		"position": "absolute",
-		"top": baseOffset,
-		"left": 10
-	});
-	baseOffset += 310;
+	if (!entry.x || !entry.y) {
+		task.css({
+			"position": "absolute",
+			"top": baseOffset,
+			"left": 10
+		});
+		baseOffset += 310;
+	} else {
+		task.css({
+			"position": "absolute",
+			"left": entry.x,
+			"top": entry.y
+		});
+	}
+	//console.log(entry);
 	
 	if (!entry) {
 		entry = manager.add("");
@@ -221,10 +243,13 @@ function UI_addTaskPanel(entry) {
 	}
 	taskText.attr("id", "task_" + entry.id);
 	taskText.attr("data-taskid", entry.id);
+	taskText.attr("data-taskvalue", entry.value);
+	taskText.attr("data-taskposition", entry.x + "_" + entry.y);
 	taskText.html(entry.value);
 	
 	taskText.get(0).addEventListener("keydown", function(event) {
-		submit(event, UI_updateEntry(entry.id), "task_" + entry.id);
+		//submit(event, UI_updateEntry(entry.id), "task_" + entry.id);
+		submit(event);
 	});
 	
 	

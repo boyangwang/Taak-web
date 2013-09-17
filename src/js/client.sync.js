@@ -207,8 +207,8 @@ TaskSync.prototype.performSynchronize = function(manager, callback) {
 			sync.setLocal(localCopy);
 			sync.setRemote(remoteCopy);
 			var syncCopy = sync.synchronize();
-			console.log("Sync", syncCopy);
-			//console.log("Pend put", sync.pendingPUT);
+			//console.log("Sync", syncCopy);
+			console.log("Pend put", sync.pendingPUT);
 			//console.log("Pend delete", sync.pendingDELETE);
 			var hasPUTs = false;
 			for (var entry in sync.pendingPUT) {
@@ -219,8 +219,9 @@ TaskSync.prototype.performSynchronize = function(manager, callback) {
 			if (!hasPUTs) {
 				// Nothing to send to server, update own copy
 				// TODO: Update only if got changes to local copy
+				
 				//manager.setLocal(syncCopy);
-				console.log(manager.entries);
+				//console.log(manager.entries);
 				if (!sync.isEqual(localCopy, syncCopy)) {
 					if (callback != null) {
 						callback();
