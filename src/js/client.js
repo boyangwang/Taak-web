@@ -135,6 +135,8 @@ function UI_init() {
 		forceFocus = false;
 	});
 	
+	UI_initDelete(); // configure delete box
+	
 	showEntries(); // show current local entries first
 }
 // Move caret to end of editable object
@@ -163,27 +165,30 @@ function UI_updateEntry(target) {
 	var value = target.html();
 	var positionCheck = left + "_" + top;
 	if (value != target.attr("data-taskvalue") || positionCheck != target.attr("data-taskposition")) {
-		//console.log("Update", target.html(), target.attr("data-taskvalue"), positionCheck, target.attr("data-taskposition"));
+		console.log("Update", target.html(), target.attr("data-taskvalue"), positionCheck, target.attr("data-taskposition"));
 		manager.update(target.attr("data-taskid"), value, left, top);
 	}
 }
 // Add task using entry object
 var baseOffset = 10;
 var forceFocus = false;
-
+// Display a task entry
 function UI_showTaskPanel(entry) {
 	if (!$("#task_" + entry.id).get(0)) {
+		// Element not added yet
 		UI_addTaskPanel(entry);
 	} else {
-		$("#task_" + entry.id).attr("data-taskvalue", entry.value)
-		$("#task_" + entry.id).html(entry.value);
-		$("#task_" + entry.id).parent().css({
+		var target = $("#task_" + entry.id);
+		target.attr("data-taskvalue", entry.value);
+		target.attr("data-taskposition", entry.x + "_" + entry.y);
+		target.html(entry.value);
+		target.parent().css({
 			"left": entry.x,
 			"top": entry.y
-		})
+		});
 	}
 }
-
+// Create the element
 function UI_addTaskPanel(entry) {
 	var task = $(document.createElement("div")).attr("class", "task");
 	
@@ -192,7 +197,7 @@ function UI_addTaskPanel(entry) {
 		stop: function() {
 			UI_updateEntry(task.children(".taskText"));
 		},
-		containment: ".workflowView",
+		containment: ".workflowView", // jquery.ui off-screen scroll is quite buggy
 		scroll: false
 	}).resizable({
 		minHeight:80,
@@ -218,12 +223,9 @@ function UI_addTaskPanel(entry) {
 		
 		UI_updateEntry($(this));
 	});
-
-	task.append(taskText);
-	$(".workflowView").append(task);
 	
 	// Set initial position
-	if (!entry.x || !entry.y) {
+	if (!entry) {
 		task.css({
 			"position": "absolute",
 			"top": baseOffset,
@@ -240,9 +242,11 @@ function UI_addTaskPanel(entry) {
 	
 	if (!entry) {
 		entry = manager.add("");
+		entry.x = task.css("left");
+		entry.y = task.css("top");
 		UI_scrollTo(task); // new entry, scroll to it
+		//forceFocus = true;
 		taskText.trigger("focus");
-		forceFocus = true;
 		task.trigger("click");
 	}
 	taskText.attr("id", "task_" + entry.id);
@@ -255,15 +259,32 @@ function UI_addTaskPanel(entry) {
 		submit(event);
 	});
 	
+	if (!$("#task_" + entry.id).get(0)) { // prevent race condition in adding task
+		task.append(taskText);
+		$(".workflowView").append(task);
+	}
 	return taskText;
 }
+function UI_initDelete() {
+	$("#deleteTaskIcon").droppable({
+		hoverClass: "active",
+		drop: function( event, ui ) {
+			UI_deleteTask(ui.draggable);
+			//console.log("Drop", ui.draggable.children(".taskText").attr("data-taskid"));
+		}
+	});
+	$("#deleteTaskContainer").droppable();
+}
+function UI_deleteTask(target) {
+	var taskID = target.children(".taskText").attr("data-taskid");
+	target.hide();
+	manager.remove(taskID);
+}
 
-//uses document because document will be topmost level in bubbling
+/** Fixes for mobile scrolling **/
 $(document).on('touchmove',function(e){
   e.preventDefault();
 });
-//uses body because jquery on events are called off of the element they are
-//added to, so bubbling would not work if we used document instead.
 $('body').on('touchstart','.scrollable',function(e) {
   if (e.currentTarget.scrollTop === 0) {
     e.currentTarget.scrollTop = 1;
@@ -271,7 +292,6 @@ $('body').on('touchstart','.scrollable',function(e) {
     e.currentTarget.scrollTop -= 1;
   }
 });
-//prevents preventDefault from being called on document if it sees a scrollable div
 $('body').on('touchmove','.scrollable',function(e) {
   e.stopPropagation();
 });

@@ -36,7 +36,9 @@ TaskManager.prototype.add = function(value) {
 	var entry = {
 		id: this.generateID(),
 		time: Date.now(),
-		value: value
+		value: value,
+		x: 0,
+		y: 0
 	};
 	this.entries[entry.id] = entry;
 	
@@ -59,14 +61,15 @@ TaskManager.prototype.update = function(id, value, x, y) {
 TaskManager.prototype.markArchive = function(id) {
 	this.entries[id].time = Date.now();
 	this.entries[id].archive = true;
-	
 	this.writeLocal();
 	this.onupdate();
 }
 // Remove entry
 TaskManager.prototype.remove = function(id) {
+/*
 	this.entries[id].time = Date.now();
 	this.entries[id].value = "";
 	this.writeLocal();
-	this.onupdate();
+	this.onupdate();*/
+	this.markArchive(id);
 }
