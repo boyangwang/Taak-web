@@ -1,4 +1,3 @@
-
 var fastInputs = {
 	actions: [
 		//Get/Give Information
@@ -21,7 +20,15 @@ var userPersonalDict = {
 	objects: [],
 };//Endof userPersonalDict
 
+//==================================================
+// TYPEAHEAD MANIPULATIONS
+var currInputPhrase = "";
+$("#entryBox").keyup(function(){
+	console.log("lulz")
+});
 
+
+//==================================================
 function searchFastInputs(query, process){
 	console.log(query);console.log(process);
 }
