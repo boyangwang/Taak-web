@@ -36,6 +36,9 @@ if (isset($_SERVER['REQUEST_METHOD'])) {
 					$user_from_token = $userManager->getUserFromTokenAll($_POST['token']);
 					echo $user_from_token;
 					break;
+				case 'logout':
+					$userManager->deleteRecord($_POST['token']);
+					break;
 			}
 
 			break;

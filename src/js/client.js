@@ -121,5 +121,23 @@ function checkLogin() {
 		$('#login_flag').text('Logged in');
 		$('#fb_oauth_link').html('Log out');
 		$('#fb_oauth_link').attr('href', '#');
+		$('#fb_oauth_link').click(logout);
 	}
+}
+
+function logout(e) {
+	// 1. clear local
+	// 2. remove from db
+	// 3. back to unlogin page
+	
+	var token = localStorage.fb_token;
+	localStorage.clear();
+	$.ajax({
+		type: 'POST',
+		url: 'api/logout/',
+		data: "token="+token,
+		success: function(res) {
+			window.location = './index.html';
+		},
+	});
 }
