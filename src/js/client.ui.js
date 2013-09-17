@@ -43,6 +43,8 @@ function UI_updateEntry(target) {
 	var target = $(target.get(0)); // get latest element copy
 	var left = target.parent().css("left");
 	var top = target.parent().css("top");
+	var width = target.parent().css("width");
+	var height = target.parent().css("height");
 	
 	if (target.attr("data-taskarchived") == "true") {
 		// Deleted entry, do not update
@@ -51,9 +53,10 @@ function UI_updateEntry(target) {
 
 	var value = target.html();
 	var positionCheck = left + "_" + top;
-	if (value != target.attr("data-taskvalue") || positionCheck != target.attr("data-taskposition")) {
-		console.log("Update", target.attr("data-taskid"), target.html(), target.attr("data-taskvalue"), positionCheck, target.attr("data-taskposition"));
-		manager.update(target.attr("data-taskid"), value, left, top);
+	var dimensionCheck = width + "_" + height;
+	if (value != target.attr("data-taskvalue") || positionCheck != target.attr("data-taskposition") || dimensionCheck != target.attr("data-taskdimension")) {
+		console.log("Update", target.attr("data-taskid"), target.html(), target.attr("data-taskvalue"), positionCheck, target.attr("data-taskposition"), dimensionCheck, target.attr("data-taskdimension"));
+		manager.update(target.attr("data-taskid"), value, left, top, width, height);
 	}
 }
 // Add task using entry object
@@ -70,10 +73,13 @@ function UI_showTaskPanel(entry) {
 		if (!lastTask || lastTask.children(".taskText").get(0) != target.get(0)) {
 			target.attr("data-taskvalue", entry.value);
 			target.attr("data-taskposition", entry.x + "_" + entry.y);
+			target.attr("data-taskdimension", entry.w + "_" + entry.h);
 			target.html(entry.value);
 			target.parent().css({
 				"left": entry.x,
-				"top": entry.y
+				"top": entry.y,
+				"width": entry.w,
+				"height": entry.h
 			});
 		}
 	}
@@ -95,7 +101,10 @@ function UI_addTaskPanel(entry) {
 		scroll: false
 	}).resizable({
 		minHeight:80,
-		minWidth:80
+		minWidth:80,
+		stop: function() {
+			UI_updateEntry(task.children(".taskText"));
+		}
 	}).click(function(e){
 		if (lastTask && lastTask != $(this)) {
 			lastTask.removeClass("selected");
@@ -139,14 +148,18 @@ function UI_addTaskPanel(entry) {
 		task.css({
 			"position": "absolute",
 			"top": baseOffset,
-			"left": 10
+			"left": 10,
+			"width": "300px",
+			"height": "200px",
 		});
 		baseOffset += 310;
 	} else {
 		task.css({
 			"position": "absolute",
 			"left": entry.x,
-			"top": entry.y
+			"top": entry.y,
+			"width": entry.w,
+			"height": entry.h
 		});
 	}
 	
@@ -156,6 +169,8 @@ function UI_addTaskPanel(entry) {
 		entry = manager.add("", true);
 		entry.x = task.css("left");
 		entry.y = task.css("top");
+		entry.w = task.css("width");
+		entry.h = task.css("height");
 		UI_scrollTo(task); // scroll to new entry
 		newEntry = true;
 	}
@@ -165,6 +180,7 @@ function UI_addTaskPanel(entry) {
 	taskText.attr("data-taskid", entry.id);
 	taskText.attr("data-taskvalue", entry.value);
 	taskText.attr("data-taskposition", entry.x + "_" + entry.y);
+	taskText.attr("data-taskdimension", entry.w + "_" + entry.h);
 	taskText.html(entry.value);
 	
 	// Quick submit
