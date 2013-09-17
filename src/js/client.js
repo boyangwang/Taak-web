@@ -154,7 +154,7 @@ function UI_scrollTo(obj) {
     }, 0);
 }
 // Update an entry
-function UI_submit(entry) {
+function UI_updateEntry(entry) {
 	return function(target) {
 		var newEntry = document.getElementById(target);
 		manager.update(entry, newEntry.innerHTML);
@@ -219,9 +219,14 @@ function UI_addTaskPanel(entry) {
 		forceFocus = true;
 		task.trigger("click");
 	}
-	taskText.attr("id","task_" + entry.id);
+	taskText.attr("id", "task_" + entry.id);
 	taskText.attr("data-taskid", entry.id);
 	taskText.html(entry.value);
+	
+	taskText.get(0).addEventListener("keydown", function(event) {
+		submit(event, UI_updateEntry(entry.id), "task_" + entry.id);
+	});
+	
 	
 	return taskText;
 }
