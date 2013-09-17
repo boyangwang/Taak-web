@@ -177,6 +177,10 @@ function UI_showTaskPanel(entry) {
 	} else {
 		$("#task_" + entry.id).attr("data-taskvalue", entry.value)
 		$("#task_" + entry.id).html(entry.value);
+		$("#task_" + entry.id).parent().css({
+			"left": entry.x,
+			"top": entry.y
+		})
 	}
 }
 
@@ -187,8 +191,9 @@ function UI_addTaskPanel(entry) {
 		stack: ".task", // bring to front on drag
 		stop: function() {
 			UI_updateEntry(task.children(".taskText"));
-			console.log("STOP");
-		}
+		},
+		containment: ".workflowView",
+		scroll: false
 	}).resizable({
 		minHeight:80,
 		minWidth:80
@@ -232,7 +237,6 @@ function UI_addTaskPanel(entry) {
 			"top": entry.y
 		});
 	}
-	//console.log(entry);
 	
 	if (!entry) {
 		entry = manager.add("");
@@ -248,10 +252,8 @@ function UI_addTaskPanel(entry) {
 	taskText.html(entry.value);
 	
 	taskText.get(0).addEventListener("keydown", function(event) {
-		//submit(event, UI_updateEntry(entry.id), "task_" + entry.id);
 		submit(event);
 	});
-	
 	
 	return taskText;
 }
