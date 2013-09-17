@@ -104,6 +104,7 @@ function unhighlightAll() {
 
 // Display all entries
 function showEntries() {
+
 	var result = "";
 	var entries = manager.entries;
 	for (var entry in entries) {
@@ -111,10 +112,13 @@ function showEntries() {
 		if (typeof(entries[entry].archive) != "undefined" && entries[entry].archive) {
 			continue;
 		}
-		if (value != "") {
+		/*if (value == "") {
+			manager.markArchive(entry);
+		}*/
+		//if (value != "") {
 			//result += "<div onclick=\"javascript:highlightEntry(this);\" class=\"entry round\"><a class=\"deleteButton\" href=\"javascript:deleteEntry(\'" + entry + "\');\">x</a><span class=\"editbox\" id=\"edit_" + entry + "\"><input class=\"box\" onkeydown=\"javascript:submit(event, updateEntry('" + entry + "'), 'editinput_" + entry + "');\" id=\"editinput_" + entry + "\" type=\"text\" value=\"" + value + "\"></span><span class=\"entrytext\">" + value + " " + "</span><div class=\"clear\"></div></div>";
-			UI_addTaskPanel(entries[entry]);
-		}
+			UI_showTaskPanel(entries[entry]);
+		//}
 	}
 	//$("#listings").get(0).innerHTML = result;
 }
@@ -123,13 +127,12 @@ function showEntries() {
 
 function UI_init() {
 	$(".workflowView").click(function(e) {
-		//$(".task").draggable("option", "disabled", false);
 		if (!forceFocus) {
 			$(".task").children(".taskText").blur();
 		}
 		forceFocus = false;
 	});
-
+	
 	showEntries(); // show current local entries first
 }
 // Move caret to end of editable object
@@ -150,11 +153,26 @@ function UI_scrollTo(obj) {
         scrollTop: $(obj).offset().top
     }, 0);
 }
+// Update an entry
+function UI_submit(entry) {
+	return function(target) {
+		var newEntry = document.getElementById(target);
+		manager.update(entry, newEntry.innerHTML);
+	}
+}
 // Add task using entry object
 var baseOffset = 10;
 var forceFocus = false;
+
+function UI_showTaskPanel(entry) {
+	if (!$("#task_" + entry.id).get(0)) {
+		UI_addTaskPanel(entry);
+	} else {
+		$("#task_" + entry.id).html(entry.value);
+	}
+}
+
 function UI_addTaskPanel(entry) {
-	console.log("ADD" ,entry);
 	var task = $(document.createElement("div")).attr("class", "task");
 	
 	task.draggable({
@@ -168,7 +186,6 @@ function UI_addTaskPanel(entry) {
 		}
 		$(this).draggable("option", "disabled", true ); // dragging must be disabled for edit to be allowed
 		$(this).addClass("selected");
-		$(this).attr("data-selected", "true");
 		$(this).children(".taskText").addClass("selected");
 		e.stopPropagation(); // don't send click event to parent
 	});
@@ -180,16 +197,8 @@ function UI_addTaskPanel(entry) {
 	taskText.blur(function(){
 		task.removeClass("selected");
 		task.draggable("option", "disabled", false);
-		task.attr("data-selected", "false");
 		$(this).removeClass("selected");
 	});
-	
-	// Set text inside the task
-	if (entry) {
-		taskText.attr("id","task_" + entry.id);
-		taskText.attr("data-taskid", entry.id);
-		taskText.html(entry.value);
-	}
 
 	task.append(taskText);
 	$(".workflowView").append(task);
@@ -204,20 +213,15 @@ function UI_addTaskPanel(entry) {
 	baseOffset += 310;
 	
 	if (!entry) {
-		// new entry, scroll to that task
-		task.attr("data-forceselect", "true");
-		UI_scrollTo(task);
+		entry = manager.add("");
+		UI_scrollTo(task); // new entry, scroll to it
 		taskText.trigger("focus");
 		forceFocus = true;
-		/*
-		
-		task.draggable("option", "disabled", true);
-		taskText.trigger("focus");
-		task.addClass("selected");
-		taskText.addClass("selected");
-		*/
 		task.trigger("click");
 	}
+	taskText.attr("id","task_" + entry.id);
+	taskText.attr("data-taskid", entry.id);
+	taskText.html(entry.value);
 	
 	return taskText;
 }
