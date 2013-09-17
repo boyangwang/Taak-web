@@ -3,9 +3,11 @@ $(document).ready(function(){
 	$("#addTaskIcon").click(function(){
 		addTask();
 	});
+	UI_init(); // located in client.js
 });
 
 function addTask(){
+/*
 	var task = $(document.createElement('div')).attr('class','task');
 	task.draggable().resizable({
 		minHeight:80,minWidth:80
@@ -20,4 +22,6 @@ function addTask(){
 			$(this).focus();
 		}
 	});
+	*/
+	UI_addTaskPanel();
 }
