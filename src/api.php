@@ -34,7 +34,6 @@ if (isset($_SERVER['REQUEST_METHOD'])) {
 			switch ($postaction) {
 				case 'auth':
 					$user_from_token = $userManager->getUserFromTokenAll($_POST['token']);
-					
 					echo $user_from_token;
 					break;
 			}
