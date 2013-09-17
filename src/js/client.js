@@ -159,6 +159,7 @@ function UI_scrollTo(obj) {
 }
 // Update an entry
 function UI_updateEntry(target) {
+	console.log(target);
 	var left = target.parent().css("left");
 	var top = target.parent().css("top");
 
@@ -172,6 +173,7 @@ function UI_updateEntry(target) {
 // Add task using entry object
 var baseOffset = 10;
 var forceFocus = false;
+var lastTask = null;
 // Display a task entry
 function UI_showTaskPanel(entry) {
 	if (!$("#task_" + entry.id).get(0)) {
@@ -203,16 +205,24 @@ function UI_addTaskPanel(entry) {
 		minHeight:80,
 		minWidth:80
 	}).click(function(e){
+		if (lastTask && lastTask != $(this)) {
+			lastTask.removeClass("selected");
+			lastTask.draggable("option", "disabled", false);
+			lastTask.children(".taskText").removeClass("selected");
+			console.log("Child", lastTask.children(".taskText"));
+			UI_updateEntry(lastTask.children(".taskText"));
+		}
+
 		if ($(this).parent().is('.ui-draggable-dragging') ) {
 			return;
 		}
 		$(this).draggable("option", "disabled", true ); // dragging must be disabled for edit to be allowed
 		$(this).addClass("selected");
 		$(this).children(".taskText").addClass("selected");
+		lastTask = $(this);
 		e.stopPropagation(); // don't send click event to parent
 	});
 	
-	task.attr("data-selected", "false");
 	
 	var taskText = $(document.createElement("div")).attr("class", "taskText");
 	taskText.attr("contenteditable","true"); // This attribute is dynamically set in the tap-to-edit feature
@@ -220,9 +230,18 @@ function UI_addTaskPanel(entry) {
 		task.removeClass("selected");
 		task.draggable("option", "disabled", false);
 		$(this).removeClass("selected");
-		
 		UI_updateEntry($(this));
+		lastTask = null;
 	});
+	taskText.focusin(function() {
+		console.log("A");
+		console.log(taskText);
+	});
+	taskText.focusout(function() {
+		console.log("B");
+	});
+	
+	
 	
 	// Set initial position
 	if (!entry) {
@@ -240,14 +259,17 @@ function UI_addTaskPanel(entry) {
 		});
 	}
 	
+	var giveFocus = false;
 	if (!entry) {
 		entry = manager.add("");
 		entry.x = task.css("left");
 		entry.y = task.css("top");
 		UI_scrollTo(task); // new entry, scroll to it
-		//forceFocus = true;
-		taskText.trigger("focus");
-		task.trigger("click");
+		forceFocus = true;
+		//taskText.trigger("focus");
+		//taskText.focus();
+		giveFocus = true;
+		//task.trigger("click");
 	}
 	taskText.attr("id", "task_" + entry.id);
 	taskText.attr("data-taskid", entry.id);
@@ -259,10 +281,18 @@ function UI_addTaskPanel(entry) {
 		submit(event);
 	});
 	
-	if (!$("#task_" + entry.id).get(0)) { // prevent race condition in adding task
+	if (!$("#task_" + entry.id).get(0)) { // prevent race condition when adding task
 		task.append(taskText);
 		$(".workflowView").append(task);
 	}
+	if (giveFocus) {
+		var taskText = $("#task_" + entry.id);
+		taskText.parent().trigger("click");
+		taskText.addClass("selected");
+		taskText.focus();
+		console.log("FOCUS");
+	}
+
 	return taskText;
 }
 function UI_initDelete() {
