@@ -1,27 +1,32 @@
 $(document).ready(function(){
 	console.log("ready");
-	$("#addTaskIcon").click(function(){
+	/*
+	$("#addTaskIcon").mousedown(function(){
 		addTask();
+	});
+	*/
+	$("#addTaskIcon").draggable({
+		stop:function(){
+			if($(this).offset().left > 100){
+				var taskPositionX = $(this).offset().left+20;
+				var taskPositionY = $(this).offset().top;
+				$(this).css({
+					"left":"50%",
+					"top":"50px"
+				});
+				addTask(taskPositionX,taskPositionY);
+			}
+			else{
+				$(this).css({
+					"left":"50%",
+					"top":"50px"
+				});
+			}
+		}
 	});
 	UI_init(); // located in client.js
 });
 
-function addTask(){
-/*
-	var task = $(document.createElement('div')).attr('class','task');
-	task.draggable().resizable({
-		minHeight:80,minWidth:80
-	}
-		);
-	var taskText = $(document.createElement('div')).attr('class','taskText');
-	taskText.attr('contenteditable','true');
-	task.append(taskText);
-	$(".workflowView").append(task);
-	$(task.get(0)).children().each(function(){
-		if($(this).attr('class') == "taskText"){
-			$(this).focus();
-		}
-	});
-	*/
-	UI_addTaskPanel();
+function addTask(x,y){
+	UI_addTaskPanel(null,x,y);
 }

@@ -22,21 +22,21 @@ function UI_init() {
 }
 // Move caret to end of editable object
 function UI_moveCaret(obj) {
-    if (document.createRange) {
+	if (document.createRange) {
 		var range, selection;
-        range = document.createRange();
-        range.selectNodeContents(obj);
-        range.collapse(false);
-        selection = window.getSelection();
-        selection.removeAllRanges();
-        selection.addRange(range);
-    }
+		range = document.createRange();
+		range.selectNodeContents(obj);
+		range.collapse(false);
+		selection = window.getSelection();
+		selection.removeAllRanges();
+		selection.addRange(range);
+	}
 }
 // Scroll to element
 function UI_scrollTo(obj) {
 	$(".workflowView").animate({
-        scrollTop: $(obj).offset().top
-    }, 0);
+		scrollTop: $(obj).offset().top
+	}, 0);
 }
 // Update an entry
 // Target is the element with .taskText class
@@ -61,7 +61,8 @@ function UI_updateEntry(target) {
 	}
 }
 // Add task using entry object
-var baseOffset = 10;
+//var baseOffsetX = 150;
+//var baseOffsetY = 50;
 var forceFocus = false;
 var lastTask = null;
 // Display a task entry
@@ -89,24 +90,58 @@ function UI_showTaskPanel(entry) {
 		}
 	}
 }
+
+/*
+function getFreeSpace(){
+	var startPointX = 150;
+	var startPointY = 50;
+	var found = false;
+	while(!found){
+		console.log($(".task").length);
+		if($(".task").length == 0){
+			found = true;
+		}
+		$(".task").each(function(){
+			console.log("x: "+startPointX);
+			if($(this).offset().left > startPointX || ($(this).offset().left + $(this).width()) < startPointX){
+				if($(this).offset().left > (startPointX+250) || ($(this).offset().left + $(this).width()) < (startPointX+250)){
+					found = true;
+				}
+				else{
+					startPointX += 250;
+				}
+			}
+			else{
+				startPointX += 250;
+			}
+		});
+	}
+	baseOffsetX = startPointX;
+	baseOffsetY = startPointY;
+}
+*/
+
+
 // Create the element
-function UI_addTaskPanel(entry) {
+function UI_addTaskPanel(entry,baseOffsetX,baseOffsetY) {
 	var task = $(document.createElement("div")).attr("class", "task");
 	
 	// Set up draggable element
 	task.draggable({
 		stack: ".task", // bring to front on drag
 		start: function() {
+			$("#deleteTaskIcon").css("display","block");
 			lastTask = $(this)
 		},
 		stop: function() {
+			$("#deleteTaskIcon").css("display","none");
 			UI_updateEntry(task.children(".taskText"));
 		},
 		containment: ".workflowView", // jquery.ui off-screen scroll is quite buggy
 		scroll: false
 	}).resizable({
-		minHeight:80,
-		minWidth:80,
+		minHeight:220,
+		minWidth:200,
 		stop: function() {
 			UI_updateEntry(task.children(".taskText"));
 		}
@@ -115,6 +150,8 @@ function UI_addTaskPanel(entry) {
 			lastTask.removeClass("selected");
 			lastTask.draggable("option", "disabled", false);
 			lastTask.children(".taskText").removeClass("selected");
+			$(".task").css("z-index","0");
+			$(this).css("z-index","1");
 			console.log("Child", lastTask.children(".taskText"));
 			UI_updateEntry(lastTask.children(".taskText"));
 		}
@@ -128,6 +165,17 @@ function UI_addTaskPanel(entry) {
 		lastTask = $(this);
 		e.stopPropagation(); // don't send click event to parent
 	});
+
+	// Set up additional information
+	var infoDiv = $(document.createElement('div')).attr('class','infoDiv');
+	var taskUserDiv = $(document.createElement('div')).attr('class','taskUserDiv');
+	var taskUserIcon = $(document.createElement('img')).attr('class','taskUserIcon');
+	taskUserIcon.attr('src','img/usermini.png');
+	var taskUsername = $(document.createElement('div')).attr('class','taskUsername');
+	taskUsername.text("user"); // change this is user is logged in and can we can get his username
+	taskUserDiv.append(taskUserIcon);
+	taskUserDiv.append(taskUsername);
+	infoDiv.append(taskUserDiv);
 	
 	// Set up editable element
 	var taskText = $(document.createElement("div")).attr("class", "taskText");
@@ -139,25 +187,29 @@ function UI_addTaskPanel(entry) {
 		UI_updateEntry($(this));
 		lastTask = null;
 	});
+
+
 	/*
 	taskText.focusin(function() {
 		console.log("A");
 		console.log(taskText);
 	});
-	taskText.focusout(function() {
-		console.log("B");
-	});*/
-	
+*/
+taskText.focusout(function() {
+		if($(this).text() == ""){ // nothing is written
+			UI_deleteTask($(this).parent());
+		}
+	});
+
 	// Set initial position
 	if (!entry) {
 		task.css({
 			"position": "absolute",
-			"top": baseOffset,
-			"left": 10,
-			"width": "300px",
-			"height": "200px",
+			"top": baseOffsetY,
+			"left": baseOffsetX,
+			"width": "250px",
+			"height": "250px",
 		});
-		baseOffset += 310;
 	} else {
 		task.css({
 			"position": "absolute",
@@ -195,6 +247,7 @@ function UI_addTaskPanel(entry) {
 	
 	// Insert elements
 	task.append(taskText);
+	task.append(infoDiv);
 	$(".workflowView").append(task);
 	
 	// Give focus to new entries
@@ -215,8 +268,10 @@ function UI_addTaskPanel(entry) {
 // Initialize deletion box
 function UI_initDelete() {
 	$("#deleteTaskIcon").droppable({
+		tolerance: "touch",
 		hoverClass: "active",
 		drop: function( event, ui ) {
+			$("#deleteTaskIcon").css("display","none");
 			UI_deleteTask(ui.draggable);
 			//console.log("Drop", ui.draggable.children(".taskText").attr("data-taskid"));
 		}
@@ -228,20 +283,21 @@ function UI_deleteTask(target) {
 	// Target is the element with ".task" class
 	var taskID = target.children(".taskText").attr("data-taskid");
 	target.children(".taskText").attr("data-taskarchived", "true")
-	target.hide();
+	//target.hide();
+	target.remove(); // temp
 	manager.remove(taskID);
 }
 
 /** Fixes for mobile Safari scrolling **/
 $(document).on('touchmove',function(e){
-  e.preventDefault();
+	e.preventDefault();
 });
 $('body').on('touchstart','.scrollable',function(e) {
-  if (e.currentTarget.scrollTop === 0) {
-    e.currentTarget.scrollTop = 1;
-  } else if (e.currentTarget.scrollHeight === e.currentTarget.scrollTop + e.currentTarget.offsetHeight) {
-    e.currentTarget.scrollTop -= 1;
-  }
+	if (e.currentTarget.scrollTop === 0) {
+		e.currentTarget.scrollTop = 1;
+	} else if (e.currentTarget.scrollHeight === e.currentTarget.scrollTop + e.currentTarget.offsetHeight) {
+		e.currentTarget.scrollTop -= 1;
+	}
 });
 $('body').on('touchmove','.scrollable',function(e) {
 	var anySelected = $(".selected").get(0);

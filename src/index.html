@@ -1,19 +1,19 @@
 <!DOCTYPE html>
 <html manifest="cache.manifest">
-	<head><title>Taak</title>
-		<meta charset="utf8">
-		<meta name="viewport" content="width=768, initial-scale=1, minimum-scale=1, maximum-scale=1">
-		<!--<meta name="viewport" content="width=device-width, user-scalable=false">-->
-		<link rel="icon" type="image/png" href="img/favicon.png">
-		<link rel="apple-touch-icon-precomposed" href="img/icon.png" />
-		<link rel="stylesheet" href="css/jquery-ui-1.10.3.custom.min.css" type="text/css" />
-		<link rel="stylesheet" href="css/style.css" type="text/css" />
-		<link rel="stylesheet" href="css/contentStyle.css" type="text/css" />
-		<link rel="stylesheet" href="css/extraStyle.css" type="text/css" />
-	</head>
-	<body>
-		<div id="fb-root"></div>
-		<script>
+<head><title>Taak</title>
+	<meta charset="utf8">
+	<meta name="viewport" content="width=768, initial-scale=1, minimum-scale=1, maximum-scale=1">
+	<!--<meta name="viewport" content="width=device-width, user-scalable=false">-->
+	<link rel="icon" type="image/png" href="img/favicon.png">
+	<link rel="apple-touch-icon-precomposed" href="img/icon.png" />
+	<link rel="stylesheet" href="css/jquery-ui-1.10.3.custom.min.css" type="text/css" />
+	<link rel="stylesheet" href="css/style.css" type="text/css" />
+	<link rel="stylesheet" href="css/contentStyle.css" type="text/css" />
+	<link rel="stylesheet" href="css/extraStyle.css" type="text/css" />
+</head>
+<body>
+	<div id="fb-root"></div>
+	<script>
 			// Additional JS functions here
 			window.fbAsyncInit = function() {
 				FB.init({
@@ -50,10 +50,10 @@
 				}
 				
 			}
-		</script>
+			</script>
 
 
-		<!--<a href="javascript:reload();">Reload</a>-->
+			<!--<a href="javascript:reload();">Reload</a>-->
 		<!--
 		<table class="maintable" cellpadding="0" cellspacing="0">
 			<tr class="header"><td><input type="text" class="box typeahead" id="entryBox" onkeydown="javascript:submit(event, addEntry, 'entryBox');"></td><td style="width:50px;"><input class="addButton box" type="button" onclick="javascript:addEntry('entryBox')" value="+"></td></tr>
@@ -65,7 +65,7 @@
 						<td class="bottombar">Synchronize</td>
 					</tr>
 		</table>
-		-->
+	-->
 		<!--
 		<div class="authTrigger">
 			<img id="fbpic" /><br>
@@ -79,15 +79,16 @@
 				<input id="authSubmit" value="Submit" type="button">
 			</form>
 		</div>-->
-		<div id="topbarView"><!--<a href="javascript:synchronize();">Refresh</a>--></div>
+		<div id="sidebarView">
+			<div id="addTaskIcon"><img id="addTaskContainer" src="img/yellow.png"></div>
+		</div>
 		<div class="content">
 			<div class="workflowView scrollable">
-				<div id="addTaskIcon"><div id="addTaskContainer">+</div></div>
-				
-				<div id="deleteTaskIcon"><div id="deleteTaskContainer">-</div></div>
+				<div id="deleteTaskIcon"><img id="deleteTaskContainer" src="img/deleteIcon.png"/></div>
 			</div>
 		</div>
 		<script type="text/javascript" src="js/jquery_1.10.2.js"></script>
+		<script type="text/javascript" src="js/jquery-collision.min.js"></script>
 		<script type="text/javascript" src="js/jquery.tools.min.js"></script>
 		<script type="text/javascript" src="js/jquery-ui-1.10.3.custom.min.js"></script>
 		<script type="text/javascript" src="js/jquery.ui.touch-punch.min.js"></script>
@@ -108,19 +109,19 @@
 		<script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/sha1.js"></script>
 		<script type="text/javascript" src="js/client.auth.js"></script>
 		<script type="text/javascript">
-					var _gaq = _gaq || [];
-					_gaq.push(['_setAccount', 'UA-43901195-1']);
-					_gaq.push(['_trackPageview']);
+		var _gaq = _gaq || [];
+		_gaq.push(['_setAccount', 'UA-43901195-1']);
+		_gaq.push(['_trackPageview']);
 
-					(function() {
-						var ga = document.createElement('script');
-						ga.type = 'text/javascript';
-						ga.async = true;
-						ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-						var s = document.getElementsByTagName('script')[0];
-						s.parentNode.insertBefore(ga, s);
-				}
-				)();
+		(function() {
+			var ga = document.createElement('script');
+			ga.type = 'text/javascript';
+			ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0];
+			s.parentNode.insertBefore(ga, s);
+		}
+		)();
 		</script>
 	</body>
-</html>
+	</html>

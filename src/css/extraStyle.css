@@ -25,31 +25,41 @@
 	opacity: 0.7;
 }
 #addTaskIcon {
-	-webkit-border-radius: 10px;
-	border-radius: 10px;
-}
-
-#deleteTaskIcon {
-	width: 200px;
-	height: 200px;
-	right: 200px;
+	width: 80px;
+	height: 80px;
+	left: 50%;
+	margin-left: -40px;
 	top: 50px;
 	position: absolute;
 	cursor: pointer;
-	border: 5px dotted grey;
-	-webkit-border-radius: 10px;
-	border-radius: 10px;
+}
+
+#addTaskContainer{
+	width: 60px;
+	height: 60px;
+	left: 10px;
+	top: 10px;
+	position: absolute;
+	max-width: 100%;
+}
+
+#deleteTaskIcon {
+	display: none;
+	width: 120px;
+	height: 100%;
+	right: 0px;
+	bottom: 0px;
+	position: absolute;
+	cursor: pointer;
+	background-color: rgba(0,0,0,0.5);
 }
 #deleteTaskContainer{
-	width: 200px;
-	height: 200px;
-	left: 0px;
-	top: -35px;
+	width: 30px;
+	height: 30px;
+	left: 25px;
+	top: 25px;
 	position: absolute;
-	font-size: 200px;
-	text-align: center;
-	font-family: Helvetica;
-	color: grey;
+	max-width: 100%;
 }
 #deleteTaskIcon.active {
 	border: 5px dotted maroon;

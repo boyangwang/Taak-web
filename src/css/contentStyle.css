@@ -1,3 +1,7 @@
+body{
+	background-image: url('../img/background.png');
+}
+
 #topbarView{
 	height: 44px;
 	width: 100%;
@@ -10,41 +14,23 @@
 
 #sidebarView{
 	height: 100%;
-	width: 130px;
+	width: 100px;
 	position: fixed;
-	background-color: black;
-	left: 0px;
+	background-color: #e8dfd0;
+	border-left: 1px solid #9a876d;
+	border-right: 1px solid #9a876d;
+	left: 20px;
+	box-shadow: 3px 0px 2px #735734,-3px 0px 2px #735734;
 	top: 0px;
 	position: fixed;
 	z-index: 1;
 }
 
-#addTaskIcon{
-	width: 200px;
-	height: 200px;
-	left: 200px;
-	top: 50px;
-	position: absolute;
-	cursor: pointer;
-	border: 5px dotted grey;
-}
-
-#addTaskContainer{
-	width: 200px;
-	height: 200px;
-	left: 0px;
-	top: -35px;
-	position: absolute;
-	font-size: 200px;
-	text-align: center;
-	font-family: Helvetica;
-	color: grey;
-}
 
 .workflowView{
 	width: 100%;
-	/*height: 100%;*/
-	top: 44px; /* Fix for mobile keyboard distorting view*/
+	height: 100%;
+	/*top: 44px; Fix for mobile keyboard distorting view*/
 	bottom: 0px;
 	overflow: auto;
 	-webkit-overflow-scrolling: touch;
@@ -54,8 +40,8 @@
 }
 
 .task{
-	width: 300px;
-	height: 300px;
+	width: 250px;
+	height: 250px;
 	position: absolute;
 	background-color: rgba(255,255,0,0.5);
 	left: 200px;
@@ -63,9 +49,40 @@
 	border: 1px solid transparent;
 }
 
+.infoDiv{
+	width: auto;
+	height: 20px;
+	position: absolute;
+	bottom: 10px;
+	left: 10px;
+}
+
+.taskUserDiv{
+	width: auto;
+	height: 20px;
+	display: inline;
+}
+
+.taskUserIcon{
+	width: auto;
+	height: 20px;
+	max-width: 100%;
+	display: inline;
+	padding-right: 5px;
+}
+
+.taskUsername{
+	height: 20px;
+	font-family: Helvetica;
+	font-size: 17px;
+	color: #8d8344;
+	display: inline;
+	vertical-align: top;
+}
+
 .taskText{
 	width: 90%;
-	height: 90%;
+	height: 80%;
 	left: 5%;
 	top: 5%;
 	position: absolute;
