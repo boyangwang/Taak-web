@@ -1,6 +1,8 @@
 AddType text/cache-manifest .manifest
 
 RewriteEngine on
+# Auth
+RewriteRule ^api/auth/$ api.php?action=auth [QSA,L]
 # Version
 RewriteRule ^api/version/?$ version.txt [L]
 # REST API for entry

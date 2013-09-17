@@ -2,23 +2,45 @@ function TaskSync() {
 	this.localCopy = new Array();
 	this.workingCopy = new Array();
 	this.remoteCopy = new Array();
-	this.pendingPUT = { };
-	this.pendingDELETE = { };
+	this.pendingPUT = {};
+	this.pendingDELETE = {};
 	if (typeof(TaskNet) != "undefined") {
 		this.net = new TaskNet();
 	} else {
-		this.net = { };
+		this.net = {};
 	}
 	this.net.token = "";
 	this.online = false;
 	this.latestTransaction = 0;
 }
 // Fetch token from local storage
-TaskSync.prototype.getToken = function() {
-	if (localStorage.token == null) {
-		localStorage.token = "token_" + Date.now();
+TaskSync.prototype.initToken = function() {
+	//-------------------
+	// @boyang
+	// To tell whether login or not, check whether fb_token exists
+	// if not login, use the anonymous routine
+	console.log("in initToken");
+	if (localStorage.fb_token) {
+		console.log("fb_token exists");
+		(function(net) {
+		var userid = net.doPostAuth(localStorage.fb_token, function(res) {
+			console.log("callback is called");
+			net.setToken(localStorage.fb_token, res);		
+		});
+		})(this.net);
 	}
-	this.net.setToken(localStorage.token);
+	else {
+		if (localStorage.token == null) {
+			localStorage.token = "anon_token_" + Date.now();
+			userid = ("anon_token_" + Date.now());
+		}
+		this.net.setToken(localStorage.token, userid);
+	}
+}
+
+TaskSync.prototype.getToken = function() {
+	console.log(this.net.token);
+	console.log(this.net.user);
 }
 // Set the local copy (usually from localStorage)
 TaskSync.prototype.setLocal = function(localCopy) {
@@ -49,7 +71,7 @@ TaskSync.prototype.merge = function() {
 	// Make clones of arrays
 	var localClone = this.localCopy.slice(0);
 	var remoteClone = this.remoteCopy.slice(0);
-	
+
 	// Perform merging (similar algorithm to merge sort)
 	var localEntry = null;
 	var remoteEntry = null;
@@ -60,7 +82,7 @@ TaskSync.prototype.merge = function() {
 		if (remoteEntry == null && this.remoteCopy.length > 0) {
 			remoteEntry = this.remoteCopy.pop();
 		}
-		
+
 		// Both are not null
 		if (localEntry != null && remoteEntry != null) {
 			// ID match
@@ -86,7 +108,7 @@ TaskSync.prototype.merge = function() {
 				continue;
 			}
 		}
-		
+
 		// Push remaining copies
 		if (localEntry != null) {
 			this.workingCopy.push(localEntry);
@@ -101,7 +123,7 @@ TaskSync.prototype.merge = function() {
 	while (this.remoteCopy.length > 0) {
 		this.workingCopy.push(this.remoteCopy.pop());
 	}
-	
+
 	// Restore clones
 	this.localCopy = localClone;
 	this.remoteCopy = remoteClone;
@@ -114,8 +136,8 @@ TaskSync.prototype.merge = function() {
 // The result from this function should only be used after network synchronization is completed
 TaskSync.prototype.synchronize = function(removeEmpty) {
 	// Empty pending queues
-	this.pendingPUT = { };
-	this.pendingDELETE = { };
+	this.pendingPUT = {};
+	this.pendingDELETE = {};
 	var merged = this.merge();
 	var remoteCounter = 0;
 	for (var i = 0; i < merged.length; i++) {
@@ -130,8 +152,14 @@ TaskSync.prototype.synchronize = function(removeEmpty) {
 		} else {
 			var mergeTime = merged[i].time;
 			var remoteTime = this.remoteCopy[remoteCounter].time;
-			if (mergeTime == null) { merged[i].time = 0; };
-			if (remoteTime == null) {  this.remoteCopy[remoteCounter].time = 0; };
+			if (mergeTime == null) {
+				merged[i].time = 0;
+			}
+			;
+			if (remoteTime == null) {
+				this.remoteCopy[remoteCounter].time = 0;
+			}
+			;
 			remoteCounter++;
 			if (mergeTime > remoteTime) {
 				// Entry is newer than server
@@ -151,7 +179,7 @@ TaskSync.prototype.truncate = function(merged, removeEmpty) {
 	if (removeEmpty == null) {
 		removeEmpty = false;
 	}
-	var result = { };
+	var result = {};
 	for (var i = 0; i < merged.length; i++) {
 		if (!removeEmpty || merged[i].value != null && merged[i].value != "") {
 			result[merged[i].id] = merged[i];
@@ -197,13 +225,13 @@ TaskSync.prototype.performSynchronize = function(manager, callback) {
 	if (this.online) {
 		manager.readLocal();
 		var localCopy = manager.entries;
-		
+
 		var sync = this;
 		this.net.doGet(function(remoteCopy) {
 			remoteCopy = sync.net.toEntries(remoteCopy);
-			//console.log("Local", localCopy);
-			//console.log("Remote", remoteCopy);
-			
+//			console.log("Local", localCopy);
+//			console.log("Remote", remoteCopy);
+
 			sync.setLocal(localCopy);
 			sync.setRemote(remoteCopy);
 			var syncCopy = sync.synchronize();

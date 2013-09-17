@@ -7,47 +7,10 @@
 		<link rel="icon" type="image/png" href="img/favicon.png">
 		<link rel="apple-touch-icon-precomposed" href="img/icon.png" />
 		<link rel="stylesheet" href="css/style.css" type="text/css" />
+		<link rel="stylesheet" href="css/auth.css" type="text/css" />
 	</head>
 	<body>
 		<div id="fb-root"></div>
-		<script>
-			// Additional JS functions here
-			window.fbAsyncInit = function() {
-				FB.init({
-					appId: '472743636174429', // App ID
-					status: true, // check login status
-					cookie: true, // enable cookies to allow the server to access the session
-					xfbml: true, // parse XFBML
-					oauth: true
-				});
-				FB.getLoginStatus(FBLoginChange);
-				FB.Event.subscribe('auth.authResponseChange', FBLoginChange);
-			};
-
-			// Load the SDK asynchronously
-			(function(d) {
-				var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
-				if (d.getElementById(id)) {
-					return;
-				}
-				js = d.createElement('script');
-				js.id = id;
-				js.async = true;
-				js.src = "//connect.facebook.net/en_US/all.js";
-				ref.parentNode.insertBefore(js, ref);
-			}(document));
-			function FBLoginChange(response) {
-				console.log(response);
-				if (response.authResponse) {
-					//user is already logged in and connected
-					FB.api('/me', function(response) {
-						var fbpic = $('#fbpic');
-						fbpic.attr('src', 'https://graph.facebook.com/' + response.id + '/picture');
-					});
-				}
-				
-			}
-		</script>
 
 
 		<!--<a href="javascript:reload();">Reload</a>-->
@@ -74,19 +37,21 @@
 				<input id="authSubmit" value="Submit" type="button">
 			</form>
 		</div>-->
+		<a id="fb_oauth_link" href="https://www.facebook.com/dialog/oauth?client_id=472743636174429&redirect_uri=http://taak.onfry.com:8080/oauth.html&response_type=token">FB login</a>
+		<span id="login_flag">Not Login</span>
 		<script type="text/javascript" src="js/jquery_1.10.2.js"></script>
-
+		<script type="text/javascript" src="js/sha1.js"></script>
 		<script type="text/javascript" src="js/client.net.js"></script>
 		<script type="text/javascript" src="js/client.sync.js"></script>
 		<script type="text/javascript" src="js/client.manager.js"></script>
 		<script type="text/javascript" src="js/client.js"></script>
+		
 		<script src="http://cdn.jquerytools.org/1.2.7/full/jquery.tools.min.js"></script>
 		
 		<script type="text/javascript" src="js/typeahead.js"></script>
 		<script type="text/javascript" src="js/fastInput.js"></script>
+		
 
-		<script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/sha1.js"></script>
-		<script type="text/javascript" src="js/client.auth.js"></script>
 		<script type="text/javascript">
 					var _gaq = _gaq || [];
 					_gaq.push(['_setAccount', 'UA-43901195-1']);

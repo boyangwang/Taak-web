@@ -1,6 +1,8 @@
 var version = "0.17";
 var sync = new TaskSync();
+sync.initToken();
 var manager = new TaskManager();
+checkLogin();
 
 // Set up sychronizer
 if (navigator.onLine) {
@@ -112,4 +114,12 @@ function showEntries() {
 		}
 	}
 	$("#listings").get(0).innerHTML = result;
+}
+
+function checkLogin() {
+	if (localStorage.fb_token) {
+		$('#login_flag').text('Logged in');
+		$('#fb_oauth_link').html('Log out');
+		$('#fb_oauth_link').attr('href', '#');
+	}
 }
