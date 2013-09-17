@@ -208,7 +208,7 @@ TaskSync.prototype.performSynchronize = function(manager, callback) {
 			sync.setRemote(remoteCopy);
 			var syncCopy = sync.synchronize();
 			//console.log("Sync", syncCopy);
-			console.log("Pend put", sync.pendingPUT);
+			//console.log("Pend put", sync.pendingPUT);
 			//console.log("Pend delete", sync.pendingDELETE);
 			var hasPUTs = false;
 			for (var entry in sync.pendingPUT) {

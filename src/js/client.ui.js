@@ -13,6 +13,11 @@ function UI_init() {
 	UI_initDelete(); // configure delete box
 	
 	showEntries(); // show current entries
+	
+	// Periodically poll for changes
+	window.setInterval(function() {
+		sync.performSynchronize(manager, showEntries);
+	}, 1000);
 }
 // Move caret to end of editable object
 function UI_moveCaret(obj) {
