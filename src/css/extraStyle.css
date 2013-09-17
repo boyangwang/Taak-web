@@ -1,0 +1,25 @@
+/* Overrides */
+.task.selected {
+	border: 1px solid maroon;
+}
+.taskText.selected{
+	/*border: 1px solid #e8e66e;
+	background-color: #fff;
+	border-radius: 10px;*/
+}
+.taskText {
+	font-family: HelveticaNeue-Light, Verdana, sans-serif;
+}
+.task {
+	border: 1px solid #e8e66e;
+	background-color: rgba(248,247,182,1);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#fdfdcb), color-stop(100%,#fcf9a1)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, #fdfdcb 0%,#fcf9a1 100%); /* Chrome10+,Safari5.1+ */
+	background: linear-gradient(to bottom, #fdfdcb 0%,#fcf9a1 100%); /* W3C */
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 10px;
+}
+.task.ui-draggable-dragging { /* Semi transparent style when dragging */
+	background-color: rgba(248,247,182,0.8);
+}

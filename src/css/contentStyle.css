@@ -87,10 +87,6 @@
 	border: 1px solid transparent;
 }
 
-.task.selected {
-	border: 1px solid #ccc;
-}
-
 .taskText{
 	width: 90%;
 	height: 90%;
@@ -100,10 +96,6 @@
 	font-size: 24px;
 	font-family: HelveticaNeue-Light;
 	overflow: hidden;
-}
-.taskText.selected{
-	border: 1px solid #ccc;
-	background-color: #fff;
 }
 
 .ui-state-disabled.ui-draggable-disabled {
