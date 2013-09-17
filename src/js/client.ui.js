@@ -123,18 +123,20 @@ function getFreeSpace(){
 
 
 // Create the element
-function UI_addTaskPanel(entry,baseOffsetX,baseOffsetY) {
+function UI_addTaskPanel(entry,baseOffsetX,baseOffsetY,taskColor) {
 	var task = $(document.createElement("div")).attr("class", "task");
 	
 	// Set up draggable element
 	task.draggable({
 		stack: ".task", // bring to front on drag
 		start: function() {
-			$("#deleteTaskIcon").css("display","block");
+			$("#deleteTaskIcon").show();
+			$("#sidebarView").hide();
 			lastTask = $(this)
 		},
 		stop: function() {
-			$("#deleteTaskIcon").css("display","none");
+			$("#deleteTaskIcon").hide();
+			$("#sidebarView").show();
 			UI_updateEntry(task.children(".taskText"));
 		},
 		containment: ".workflowView", // jquery.ui off-screen scroll is quite buggy
@@ -210,6 +212,17 @@ taskText.focusout(function() {
 			"width": "250px",
 			"height": "250px",
 		});
+		console.log("taskcolor: " + taskColor);
+		if(taskColor == "red"){
+			task.css("background-color","#ffc2cd");
+		}
+		if(taskColor == "blue"){
+			task.css("background-color","#82befa");
+		}
+		if(taskColor == "yellow"){
+			task.css("background-color","#ffed75");
+		}
+		console.log(task.css("background-color"));
 	} else {
 		task.css({
 			"position": "absolute",
@@ -271,7 +284,8 @@ function UI_initDelete() {
 		tolerance: "touch",
 		hoverClass: "active",
 		drop: function( event, ui ) {
-			$("#deleteTaskIcon").css("display","none");
+			$("#deleteTaskIcon").hide();
+			$("#sidebarView").show();
 			UI_deleteTask(ui.draggable);
 			//console.log("Drop", ui.draggable.children(".taskText").attr("data-taskid"));
 		}
