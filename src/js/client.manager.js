@@ -32,7 +32,7 @@ TaskManager.prototype.writeLocal = function() {
 	localStorage.entries = JSON.stringify(this.entries);
 }
 // Add new entry
-TaskManager.prototype.add = function(value) {
+TaskManager.prototype.add = function(value, noUpdate) {
 	var entry = {
 		id: this.generateID(),
 		time: Date.now(),
@@ -43,7 +43,10 @@ TaskManager.prototype.add = function(value) {
 	this.entries[entry.id] = entry;
 	
 	this.writeLocal();
-	this.onupdate();
+	
+	if (!noUpdate) {
+		this.onupdate();
+	}
 	return entry;
 }
 // Update existing entry

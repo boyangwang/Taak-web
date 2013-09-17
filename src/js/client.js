@@ -127,9 +127,11 @@ function showEntries() {
 
 /** New UI Helpers **/
 
+// Load the entries for first run
 function UI_init() {
 	$(".workflowView").click(function(e) {
 		if (!forceFocus) {
+			// Unfocus all children
 			$(".task").children(".taskText").blur();
 		}
 		forceFocus = false;
@@ -137,7 +139,7 @@ function UI_init() {
 	
 	UI_initDelete(); // configure delete box
 	
-	showEntries(); // show current local entries first
+	showEntries(); // show current entries
 }
 // Move caret to end of editable object
 function UI_moveCaret(obj) {
@@ -194,6 +196,7 @@ function UI_showTaskPanel(entry) {
 function UI_addTaskPanel(entry) {
 	var task = $(document.createElement("div")).attr("class", "task");
 	
+	// Set up draggable element
 	task.draggable({
 		stack: ".task", // bring to front on drag
 		stop: function() {
@@ -223,7 +226,7 @@ function UI_addTaskPanel(entry) {
 		e.stopPropagation(); // don't send click event to parent
 	});
 	
-	
+	// Set up editable element
 	var taskText = $(document.createElement("div")).attr("class", "taskText");
 	taskText.attr("contenteditable","true"); // This attribute is dynamically set in the tap-to-edit feature
 	taskText.blur(function(){
@@ -241,8 +244,6 @@ function UI_addTaskPanel(entry) {
 		console.log("B");
 	});
 	
-	
-	
 	// Set initial position
 	if (!entry) {
 		task.css({
@@ -259,42 +260,48 @@ function UI_addTaskPanel(entry) {
 		});
 	}
 	
-	var giveFocus = false;
+	// Create new entry if needed
+	var newEntry = false;
 	if (!entry) {
-		entry = manager.add("");
+		entry = manager.add("", true);
 		entry.x = task.css("left");
 		entry.y = task.css("top");
-		UI_scrollTo(task); // new entry, scroll to it
-		forceFocus = true;
-		//taskText.trigger("focus");
-		//taskText.focus();
-		giveFocus = true;
-		//task.trigger("click");
+		UI_scrollTo(task); // scroll to new entry
+		newEntry = true;
 	}
+	
+	// Set attributes
 	taskText.attr("id", "task_" + entry.id);
 	taskText.attr("data-taskid", entry.id);
 	taskText.attr("data-taskvalue", entry.value);
 	taskText.attr("data-taskposition", entry.x + "_" + entry.y);
 	taskText.html(entry.value);
 	
+	// Quick submit
 	taskText.get(0).addEventListener("keydown", function(event) {
 		submit(event);
 	});
 	
-	if (!$("#task_" + entry.id).get(0)) { // prevent race condition when adding task
-		task.append(taskText);
-		$(".workflowView").append(task);
-	}
-	if (giveFocus) {
-		var taskText = $("#task_" + entry.id);
-		taskText.parent().trigger("click");
+	// Insert elements
+	task.append(taskText);
+	$(".workflowView").append(task);
+	
+	// Give focus to new entries
+	if (newEntry) {
+		task.trigger("click"); // perform prerequisites before giving focus
+		forceFocus = true;
 		taskText.addClass("selected");
 		taskText.focus();
-		console.log("FOCUS");
+	}
+	
+	// Perform update after element has been added (performed last to prevent race condition)
+	if (newEntry) {
+		manager.onupdate();
 	}
 
 	return taskText;
 }
+// Initialize deletion box
 function UI_initDelete() {
 	$("#deleteTaskIcon").droppable({
 		hoverClass: "active",
@@ -305,13 +312,15 @@ function UI_initDelete() {
 	});
 	$("#deleteTaskContainer").droppable();
 }
+// Delete task
 function UI_deleteTask(target) {
+	// Target is the element with ".task" class
 	var taskID = target.children(".taskText").attr("data-taskid");
 	target.hide();
 	manager.remove(taskID);
 }
 
-/** Fixes for mobile scrolling **/
+/** Fixes for mobile Safari scrolling **/
 $(document).on('touchmove',function(e){
   e.preventDefault();
 });
