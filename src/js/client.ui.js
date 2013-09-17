@@ -17,7 +17,8 @@ function UI_init() {
 	// Periodically poll for changes
 	window.setInterval(function() {
 		sync.performSynchronize(manager, showEntries);
-	}, 1000);
+		console.log("Polled");
+	}, 10000);
 }
 // Move caret to end of editable object
 function UI_moveCaret(obj) {
@@ -69,7 +70,11 @@ function UI_showTaskPanel(entry) {
 		// Element not added yet
 		UI_addTaskPanel(entry);
 	} else {
+		// Element exists
 		var target = $("#task_" + entry.id);
+		//console.log("Show", target);
+		
+		// Do not update an item that is being edited by the user
 		if (!lastTask || lastTask.children(".taskText").get(0) != target.get(0)) {
 			target.attr("data-taskvalue", entry.value);
 			target.attr("data-taskposition", entry.x + "_" + entry.y);

@@ -222,11 +222,14 @@ TaskSync.prototype.performSynchronize = function(manager, callback) {
 				
 				//manager.setLocal(syncCopy);
 				//console.log(manager.entries);
+				
+				/*
 				if (!sync.isEqual(localCopy, syncCopy)) {
 					if (callback != null) {
 						callback();
 					}
-				}
+				}*/
+				callback();
 			} else {
 				// Wait for response from server, then update copy
 				sync.lastTransaction = "" + Date.now();
