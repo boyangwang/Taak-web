@@ -21,11 +21,13 @@ Sticky notes work very well as to-do task planners and reminders, but they aren'
 @@Give friends or family sticky notes.
 
 ###No Sign-up Required (@@)
+@@ A slight expansion from the sharing of a single sticky note.
+
 @@Have a public url
 
 @@Of course, for users who want to have private sticky note boards that are not accessible via a public url, we have also implemented user accounts and a sign-up process.
 
-###Familiar User Experience Ported (@@ shift up?)
+###Familiar User Experience Ported ($$ shift up?)
 Sticky note users love sticky notes because of the ways that they can interact with them. The peeling, the sticking and the marking.
 
 Our app brings all that familiarity into tablet devices. @@@
