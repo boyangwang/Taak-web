@@ -1,6 +1,6 @@
 CACHE MANIFEST
 # Change version number when updating files so cached files are updated
-# version 0.17
+# version 0.18
 
 # Note:
 # To update files on browser after changing them
@@ -11,14 +11,42 @@ CACHE MANIFEST
 # For deployment, cache should be named as "cache.manifest"
 
 index.html
+offline.html
 css/style.css
+js/uilogic.js
+js/fastInput.js
+js/typeahead.js
+js/typeahead.min.js
+js/client.auth.js
+js/client.ui.js
 js/client.manager.js
 js/client.sync.js
+js/client.net.js
 js/client.js
 img/icon.png
 img/favicon.png
+js/jquery.tools.min.js
+js/jquery.ui.touch-punch.min.js
+js/jquery-ui-1.10.3.custom.min.js
 js/jquery_1.10.2.js
 js/jquery-1.10.2.min.map
+css/contentStyle.css
+css/jquery-ui-1.10.3.custom.min.css
+css/newdesign.css
+css/images/animated-overlay.gif
+css/images/ui-bg_flat_0_aaaaaa_40x100.png
+css/images/ui-bg_flat_75_ffffff_40x100.png
+css/images/ui-bg_glass_55_fbf9ee_1x400.png
+css/images/ui-bg_glass_65_ffffff_1x400.png
+css/images/ui-bg_glass_75_dadada_1x400.png
+css/images/ui-bg_glass_75_e6e6e6_1x400.png
+css/images/ui-bg_glass_95_fef1ec_1x400.png
+css/images/ui-bg_highlight-soft_75_cccccc_1x100.png
+css/images/ui-icons_2e83ff_256x240.png
+css/images/ui-icons_222222_256x240.png
+css/images/ui-icons_454545_256x240.png
+css/images/ui-icons_888888_256x240.png
+css/images/ui-icons_cd0a0a_256x240.png
 
 NETWORK:
 *
