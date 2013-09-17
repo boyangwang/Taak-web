@@ -1,6 +1,6 @@
 /* Overrides */
 .task.selected {
-	border: 1px solid maroon;
+	border: 1px solid #a7a51c;
 }
 .taskText.selected{
 	/*border: 1px solid #e8e66e;
@@ -22,7 +22,7 @@
 	box-shadow: 0 2px 2px rgba(0,0,0,0.3);
 }
 .task.ui-draggable-dragging { /* Semi transparent style when dragging */
-	background-color: rgba(248,247,182,0.8);
+	opacity: 0.7;
 }
 #addTaskIcon {
 	-webkit-border-radius: 10px;
@@ -54,3 +54,22 @@
 #deleteTaskIcon.active {
 	border: 5px dotted maroon;
 }
+/* Make it easier to resize if task is selected */
+.selected .ui-resizable-s {
+	bottom: 0;
+	height: 16px
+}
+.selected .ui-resizable-e {
+	right: 0;
+	width: 16px;
+}
+/*
+Color sets for tasks
+[color]: [light], [dark], [border], [darkborder]
+Yellow: fdfdcb, fcf9a1, e8e66e, a7a51c
+Pink: ebaeeb, f5d2f5, e2a6e2, bb5cbb
+Green: cffdc9, b1e8ae, 9be895, 4fb746
+Blue: d7f2fa, b8dbf4, 7bc4dd, 4ea5c3
+Purple: ddd9fe, c6b8fe, 9e8aeb, 7158d5
+White: fefefe, ebebeb, d7d7d7, a2a2a2
+*/

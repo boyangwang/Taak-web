@@ -239,5 +239,11 @@ $('body').on('touchstart','.scrollable',function(e) {
   }
 });
 $('body').on('touchmove','.scrollable',function(e) {
-  e.stopPropagation();
+	var anySelected = $(".selected").get(0);
+	if (anySelected) {
+		// User selected an object, don't allow panning in the page (makes it easier for resize)
+		e.preventDefault();
+	} else {
+		e.stopPropagation();
+	}
 });
