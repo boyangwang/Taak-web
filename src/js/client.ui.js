@@ -161,6 +161,7 @@ function UI_addTaskPanel(entry,baseOffsetX,baseOffsetY,taskColor) {
 		if ($(this).parent().is('.ui-draggable-dragging') ) {
 			return;
 		}
+		taskText.attr("contenteditable", "true"); // make content editable
 		$(this).draggable("option", "disabled", true ); // dragging must be disabled for edit to be allowed
 		$(this).addClass("selected");
 		$(this).children(".taskText").addClass("selected");
@@ -181,27 +182,32 @@ function UI_addTaskPanel(entry,baseOffsetX,baseOffsetY,taskColor) {
 	
 	// Set up editable element
 	var taskText = $(document.createElement("div")).attr("class", "taskText");
-	taskText.attr("contenteditable","true"); // This attribute is dynamically set in the tap-to-edit feature
+	//taskText.attr("contenteditable","true"); // (DO NOT SET IT HERE.) This attribute will be dynamically set in the tap-to-edit feature
+	
+	// Called when element loses focus
 	taskText.blur(function(){
+		taskText.attr("contenteditable", "false"); // Make content uneditable after being deselected (fixes quirks pertaining to content-editable + dragging)
 		task.removeClass("selected");
-		task.draggable("option", "disabled", false);
+		task.draggable("option", "disabled", false); // re-enable dragging
 		$(this).removeClass("selected");
 		UI_updateEntry($(this));
 		lastTask = null;
-	});
-
-
-	/*
-	taskText.focusin(function() {
-		console.log("A");
-		console.log(taskText);
-	});
-*/
-taskText.focusout(function() {
+		
 		if($(this).text() == ""){ // nothing is written
 			UI_deleteTask($(this).parent());
 		}
 	});
+
+	/*
+	// These are for debugging
+	taskText.focusin(function() {
+		console.log("A");
+		console.log(taskText);
+	});
+	taskText.focusout(function() {
+		
+	});
+	*/
 
 	// Set initial position
 	if (!entry) {
@@ -297,8 +303,8 @@ function UI_deleteTask(target) {
 	// Target is the element with ".task" class
 	var taskID = target.children(".taskText").attr("data-taskid");
 	target.children(".taskText").attr("data-taskarchived", "true")
-	//target.hide();
-	target.remove(); // temp
+	target.hide();
+	//target.remove(); // temp (cannot do this at the moment because references may still be present in concurrently running operations)
 	manager.remove(taskID);
 }
 
