@@ -5,7 +5,7 @@ Sticky notes work very well as to-do task planners and reminders, but they aren'
 
 @@
 
-###Full Board Display Even on Mobile (@@)
+###Full Board Display Even on Mobile (@@??)
 @@I just thought of this, so let me know if this is good.
 
 @@ Out of sight, out of mind. That's why sticky notes are so effective. They're always pasted somewhere in sight and are a constant reminder of the tasks you need to do.
@@ -14,13 +14,24 @@ Sticky notes work very well as to-do task planners and reminders, but they aren'
 
 @@ So we wanted to reproduce this highly valued user experience for the sticky note board on our mobile app. We allow the user to "lock the screen" (have to ask Colin if we can have a empty shell native app to hold the iframe), which triggers the Full Board Display where we automatically scroll through the sticky note board.
 
+###Likeness to real life (@@??)
+@@ We made our app as close to real-life as possible. Here are some of the real-life abilities you can do:
+
+* grab multiple sticky notes at once! (@@)
+* mark them with a special symbol to check the tasks as done (@@)
+* a trophy wall of sticky notes showing the tasks completed (@@)
+
+###Calendar of Progress(@@??)
+@@ 
+
+
 ###Main Tasks in One Glance
 @@@Context or Board Switching
 
 ###Sticky Notes Giving
 @@Give friends or family sticky notes.
 
-###No Sign-up Required (@@)
+###No Sign-up Required (@@??)
 @@ A slight expansion from the sharing of a single sticky note.
 
 @@Have a public url
