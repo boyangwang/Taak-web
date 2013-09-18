@@ -38,7 +38,7 @@ TaskNet.prototype.doGet = function(callback) {
 		data: data,
 		success: function(result) {
 			if (callback != null) {
-				console.log(result);
+				//console.log(result);
 				callback(result);
 			}
 		}

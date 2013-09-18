@@ -23,14 +23,17 @@ if (isset($_SERVER['REQUEST_METHOD'])) {
 			}
 			switch ($action) {
 				case 'entry':
-					$user_from_token = $userManager->getUserFromTokenAll($_GET['token']);
-					$entryManager->handleGet($user_from_token);
+					if (isset($_GET['token'])) {
+						$user_from_token = $userManager->getUserFromTokenAll($_GET['token']);
+						$entryManager->handleGet($user_from_token);
+					} else {
+						echo "{\"code\":\"400\",\"message\":\"Missing token\"}";
+					}
 					break;
 			}
 			break;
 		case 'POST':
 			$postaction = $_GET['action'];
-			
 			switch ($postaction) {
 				case 'auth':
 					$user_from_token = $userManager->getUserFromTokenAll($_POST['token']);

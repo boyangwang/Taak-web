@@ -109,17 +109,24 @@
 	width: 16px;
 }
 /** Comment out to disable top-bar **/
-/*
-#sidebar-view {
-	position: relative;
-}
 
+#topbarView{
+	position: relative;
+	height: 44px;
+}
 .super-container {
 	position: absolute;
 	top: 44px;
-	border: 1px solid #f00;
+	bottom: 0px;
+	left: 0px;
+	right: 0px;
 }
-*/
+.smallicon {
+	width: 24px; 
+	height: 24px; 
+	margin-top: 10px; 
+	margin-left: 10px;
+}
 
 /*
 Color sets for tasks
