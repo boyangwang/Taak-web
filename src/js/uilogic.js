@@ -5,6 +5,8 @@ $(document).ready(function(){
 		addTask();
 	});
 */
+
+// Cannot do this as it will accidentally render app unusable if user taps on the icons instead of dragging it
 $("#addTaskIconYellow").mousedown(function(){
 	$("#dragInstructions").show();
 }).mouseup(function(){
@@ -20,6 +22,14 @@ $("#addTaskIconBlue").mousedown(function(){
 }).mouseup(function(){
 	$("#dragInstructions").hide();
 });
+
+function showDragInstruction() {
+	$("#dragInstructions").show();
+}
+
+function hideDragInstruction() {
+	$("#dragInstructions").hide();
+}
 
 $("#addTaskIconYellow").draggable({
 	stop:function(){

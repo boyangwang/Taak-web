@@ -24,7 +24,7 @@ body{
 	box-shadow: 3px 0px 2px #735734,-3px 0px 2px #735734;
 	top: 0px;
 	position: fixed;
-	z-index: 1;
+	z-index: 11;
 }
 
 
