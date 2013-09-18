@@ -1,8 +1,9 @@
 var version = "0.17";
 var sync = new TaskSync();
+checkLogin();
 sync.initToken();
 var manager = new TaskManager();
-checkLogin();
+
 
 // Set up sychronizer
 if (navigator.onLine) {
@@ -128,12 +129,19 @@ function showEntries() {
 }
 
 function checkLogin() {
-	if (localStorage.fb_token) {
+	console.log(localStorage);
+	if (!localStorage.visited) {
+		$('#loginPrompt').fadeIn(300);
+	}
+	// visited before and logged in already
+	else if (localStorage.fb_token) {
 		$('#login_flag').text('Logged in');
 		$('#fb_oauth_link').html('Log out');
 		$('#fb_oauth_link').attr('href', '#');
 		$('#fb_oauth_link').click(logout);
 	}
+	
+	localStorage.visited = true;
 }
 
 function logout(e) {

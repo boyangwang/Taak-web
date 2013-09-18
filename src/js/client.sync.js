@@ -33,6 +33,7 @@ TaskSync.prototype.initToken = function() {
 		if (localStorage.token == null) {
 			localStorage.token = "anon_token_" + Date.now();
 			//userid = ("anon_token_" + Date.now()); // will NOT be the same as token... because of Date.now()
+													// That's so true... My bad
 		}
 		userid = localStorage.token;
 		this.net.setToken(localStorage.token, userid);

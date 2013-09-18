@@ -6,6 +6,9 @@ $(document).ready(function(){
 	});
 */
 
+// @boyang
+$('#loginPrompt').click(hideLoginPrompt);
+
 $("#addTaskIconYellow").mousedown(function(){
 	showDragInstructions();
 }).mouseup(function(){
@@ -85,6 +88,10 @@ $("#addTaskIconBlue").draggable({
 });
 	UI_init(); // located in client.js
 });
+
+function hideLoginPrompt() {
+	$('#loginPrompt').fadeOut(300);
+}
 
 function showDragInstructions() {
 	$("#dragInstructions").fadeIn(300);
