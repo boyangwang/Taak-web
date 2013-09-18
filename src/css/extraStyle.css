@@ -108,6 +108,19 @@
 	right: 0;
 	width: 16px;
 }
+/** Comment out to disable top-bar **/
+/*
+#sidebar-view {
+	position: relative;
+}
+
+.super-container {
+	position: absolute;
+	top: 44px;
+	border: 1px solid #f00;
+}
+*/
+
 /*
 Color sets for tasks
 [color]: [light], [dark], [border], [darkborder]
