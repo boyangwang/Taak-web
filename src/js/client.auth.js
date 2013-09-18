@@ -17,7 +17,7 @@ function sendAuth(e) {
 		success: function(response) {
 			if (response == true) {
 				var loginBtn = $('.loginBtn').eq(0)
-				loginBtn.html('Logout');
+				//loginBtn.html('Logout');
 				
 				loginBtn.off('click').click(logout);
 				var authOverlay = $('#authOverlay');
