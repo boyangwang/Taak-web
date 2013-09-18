@@ -69,7 +69,7 @@
 	height: 100%;
 	left: 0px;
 	top: 0px;
-	position: absolute;
+	position: fixed;
 	background-color: rgba(0,0,0,0.9);
 }
 #deleteTaskContainer{
@@ -93,6 +93,10 @@
 	display: none;
 	max-width: 100%;
 	z-index: 10;
+	background-color: rgba(0,0,0,0.5);
+	background-image:url('../img/draginstructions.png');
+	background-repeat: no-repeat;
+	background-position: center;
 }
 
 #deleteTaskIcon.active {
@@ -172,4 +176,7 @@ White: fefefe, ebebeb, d7d7d7, a2a2a2
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(1%,#fefefe), color-stop(100%,#ebebeb)); /* Chrome,Safari4+ */
 	background: -webkit-linear-gradient(top, #fefefe 1%,#ebebeb 100%); /* Chrome10+,Safari5.1+ */
 	background: linear-gradient(to bottom, #fefefe 1%,#ebebeb 100%); /* W3C */
+}
+.infoDiv { /* Hide, since not using currently */
+	opacity: 0;
 }

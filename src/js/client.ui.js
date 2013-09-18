@@ -143,7 +143,7 @@ function UI_addTaskPanel(entry,baseOffsetX,baseOffsetY,taskColor) {
 		containment: ".workflowView", // jquery.ui off-screen scroll is quite buggy
 		scroll: false
 	}).resizable({
-		minHeight:220,
+		minHeight:150,
 		minWidth:200,
 		stop: function() {
 			UI_updateEntry(task.children(".taskText"));
@@ -323,8 +323,12 @@ function UI_deleteTask(target) {
 	// Target is the element with ".task" class
 	var taskID = target.children(".taskText").attr("data-taskid");
 	target.children(".taskText").attr("data-taskarchived", "true")
-	target.hide();
+	//target.hide();
 	//target.remove(); // temp (cannot do this at the moment because references may still be present in concurrently running operations)
+	
+	// Animate hide
+	target.animate({'opacity' : 0}, { queue: false, duration: 300 }).hide("scale",{origin:["middle","left"]}, 300);
+	
 	manager.remove(taskID);
 }
 

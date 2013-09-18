@@ -6,34 +6,26 @@ $(document).ready(function(){
 	});
 */
 
-// Cannot do this as it will accidentally render app unusable if user taps on the icons instead of dragging it
 $("#addTaskIconYellow").mousedown(function(){
-	$("#dragInstructions").show();
+	showDragInstructions();
 }).mouseup(function(){
-	$("#dragInstructions").hide();
+	hideDragInstructions();
 });
 $("#addTaskIconRed").mousedown(function(){
-	$("#dragInstructions").show();
+	showDragInstructions();
 }).mouseup(function(){
-	$("#dragInstructions").hide();
+	hideDragInstructions();
 });
 $("#addTaskIconBlue").mousedown(function(){
-	$("#dragInstructions").show();
+	showDragInstructions();
 }).mouseup(function(){
-	$("#dragInstructions").hide();
+	hideDragInstructions();
 });
 
-function showDragInstruction() {
-	$("#dragInstructions").show();
-}
-
-function hideDragInstruction() {
-	$("#dragInstructions").hide();
-}
 
 $("#addTaskIconYellow").draggable({
 	stop:function(){
-		$("#dragInstructions").hide();
+		hideDragInstructions();
 		if($(this).offset().left > 100){
 			var taskPositionX = $(this).offset().left+20;
 			var taskPositionY = $(this).offset().top;
@@ -53,7 +45,7 @@ $("#addTaskIconYellow").draggable({
 });
 $("#addTaskIconRed").draggable({
 	stop:function(){
-		$("#dragInstructions").hide();
+		hideDragInstructions();
 		if($(this).offset().left > 100){
 			var taskPositionX = $(this).offset().left+20;
 			var taskPositionY = $(this).offset().top;
@@ -73,7 +65,7 @@ $("#addTaskIconRed").draggable({
 });
 $("#addTaskIconBlue").draggable({
 	stop:function(){
-		$("#dragInstructions").hide();
+		hideDragInstructions();
 		if($(this).offset().left > 100){
 			var taskPositionX = $(this).offset().left+20;
 			var taskPositionY = $(this).offset().top;
@@ -94,7 +86,14 @@ $("#addTaskIconBlue").draggable({
 	UI_init(); // located in client.js
 });
 
+function showDragInstructions() {
+	$("#dragInstructions").fadeIn(300);
+}
+function hideDragInstructions() {
+	$("#dragInstructions").fadeOut(300);
+}
+
 function addTask(x,y,taskColor){
-	$("#dragInstructions").hide();
+	hideDragInstructions(); // already called earlier
 	UI_addTaskPanel(null,x,y,taskColor);
 }
