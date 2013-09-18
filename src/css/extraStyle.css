@@ -10,6 +10,8 @@
 .taskText {
 	font-family: HelveticaNeue-Light, Verdana, sans-serif;
 }
+
+
 .task {
 	border: 1px solid #e8e66e;
 	background-color: rgba(248,247,182,1);
@@ -24,79 +26,19 @@
 .task.ui-draggable-dragging { /* Semi transparent style when dragging */
 	opacity: 0.7;
 }
-#addTaskIconYellow {
-	width: 80px;
-	height: 80px;
-	left: 50%;
-	margin-left: -40px;
-	top: 50px;
-	position: absolute;
-	cursor: pointer;
-}
 
-#addTaskIconRed {
-	width: 80px;
-	height: 80px;
-	left: 50%;
-	margin-left: -40px;
-	top: 150px;
-	position: absolute;
+.addTaskDiv{
+	width: 40px;
+	height: 40px;
 	cursor: pointer;
-}
-
-#addTaskIconBlue {
-	width: 80px;
-	height: 80px;
-	left: 50%;
-	margin-left: -40px;
-	top: 250px;
-	position: absolute;
-	cursor: pointer;
+	display: inline;
+	padding: 6px;
 }
 
 .addTaskContainer{
-	width: 60px;
-	height: 60px;
-	left: 10px;
-	top: 10px;
-	position: absolute;
+	width: 40px;
+	height: 40px;
 	max-width: 100%;
-}
-
-#deleteTaskIcon {
-	display: none;
-	width: 125px;
-	height: 100%;
-	left: 0px;
-	top: 0px;
-	position: fixed;
-	background-color: rgba(0,0,0,0.9);
-}
-#deleteTaskContainer{
-	width: 80px;
-	height: 80px;
-	left: 50%;
-	top: 50%;
-	margin-left: -40px;
-	margin-top: -40px;
-	position: absolute;
-	max-width: 100%;
-}
-
-#dragInstructions{
-	width: 100%;
-	height: 100%;
-	overflow: hidden;
-	position: absolute;
-	left: 0px;
-	top: 0px;
-	display: none;
-	max-width: 100%;
-	z-index: 10;
-	background-color: rgba(0,0,0,0.5);
-	background-image:url('../img/draginstructions.png');
-	background-repeat: no-repeat;
-	background-position: center;
 }
 
 #loginPrompt {
@@ -130,6 +72,42 @@
 	top: 30%;
 	left: 36%;
 	text-decoration: underline;
+}
+
+#deleteTaskIcon {
+	display: none;
+	width: 230px;
+	height: 100%;
+	left: 0px;
+	top: 0px;
+	position: fixed;
+	background-color: rgba(0,0,0,0.9);
+}
+#deleteTaskContainer{
+	width: 80px;
+	height: 80px;
+	left: 50%;
+	top: 50%;
+	margin-left: -40px;
+	margin-top: -40px;
+	position: absolute;
+	max-width: 100%;
+}
+
+#dragInstructions{
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	display: none;
+	max-width: 100%;
+	z-index: 10;
+	background-color: rgba(0,0,0,0.5);
+	background-image:url('../img/draginstructions.png');
+	background-repeat: no-repeat;
+	background-position: center;
 }
 
 #deleteTaskIcon.active {
@@ -210,6 +188,7 @@ White: fefefe, ebebeb, d7d7d7, a2a2a2
 	background: -webkit-linear-gradient(top, #fefefe 1%,#ebebeb 100%); /* Chrome10+,Safari5.1+ */
 	background: linear-gradient(to bottom, #fefefe 1%,#ebebeb 100%); /* W3C */
 }
+
 .infoDiv { /* Hide, since not using currently */
 	opacity: 0;
 }

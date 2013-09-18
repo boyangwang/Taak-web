@@ -53,9 +53,9 @@
 				
 			}
 			</script>
--->
+		-->
 
-			<!--<a href="javascript:reload();">Reload</a>-->
+		<!--<a href="javascript:reload();">Reload</a>-->
 		<!--
 		<table class="maintable" cellpadding="0" cellspacing="0">
 			<tr class="header"><td><input type="text" class="box typeahead" id="entryBox" onkeydown="javascript:submit(event, addEntry, 'entryBox');"></td><td style="width:50px;"><input class="addButton box" type="button" onclick="javascript:addEntry('entryBox')" value="+"></td></tr>
@@ -87,60 +87,86 @@
 			<!--<a id="fb_oauth_link" href="https://www.facebook.com/dialog/oauth?client_id=472743636174429&redirect_uri=http://taak.onfry.com:8080/oauth.html&response_type=token"><img class="smallicon" src="img/changeIcon.png" style=""></a>-->
 			<a id="fb_oauth_link" href="https://www.facebook.com/dialog/oauth?client_id=472743636174429&redirect_uri=http://taak.onfry.com/oauth.html&response_type=token"><img class="smallicon" src="img/changeIcon.png" style=""></a>
 			<span id="login_flag" style="display:none">Not Login</span>
+
+			<div id="topbarTitle">Default</div>
 		</div>
 		<!-- End top bar -->
 		<div class="super-container">
-		<div id="sidebarView">
+			<div id="sidebarView">
+		<!--
 			<div id="addTaskIconYellow"><img class="addTaskContainer" src="img/yellow.png"></div>
 			<div id="addTaskIconRed"><img class="addTaskContainer" src="img/red.png"></div>
 			<div id="addTaskIconBlue"><img class="addTaskContainer" src="img/blue.png"></div>
+		-->
+		<div style="height:60px;"></div>
+		<div id="userInfoDiv">
+			<img id="userInfoImage" src="http://1.bp.blogspot.com/-9BE2vIjlgz4/TnEB3KGVYqI/AAAAAAAAAM0/99j01Ix1vnI/s72-c/amhis_appleseed.gif"/>
+			<div id="userInfoName">Johnny Appleseed</div>
 		</div>
-		<div class="content">
-			<div class="workflowView scrollable">
-				<div id="dragInstructions"></div>
-				<div id="loginPrompt">
-					<a id="fb_oauth_link_prompt" href="https://www.facebook.com/dialog/oauth?client_id=472743636174429&redirect_uri=http://taak.onfry.com/oauth.html&response_type=token">Login</a><p>to Sync Tasks<br>between Devices</p>
-				</div>
-				<!--<img id="dragInstructions" src="img/dragInstructions.png"/>-->
-				<div id="deleteTaskIcon"><img id="deleteTaskContainer" src="img/deleteIcon.png"/></div>
+		<div id="addTaskTitle">Add Task</div>
+		<br>
+		<div id="addTaskDiv">
+			<div class="addTaskDiv" data="yellow"><img class="addTaskContainer" src="img/yellow.png"></div>
+			<div class="addTaskDiv" data="green"><img class="addTaskContainer" src="img/green.png"></div>
+			<div class="addTaskDiv" data="purple"><img class="addTaskContainer" src="img/purple.png"></div>
+			<div style="height:13px;"></div>
+			<div class="addTaskDiv" data="white"><img class="addTaskContainer" src="img/white.png"></div>
+			<div class="addTaskDiv" data="red"><img class="addTaskContainer" src="img/red.png"></div>
+			<div class="addTaskDiv" data="blue"><img class="addTaskContainer" src="img/blue.png"></div>
+			<br><br>
+			<div id="taskInstructions">Drag a colour to the board to add a task.</div>
+		</div>
+		<div id="addWorkflowDiv">
+			<div id="addWorkflowTitle">Workflows</div>
+			<div class="workflowName">Default</div>
+		</div>
+	</div>
+	<div class="content">
+		<div id="default" class="workflowView scrollable">
+			<div id="loginPrompt">
+				<a id="fb_oauth_link_prompt" href="https://www.facebook.com/dialog/oauth?client_id=472743636174429&redirect_uri=http://taak.onfry.com/oauth.html&response_type=token">Login</a><p>to Sync Tasks<br>between Devices</p>
 			</div>
+			<!--<div id="dragInstructions"></div>
+			<img id="dragInstructions" src="img/dragInstructions.png"/>-->
+			<div id="deleteTaskIcon"><img id="deleteTaskContainer" src="img/deleteIcon.png"/></div>
 		</div>
-		</div>
-		<script type="text/javascript" src="js/jquery_1.10.2.js"></script>
-		<script type="text/javascript" src="js/jquery-collision.min.js"></script>
-		<script type="text/javascript" src="js/jquery.tools.min.js"></script>
-		<script type="text/javascript" src="js/jquery-ui-1.10.3.custom.min.js"></script>
-		<script type="text/javascript" src="js/jquery.ui.touch-punch.min.js"></script>
-		
-		
-		<script type="text/javascript" src="js/typeahead.js"></script>
-		<script type="text/javascript" src="js/fastInput.js"></script>
-
-		
-		<script type="text/javascript" src="js/client.net.js"></script>
-		<script type="text/javascript" src="js/client.sync.js"></script>
-		<script type="text/javascript" src="js/client.manager.js"></script>
-		<script type="text/javascript" src="js/client.js"></script>
-		<script type="text/javascript" src="js/client.ui.js"></script>
-		<script type="text/javascript" src="js/uilogic.js"></script>
+	</div>
+</div>
+<script type="text/javascript" src="js/jquery_1.10.2.js"></script>
+<script type="text/javascript" src="js/jquery-collision.min.js"></script>
+<script type="text/javascript" src="js/jquery.tools.min.js"></script>
+<script type="text/javascript" src="js/jquery-ui-1.10.3.custom.min.js"></script>
+<script type="text/javascript" src="js/jquery.ui.touch-punch.min.js"></script>
 
 
-		<script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/sha1.js"></script>
-		<script type="text/javascript" src="js/client.auth.js"></script>
-		<script type="text/javascript">
-		var _gaq = _gaq || [];
-		_gaq.push(['_setAccount', 'UA-43901195-1']);
-		_gaq.push(['_trackPageview']);
+<script type="text/javascript" src="js/typeahead.js"></script>
+<script type="text/javascript" src="js/fastInput.js"></script>
 
-		(function() {
-			var ga = document.createElement('script');
-			ga.type = 'text/javascript';
-			ga.async = true;
-			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-			var s = document.getElementsByTagName('script')[0];
-			s.parentNode.insertBefore(ga, s);
-		}
-		)();
-		</script>
-	</body>
-	</html>
+
+<script type="text/javascript" src="js/client.net.js"></script>
+<script type="text/javascript" src="js/client.sync.js"></script>
+<script type="text/javascript" src="js/client.manager.js"></script>
+<script type="text/javascript" src="js/client.js"></script>
+<script type="text/javascript" src="js/client.ui.js"></script>
+<script type="text/javascript" src="js/uilogic.js"></script>
+
+
+<script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/sha1.js"></script>
+<script type="text/javascript" src="js/client.auth.js"></script>
+<script type="text/javascript">
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-43901195-1']);
+_gaq.push(['_trackPageview']);
+
+(function() {
+	var ga = document.createElement('script');
+	ga.type = 'text/javascript';
+	ga.async = true;
+	ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+	var s = document.getElementsByTagName('script')[0];
+	s.parentNode.insertBefore(ga, s);
+}
+)();
+</script>
+</body>
+</html>

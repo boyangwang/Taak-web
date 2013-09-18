@@ -4,10 +4,11 @@ body{
 }
 
 #topbarView{
-	height: 44px;
+	height: 40px;
 	width: 100%;
 	/*position: fixed;*/ /* Disabled to prevent mobile keyboard distorting display */
-	background-color: black;
+	background-color: #303030;
+	/*background-image: url('../img/topbar.png');*/
 	left: 0px;
 	top: 0px;
 	z-index: 1000;
@@ -15,7 +16,7 @@ body{
 
 #sidebarView{
 	height: 100%;
-	width: 100px;
+	width: 200px;
 	position: fixed;
 	background-color: #e8dfd0;
 	border-left: 1px solid #9a876d;
@@ -27,6 +28,77 @@ body{
 	z-index: 11;
 }
 
+#userInfoDiv{
+	padding-top: 10px;
+	height: 60px;
+	padding-bottom: 10px;
+	border-bottom: 1px dashed grey;
+}
+
+#userInfoImage{
+	width: 40px;
+	height: 40px;
+	max-width: 100%;
+	position: absolute;
+	left: 20px;
+}
+
+#userInfoName{
+	padding-top: 1px;
+	width: 120px;
+	height: auto;
+	position: absolute;
+	font-size: 16px;
+	font-family: HelveticaNeue-Light;
+	color: #575757;
+	left: 70px;
+}
+
+#addTaskTitle{
+	padding-left: 25px;
+	padding-top: 20px;
+	color: #575757;
+	font-size: 14px;
+	font-family: HelveticaNeue-Bold;
+	width: 150px;
+}
+
+#addTaskDiv{
+	width: 180px;
+	padding-left: 10px;
+	border-bottom: 1px dashed grey;
+	padding-bottom: 20px;
+}
+
+#taskInstructions{
+	width: 170px;
+	padding-left: 10px;
+	font-size: 12px;
+	font-family: HelveticaNeue-Light;
+	color: #747474;
+}
+
+#topbarTitle{
+	width: 124px;
+	padding-top: 5px;
+	margin-left: -62px;
+	font-family: HelveticaNeue-Bold;
+	font-size: 30px;
+	color: white;
+	display: inline;
+	position: absolute;
+	left: 50%;
+}
+
+#addWorkflowTitle{
+	padding-left: 25px;
+	padding-top: 20px;
+	padding-bottom: 10px;
+	color: #575757;
+	font-size: 14px;
+	font-family: HelveticaNeue-Bold;
+	width: 150px;
+}
 
 .workflowView{
 	width: 100%;
@@ -38,6 +110,15 @@ body{
 	position: absolute;
 	/*left: 0px;
 	top: 0px;*/
+}
+
+.workflowName{
+	padding-left: 25px;
+	padding-top: 15px;
+	color: #575757;
+	font-size: 18px;
+	font-family: HelveticaNeue-Light;
+	width: 150px;
 }
 
 .task{
@@ -90,6 +171,7 @@ body{
 	font-size: 24px;
 	font-family: HelveticaNeue-Light;
 	overflow: hidden;
+	word-wrap: break-word;
 }
 
 .ui-state-disabled.ui-draggable-disabled {
