@@ -57,7 +57,7 @@ function UI_updateEntry(target) {
 	var dimensionCheck = width + "_" + height;
 	if (value != target.attr("data-taskvalue") || positionCheck != target.attr("data-taskposition") || dimensionCheck != target.attr("data-taskdimension")) {
 		console.log("Update", target.attr("data-taskid"), target.html(), target.attr("data-taskvalue"), positionCheck, target.attr("data-taskposition"), dimensionCheck, target.attr("data-taskdimension"));
-		manager.update(target.attr("data-taskid"), value, left, top, width, height);
+		manager.update(target.attr("data-taskid"), value, left, top, width, height, target.attr("data-taskcolor"));
 	}
 }
 // Add task using entry object
@@ -80,6 +80,7 @@ function UI_showTaskPanel(entry) {
 			target.attr("data-taskvalue", entry.value);
 			target.attr("data-taskposition", entry.x + "_" + entry.y);
 			target.attr("data-taskdimension", entry.w + "_" + entry.h);
+			target.attr("data-taskcolor", entry.color);
 			target.html(entry.value);
 			target.parent().css({
 				"left": entry.x,
@@ -218,17 +219,31 @@ function UI_addTaskPanel(entry,baseOffsetX,baseOffsetY,taskColor) {
 			"width": "250px",
 			"height": "250px",
 		});
+		/*
 		console.log("taskcolor: " + taskColor);
 		if(taskColor == "red"){
-			task.css("background-color","#ffc2cd");
+			task.addClass("task-red");
+			//task.css("background-color","#ffc2cd");
 		}
 		if(taskColor == "blue"){
-			task.css("background-color","#82befa");
+			task.addClass("task-blue");
+			//task.css("background-color","#82befa");
 		}
 		if(taskColor == "yellow"){
-			task.css("background-color","#ffed75");
+			task.addClass("task-yellow");
+			//task.css("background-color","#ffed75");
 		}
-		console.log(task.css("background-color"));
+		if(taskColor == "purple"){
+			task.addClass("task-purple");
+		}
+		if(taskColor == "green"){
+			task.addClass("task-green");
+		}
+		if(taskColor == "white"){
+			task.addClass("task-white");
+		}
+		*/
+		//console.log(task.css("background-color"));
 	} else {
 		task.css({
 			"position": "absolute",
@@ -247,6 +262,7 @@ function UI_addTaskPanel(entry,baseOffsetX,baseOffsetY,taskColor) {
 		entry.y = task.css("top");
 		entry.w = task.css("width");
 		entry.h = task.css("height");
+		entry.color = taskColor;
 		UI_scrollTo(task); // scroll to new entry
 		newEntry = true;
 	}
@@ -257,7 +273,11 @@ function UI_addTaskPanel(entry,baseOffsetX,baseOffsetY,taskColor) {
 	taskText.attr("data-taskvalue", entry.value);
 	taskText.attr("data-taskposition", entry.x + "_" + entry.y);
 	taskText.attr("data-taskdimension", entry.w + "_" + entry.h);
+	taskText.attr("data-taskcolor", entry.color);
 	taskText.html(entry.value);
+	
+	task.addClass("task-" + entry.color); // Set task color
+	console.log("Color", entry.color);
 	
 	// Quick submit
 	taskText.get(0).addEventListener("keydown", function(event) {

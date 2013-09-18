@@ -132,9 +132,44 @@
 Color sets for tasks
 [color]: [light], [dark], [border], [darkborder]
 Yellow: fdfdcb, fcf9a1, e8e66e, a7a51c
-Pink: ebaeeb, f5d2f5, e2a6e2, bb5cbb
+Pink: f5d2f5, ebaeeb, e2a6e2, bb5cbb
 Green: cffdc9, b1e8ae, 9be895, 4fb746
 Blue: d7f2fa, b8dbf4, 7bc4dd, 4ea5c3
 Purple: ddd9fe, c6b8fe, 9e8aeb, 7158d5
 White: fefefe, ebebeb, d7d7d7, a2a2a2
 */
+.task-red {
+	border: 1px solid #e2a6e2;
+	background: #f5d2f5; /* Old browsers */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(1%,#f5d2f5), color-stop(100%,#ebaeeb)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, #f5d2f5 1%,#ebaeeb 100%); /* Chrome10+,Safari5.1+ */
+	background: linear-gradient(to bottom, #f5d2f5 1%,#ebaeeb 100%); /* W3C */
+}
+.task-green {
+	border: 1px solid #9be895;
+	background: #cffdc9; /* Old browsers */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(1%,#cffdc9), color-stop(100%,#b1e8ae)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, #cffdc9 1%,#b1e8ae 100%); /* Chrome10+,Safari5.1+ */
+	background: linear-gradient(to bottom, #cffdc9 1%,#b1e8ae 100%); /* W3C */
+}
+.task-blue {
+	border: 1px solid #7bc4dd;
+	background: #d7f2fa; /* Old browsers */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(1%,#d7f2fa), color-stop(100%,#b8dbf4)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, #d7f2fa 1%,#b8dbf4 100%); /* Chrome10+,Safari5.1+ */
+	background: linear-gradient(to bottom, #d7f2fa 1%,#b8dbf4 100%); /* W3C */
+}
+.task-purple {
+	border: 1px solid #9e8aeb;
+	background: #ddd9fe; /* Old browsers */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(1%,#ddd9fe), color-stop(100%,#c6b8fe)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, #ddd9fe 1%,#c6b8fe 100%); /* Chrome10+,Safari5.1+ */
+	background: linear-gradient(to bottom, #ddd9fe 1%,#c6b8fe 100%); /* W3C */
+}
+.task-white {
+	border: 1px solid #d7d7d7;
+	background: #fefefe; /* Old browsers */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(1%,#fefefe), color-stop(100%,#ebebeb)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, #fefefe 1%,#ebebeb 100%); /* Chrome10+,Safari5.1+ */
+	background: linear-gradient(to bottom, #fefefe 1%,#ebebeb 100%); /* W3C */
+}

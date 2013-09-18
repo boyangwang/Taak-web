@@ -52,13 +52,14 @@ TaskManager.prototype.add = function(value, noUpdate) {
 	return entry;
 }
 // Update existing entry
-TaskManager.prototype.update = function(id, value, x, y, w, h) {
+TaskManager.prototype.update = function(id, value, x, y, w, h, color) {
 	this.entries[id].time = Date.now();
 	this.entries[id].value = value;
 	this.entries[id].x = x;
 	this.entries[id].y = y;
 	this.entries[id].w = w;
 	this.entries[id].h = h;
+	this.entries[id].color = color;
 	
 	this.writeLocal();
 	this.onupdate();
