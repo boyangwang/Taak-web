@@ -1,6 +1,6 @@
-$("button[rel]").overlay();
+//$("button[rel]").overlay();
 
-$("#authSubmit").click(sendAuth);
+//$("#authSubmit").click(sendAuth);
 
 function sendAuth(e) {
 	var $username = $("#authForm input[name=username]");

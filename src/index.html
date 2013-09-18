@@ -10,9 +10,11 @@
 	<link rel="stylesheet" href="css/style.css" type="text/css" />
 	<link rel="stylesheet" href="css/contentStyle.css" type="text/css" />
 	<link rel="stylesheet" href="css/extraStyle.css" type="text/css" />
+	<link rel="stylesheet" href="css/auth.css" type="text/css" />
 </head>
 <body>
 	<div id="fb-root"></div>
+	<!--
 	<script>
 			// Additional JS functions here
 			window.fbAsyncInit = function() {
@@ -51,7 +53,7 @@
 				
 			}
 			</script>
-
+-->
 
 			<!--<a href="javascript:reload();">Reload</a>-->
 		<!--
@@ -79,6 +81,13 @@
 				<input id="authSubmit" value="Submit" type="button">
 			</form>
 		</div>-->
+		
+		<!-- Top bar (re-added to test auth) -->
+		<div id="topbarView">
+			<a id="fb_oauth_link" style="float:right" href="https://www.facebook.com/dialog/oauth?client_id=472743636174429&redirect_uri=http://taak.onfry.com:8080/oauth.html&response_type=token">FB login</a>
+			<span id="login_flag">Not Login</span>
+		</div>
+		<div class="super-container">
 		<div id="sidebarView">
 			<div id="addTaskIconYellow"><img class="addTaskContainer" src="img/yellow.png"></div>
 			<div id="addTaskIconRed"><img class="addTaskContainer" src="img/red.png"></div>
@@ -89,6 +98,7 @@
 				<img id="dragInstructions" src="img/dragInstructions.png"/>
 				<div id="deleteTaskIcon"><img id="deleteTaskContainer" src="img/deleteIcon.png"/></div>
 			</div>
+		</div>
 		</div>
 		<script type="text/javascript" src="js/jquery_1.10.2.js"></script>
 		<script type="text/javascript" src="js/jquery-collision.min.js"></script>

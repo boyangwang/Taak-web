@@ -1,7 +1,7 @@
 // Network helper class
 function TaskNet() {
-	this.token = "TOKEN";
-	this.user = "USER";
+	this.token = "UNINIT_TOKEN";
+	this.user = "UNINIT_USER";
 }
 // Set the authentication token
 TaskNet.prototype.setToken = function(token, user) {
@@ -38,6 +38,7 @@ TaskNet.prototype.doGet = function(callback) {
 		data: data,
 		success: function(result) {
 			if (callback != null) {
+				console.log(result);
 				callback(result);
 			}
 		}
@@ -113,6 +114,19 @@ TaskNet.prototype.getVersion = function(callback) {
 			if (callback != null) {
 				callback(result);
 			}
+		}
+	});
+}
+
+TaskNet.prototype.doPostAuth = function(token, callback) {
+	$.ajax({
+		type: 'POST',
+		url: 'api/auth/',
+		data: "token="+token,
+		async: false,
+		success: function(response) {
+			console.log(response);
+			callback(response);
 		}
 	});
 }

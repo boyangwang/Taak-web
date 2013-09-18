@@ -1,14 +1,16 @@
 <?php
+
 error_reporting(E_ALL);
-@include_once("./auth.php");
-@include_once("./rest/entrymanager.php");
+//@include_once("./auth.php");
+include_once("./rest/entrymanager.php");
+include_once("./rest/usermanager.php");
 
 $entryManager = new EntryManager();
+$userManager = new UserManager();
 
 if (isset($_SERVER['REQUEST_METHOD'])) {
 	$action = '';
 	$user = "";
-	
 	// Get the action (set by url rewrite). This parameter is part of the GET request regardless of request type.
 	if (isset($_GET['action'])) {
 		$action = $_GET['action'];
@@ -21,22 +23,21 @@ if (isset($_SERVER['REQUEST_METHOD'])) {
 			}
 			switch ($action) {
 				case 'entry':
-					if (isset($_GET['token'])) {
-						$user = $_GET['token']; // TODO: Translate to actual user ID
-					}
-					$entryManager->handleGet($user);
+					$user_from_token = $userManager->getUserFromTokenAll($_GET['token']);
+					$entryManager->handleGet($user_from_token);
 					break;
 			}
 			break;
 		case 'POST':
-			$postaction = '';
-			if (isset($_POST['action'])) {
-				$postaction = $_POST['action'];
-			}
+			$postaction = $_GET['action'];
+			
 			switch ($postaction) {
 				case 'auth':
-					$isAuth = Auth::authenticate($_SERVER['PHP_AUTH_USER'], $_SERVER['PHP_AUTH_PW']);
-					echo $isAuth;
+					$user_from_token = $userManager->getUserFromTokenAll($_POST['token']);
+					echo $user_from_token;
+					break;
+				case 'logout':
+					$userManager->deleteRecord($_POST['token']);
 					break;
 			}
 
@@ -45,8 +46,8 @@ if (isset($_SERVER['REQUEST_METHOD'])) {
 			parse_str(file_get_contents('php://input'), $_PUT);
 			switch ($action) {
 				case 'entry':
-					$user = $_PUT['token']; // TODO: Translate to actual user ID
-					$entryManager->handlePut($user, $_PUT);
+					$user_from_token = $userManager->getUserFromTokenAll($_PUT['token']);
+					$entryManager->handlePut($user_from_token, $_PUT);
 					break;
 			}
 			break;
@@ -54,8 +55,8 @@ if (isset($_SERVER['REQUEST_METHOD'])) {
 			parse_str(file_get_contents('php://input'), $_DELETE);
 			switch ($action) {
 				case 'entry':
-					$user = $_DELETE['token']; // TODO: Translate to actual user ID
-					$entryManager->handleDelete($user, $_DELETE);
+					$user_from_token = $userManager->getUserFromTokenAll($_DELETE['token']);
+					$entryManager->handleDelete($user_from_token, $_DELETE);
 					break;
 			}
 			break;
