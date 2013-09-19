@@ -24,8 +24,9 @@ class UserManager {
 		$db = $this->db;
 		$id = $db->quote($id);
 		$user = $db->quote($user);
+		$refid = "ref_".uniqid();
 		
-		$query = "INSERT INTO user(id, realid, token) VALUES('null', $user, $id)";
+		$query = "INSERT INTO user(id, realid, token) VALUES('$refid', $user, $id)";
 		
 		$result = $db->exec($query);
 		
@@ -64,7 +65,7 @@ class UserManager {
 		$result = $db->query($query);
 		$entry = $result->fetch(PDO::FETCH_ASSOC);
 		
-		print_r($entry);
+		//print_r($entry);
 		
 		if ($entry != null) {
 			// the token-user pair exists in our db, return the corresponding user

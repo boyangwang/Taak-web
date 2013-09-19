@@ -8,7 +8,7 @@ class EntryManager {
 		$this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 	}
 	public function throwUnauthorized() {
-		$result["code"] = 400;
+		$result["code"] = 401;
 		$result["message"] = "Not authorized";
 		return $result;
 	}
@@ -151,6 +151,7 @@ class EntryManager {
 		}
 	}
 	public function verifyUser($user) {
+		//echo "TUSER: $user, USER: ".$_GET["userid"];
 		if ($user == "") {
 			return false;
 		}

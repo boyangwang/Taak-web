@@ -11,7 +11,7 @@ if (isset($param["access_token"])) {
 
 	if (isset($uservars)) {
 		$manager = new UserManager();
-		$manager->addRecord($fb_token, $fb_userid);
+		$manager->addRecord($fb_userid, "fb_token_".$fb_token);
 	} else {
 		echo "Access token invalid";
 	}
