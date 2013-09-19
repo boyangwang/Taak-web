@@ -13,7 +13,7 @@ $(document).ready(function(){
 			if($(this).offset().left > 220){
 				var taskPositionX = $(this).offset().left+20;
 				var taskPositionY = $(this).offset().top-30;
-				var taskColor = $(this).attr('data');
+				var taskColor = $(this).attr('data-color');
 				console.log(taskColor);
 				addTask(taskPositionX,taskPositionY,taskColor);
 			}

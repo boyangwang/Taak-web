@@ -41,6 +41,9 @@ class UserManager {
 		// if it's an anon_token, leave as it is
 		if (strpos($token, "anon_token_") !== false) {
 			return $this->getUserFromTokenAnon($token);
+		} else if (strpos($token, "token_") !== false) {
+			// Backwards compatibility with old token
+			return $this->getUserFromTokenAnon($token);
 		} else if (strpos($token, "fb_token_") !== false) {
 			return $this->getUserFromTokenFB($token);
 		}
