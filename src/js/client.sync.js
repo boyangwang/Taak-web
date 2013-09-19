@@ -22,27 +22,29 @@ TaskSync.prototype.initToken = function() {
 	console.log("in initToken");
 	if (localStorage.fb_token) {
 		console.log("fb_token exists");
+		/* // Not required
 		(function(net) {
 		var userid = net.doPostAuth(localStorage.fb_token, function(res) {
-			console.log("callback is called");
+			console.log("Facebook callback", res);
 			net.setToken(localStorage.fb_token, res);		
 		});
 		})(this.net);
+		*/
+		this.net.setToken(localStorage.fb_token, localStorage.fb_userid);
 	}
 	else {
 		if (localStorage.token == null) {
+			// Generate new token for anonymous user
 			localStorage.token = "anon_token_" + Date.now();
-			//userid = ("anon_token_" + Date.now()); // will NOT be the same as token... because of Date.now()
-													// That's so true... My bad
 		}
-		userid = localStorage.token;
+		userid = localStorage.token; // User ID is same as token for anonymous users
 		this.net.setToken(localStorage.token, userid);
 	}
 }
 
 TaskSync.prototype.getToken = function() {
-	console.log(this.net.token);
-	console.log(this.net.user);
+	console.log("Token", this.net.token);
+	console.log("User", this.net.user);
 }
 // Set the local copy (usually from localStorage)
 TaskSync.prototype.setLocal = function(localCopy) {

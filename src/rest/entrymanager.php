@@ -7,6 +7,11 @@ class EntryManager {
 		$this->db = new PDO('mysql:host=localhost;dbname=deployas3;chatset=utf8', 'deployas3', 'deployas3');
 		$this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 	}
+	public function throwUnauthorized() {
+		$result["code"] = 400;
+		$result["message"] = "Not authorized";
+		return $result;
+	}
 	// Batch modify
 	public function putEntries($user, $entries) {
 		$message = "";
@@ -90,6 +95,7 @@ class EntryManager {
 	public function handleGet($user) {
 		if ($_GET['entryid'] == "") { // URL rewrite parameter
 			if (!$this->verifyUser($user)) {
+				echo json_encode($this->throwUnauthorized());
 				return;
 			}
 			// User must be verified to view entire collection
@@ -102,6 +108,7 @@ class EntryManager {
 	public function handlePut($user, $_PUT) {
 		// User must be verified to perform modifications
 		if (!$this->verifyUser($user)) {
+			echo json_encode($this->throwUnauthorized());
 			return;
 		}
 		if ($_GET['entryid'] == "") { // URL rewrite parameter
@@ -124,6 +131,7 @@ class EntryManager {
 	public function handleDelete($user, $_DELETE) {
 		// User must be verified to perform deletion
 		if (!$this->verifyUser($user)) {
+			echo json_encode($this->throwUnauthorized());
 			return;
 		}
 		if ($_GET['entryid'] == "") { // URL rewrite parameter

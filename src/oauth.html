@@ -1,9 +1,15 @@
 <!DOCTYPE html>
 <head>
+	<script src="js/jquery_1.10.2.js"></script>
 	<script>
 		var fb_token = window.location.hash;
 		fb_token = fb_token.substring(fb_token.indexOf("access_token=")+13, fb_token.indexOf("&"));
-		localStorage.fb_token = "fb_token_"+fb_token;
-		window.location = "./index.html";
+		$.getJSON("https://graph.facebook.com/me?access_token=" + fb_token, function(data) {
+			// set the tokens
+			localStorage.fb_token = "fb_token_" + fb_token;
+			localStorage.fb_metadata = window.location.hash; // for debugging
+			localStorage.fb_userid = data.id;
+			window.location = "./index.html";
+		});
 	</script>
 </head>

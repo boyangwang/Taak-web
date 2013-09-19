@@ -41,12 +41,12 @@ class UserManager {
 		// if it's an anon_token, leave as it is
 		if (strpos($token, "anon_token_") !== false) {
 			return $this->getUserFromTokenAnon($token);
+		} else if (strpos($token, "fb_token_") !== false) {
+			return $this->getUserFromTokenFB($token);
 		} else if (strpos($token, "token_") !== false) {
 			// Backwards compatibility with old token
 			return $this->getUserFromTokenAnon($token);
-		} else if (strpos($token, "fb_token_") !== false) {
-			return $this->getUserFromTokenFB($token);
-		}
+		} 
 		// unrecognized token
 		else {
 			return false;
@@ -59,9 +59,12 @@ class UserManager {
 
 	public function getUserFromTokenFB($token) {
 		$db = $this->db;
-		$query = "SELECT realid FROM user WHERE token='$token'";
+		$token = $db->quote($token);
+		$query = "SELECT realid FROM user WHERE token=$token";
 		$result = $db->query($query);
 		$entry = $result->fetch(PDO::FETCH_ASSOC);
+		
+		print_r($entry);
 		
 		if ($entry != null) {
 			// the token-user pair exists in our db, return the corresponding user
@@ -74,10 +77,13 @@ class UserManager {
 			$fb_res_obj = null;
 			$ch = curl_init();
 			
-			curl_setopt($ch, CURLOPT_URL, "https://graph.facebook.com/debug_token?input_token=" . $token_ori . "&access_token=472743636174429|b6cfb1f93ae4ee075cb05749da46f207");
+			//curl_setopt($ch, CURLOPT_URL, "https://graph.facebook.com/debug_token?input_token=" . $token_ori . "&access_token=472743636174429|b6cfb1f93ae4ee075cb05749da46f207");
+			curl_setopt($ch, CURLOPT_URL, "https://graph.facebook.com/debug_token?input_token=" . $token_ori . "&access_token=202826093232352|dcc1d2284ae9212869b99f405241052a");
 			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 			
 			$fb_res_obj = curl_exec($ch);
+			
+			//echo "TEST: $fb_res_obj,";
 			
 			curl_close($ch);
 			$fb_res_obj = json_decode($fb_res_obj);

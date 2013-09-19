@@ -123,9 +123,9 @@ TaskNet.prototype.doPostAuth = function(token, callback) {
 		type: 'POST',
 		url: 'api/auth/',
 		data: "token="+token,
-		async: false,
+		//async: false,
 		success: function(response) {
-			console.log(response);
+			console.log("AUTH_POST", response);
 			callback(response);
 		}
 	});
