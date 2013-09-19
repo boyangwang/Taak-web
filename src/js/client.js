@@ -131,7 +131,7 @@ function showEntries() {
 function checkLogin() {
 	console.log(localStorage);
 	if (!localStorage.visited) {
-		$('#loginPrompt').fadeIn(300);
+		showLoginPrompt();
 	}
 	// visited before and logged in already
 	else if (localStorage.fb_token) {
@@ -142,6 +142,9 @@ function checkLogin() {
 	}
 	
 	localStorage.visited = true;
+}
+function showLoginPrompt() {
+	$('#loginPrompt').fadeIn(300);
 }
 
 function logout(e) {

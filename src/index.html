@@ -18,7 +18,7 @@
 		<!-- Top bar (re-added to test auth) (replace with newer solution -->
 		<div id="topbarView" style="display:block;">
 			<!--<a id="fb_oauth_link" href="https://www.facebook.com/dialog/oauth?client_id=472743636174429&redirect_uri=http://taak.onfry.com:8080/oauth.html&response_type=token"><img class="smallicon" src="img/changeIcon.png" style=""></a>-->
-			<a id="fb_oauth_link" href="https://www.facebook.com/dialog/oauth?client_id=472743636174429&redirect_uri=http://taak.onfry.com/oauth.html&response_type=token"><img class="smallicon" src="img/changeIcon.png" style=""></a>
+			<a href="javascript:showLoginPrompt();"><img class="smallicon" src="img/changeIcon.png" style=""></a>
 			<span id="login_flag" style="display:none">Not Login</span>
 
 			<div id="topbarTitle">Default</div>
@@ -32,12 +32,12 @@
 			<div id="addTaskIconBlue"><img class="addTaskContainer" src="img/blue.png"></div>
 		-->
 		<div style="height:60px;"></div>
-		<!--<div id="userInfoDiv">
+		<!-- Put in pull menu instead of front-view <div id="userInfoDiv">
 			<img id="userInfoImage" src="http://1.bp.blogspot.com/-9BE2vIjlgz4/TnEB3KGVYqI/AAAAAAAAAM0/99j01Ix1vnI/s72-c/amhis_appleseed.gif"/>
 			<div id="userInfoName">Johnny Appleseed</div>
 		</div>-->
-		<div id="addTaskTitle">Add Task</div>
-		<br>
+		<!--<div id="addTaskTitle">Add Task</div>
+		<br>-->
 		<div id="addTaskDiv">
 			<div class="addTaskDiv" data-color="yellow"><img class="addTaskContainer" src="img/yellow.png"></div>
 			<div class="addTaskDiv" data-color="green"><img class="addTaskContainer" src="img/green.png"></div>
@@ -49,10 +49,12 @@
 			<br><br>
 			<div id="taskInstructions">Drag a colour to the board to add a task.</div>
 		</div>
+		<!-- Do it like trello style, where boards available in dropdown
 		<div id="addWorkflowDiv">
 			<div id="addWorkflowTitle">Workflows</div>
 			<div class="workflowName">Default</div>
 		</div>
+		--->
 	</div>
 	<div class="content">
 		<div id="default" class="workflowView scrollable">
