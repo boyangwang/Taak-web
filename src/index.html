@@ -26,18 +26,20 @@
 		<!-- End top bar -->
 		<div class="super-container">
 			<div id="sidebarView">
-		<!--
-			<div id="addTaskIconYellow"><img class="addTaskContainer" src="img/yellow.png"></div>
-			<div id="addTaskIconRed"><img class="addTaskContainer" src="img/red.png"></div>
-			<div id="addTaskIconBlue"><img class="addTaskContainer" src="img/blue.png"></div>
-		-->
-		<div style="height:60px;"></div>
+			<div id="addTaskDiv">			
+				<div class="addTaskDiv" data-color="yellow"><img class="addTaskContainer" src="img/task-yellow.png"></div>
+				<div class="addTaskDiv" data-color="blue"><img class="addTaskContainer" src="img/task-blue.png"></div>
+				<div class="addTaskDiv" data-color="red"><img class="addTaskContainer" src="img/task-pink.png"></div>
+			</div>
+		<!--<div style="height:60px;"></div>-->
+		
 		<!-- Put in pull menu instead of front-view <div id="userInfoDiv">
 			<img id="userInfoImage" src="http://1.bp.blogspot.com/-9BE2vIjlgz4/TnEB3KGVYqI/AAAAAAAAAM0/99j01Ix1vnI/s72-c/amhis_appleseed.gif"/>
 			<div id="userInfoName">Johnny Appleseed</div>
 		</div>-->
 		<!--<div id="addTaskTitle">Add Task</div>
 		<br>-->
+		<!-- IMHO circle icons don't convey much info
 		<div id="addTaskDiv">
 			<div class="addTaskDiv" data-color="yellow"><img class="addTaskContainer" src="img/yellow.png"></div>
 			<div class="addTaskDiv" data-color="green"><img class="addTaskContainer" src="img/green.png"></div>
@@ -49,6 +51,7 @@
 			<br><br>
 			<div id="taskInstructions">Drag a colour to the board to add a task.</div>
 		</div>
+		-->
 		<!-- Do it like trello style, where boards available in dropdown
 		<div id="addWorkflowDiv">
 			<div id="addWorkflowTitle">Workflows</div>
@@ -58,6 +61,12 @@
 	</div>
 	<div class="content">
 		<div id="default" class="workflowView scrollable">
+			<!--<div id="dragInstructions">
+				<div class="mid"><div class="cell">
+					<div class="stroke">Drag to this board to add a task</div>
+				</div></div>
+			</div>-->
+		
 			<div id="loginPrompt"><div class="mid"><div class="cell">
 				<div class="window">
 					<h2>Sign in</h2>
@@ -93,7 +102,7 @@
 <script type="text/javascript" src="js/uilogic.js"></script>
 
 
-<script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/sha1.js"></script>
+<script type="text/javascript" src="js/cryptojs.sha1.js"></script>
 <script type="text/javascript" src="js/client.auth.js"></script>
 <script type="text/javascript">
 var _gaq = _gaq || [];

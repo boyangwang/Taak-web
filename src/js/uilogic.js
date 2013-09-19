@@ -9,7 +9,8 @@ $(document).ready(function(){
 	$(".addTaskDiv").draggable({
 		revert:function(){
 			console.log("offset: " + $(this).offset().left);
-			if($(this).offset().left > 220){
+			//if($(this).offset().left > 220){
+			if($(this).offset().left > 64){
 				var taskPositionX = $(this).offset().left+20;
 				var taskPositionY = $(this).offset().top-30;
 				var taskColor = $(this).attr('data-color');
@@ -18,7 +19,13 @@ $(document).ready(function(){
 			}
 			return true;
 		},
-		revertDuration:0
+		revertDuration:0,
+		start:showDragInstructions,
+		stop:hideDragInstructions
+	}).mousedown(function() {
+		showDragInstructions();
+	}).mouseup(function() {
+		hideDragInstructions();
 	});
 	UI_init(); // located in client.js
 });

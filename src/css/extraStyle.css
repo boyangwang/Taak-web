@@ -49,8 +49,25 @@ body {
 	margin: 10px;
 	/*max-width: 100%;*/
 }
+.stroke {
+	text-shadow:
+   -1px -1px 0 rgba(0,0,0,0.6),  
+    1px -1px 0 rgba(0,0,0,0.6),
+    -1px 1px 0 rgba(0,0,0,0.6),
+     1px 1px 0 rgba(0,0,0,0.6);
+}
 
 /** Login prompt **/
+.mid {
+	display: table;
+	text-align: center;
+	height: 100%;
+	margin: auto;
+}
+.mid .cell {
+	display: table-cell;
+	vertical-align: middle;
+}
 #loginPrompt {
 	display: none;
 	position: absolute;
@@ -58,18 +75,6 @@ body {
 	height: 100%;
 	z-index: 100;
 	background-color: rgba(0,0,0,0.5);
-}
-#loginPrompt .mid {
-	display: table;
-	text-align: center;
-	height: 100%;
-	/*position: absolute;*/
-	margin: auto;
-}
-#loginPrompt .cell {
-	
-	display: table-cell;
-	vertical-align: middle;
 }
 #loginPrompt .window {
 	width: 400px;
@@ -204,6 +209,20 @@ body {
 	bottom: 0px;
 	position: fixed;
 	z-index: 11;
+}
+
+#taskInstructions{
+	position: absolute;
+	text-align: center;
+	/*height: 100%;*/
+	width: 100%;
+	top: 0px;
+	bottom: 0px;
+	/*padding-top: 3em;*/
+	
+	font-size: 2.3em;
+	font-family: HelveticaNeue-Light, Verdana, sans-serif;
+	color: #fff;
 }
 
 /*
