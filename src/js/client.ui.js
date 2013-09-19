@@ -219,31 +219,6 @@ function UI_addTaskPanel(entry,baseOffsetX,baseOffsetY,taskColor) {
 			"width": "250px",
 			"height": "250px",
 		});
-		/*
-		console.log("taskcolor: " + taskColor);
-		if(taskColor == "red"){
-			task.addClass("task-red");
-			//task.css("background-color","#ffc2cd");
-		}
-		if(taskColor == "blue"){
-			task.addClass("task-blue");
-			//task.css("background-color","#82befa");
-		}
-		if(taskColor == "yellow"){
-			task.addClass("task-yellow");
-			//task.css("background-color","#ffed75");
-		}
-		if(taskColor == "purple"){
-			task.addClass("task-purple");
-		}
-		if(taskColor == "green"){
-			task.addClass("task-green");
-		}
-		if(taskColor == "white"){
-			task.addClass("task-white");
-		}
-		*/
-		//console.log(task.css("background-color"));
 	} else {
 		task.css({
 			"position": "absolute",
@@ -289,8 +264,13 @@ function UI_addTaskPanel(entry,baseOffsetX,baseOffsetY,taskColor) {
 	task.append(infoDiv);
 	$(".workflowView").append(task);
 	
-	// Give focus to new entries
+	// Special treatment for new entries
 	if (newEntry) {
+		//task.hide(); // hide first to animate
+		//task.animate({'opacity' : 1}, { queue: false, duration: 300 }).show("scale",{origin:["top","left"]}, 300);
+		
+		
+		// Give focus
 		task.trigger("click"); // perform prerequisites before giving focus
 		forceFocus = true;
 		taskText.addClass("selected");

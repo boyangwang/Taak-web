@@ -17,11 +17,10 @@
 		
 		<!-- Top bar (re-added to test auth) (replace with newer solution -->
 		<div id="topbarView" style="display:block;">
-			<!--<a id="fb_oauth_link" href="https://www.facebook.com/dialog/oauth?client_id=472743636174429&redirect_uri=http://taak.onfry.com:8080/oauth.html&response_type=token"><img class="smallicon" src="img/changeIcon.png" style=""></a>-->
 			<a href="javascript:showLoginPrompt();"><img class="smallicon" src="img/changeIcon.png" style=""></a>
 			<span id="login_flag" style="display:none">Not Login</span>
 
-			<div id="topbarTitle">Default</div>
+			<!--Dropdown <div id="topbarTitle">Default</div>-->
 		</div>
 		<!-- End top bar -->
 		<div class="super-container">
@@ -39,7 +38,7 @@
 		</div>-->
 		<!--<div id="addTaskTitle">Add Task</div>
 		<br>-->
-		<!-- IMHO circle icons don't convey much info
+		<!-- IMHO circle icons don't convey much info compared to pictures of sticky notes
 		<div id="addTaskDiv">
 			<div class="addTaskDiv" data-color="yellow"><img class="addTaskContainer" src="img/yellow.png"></div>
 			<div class="addTaskDiv" data-color="green"><img class="addTaskContainer" src="img/green.png"></div>
@@ -61,11 +60,11 @@
 	</div>
 	<div class="content">
 		<div id="default" class="workflowView scrollable">
-			<!--<div id="dragInstructions">
-				<div class="mid"><div class="cell">
+			<div id="dragInstructions">
+				<!--<div class="mid"><div class="cell">
 					<div class="stroke">Drag to this board to add a task</div>
-				</div></div>
-			</div>-->
+				</div></div>-->
+			</div>
 		
 			<div id="loginPrompt"><div class="mid"><div class="cell">
 				<div class="window">

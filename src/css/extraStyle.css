@@ -118,34 +118,48 @@ body {
 	text-decoration: none;
 }
 
+/** Task deletion **/
+
 #deleteTaskIcon {
+/*
 	display: none;
-	/*width: 230px;*/
 	width: 80px;
 	text-align: center;
 	
 	padding: 10px;
 	height: 100%;
 	left: 0px;
-	/*top: 0px;*/
 	top: 44px;
 	position: fixed;
 	background-color: rgba(0,0,0,0.9);
+	*/
+	
+	display: none;
+	width: 90px;
+	background-color: #000;
+	background: linear-gradient(to right, rgba(150,28,0,0.6) 1%, rgba(150,28,0,0.5) 20%,rgba(150,28,0,0.3) 100%);
+	box-shadow: 3px 2px 2px rgba(0,0,0,0.5);
+	border-radius: 0px 10px 10px 0px;
+	
+	top: 64px;
+	bottom: 20px;
+	position: fixed;
+	z-index: 11;
 }
 #deleteTaskContainer{
-	/*width: 80px;
-	height: 80px;*/
 	width: 64px;
 	height: 64px;
-	/*left: 50%;*/
 	top: 50%;
-	margin-left: -32px;
+	/*margin-left: -32px;*/
+	margin-left: 12px;
 	margin-top: -32px;
-	/*margin-left: -40px;
-	margin-top: -40px;*/
-	
 	position: absolute;
-	/*max-width: 100%;*/
+}
+
+#deleteTaskIcon.active {
+	/*border: 5px dotted maroon;*/
+	/*background-color: #961c00;*/
+	background: linear-gradient(to right, rgba(150,28,0,0.8) 1%, rgba(150,28,0,0.7) 20%,rgba(150,28,0,0.5) 100%);
 }
 
 #dragInstructions{
@@ -164,10 +178,6 @@ body {
 	background-position: center;
 }
 
-#deleteTaskIcon.active {
-	/*border: 5px dotted maroon;*/
-	background-color: #961c00;
-}
 /* Make it easier to resize if task is selected */
 .selected .ui-resizable-s {
 	bottom: 0;
@@ -197,16 +207,14 @@ body {
 	margin-left: 10px;
 }
 #sidebarView{
-	/*height: 100%;*/
-	/*width: 200px;*/
-	/*position: fixed;*/
+	width: 90px;
 	background-color: #000;
-	/*background-color: -webkit-linear-gradient(top, rgba(0,0,0,0.5), rgba(0,0,0,0.8));*/
 	background: linear-gradient(to right, rgba(0,0,0,0.6) 1%, rgba(0,0,0,0.5) 20%,rgba(0,0,0,0.3) 100%);
-	box-shadow: 3px 0px 2px rgba(0,0,0,0.5);
+	box-shadow: 3px 2px 2px rgba(0,0,0,0.5);
+	border-radius: 0px 10px 10px 0px;
 	
-	top: 44px;
-	bottom: 0px;
+	top: 64px;
+	bottom: 20px;
 	position: fixed;
 	z-index: 11;
 }
@@ -273,4 +281,11 @@ White: fefefe, ebebeb, d7d7d7, a2a2a2
 
 .infoDiv { /* Hide, since not using currently */
 	opacity: 0;
+}
+
+#topbarView {
+	background-color: #303030;
+	/*background: linear-gradient(to bottom, rgba(0,0,0,0.6) 1%, rgba(0,0,0,0.5) 20%,rgba(0,0,0,0.3) 100%);*/
+	background: linear-gradient(to bottom, #303030 1%, #404040 40%,#505050 100%);
+	box-shadow: 0px 2px 2px rgba(0,0,0,0.5);	
 }

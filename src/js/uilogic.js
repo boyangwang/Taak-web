@@ -31,10 +31,10 @@ $(document).ready(function(){
 });
 
 function showDragInstructions() {
-	$("#dragInstructions").fadeIn(300);
+	$("#dragInstructions").fadeIn(100);
 }
 function hideDragInstructions() {
-	$("#dragInstructions").fadeOut(300);
+	$("#dragInstructions").fadeOut(100);
 }
 
 function addTask(x,y,taskColor){
