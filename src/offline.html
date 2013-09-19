@@ -1,126 +1,126 @@
 <!DOCTYPE html>
 <html manifest="cache_.manifest">
-	<head><title>Taak</title>
-		<meta charset="utf8">
-		<meta name="viewport" content="width=768, initial-scale=1, minimum-scale=1, maximum-scale=1">
-		<!--<meta name="viewport" content="width=device-width, user-scalable=false">-->
-		<link rel="icon" type="image/png" href="img/favicon.png">
-		<link rel="apple-touch-icon-precomposed" href="img/icon.png" />
-		<link rel="stylesheet" href="css/jquery-ui-1.10.3.custom.min.css" type="text/css" />
-		<link rel="stylesheet" href="css/style.css" type="text/css" />
-		<link rel="stylesheet" href="css/contentStyle.css" type="text/css" />
-		<link rel="stylesheet" href="css/extraStyle.css" type="text/css" />
-	</head>
-	<body>
-		<div id="fb-root"></div>
-		<script>
-			// Additional JS functions here
-			window.fbAsyncInit = function() {
-				FB.init({
-					appId: '472743636174429', // App ID
-					status: true, // check login status
-					cookie: true, // enable cookies to allow the server to access the session
-					xfbml: true, // parse XFBML
-					oauth: true
-				});
-				FB.getLoginStatus(FBLoginChange);
-				FB.Event.subscribe('auth.authResponseChange', FBLoginChange);
-			};
+<head><title>Taak</title>
+	<meta charset="utf8">
+	<meta name="viewport" content="width=768, initial-scale=1, minimum-scale=1, maximum-scale=1">
+	<!--<meta name="viewport" content="width=device-width, user-scalable=false">-->
+	<link rel="icon" type="image/png" href="img/favicon.png">
+	<link rel="apple-touch-icon-precomposed" href="img/icon.png" />
+	<link rel="stylesheet" href="css/jquery-ui-1.10.3.custom.min.css" type="text/css" />
+	<link rel="stylesheet" href="css/style.css" type="text/css" />
+	<link rel="stylesheet" href="css/contentStyle.css" type="text/css" />
+	<link rel="stylesheet" href="css/extraStyle.css" type="text/css" />
+	<link rel="stylesheet" href="css/auth.css" type="text/css" />
+</head>
+<body>
+	<div id="fb-root"></div>
+		
+		<!-- Top bar (re-added to test auth) -->
+		<div id="topbarView" style="display:block;">
+			<a href="javascript:showLoginPrompt();"><img class="smallicon" src="img/changeIcon.png" style=""></a>
+			<span id="login_flag" style="display:none">Not Login</span>
 
-			// Load the SDK asynchronously
-			(function(d) {
-				var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
-				if (d.getElementById(id)) {
-					return;
-				}
-				js = d.createElement('script');
-				js.id = id;
-				js.async = true;
-				js.src = "//connect.facebook.net/en_US/all.js";
-				ref.parentNode.insertBefore(js, ref);
-			}(document));
-			function FBLoginChange(response) {
-				console.log(response);
-				if (response.authResponse) {
-					//user is already logged in and connected
-					FB.api('/me', function(response) {
-						var fbpic = $('#fbpic');
-						fbpic.attr('src', 'https://graph.facebook.com/' + response.id + '/picture');
-					});
-				}
-				
-			}
-		</script>
-
-
-		<!--<a href="javascript:reload();">Reload</a>-->
-		<!--
-		<table class="maintable" cellpadding="0" cellspacing="0">
-			<tr class="header"><td><input type="text" class="box typeahead" id="entryBox" onkeydown="javascript:submit(event, addEntry, 'entryBox');"></td><td style="width:50px;"><input class="addButton box" type="button" onclick="javascript:addEntry('entryBox')" value="+"></td></tr>
-			<tr><td class="content" colspan="2"><div id="listings" onclick="javascript:unhighlightAll();">
-
-
-					</div></td></tr>
-					<tr>
-						<td class="bottombar">Synchronize</td>
-					</tr>
-		</table>
-		-->
-		<!--
-		<div class="authTrigger">
-			<img id="fbpic" /><br>
-			<fb:login-button show-faces="false" width="200" max-rows="1" autologoutlink="true"></fb:login-button>
+			<!--Uncomment when implemented<div id="topbarTitle">Default</div>-->
 		</div>
-		<div class="simpleOverlay" id="authOverlay">
-			<a class="close"></a>
-			<form id="authForm">
-				Username: <input type="text" name="username"><br>
-				Password: <input type="password" name="pwd"><br>
-				<input id="authSubmit" value="Submit" type="button">
-			</form>
+		<!-- End top bar -->
+		<div class="super-container">
+			<div id="sidebarView" class="box"><div class="mid">
+			<div id="addTaskDiv" class="box">			
+				<div class="addTaskDiv" data-color="yellow"><img class="addTaskContainer" src="img/task-yellow.png"></div>
+				<div class="addTaskDiv" data-color="blue"><img class="addTaskContainer" src="img/task-blue.png"></div>
+				<div class="addTaskDiv" data-color="red"><img class="addTaskContainer" src="img/task-pink.png"></div>
+				<div class="addTaskDiv" data-color="green"><img class="addTaskContainer" src="img/task-green.png"></div>
+				<div class="addTaskDiv" data-color="purple"><img class="addTaskContainer" src="img/task-purple.png"></div>
+				<div class="addTaskDiv" data-color="white"><img class="addTaskContainer" src="img/task-white.png"></div>
+			</div></div>
+		<!--<div style="height:60px;"></div>-->
+		
+		<!-- Put in pull menu instead of front-view <div id="userInfoDiv">
+			<img id="userInfoImage" src="http://1.bp.blogspot.com/-9BE2vIjlgz4/TnEB3KGVYqI/AAAAAAAAAM0/99j01Ix1vnI/s72-c/amhis_appleseed.gif"/>
+			<div id="userInfoName">Johnny Appleseed</div>
 		</div>-->
-		<div id="topbarView"></div>
-		<div class="content">
-			<div class="workflowView scrollable">
-				<div id="addTaskIcon"><div id="addTaskContainer">+</div></div>
-				
-				<div id="deleteTaskIcon"><div id="deleteTaskContainer">-</div></div>
-			</div>
+		<!--<div id="addTaskTitle">Add Task</div>
+		<br>-->
+		<!-- IMHO circle icons don't convey much info compared to pictures of sticky notes
+		<div id="addTaskDiv">
+			<div class="addTaskDiv" data-color="yellow"><img class="addTaskContainer" src="img/yellow.png"></div>
+			<div class="addTaskDiv" data-color="green"><img class="addTaskContainer" src="img/green.png"></div>
+			<div class="addTaskDiv" data-color="purple"><img class="addTaskContainer" src="img/purple.png"></div>
+			<div style="height:13px;"></div>
+			<div class="addTaskDiv" data-color="white"><img class="addTaskContainer" src="img/white.png"></div>
+			<div class="addTaskDiv" data-color="red"><img class="addTaskContainer" src="img/red.png"></div>
+			<div class="addTaskDiv" data-color="blue"><img class="addTaskContainer" src="img/blue.png"></div>
+			<br><br>
+			<div id="taskInstructions">Drag a colour to the board to add a task.</div>
 		</div>
-		<script type="text/javascript" src="js/jquery_1.10.2.js"></script>
-		<script type="text/javascript" src="js/jquery.tools.min.js"></script>
-		<script type="text/javascript" src="js/jquery-ui-1.10.3.custom.min.js"></script>
-		<script type="text/javascript" src="js/jquery.ui.touch-punch.min.js"></script>
+		-->
+		<!-- Do it like trello style, where boards available in dropdown
+		<div id="addWorkflowDiv">
+			<div id="addWorkflowTitle">Workflows</div>
+			<div class="workflowName">Default</div>
+		</div>
+		--->
+	</div>
+	<div class="content">
+		<div id="default" class="workflowView scrollable">
+			<div id="dragInstructions">
+				<!--<div class="mid"><div class="cell">
+					<div class="stroke">Drag to this board to add a task</div>
+				</div></div>-->
+			</div>
 		
-		
-		<script type="text/javascript" src="js/typeahead.js"></script>
-		<script type="text/javascript" src="js/fastInput.js"></script>
+			<div id="loginPrompt"><div class="mid"><div class="cell">
+				<div class="window">
+					<h2>Sign in</h2>
+					<div class="window-content box">
+						<p>Signing in allows you to synchronize tasks across multiple devices</p>
+						<a class="option box" id="fb_oauth_link_prompt" href="https://www.facebook.com/dialog/oauth?client_id=472743636174429&redirect_uri=http://taak.onfry.com/oauth.php">Login using Facebook</a>
+						<a class="option box" id="fb_oauth_link_prompt" href="https://www.facebook.com/dialog/oauth?client_id=202826093232352&redirect_uri=http://localhost.onfry.com/cs3216/as3/repo/cs3216-as3/src/oauth.php">Login (private: 192.168.0.110)</a>
+						<a class="option-text" href="javascript:hideLoginPrompt();">No thanks, I do not want to sign in</a>
+					</div>
+				</div></div></div>
+			</div>
+			<!--<div id="dragInstructions"></div>
+			<img id="dragInstructions" src="img/dragInstructions.png"/>-->
+			<div id="deleteTaskIcon"><img id="deleteTaskContainer" src="img/deleteIcon.png"/></div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript" src="js/jquery_1.10.2.js"></script>
+<script type="text/javascript" src="js/jquery-collision.min.js"></script>
+<script type="text/javascript" src="js/jquery.tools.min.js"></script>
+<script type="text/javascript" src="js/jquery-ui-1.10.3.custom.min.js"></script>
+<script type="text/javascript" src="js/jquery.ui.touch-punch.min.js"></script>
 
-		
-		<script type="text/javascript" src="js/client.net.js"></script>
-		<script type="text/javascript" src="js/client.sync.js"></script>
-		<script type="text/javascript" src="js/client.manager.js"></script>
-		<script type="text/javascript" src="js/client.js"></script>
-		<script type="text/javascript" src="js/client.ui.js"></script>
-		<script type="text/javascript" src="js/uilogic.js"></script>
+
+<!--<script type="text/javascript" src="js/typeahead.js"></script>
+<script type="text/javascript" src="js/fastInput.js"></script>-->
 
 
-		<script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/sha1.js"></script>
-		<script type="text/javascript" src="js/client.auth.js"></script>
-		<script type="text/javascript">
-					var _gaq = _gaq || [];
-					_gaq.push(['_setAccount', 'UA-43901195-1']);
-					_gaq.push(['_trackPageview']);
+<script type="text/javascript" src="js/client.net.js"></script>
+<script type="text/javascript" src="js/client.sync.js"></script>
+<script type="text/javascript" src="js/client.manager.js"></script>
+<script type="text/javascript" src="js/client.js"></script>
+<script type="text/javascript" src="js/client.ui.js"></script>
+<script type="text/javascript" src="js/uilogic.js"></script>
 
-					(function() {
-						var ga = document.createElement('script');
-						ga.type = 'text/javascript';
-						ga.async = true;
-						ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-						var s = document.getElementsByTagName('script')[0];
-						s.parentNode.insertBefore(ga, s);
-				}
-				)();
-		</script>
-	</body>
+
+<script type="text/javascript" src="js/cryptojs.sha1.js"></script>
+<script type="text/javascript" src="js/client.auth.js"></script>
+<script type="text/javascript">
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-43901195-1']);
+_gaq.push(['_trackPageview']);
+
+(function() {
+	var ga = document.createElement('script');
+	ga.type = 'text/javascript';
+	ga.async = true;
+	ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+	var s = document.getElementsByTagName('script')[0];
+	s.parentNode.insertBefore(ga, s);
+}
+)();
+</script>
+</body>
 </html>

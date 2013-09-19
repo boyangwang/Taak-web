@@ -1,6 +1,6 @@
 CACHE MANIFEST
 # Change version number when updating files so cached files are updated
-# version 0.20
+# version 0.21
 
 # Note:
 # To update files on browser after changing them
@@ -12,11 +12,8 @@ CACHE MANIFEST
 
 index.html
 offline.html
-css/style.css
 js/uilogic.js
-js/fastInput.js
-js/typeahead.js
-js/typeahead.min.js
+js/cryptojs.sha1.js
 js/client.auth.js
 js/client.ui.js
 js/client.manager.js
@@ -25,11 +22,27 @@ js/client.net.js
 js/client.js
 img/icon.png
 img/favicon.png
+img/addIcon.png
+img/background.jpg
+img/changeIcon.png
+img/clock.png
+img/close.png
+img/deleteIcon.png
+img/dragInstructions.png
+img/task-blue.png
+img/task-green.png
+img/task-pink.png
+img/task-purple.png
+img/task-white.png
+img/task-yellow.png
+img/topbar.png
+img/usermini.png
 js/jquery.tools.min.js
 js/jquery.ui.touch-punch.min.js
 js/jquery-ui-1.10.3.custom.min.js
 js/jquery_1.10.2.js
 js/jquery-1.10.2.min.map
+css/style.css
 css/contentStyle.css
 css/extraStyle.css
 css/jquery-ui-1.10.3.custom.min.css
