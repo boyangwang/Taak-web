@@ -178,7 +178,7 @@ body {
 	max-width: 100%;
 	z-index: 10;
 	background-color: rgba(0,0,0,0.5);
-	background-image:url('../img/draginstructions.png');
+	background-image:url('../img/dragInstructions.png');
 	background-repeat: no-repeat;
 	background-position: center;
 }
