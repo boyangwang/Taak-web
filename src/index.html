@@ -15,21 +15,24 @@
 <body>
 	<div id="fb-root"></div>
 		
-		<!-- Top bar (re-added to test auth) (replace with newer solution -->
+		<!-- Top bar (re-added to test auth) -->
 		<div id="topbarView" style="display:block;">
 			<a href="javascript:showLoginPrompt();"><img class="smallicon" src="img/changeIcon.png" style=""></a>
 			<span id="login_flag" style="display:none">Not Login</span>
 
-			<!--Dropdown <div id="topbarTitle">Default</div>-->
+			<!--Uncomment when implemented<div id="topbarTitle">Default</div>-->
 		</div>
 		<!-- End top bar -->
 		<div class="super-container">
-			<div id="sidebarView">
-			<div id="addTaskDiv">			
+			<div id="sidebarView" class="box"><div class="mid">
+			<div id="addTaskDiv" class="box">			
 				<div class="addTaskDiv" data-color="yellow"><img class="addTaskContainer" src="img/task-yellow.png"></div>
 				<div class="addTaskDiv" data-color="blue"><img class="addTaskContainer" src="img/task-blue.png"></div>
 				<div class="addTaskDiv" data-color="red"><img class="addTaskContainer" src="img/task-pink.png"></div>
-			</div>
+				<div class="addTaskDiv" data-color="green"><img class="addTaskContainer" src="img/task-green.png"></div>
+				<div class="addTaskDiv" data-color="purple"><img class="addTaskContainer" src="img/task-purple.png"></div>
+				<div class="addTaskDiv" data-color="white"><img class="addTaskContainer" src="img/task-white.png"></div>
+			</div></div>
 		<!--<div style="height:60px;"></div>-->
 		
 		<!-- Put in pull menu instead of front-view <div id="userInfoDiv">
@@ -89,8 +92,8 @@
 <script type="text/javascript" src="js/jquery.ui.touch-punch.min.js"></script>
 
 
-<script type="text/javascript" src="js/typeahead.js"></script>
-<script type="text/javascript" src="js/fastInput.js"></script>
+<!--<script type="text/javascript" src="js/typeahead.js"></script>
+<script type="text/javascript" src="js/fastInput.js"></script>-->
 
 
 <script type="text/javascript" src="js/client.net.js"></script>
