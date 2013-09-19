@@ -31,19 +31,26 @@ body {
 }
 
 .addTaskDiv{
-	width: 40px;
-	height: 40px;
+	/*width: 40px;
+	height: 40px;*/
 	cursor: pointer;
-	display: inline;
+	/*display: inline;*/
+	display: block;
 	padding: 6px;
 }
 
 .addTaskContainer{
+/*
 	width: 40px;
 	height: 40px;
-	max-width: 100%;
+	*/
+	width: 64px;
+	height: 64px;
+	margin: 10px;
+	/*max-width: 100%;*/
 }
 
+/** Login prompt **/
 #loginPrompt {
 	display: none;
 	position: absolute;
@@ -108,22 +115,32 @@ body {
 
 #deleteTaskIcon {
 	display: none;
-	width: 230px;
+	/*width: 230px;*/
+	width: 80px;
+	text-align: center;
+	
+	padding: 10px;
 	height: 100%;
 	left: 0px;
-	top: 0px;
+	/*top: 0px;*/
+	top: 44px;
 	position: fixed;
 	background-color: rgba(0,0,0,0.9);
 }
 #deleteTaskContainer{
-	width: 80px;
-	height: 80px;
-	left: 50%;
+	/*width: 80px;
+	height: 80px;*/
+	width: 64px;
+	height: 64px;
+	/*left: 50%;*/
 	top: 50%;
-	margin-left: -40px;
-	margin-top: -40px;
+	margin-left: -32px;
+	margin-top: -32px;
+	/*margin-left: -40px;
+	margin-top: -40px;*/
+	
 	position: absolute;
-	max-width: 100%;
+	/*max-width: 100%;*/
 }
 
 #dragInstructions{
@@ -175,15 +192,16 @@ body {
 	margin-left: 10px;
 }
 #sidebarView{
-	height: 100%;
-	width: 200px;
-	position: fixed;
+	/*height: 100%;*/
+	/*width: 200px;*/
+	/*position: fixed;*/
 	background-color: #000;
 	/*background-color: -webkit-linear-gradient(top, rgba(0,0,0,0.5), rgba(0,0,0,0.8));*/
 	background: linear-gradient(to right, rgba(0,0,0,0.6) 1%, rgba(0,0,0,0.5) 20%,rgba(0,0,0,0.3) 100%);
 	box-shadow: 3px 0px 2px rgba(0,0,0,0.5);
 	
-	top: 0px;
+	top: 44px;
+	bottom: 0px;
 	position: fixed;
 	z-index: 11;
 }
