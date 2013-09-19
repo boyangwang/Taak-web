@@ -1,4 +1,7 @@
 /* Overrides */
+body {
+	font-family: HelveticaNeue-Light, Verdana, sans-serif;
+}
 .task.selected {
 	border: 1px solid #a7a51c;
 }
@@ -42,17 +45,80 @@
 }
 
 #loginPrompt {
+	display: none;
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	z-index: 100;
+	background-color: rgba(0,0,0,0.5);
+}
+#loginPrompt .mid {
+	display: table;
+	text-align: center;
+	height: 100%;
+	/*position: absolute;*/
+	margin: auto;
+}
+#loginPrompt .cell {
+	
+	display: table-cell;
+	vertical-align: middle;
+}
+#loginPrompt .window {
+	width: 400px;
+	border-radius: 10px;
+	border: 1px solid #ccc;
+	background-color: #fff;
+	box-shadow: 0 2px 2px rgba(0,0,0,0.3);
+}
+#loginPrompt .window h2 {
+	font-size: 1.4em;
+	color #777;
+	background-color: #eee;
+	margin: 0px;
+	padding: 5px 10px;
+	display: block;
+	border-bottom: 1px solid #ccc;
+	font-weight: normal;
+	border-radius: 10px 10px 0px 0px;
+}
+#loginPrompt .window-content {
+	padding: 10px 30px;
+}
+#loginPrompt .window-content .option {
+	border: 1px solid #ccc;
+	display: block;
+	padding: 10px;
+	width: 100%;
+	text-decoration: none;
+	color: #777;
+	background-color: #eee;
+	border-radius: 2px;
+	margin-top: 10px;
+}
+#loginPrompt p {
+	margin: 0px;
+	padding: 0px;
+}
+#loginPrompt .window-content .option-text {
+	display: block;
+	margin-top: 30px;
+	text-decoration: none;
+}
+/*
+#loginPrompt {
 	width: 100%;
 	height: 100%;
 	overflow: hidden;
 	position: absolute;
 	left: 0px;
 	top: 0px;
-	display: none;
+	//display: none;
+	display: block;
 	max-width: 100%;
 	z-index: 10;
 	background-color: rgba(0,0,0,0.5);
-	/*background-image:url('../img/loginPrompt3.png');*/
+	//background-image:url('../img/loginPrompt3.png');
 	background-repeat: no-repeat;
 	background-position: center;
 }
@@ -64,6 +130,7 @@
 	font-size: 48px;
 	display: inline-block;
 }
+
 #fb_oauth_link_prompt {
 	display: inline-block;
 	color: white;
@@ -73,6 +140,7 @@
 	left: 36%;
 	text-decoration: underline;
 }
+*/
 
 #deleteTaskIcon {
 	display: none;

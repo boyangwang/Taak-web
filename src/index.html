@@ -14,73 +14,6 @@
 </head>
 <body>
 	<div id="fb-root"></div>
-	<!--
-	<script>
-			// Additional JS functions here
-			window.fbAsyncInit = function() {
-				FB.init({
-					appId: '472743636174429', // App ID
-					status: true, // check login status
-					cookie: true, // enable cookies to allow the server to access the session
-					xfbml: true, // parse XFBML
-					oauth: true
-				});
-				FB.getLoginStatus(FBLoginChange);
-				FB.Event.subscribe('auth.authResponseChange', FBLoginChange);
-			};
-
-			// Load the SDK asynchronously
-			(function(d) {
-				var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
-				if (d.getElementById(id)) {
-					return;
-				}
-				js = d.createElement('script');
-				js.id = id;
-				js.async = true;
-				js.src = "//connect.facebook.net/en_US/all.js";
-				ref.parentNode.insertBefore(js, ref);
-			}(document));
-			function FBLoginChange(response) {
-				console.log(response);
-				if (response.authResponse) {
-					//user is already logged in and connected
-					FB.api('/me', function(response) {
-						var fbpic = $('#fbpic');
-						fbpic.attr('src', 'https://graph.facebook.com/' + response.id + '/picture');
-					});
-				}
-				
-			}
-			</script>
-		-->
-
-		<!--<a href="javascript:reload();">Reload</a>-->
-		<!--
-		<table class="maintable" cellpadding="0" cellspacing="0">
-			<tr class="header"><td><input type="text" class="box typeahead" id="entryBox" onkeydown="javascript:submit(event, addEntry, 'entryBox');"></td><td style="width:50px;"><input class="addButton box" type="button" onclick="javascript:addEntry('entryBox')" value="+"></td></tr>
-			<tr><td class="content" colspan="2"><div id="listings" onclick="javascript:unhighlightAll();">
-
-
-					</div></td></tr>
-					<tr>
-						<td class="bottombar">Synchronize</td>
-					</tr>
-		</table>
-	-->
-		<!--
-		<div class="authTrigger">
-			<img id="fbpic" /><br>
-			<fb:login-button show-faces="false" width="200" max-rows="1" autologoutlink="true"></fb:login-button>
-		</div>
-		<div class="simpleOverlay" id="authOverlay">
-			<a class="close"></a>
-			<form id="authForm">
-				Username: <input type="text" name="username"><br>
-				Password: <input type="password" name="pwd"><br>
-				<input id="authSubmit" value="Submit" type="button">
-			</form>
-		</div>-->
 		
 		<!-- Top bar (re-added to test auth) (replace with newer solution -->
 		<div id="topbarView" style="display:block;">
@@ -123,8 +56,15 @@
 	</div>
 	<div class="content">
 		<div id="default" class="workflowView scrollable">
-			<div id="loginPrompt">
-				<a id="fb_oauth_link_prompt" href="https://www.facebook.com/dialog/oauth?client_id=472743636174429&redirect_uri=http://taak.onfry.com/oauth.html&response_type=token">Login</a><p>to Sync Tasks<br>between Devices</p>
+			<div id="loginPrompt"><div class="mid"><div class="cell">
+				<div class="window">
+					<h2>Sign in</h2>
+					<div class="window-content box">
+						<p>Signing in allows you to synchronize tasks across multiple devices</p>
+						<a class="option box" id="fb_oauth_link_prompt" href="https://www.facebook.com/dialog/oauth?client_id=472743636174429&redirect_uri=http://taak.onfry.com/oauth.html&response_type=token">Login using Facebook</a>
+						<a class="option-text" href="javascript:hideLoginPrompt();">No thanks, I do not want to sign in</a>
+					</div>
+				</div></div></div>
 			</div>
 			<!--<div id="dragInstructions"></div>
 			<img id="dragInstructions" src="img/dragInstructions.png"/>-->

@@ -2,6 +2,9 @@ $(document).ready(function(){
 	console.log("ready");
 
 	// @boyang
+	$("#loginPrompt .window").click(function(e) {
+		e.stopPropagation();
+	});
 	$('#loginPrompt').click(hideLoginPrompt);
 
 	$(".addTaskDiv").draggable({
