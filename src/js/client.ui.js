@@ -173,16 +173,14 @@ function UI_positionColorSwitcher(target) {
 	if (selected.get(0) || target) {
 		var helper = $(".colortoolbar");
 		helper.css({
-			"display": "block",
 			"left": (parseInt(selected.css("left").replace("px","")) + parseInt(selected.css("width").replace("px",""))/2 - parseInt(helper.css("width").replace("px",""))/2)+"px",
 			"top": (parseInt(selected.css("top").replace("px","")) + parseInt(selected.css("height").replace("px","")) + 10)+"px"
 		});
+		helper.fadeIn(200);
 	}
 }
 function UI_hideColorSwitcher() {
-	$(".colortoolbar").css({
-		"display":"none"
-	});
+	$(".colortoolbar").fadeOut(200);
 }
 function UI_setColor(obj, event) {
 	var obj = $(obj);
