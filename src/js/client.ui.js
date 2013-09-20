@@ -81,6 +81,7 @@ function UI_showTaskPanel(entry) {
 			target.attr("data-taskposition", entry.x + "_" + entry.y);
 			target.attr("data-taskdimension", entry.w + "_" + entry.h);
 			target.attr("data-taskcolor", entry.color);
+			target.parent().addClass("task-" + entry.color);
 			target.html(entry.value);
 			target.parent().css({
 				"left": entry.x,
