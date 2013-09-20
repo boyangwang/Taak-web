@@ -15,87 +15,46 @@
 <body>
 	<div id="fb-root"></div>
 		
-		<!-- Top bar (re-added to test auth) -->
-		<div id="topbarView" style="display:block;">
-			<a href="javascript:showLoginPrompt();"><img class="smallicon" src="img/changeIcon.png" style=""></a>
-			<span id="login_flag" style="display:none">Not Login</span>
+	<!-- Top bar (re-added to test auth) -->
+	<div id="topbarView" style="display:block;">
+		<a href="javascript:showLoginPrompt();"><img class="smallicon" src="img/changeIcon.png" style=""></a>
+		<span id="login_flag" style="display:none">Not Login</span>
 
-			<!--Uncomment when implemented<div id="topbarTitle">Default</div>-->
-		</div>
-		<!-- End top bar -->
-		<div class="super-container">
-			<div id="sidebarView" class="box"><div class="mid">
-			<div id="addTaskDiv" class="box">			
-				<div class="addTaskDiv" data-color="yellow"><img class="addTaskContainer" src="img/task-yellow.png"></div>
-				<div class="addTaskDiv" data-color="blue"><img class="addTaskContainer" src="img/task-blue.png"></div>
-				<div class="addTaskDiv" data-color="red"><img class="addTaskContainer" src="img/task-pink.png"></div>
-				<div class="addTaskDiv" data-color="green"><img class="addTaskContainer" src="img/task-green.png"></div>
-				<div class="addTaskDiv" data-color="purple"><img class="addTaskContainer" src="img/task-purple.png"></div>
-				<div class="addTaskDiv" data-color="white"><img class="addTaskContainer" src="img/task-white.png"></div>
-			</div></div>
-		<!--<div style="height:60px;"></div>-->
-		
-		<!-- Put in pull menu instead of front-view <div id="userInfoDiv">
-			<img id="userInfoImage" src="http://1.bp.blogspot.com/-9BE2vIjlgz4/TnEB3KGVYqI/AAAAAAAAAM0/99j01Ix1vnI/s72-c/amhis_appleseed.gif"/>
-			<div id="userInfoName">Johnny Appleseed</div>
-		</div>-->
-		<!--<div id="addTaskTitle">Add Task</div>
-		<br>-->
-		<!-- IMHO circle icons don't convey much info compared to pictures of sticky notes
-		<div id="addTaskDiv">
-			<div class="addTaskDiv" data-color="yellow"><img class="addTaskContainer" src="img/yellow.png"></div>
-			<div class="addTaskDiv" data-color="green"><img class="addTaskContainer" src="img/green.png"></div>
-			<div class="addTaskDiv" data-color="purple"><img class="addTaskContainer" src="img/purple.png"></div>
-			<div style="height:13px;"></div>
-			<div class="addTaskDiv" data-color="white"><img class="addTaskContainer" src="img/white.png"></div>
-			<div class="addTaskDiv" data-color="red"><img class="addTaskContainer" src="img/red.png"></div>
-			<div class="addTaskDiv" data-color="blue"><img class="addTaskContainer" src="img/blue.png"></div>
-			<br><br>
-			<div id="taskInstructions">Drag a colour to the board to add a task.</div>
-		</div>
-		-->
-		<!-- Do it like trello style, where boards available in dropdown
-		<div id="addWorkflowDiv">
-			<div id="addWorkflowTitle">Workflows</div>
-			<div class="workflowName">Default</div>
-		</div>
-		--->
 	</div>
-	<div class="content">
-		<div id="default" class="workflowView scrollable">
-			<div id="dragInstructions">
-				<!--<div class="mid"><div class="cell">
-					<div class="stroke">Drag to this board to add a task</div>
-				</div></div>-->
+	<!-- End top bar -->
+	<div class="super-container">
+		<div id="sidebarView" class="box"><div class="mid"><div id="addTaskDiv" class="box">			
+			<div class="addTaskDiv" data-color="yellow"><img class="addTaskContainer" src="img/task-yellow.png"></div>
+			<div class="addTaskDiv" data-color="blue"><img class="addTaskContainer" src="img/task-blue.png"></div>
+			<div class="addTaskDiv" data-color="red"><img class="addTaskContainer" src="img/task-pink.png"></div>
+			<div class="addTaskDiv" data-color="green"><img class="addTaskContainer" src="img/task-green.png"></div>
+			<div class="addTaskDiv" data-color="purple"><img class="addTaskContainer" src="img/task-purple.png"></div>
+			<div class="addTaskDiv" data-color="white"><img class="addTaskContainer" src="img/task-white.png"></div>
+		</div></div></div>
+		<div class="content">
+			<div id="default" class="workflowView scrollable">
+				<div id="dragInstructions"></div>
+			
+				<div id="loginPrompt"><div class="mid"><div class="cell">
+					<div class="window">
+						<h2>Sign in</h2>
+						<div class="window-content box">
+							<p>Signing in allows you to synchronize tasks across multiple devices</p>
+							<a class="option box" id="fb_oauth_link_prompt" href="https://www.facebook.com/dialog/oauth?client_id=472743636174429&redirect_uri=http://taak.onfry.com/oauth.php">Login using Facebook</a>
+							<!--<a class="option box" id="fb_oauth_link_prompt" href="https://www.facebook.com/dialog/oauth?client_id=202826093232352&redirect_uri=http://localhost.onfry.com/cs3216/as3/repo/cs3216-as3/src/oauth.php">Login (private: 192.168.0.110)</a>-->
+							<a class="option-text" href="javascript:hideLoginPrompt();">No thanks, I do not want to sign in</a>
+						</div>
+					</div></div></div>
+				</div>
+				<div id="deleteTaskIcon"><img id="deleteTaskContainer" src="img/deleteIcon.png"/></div>
 			</div>
-		
-			<div id="loginPrompt"><div class="mid"><div class="cell">
-				<div class="window">
-					<h2>Sign in</h2>
-					<div class="window-content box">
-						<p>Signing in allows you to synchronize tasks across multiple devices</p>
-						<a class="option box" id="fb_oauth_link_prompt" href="https://www.facebook.com/dialog/oauth?client_id=472743636174429&redirect_uri=http://taak.onfry.com/oauth.php">Login using Facebook</a>
-						<a class="option box" id="fb_oauth_link_prompt" href="https://www.facebook.com/dialog/oauth?client_id=202826093232352&redirect_uri=http://localhost.onfry.com/cs3216/as3/repo/cs3216-as3/src/oauth.php">Login (private: 192.168.0.110)</a>
-						<a class="option-text" href="javascript:hideLoginPrompt();">No thanks, I do not want to sign in</a>
-					</div>
-				</div></div></div>
-			</div>
-			<!--<div id="dragInstructions"></div>
-			<img id="dragInstructions" src="img/dragInstructions.png"/>-->
-			<div id="deleteTaskIcon"><img id="deleteTaskContainer" src="img/deleteIcon.png"/></div>
 		</div>
 	</div>
-</div>
 <script type="text/javascript" src="js/jquery_1.10.2.js"></script>
 <script type="text/javascript" src="js/jquery-collision.min.js"></script>
 <script type="text/javascript" src="js/jquery.tools.min.js"></script>
 <script type="text/javascript" src="js/jquery-ui-1.10.3.custom.min.js"></script>
 <script type="text/javascript" src="js/jquery.ui.touch-punch.min.js"></script>
-
-
-<!--<script type="text/javascript" src="js/typeahead.js"></script>
-<script type="text/javascript" src="js/fastInput.js"></script>-->
-
 
 <script type="text/javascript" src="js/client.net.js"></script>
 <script type="text/javascript" src="js/client.sync.js"></script>
@@ -103,7 +62,6 @@
 <script type="text/javascript" src="js/client.js"></script>
 <script type="text/javascript" src="js/client.ui.js"></script>
 <script type="text/javascript" src="js/uilogic.js"></script>
-
 
 <script type="text/javascript" src="js/cryptojs.sha1.js"></script>
 <script type="text/javascript" src="js/client.auth.js"></script>

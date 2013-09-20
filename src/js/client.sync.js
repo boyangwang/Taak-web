@@ -12,27 +12,27 @@ function TaskSync() {
 	this.net.token = "";
 	this.online = false;
 	this.latestTransaction = 0;
+	this.onconnect = function() { };
+	
+	// Update online state
+	var sync = this;
+	if (navigator.onLine) {
+		this.online = true;
+	}
+	window.addEventListener( 'online', function( event ) {
+		sync.online = true;
+		sync.onconnect();
+	}, false);
+	window.addEventListener( 'offline', function( event ) {
+		sync.online = false;
+	}, false);
 }
 // Fetch token from local storage
 TaskSync.prototype.initToken = function() {
-	//-------------------
-	// @boyang
-	// To tell whether login or not, check whether fb_token exists
-	// if not login, use the anonymous routine
-	console.log("in initToken");
 	if (localStorage.fb_token) {
 		console.log("fb_token exists");
-		/* // Not required
-		(function(net) {
-		var userid = net.doPostAuth(localStorage.fb_token, function(res) {
-			console.log("Facebook callback", res);
-			net.setToken(localStorage.fb_token, res);		
-		});
-		})(this.net);
-		*/
 		this.net.setToken(localStorage.fb_token, localStorage.fb_userid);
-	}
-	else {
+	} else {
 		if (localStorage.token == null) {
 			// Generate new token for anonymous user
 			localStorage.token = "anon_token_" + Date.now();
@@ -41,11 +41,11 @@ TaskSync.prototype.initToken = function() {
 		this.net.setToken(localStorage.token, userid);
 	}
 }
-
+/*
 TaskSync.prototype.getToken = function() {
 	console.log("Token", this.net.token);
 	console.log("User", this.net.user);
-}
+}*/
 // Set the local copy (usually from localStorage)
 TaskSync.prototype.setLocal = function(localCopy) {
 	this.localCopy.length = 0;
