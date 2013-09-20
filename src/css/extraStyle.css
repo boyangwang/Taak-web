@@ -2,65 +2,59 @@
 body {
 	font-family: HelveticaNeue-Light, Verdana, sans-serif;
 }
-.task.selected {
-	border: 1px solid #a7a51c;
-}
 .taskText.selected{
-	/*border: 1px solid #e8e66e;
-	background-color: #fff;
-	border-radius: 10px;*/
 }
 .taskText {
 	font-family: HelveticaNeue-Light, Verdana, sans-serif;
 }
 
-
-.task {
-	border: 1px solid #e8e66e;
-	background-color: rgba(248,247,182,1);
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#fdfdcb), color-stop(100%,#fcf9a1)); /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(top, #fdfdcb 0%,#fcf9a1 100%); /* Chrome10+,Safari5.1+ */
-	background: linear-gradient(to bottom, #fdfdcb 0%,#fcf9a1 100%); /* W3C */
-	-webkit-border-radius: 10px;
-	border-radius: 10px;
-	-webkit-box-shadow: 0 2px 2px rgba(0,0,0,0.3);
-	box-shadow: 0 2px 2px rgba(0,0,0,0.3);
-}
 .task.ui-draggable-dragging { /* Semi transparent style when dragging */
 	opacity: 0.7;
 }
-
 .addTaskDiv{
-	/*width: 40px;
-	height: 40px;*/
 	cursor: pointer;
-	/*display: inline;*/
-	/*display: block;*/
 	display: inline-block;
-	/*padding: 6px;*/
 }
-
 .addTaskContainer{
-/*
-	width: 40px;
-	height: 40px;
-	*/
 	width: 64px;
 	height: 64px;
 	margin: 5px;
-	/*max-width: 100%;*/
 }
-
 .ui-resizable-handle {
 	z-index: auto !important;
 }
-
 .stroke {
-	text-shadow:
-   -1px -1px 0 rgba(0,0,0,0.6),  
-    1px -1px 0 rgba(0,0,0,0.6),
-    -1px 1px 0 rgba(0,0,0,0.6),
-     1px 1px 0 rgba(0,0,0,0.6);
+	text-shadow: -1px -1px 0 rgba(0,0,0,0.6), 1px -1px 0 rgba(0,0,0,0.6), -1px 1px 0 rgba(0,0,0,0.6), 1px 1px 0 rgba(0,0,0,0.6);
+}
+
+/** Helper toolbar **/
+
+.helpertoolbar {
+	display: none;
+	color: #fff;
+	position: absolute;
+	padding: 5px;
+	/*padding: 10px;*/
+	background-color: #000;
+	background: -webkit-gradient(linear, left top, right top, color-stop(1%,rgba(0,0,0,0.6)), color-stop(20%,rgba(0,0,0,0.5)), color-stop(100%,rgba(0,0,0,0.3)));
+	background: -webkit-linear-gradient(to right, rgba(0,0,0,0.6) 1%, rgba(0,0,0,0.5) 20%,rgba(0,0,0,0.3) 100%);
+	background: linear-gradient(to right, rgba(0,0,0,0.6) 1%, rgba(0,0,0,0.5) 20%,rgba(0,0,0,0.3) 100%);
+	
+	box-shadow: 0px 2px 2px rgba(0,0,0,0.5);
+	border-radius: 10px;
+	z-index: 100;
+	line-height: 0;
+}
+
+.helpertoolbar .colorbutton {
+	width: 30px;
+	height: 30px;
+	display: inline-block;
+	margin: 0px 0px 0px 0px;
+	border-radius: 5px;
+}
+.helpertoolbar .colorbutton.active {
+	border: 1px solid #f30;
 }
 
 /** Login prompt **/
@@ -131,23 +125,10 @@ body {
 /** Task deletion **/
 
 #deleteTaskIcon {
-/*
-	display: none;
-	width: 80px;
-	text-align: center;
-	
-	padding: 10px;
-	height: 100%;
-	left: 0px;
-	top: 44px;
-	position: fixed;
-	background-color: rgba(0,0,0,0.9);
-	*/
-	
 	display: none;
 	width: 90px;
 	background-color: #000;
-	background: -webkit-gradient(linear, left top, right top, color-stop(1%,rgba(150,28,0,0.6)), color-stop(20%,rgba(150,28,0,0.5)), color-stop(100%,rgba(150,28,0,0.3))); /* Mobile Safari */
+	background: -webkit-gradient(linear, left top, right top, color-stop(1%,rgba(150,28,0,0.6)), color-stop(20%,rgba(150,28,0,0.5)), color-stop(100%,rgba(150,28,0,0.3)));
 	background: -webkit-linear-gradient(to right, rgba(150,28,0,0.6) 1%, rgba(150,28,0,0.5) 20%,rgba(150,28,0,0.3) 100%);
 	background: linear-gradient(to right, rgba(150,28,0,0.6) 1%, rgba(150,28,0,0.5) 20%,rgba(150,28,0,0.3) 100%);
 	box-shadow: 3px 2px 2px rgba(0,0,0,0.5);
@@ -158,6 +139,12 @@ body {
 	position: fixed;
 	z-index: 11;
 }
+#deleteTaskIcon.active {
+	background-color: rgba(150,28,0,0.8);
+	background: -webkit-gradient(linear, left top, right top, color-stop(1%,rgba(150,28,0,0.8)), color-stop(20%,rgba(150,28,0,0.7)), color-stop(100%,rgba(150,28,0,0.5)));
+	background: -webkit-linear-gradient(to right, rgba(150,28,0,0.8) 1%, rgba(150,28,0,0.7) 20%,rgba(150,28,0,0.5) 100%);
+	background: linear-gradient(to right, rgba(150,28,0,0.8) 1%, rgba(150,28,0,0.7) 20%,rgba(150,28,0,0.5) 100%);
+}
 #deleteTaskContainer{
 	width: 64px;
 	height: 64px;
@@ -167,15 +154,6 @@ body {
 	margin-top: -32px;
 	position: absolute;
 }
-
-#deleteTaskIcon.active {
-	/*border: 5px dotted maroon;*/
-	/*background-color: #961c00;*/
-	background: -webkit-gradient(linear, left top, right top, color-stop(1%,rgba(150,28,0,0.8)), color-stop(20%,rgba(150,28,0,0.7)), color-stop(100%,rgba(150,28,0,0.5))); /* Mobile Safari */
-	background: -webkit-linear-gradient(to right, rgba(150,28,0,0.8) 1%, rgba(150,28,0,0.7) 20%,rgba(150,28,0,0.5) 100%);
-	background: linear-gradient(to right, rgba(150,28,0,0.8) 1%, rgba(150,28,0,0.7) 20%,rgba(150,28,0,0.5) 100%);
-}
-
 #dragInstructions{
 	width: 100%;
 	height: 100%;
@@ -224,21 +202,15 @@ body {
 	width: 90px;
 	padding-top: 20px;
 	padding-bottom: 20px;
-	/*
-	top: 64px;
-	bottom: 20px;*/
-	
 	top: 44px;
 	bottom: 0px;
 	position: fixed;
 	z-index: 110;
-	
 }
 #sidebarView #addTaskDiv {
 	display: table-cell;
 	vertical-align: middle;
 	background-color: #000;
-	
 	background: -webkit-gradient(linear, left top, right top, color-stop(1%,rgba(0,0,0,0.6)), color-stop(20%,rgba(0,0,0,0.5)), color-stop(100%,rgba(0,0,0,0.3))); /* Mobile Safari */
 	background: -webkit-linear-gradient(to right, rgba(0,0,0,0.6) 1%, rgba(0,0,0,0.5) 20%,rgba(0,0,0,0.3) 100%);
 	background: linear-gradient(to right, rgba(0,0,0,0.6) 1%, rgba(0,0,0,0.5) 20%,rgba(0,0,0,0.3) 100%);
@@ -246,23 +218,14 @@ body {
 	border-radius: 0px 10px 10px 0px;
 	height: 100%;
 	padding: 5px;
-	/*overflow: hidden;*/
-	/*
-	-webkit-column-count: 2;
-	-moz-column-count: 2;
-	column-count: 2;
-	*/
 }
 
 #taskInstructions{
 	position: absolute;
 	text-align: center;
-	/*height: 100%;*/
 	width: 100%;
 	top: 0px;
 	bottom: 0px;
-	/*padding-top: 3em;*/
-	
 	font-size: 2.3em;
 	font-family: HelveticaNeue-Light, Verdana, sans-serif;
 	color: #fff;
@@ -278,12 +241,36 @@ Blue: d7f2fa, b8dbf4, 7bc4dd, 4ea5c3
 Purple: ddd9fe, c6b8fe, 9e8aeb, 7158d5
 White: fefefe, ebebeb, d7d7d7, a2a2a2
 */
+.task { /* Base yellow */
+	border: 1px solid #e8e66e;
+	background-color: rgba(248,247,182,1);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#fdfdcb), color-stop(100%,#fcf9a1)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, #fdfdcb 0%,#fcf9a1 100%); /* Chrome10+,Safari5.1+ */
+	background: linear-gradient(to bottom, #fdfdcb 0%,#fcf9a1 100%); /* W3C */
+	-webkit-border-radius: 10px;
+	border-radius: 10px;
+	-webkit-box-shadow: 0 2px 2px rgba(0,0,0,0.3);
+	box-shadow: 0 2px 2px rgba(0,0,0,0.3);
+}
+.task.selected {
+	border: 1px solid #a7a51c;
+}
+.task-yellow {
+	border: 1px solid #e8e66e;
+	background-color: rgba(248,247,182,1);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#fdfdcb), color-stop(100%,#fcf9a1)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, #fdfdcb 0%,#fcf9a1 100%); /* Chrome10+,Safari5.1+ */
+	background: linear-gradient(to bottom, #fdfdcb 0%,#fcf9a1 100%); /* W3C */
+}
 .task-red {
 	border: 1px solid #e2a6e2;
 	background: #f5d2f5; /* Old browsers */
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(1%,#f5d2f5), color-stop(100%,#ebaeeb)); /* Chrome,Safari4+ */
 	background: -webkit-linear-gradient(top, #f5d2f5 1%,#ebaeeb 100%); /* Chrome10+,Safari5.1+ */
 	background: linear-gradient(to bottom, #f5d2f5 1%,#ebaeeb 100%); /* W3C */
+}
+.task-red.selected {
+	border: 1px solid #bb5cbb;
 }
 .task-green {
 	border: 1px solid #9be895;
@@ -292,12 +279,18 @@ White: fefefe, ebebeb, d7d7d7, a2a2a2
 	background: -webkit-linear-gradient(top, #cffdc9 1%,#b1e8ae 100%); /* Chrome10+,Safari5.1+ */
 	background: linear-gradient(to bottom, #cffdc9 1%,#b1e8ae 100%); /* W3C */
 }
+.task-green.selected {
+	border: 1px solid #4fb746;
+}
 .task-blue {
 	border: 1px solid #7bc4dd;
 	background: #d7f2fa; /* Old browsers */
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(1%,#d7f2fa), color-stop(100%,#b8dbf4)); /* Chrome,Safari4+ */
 	background: -webkit-linear-gradient(top, #d7f2fa 1%,#b8dbf4 100%); /* Chrome10+,Safari5.1+ */
 	background: linear-gradient(to bottom, #d7f2fa 1%,#b8dbf4 100%); /* W3C */
+}
+.task-blue.selected {
+	border: 1px solid #4ea5c3;
 }
 .task-purple {
 	border: 1px solid #9e8aeb;
@@ -306,14 +299,19 @@ White: fefefe, ebebeb, d7d7d7, a2a2a2
 	background: -webkit-linear-gradient(top, #ddd9fe 1%,#c6b8fe 100%); /* Chrome10+,Safari5.1+ */
 	background: linear-gradient(to bottom, #ddd9fe 1%,#c6b8fe 100%); /* W3C */
 }
+.task-purple.selected {
+	border: 1px solid #7158d5;
+}
 .task-white {
-	border: 1px solid #d7d7d7;
+	border: 1px solid #999;
 	background: #fefefe; /* Old browsers */
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(1%,#fefefe), color-stop(100%,#ebebeb)); /* Chrome,Safari4+ */
 	background: -webkit-linear-gradient(top, #fefefe 1%,#ebebeb 100%); /* Chrome10+,Safari5.1+ */
 	background: linear-gradient(to bottom, #fefefe 1%,#ebebeb 100%); /* W3C */
 }
-
+.task-white.selected {
+	border: 1px solid #777;
+}
 .infoDiv { /* Hide, since not using currently */
 	opacity: 0;
 }
