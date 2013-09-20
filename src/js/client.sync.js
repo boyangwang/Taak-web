@@ -41,11 +41,6 @@ TaskSync.prototype.initToken = function() {
 		this.net.setToken(localStorage.token, userid);
 	}
 }
-/*
-TaskSync.prototype.getToken = function() {
-	console.log("Token", this.net.token);
-	console.log("User", this.net.user);
-}*/
 // Set the local copy (usually from localStorage)
 TaskSync.prototype.setLocal = function(localCopy) {
 	this.localCopy.length = 0;
@@ -159,11 +154,9 @@ TaskSync.prototype.synchronize = function(removeEmpty) {
 			if (mergeTime == null) {
 				merged[i].time = 0;
 			}
-			;
 			if (remoteTime == null) {
 				this.remoteCopy[remoteCounter].time = 0;
 			}
-			;
 			remoteCounter++;
 			if (mergeTime > remoteTime) {
 				// Entry is newer than server
@@ -261,6 +254,7 @@ TaskSync.prototype.performSynchronize = function(manager, callback) {
 						callback();
 					}
 				}*/
+				//console.log("Merged", syncCopy);
 				callback();
 			} else {
 				// Wait for response from server, then update copy

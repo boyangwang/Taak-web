@@ -119,7 +119,7 @@ function UI_showTaskPanel(entry) {
 	} else {
 		// Element exists
 		var target = $("#task_" + entry.id);
-		//console.log("Show", target);
+		console.log("Show", entry, lastTask, target);
 		
 		// Do not update an item that is being edited by the user
 		if (!lastTask || lastTask.children(".taskText").get(0) != target.get(0)) {
@@ -208,12 +208,15 @@ function UI_addTaskPanel(entry,baseOffsetX,baseOffsetY,taskColor) {
 		start: function() {
 			$("#deleteTaskIcon").show();
 			$("#sidebarView").hide();
-			lastTask = $(this)
+			lastTask = $(this);
 		},
 		stop: function() {
 			$("#deleteTaskIcon").hide();
 			$("#sidebarView").show();
 			UI_updateEntry(task.children(".taskText"));
+			if (!$(".selected").get(0)) {
+				lastTask = null;
+			}
 		},
 		containment: ".workflowView", // jquery.ui off-screen scroll is quite buggy
 		scroll: false
@@ -248,8 +251,7 @@ function UI_addTaskPanel(entry,baseOffsetX,baseOffsetY,taskColor) {
 		taskText.attr("contenteditable", "true"); // make content editable
 		$(this).draggable("option", "disabled", true ); // dragging must be disabled for edit to be allowed
 		$(this).addClass("selected");
-		//$(this).children(".taskText").addClass("selected");
-		lastTask = $(this);
+		lastTask = $(this); // lastTask represents the current task being edited
 		UI_positionColorSwitcher(lastTask);
 		e.stopPropagation(); // don't send click event to parent
 	});
@@ -267,7 +269,6 @@ function UI_addTaskPanel(entry,baseOffsetX,baseOffsetY,taskColor) {
 	
 	// Set up editable element
 	var taskText = $(document.createElement("div")).attr("class", "taskText");
-	//taskText.attr("contenteditable","true"); // (DO NOT SET IT HERE.) This attribute will be dynamically set in the tap-to-edit feature
 	
 	// Called when element loses focus
 	taskText.blur(function(){
@@ -275,7 +276,6 @@ function UI_addTaskPanel(entry,baseOffsetX,baseOffsetY,taskColor) {
 		taskText.attr("contenteditable", "false"); // Make content uneditable after being deselected (fixes quirks pertaining to content-editable + dragging)
 		task.removeClass("selected");
 		task.draggable("option", "disabled", false); // re-enable dragging
-		//$(this).removeClass("selected");
 		UI_updateEntry($(this));
 		lastTask = null;
 		
