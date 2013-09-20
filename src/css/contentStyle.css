@@ -173,7 +173,8 @@ body{
 	left: 5%;
 	top: 5%;
 	position: absolute;
-	font-size: 24px;
+	/*font-size: 24px;*/
+	font-size: 1.4em;
 	font-family: HelveticaNeue-Light;
 	overflow: hidden;
 	word-wrap: break-word;
