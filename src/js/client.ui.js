@@ -63,6 +63,7 @@ function UI_init() {
 		if (!forceFocus) {
 			// Unfocus all children
 			//$(".task").children(".taskText").blur();
+			UI_hideColorSwitcher();
 			$(".selected").children(".taskText").blur();
 		}
 		forceFocus = false;
@@ -77,6 +78,23 @@ function UI_init() {
 		sync.performSynchronize(manager, showEntries);
 		console.log("Polled");
 	}, 10000);
+}
+// Unselect the task
+function UI_unselect() {
+	UI_hideColorSwitcher();
+	var task = $(".selected");
+	var taskText = task.children(".taskText");
+	taskText.attr("contenteditable", "false"); // Make content uneditable after being deselected (fixes quirks pertaining to content-editable + dragging)
+	task.removeClass("selected");
+	task.draggable("option", "disabled", false); // re-enable dragging
+	UI_updateEntry(taskText);
+	lastTask = null;
+	
+	UI_resize();
+	
+	if(taskText.text() == ""){ // nothing is written
+		UI_deleteTask(taskText.parent());
+	}
 }
 // Move caret to end of editable object
 function UI_moveCaret(obj) {
@@ -120,6 +138,7 @@ function UI_updateEntry(target, forced) {
 }
 // Add task using entry object
 var forceFocus = false;
+var isEditing = false;
 var lastTask = null;
 // Display a task entry
 function UI_showTaskPanel(entry) {
@@ -210,7 +229,6 @@ function UI_setColor(obj, event) {
 		event.stopPropagation();
 	}
 }
-
 // Create the element
 function UI_addTaskPanel(entry,baseOffsetX,baseOffsetY,taskColor) {
 	var task = $(document.createElement("div")).attr("class", "task");
@@ -221,6 +239,7 @@ function UI_addTaskPanel(entry,baseOffsetX,baseOffsetY,taskColor) {
 		start: function() {
 			$("#deleteTaskIcon").show();
 			$("#sidebarView").hide();
+			//UI_unselect();
 			lastTask = $(this);
 		},
 		stop: function() {
@@ -244,15 +263,21 @@ function UI_addTaskPanel(entry,baseOffsetX,baseOffsetY,taskColor) {
 			UI_updateEntry(task.children(".taskText"));
 		}
 	}).click(function(e){
-		if (lastTask && lastTask != $(this)) {
-			lastTask.removeClass("selected");
-			lastTask.draggable("option", "disabled", false);
-			var lastTaskText = lastTask.children(".taskText");
+		if (lastTask != null && lastTask.get(0) != $(this).get(0)) {
+			var lastTaskObj = lastTask;
+			console.log("Child", lastTask);
+			lastTaskObj.removeClass("selected");
+			var lastTaskText = lastTaskObj.children(".taskText");
+			
+			lastTaskObj.draggable("option", "disabled", false);
 			lastTaskText.removeClass("selected");
 			lastTaskText.attr("contenteditable", "false");
+			lastTaskText.blur();
+			console.log("blur");
 
-			console.log("Child", lastTask.children(".taskText"));
-			UI_updateEntry(lastTask.children(".taskText"));
+			console.log("Child", lastTaskObj);
+			UI_updateEntry(lastTaskObj.children(".taskText"));
+			
 		}
 		$(".task").css("z-index","0");
 		$(this).css("z-index","1"); // bring to front
@@ -285,7 +310,6 @@ function UI_addTaskPanel(entry,baseOffsetX,baseOffsetY,taskColor) {
 	
 	// Called when element loses focus
 	taskText.blur(function(){
-		UI_hideColorSwitcher();
 		taskText.attr("contenteditable", "false"); // Make content uneditable after being deselected (fixes quirks pertaining to content-editable + dragging)
 		task.removeClass("selected");
 		task.draggable("option", "disabled", false); // re-enable dragging
@@ -297,6 +321,10 @@ function UI_addTaskPanel(entry,baseOffsetX,baseOffsetY,taskColor) {
 		if($(this).text() == ""){ // nothing is written
 			UI_deleteTask($(this).parent());
 		}
+		
+	});
+	taskText.focusin(function() {
+		isEditing = true; // keyboard is up
 	});
 
 	// Set initial position
