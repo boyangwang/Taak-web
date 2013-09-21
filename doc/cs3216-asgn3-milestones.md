@@ -87,6 +87,7 @@ Although sticky notes work very well as to-do task planners and reminders, but t
 
 Hence we wanted to create an app that makes sticky notes mobile.
 
+We also want to make the app a personal to-do tracker for a party of one, because very often, you just want to in one glance know what you need to do, instead of using some app where it is cluttered with other people's to-dos or some app where you have to click through numerous places just to see what you need to do.
 
 
 ####Milestone 1: @@PB
