@@ -1,6 +1,6 @@
 CACHE MANIFEST
 # Change version number when updating files so cached files are updated
-# version 0.26
+# version 0.27
 
 # Note:
 # To update files on browser after changing them
@@ -12,7 +12,6 @@ CACHE MANIFEST
 
 index.html
 offline.html
-js/uilogic.js
 js/cryptojs.sha1.js
 js/client.auth.js
 js/client.ui.js
@@ -44,9 +43,7 @@ js/jquery_1.10.2.js
 js/jquery-1.10.2.min.map
 css/style.css
 css/contentStyle.css
-css/extraStyle.css
 css/jquery-ui-1.10.3.custom.min.css
-css/newdesign.css
 css/images/animated-overlay.gif
 css/images/ui-bg_flat_0_aaaaaa_40x100.png
 css/images/ui-bg_flat_75_ffffff_40x100.png
