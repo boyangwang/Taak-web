@@ -28,13 +28,17 @@ class EntryManager {
 	// Modify an entry
 	public function putEntry($user, $entry) {
 		$db = $this->db;
-		$id = $db->quote($entry['id']);
-		$user = $db->quote($user);
-		$value = $db->quote(json_encode($entry));
-		$query = "INSERT INTO entries(id, user, value) VALUES($id, $user, $value) ON DUPLICATE KEY UPDATE id=$id, user=$user, value=$value;";
-		$result = $db->exec($query);
-		if ($result != null) {
-			return true;
+		if (isset($entry['id'])) {
+			$id = $db->quote($entry['id']);
+			$user = $db->quote($user);
+			$value = $db->quote(json_encode($entry));
+			$query = "INSERT INTO entries(id, user, value) VALUES($id, $user, $value) ON DUPLICATE KEY UPDATE id=$id, user=$user, value=$value;";
+			$result = $db->exec($query);
+			if ($result != null) {
+				return true;
+			} else {
+				return false;
+			}
 		} else {
 			return false;
 		}

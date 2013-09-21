@@ -113,13 +113,16 @@ var forceFocus = false;
 var lastTask = null;
 // Display a task entry
 function UI_showTaskPanel(entry) {
+	if (!entry) { // null entry
+		return;
+	}
 	if (!$("#task_" + entry.id).get(0)) {
 		// Element not added yet
 		UI_addTaskPanel(entry);
 	} else {
 		// Element exists
 		var target = $("#task_" + entry.id);
-		console.log("Show", entry, lastTask, target);
+		//console.log("Show", entry, lastTask, target);
 		
 		// Do not update an item that is being edited by the user
 		if (!lastTask || lastTask.children(".taskText").get(0) != target.get(0)) {
@@ -326,7 +329,7 @@ function UI_addTaskPanel(entry,baseOffsetX,baseOffsetY,taskColor) {
 	taskText.html(entry.value);
 	
 	task.addClass("task-" + entry.color); // Set task color
-	console.log("Color", entry.color);
+	//console.log("Color", entry.color);
 	
 	// Quick submit
 	taskText.get(0).addEventListener("keydown", function(event) {

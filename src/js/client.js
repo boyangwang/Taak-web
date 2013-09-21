@@ -58,10 +58,12 @@ function showEntries() {
 	var entries = manager.entries;
 	for (var entry in entries) {
 		var value = entries[entry].value;
-		if (entries[entry].archive) {
-			continue;
+		if (value) {
+			if (entries[entry].archive) {
+				continue;
+			}
+			UI_showTaskPanel(entries[entry]);
 		}
-		UI_showTaskPanel(entries[entry]);
 	}
 }
 
