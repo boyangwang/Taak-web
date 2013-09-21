@@ -165,7 +165,9 @@ Style different UI components within the application using CSS in a structured w
 
 We have made our UI resemble the good old sticky note board, to give users a sense of familiarity on the first time that they use our app.
 
-On top of that, we have also made our UI feel right as if you were managing real sticky notes. Drag and drop sticky notes to create (paste) them. Drag to the bin to delete (peel) them off. Sticky notes can be placed anywhere on the board as you desire, and you can move them around subsequently, so that you can group tasks together, just like in real life. The similarities in the user experience reduces learning curve required for users, and makes the app feel like “it just works” so that anyone can easily pick the app up.
+For the background of the sticky notes, we chose colors that are lower in saturation and higher in lightness, to once again give familiarity through resembling the colors of real sticky notes and to also make it easier for users to see the text written on their sticky notes.
+
+For the font of the sticky note text, we chose in descending order, HelveticaNeue-Light, Verdana, sans-serif, for the readability provided by the fonts on mobile devices.
 
 There are also some little nuances in the UI that provides hints and makes it more intuitive.
 
@@ -207,11 +209,18 @@ Describe 1-3 user interactions within the application and explain why those inte
 
 For the Taak app, we have made our UI feel right as if you were managing real sticky notes.
 
-1. Drag and drop a sticky note from the sticky note pile to create (paste) one. This is a replication of real life where you tear your sticky notes from a pile and paste them on a surface. Drag a sticky note to the bin to delete (peel in real life) it.
+- Drag and drop a sticky note from the sticky note pile to create (paste) one. This is a replication of real life where you tear your sticky notes from a pile and paste them on a surface. Drag a sticky note to the bin to delete (peel in real life) it.
 
-2. Sticky notes can be placed anywhere on the board as you desire, and you can move them around subsequently, so that you can group tasks together, just like in real life.
+- Sticky notes can be placed anywhere on the board as you desire, and you can move them around subsequently. This allows you to group tasks together, for easier reference, just like in real life.
 
 The similarities in the user experience reduces learning curve required for users, and makes the app feel like “it just works” so that anyone can easily pick the app up.
+
+On top of that, we also implemented features that provide convenience for the users.
+
+- When you tap on a sticky note, you are selecting the sticky note. The selected sticky note is brought to the top layer. It enables you to see the select sticky note clearly, over other surrounding sticky notes that might have been previously covering and obscuring important parts of it.
+
+- On that same selection, a bar also appears to allow you to change the color of the sticky note, so that you can change it's color scheme and "affiliation", without having to rewrite everything on it. Something that you can't do in real life.
+
 
 ####Milestone 14: @@JS
 Embed Google Analytics in your application and give us a screenshot of the report. Make sure you embed the tracker at least 48 hours before submission deadline as updates are reported once per day.
