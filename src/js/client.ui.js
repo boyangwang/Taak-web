@@ -48,6 +48,15 @@ function hideLoginPrompt() {
 	$('#loginPrompt').fadeOut(300);
 }
 
+// Update UI for iOS after keyboard closed
+function UI_resize() {
+	// Force iOS to update heights after keyboard close
+	$(".ios7fixer").css({position:'absolute'});
+	$(window).scrollTop(0);
+	// Use fixed position to constrain UI to correct place
+	$(".ios7fixer").css({position:'fixed'});
+}
+
 // Load the entries for first run
 function UI_init() {
 	$(".workflowView").click(function(e) {
@@ -283,6 +292,8 @@ function UI_addTaskPanel(entry,baseOffsetX,baseOffsetY,taskColor) {
 		UI_updateEntry($(this));
 		lastTask = null;
 		
+		UI_resize();
+		
 		if($(this).text() == ""){ // nothing is written
 			UI_deleteTask($(this).parent());
 		}
@@ -387,7 +398,6 @@ function UI_deleteTask(target) {
 }
 
 /** Fixes for mobile Safari scrolling **/
-/*
 $(document).on('touchmove',function(e){
 	e.preventDefault();
 });
@@ -407,4 +417,3 @@ $('body').on('touchmove','.scrollable',function(e) {
 		e.stopPropagation();
 	}
 });
-*/
