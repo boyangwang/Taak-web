@@ -117,13 +117,12 @@ TaskNet.prototype.getVersion = function(callback) {
 		}
 	});
 }
-
+// Perform authentication POST (deprecated)
 TaskNet.prototype.doPostAuth = function(token, callback) {
 	$.ajax({
 		type: 'POST',
 		url: 'api/auth/',
 		data: "token="+token,
-		//async: false,
 		success: function(response) {
 			console.log("AUTH_POST", response);
 			callback(response);

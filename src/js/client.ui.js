@@ -32,6 +32,7 @@ $(document).ready(function(){
 	UI_init(); // located in client.js
 });
 
+// Show/hide drag instructions
 function showDragInstructions() {
 	$("#dragInstructions").fadeIn(100);
 }
@@ -39,11 +40,13 @@ function hideDragInstructions() {
 	$("#dragInstructions").fadeOut(100);
 }
 
+// Called when adding a task
 function addTask(x,y,taskColor){
 	hideDragInstructions(); // already called earlier
 	UI_addTaskPanel(null,x,y,taskColor);
 }
 
+// Hide login
 function hideLoginPrompt() {
 	$('#loginPrompt').fadeOut(300);
 }
@@ -402,7 +405,8 @@ function UI_initDelete() {
 	$("#deleteTaskIcon").droppable({
 		tolerance: "touch",
 		hoverClass: "active",
-		drop: function( event, ui ) {
+		drop: function(event, ui) {
+			// Delete tasks dragged into the box
 			$("#deleteTaskIcon").hide();
 			$("#sidebarView").show();
 			UI_deleteTask(ui.draggable);
@@ -426,22 +430,24 @@ function UI_deleteTask(target) {
 }
 
 /** Fixes for mobile Safari scrolling **/
-$(document).on('touchmove',function(e){
-	e.preventDefault();
+$(document).on("touchmove", function(e){
+	e.preventDefault(); // Disable scrolling
 });
-$('body').on('touchstart','.scrollable',function(e) {
+$('body').on("touchstart", ".scrollable", function(e) {
+	// Only elements with "scrollable" class can be scrolled
 	if (e.currentTarget.scrollTop === 0) {
 		e.currentTarget.scrollTop = 1;
 	} else if (e.currentTarget.scrollHeight === e.currentTarget.scrollTop + e.currentTarget.offsetHeight) {
 		e.currentTarget.scrollTop -= 1;
 	}
 });
-$('body').on('touchmove','.scrollable',function(e) {
+$('body').on("touchmove", ".scrollable", function(e) {
 	var anySelected = $(".selected").get(0);
 	if (anySelected) {
 		// User selected an object, don't allow panning in the page (makes it easier for resize)
 		e.preventDefault();
 	} else {
+		// Do not send event to parent
 		e.stopPropagation();
 	}
 });

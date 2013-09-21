@@ -65,12 +65,10 @@ class UserManager {
 		$result = $db->query($query);
 		$entry = $result->fetch(PDO::FETCH_ASSOC);
 		
-		//print_r($entry);
-		
 		if ($entry != null) {
 			// the token-user pair exists in our db, return the corresponding user
 			return $entry['realid'];
-		} else {
+		} else { // DEPRECATED
 			// it's not in db
 			// either first time token, or not valid
 			// try to call fb api to check
@@ -78,8 +76,8 @@ class UserManager {
 			$fb_res_obj = null;
 			$ch = curl_init();
 			
-			//curl_setopt($ch, CURLOPT_URL, "https://graph.facebook.com/debug_token?input_token=" . $token_ori . "&access_token=472743636174429|b6cfb1f93ae4ee075cb05749da46f207");
-			curl_setopt($ch, CURLOPT_URL, "https://graph.facebook.com/debug_token?input_token=" . $token_ori . "&access_token=202826093232352|dcc1d2284ae9212869b99f405241052a");
+			curl_setopt($ch, CURLOPT_URL, "https://graph.facebook.com/debug_token?input_token=" . $token_ori . "&access_token=472743636174429|b6cfb1f93ae4ee075cb05749da46f207");
+			//curl_setopt($ch, CURLOPT_URL, "https://graph.facebook.com/debug_token?input_token=" . $token_ori . "&access_token=202826093232352|dcc1d2284ae9212869b99f405241052a");
 			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 			
 			$fb_res_obj = curl_exec($ch);

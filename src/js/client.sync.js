@@ -65,6 +65,7 @@ TaskSync.prototype.compareEntry = function(a, b) {
 		return 1;
 	}
 }
+// Merge local copy and remote copy
 TaskSync.prototype.merge = function() {
 	this.workingCopy.length = 0;
 	// Make clones of arrays
@@ -127,7 +128,6 @@ TaskSync.prototype.merge = function() {
 	this.localCopy = localClone;
 	this.remoteCopy = remoteClone;
 	this.workingCopy.sort(this.compareEntry);
-	//console.log("Working", this.workingCopy);
 	return this.workingCopy;
 }
 // Perform client-side synchronization, returns synchronized data
@@ -149,6 +149,7 @@ TaskSync.prototype.synchronize = function(removeEmpty) {
 			// Entry does not exist on server
 			this.queuePUT(merged[i]);
 		} else {
+			// Pick the newer of the two
 			var mergeTime = merged[i].time;
 			var remoteTime = this.remoteCopy[remoteCounter].time;
 			if (mergeTime == null) {
@@ -160,7 +161,7 @@ TaskSync.prototype.synchronize = function(removeEmpty) {
 			remoteCounter++;
 			if (mergeTime > remoteTime) {
 				// Entry is newer than server
-				// Note: If entry.value = "", it is treated as deletion by server
+				// If entry.value = "", it is treated as deletion
 				this.queuePUT(merged[i]);
 				if (merged[i].value == "") {
 					this.queueDELETE(merged[i]);
@@ -211,63 +212,53 @@ TaskSync.prototype.isEqual = function(setA, setB) {
 			return false;
 		}
 		if (setA[entry].time != setB[entry].time) {
-			// time stamps are different
+			// Time stamps are different
 			return false;
 		}
 	}
 	return true;
 }
-// Perform all synchronization steps
+// Perform all synchronization steps, then call callback
 TaskSync.prototype.performSynchronize = function(manager, callback) {
-	if (this.online) {
-		manager.readLocal();
-		var localCopy = manager.entries;
-
-		var sync = this;
-		this.net.doGet(function(remoteCopy) {
-			remoteCopy = sync.net.toEntries(remoteCopy);
-//			console.log("Local", localCopy);
-//			console.log("Remote", remoteCopy);
-
-			sync.setLocal(localCopy);
-			sync.setRemote(remoteCopy);
-			var syncCopy = sync.synchronize();
-			//console.log("Sync", syncCopy);
-			//console.log("Pend put", sync.pendingPUT);
-			//console.log("Pend delete", sync.pendingDELETE);
-			var hasPUTs = false;
-			for (var entry in sync.pendingPUT) {
-				hasPUTs = true;
-				break;
-			}
-			manager.setLocal(syncCopy);
-			if (!hasPUTs) {
-				// Nothing to send to server, update own copy
-				// TODO: Update only if got changes to local copy
-				
-				//manager.setLocal(syncCopy);
-				//console.log(manager.entries);
-				
-				/*
-				if (!sync.isEqual(localCopy, syncCopy)) {
-					if (callback != null) {
-						callback();
-					}
-				}*/
-				//console.log("Merged", syncCopy);
-				callback();
-			} else {
-				// Wait for response from server, then update copy
-				sync.lastTransaction = "" + Date.now();
-				sync.net.doPut(sync.pendingPUT, sync.synchronizeCallback(syncCopy, manager, callback), sync.lastTransaction);
-			}
-		});
-	} else {
-		// Callback already called before the synchronization (short-circuit update used for improving app responsiveness)
-		//callback();
+	if (!this.online) {
+		return;
 	}
+	manager.readLocal();
+	var localCopy = manager.entries;
+
+	var sync = this;
+	this.net.doGet(function(remoteCopy) {
+		remoteCopy = sync.net.toEntries(remoteCopy);
+		//console.log("Local", localCopy);
+		//console.log("Remote", remoteCopy);
+
+		sync.setLocal(localCopy);
+		sync.setRemote(remoteCopy);
+		var syncCopy = sync.synchronize();
+		//console.log("Sync", syncCopy);
+		//console.log("Pend put", sync.pendingPUT);
+		//console.log("Pend delete", sync.pendingDELETE);
+		var hasPUTs = false;
+		for (var entry in sync.pendingPUT) {
+			hasPUTs = true;
+			break;
+		}
+		manager.setLocal(syncCopy);
+		if (!hasPUTs) { // Nothing to send to server
+			//manager.setLocal(syncCopy);
+			//console.log("Merged", syncCopy);
+			callback();
+		} else {
+			// Wait for response from server, then update copy
+			sync.lastTransaction = "" + Date.now();
+			sync.net.doPut(sync.pendingPUT, sync.synchronizeCallback(syncCopy, manager, callback), sync.lastTransaction);
+		}
+	});
 }
-//localStorage.entries = ""; // reset local storage
+// Reset localStorage (will delete existing data)
+TaskSync.prototype.resetLocal = function() {
+	localStorage.entries = "";
+}
 // Called on successful synchronization
 TaskSync.prototype.synchronizeCallback = function(synchronizeCopy, manager, callback) {
 	var sync = this;
@@ -277,20 +268,17 @@ TaskSync.prototype.synchronizeCallback = function(synchronizeCopy, manager, call
 				var response = JSON.parse(data);
 				console.log(response);
 				var transactionTime = response.time;
-				//console.log(transactionTime, sync.lastTransaction);
-				if (transactionTime == sync.lastTransaction) {
-					// Only use latest transaction to prevent abrupt desynchronization
+				if (transactionTime == sync.lastTransaction) { // Only use latest transaction
 					//manager.setLocal(synchronizeCopy);
-					//console.log("Synchronize success");
 					if (callback != null) {
 						callback();
 					}
 				}
 			} catch (ex) {
-				console.log("Error on API", data);
+				console.log("API Error", data);
 			}
 		} else {
-			console.log("Error on API");
+			console.log("API Error: Server returned no response");
 		}
 	}
 }
