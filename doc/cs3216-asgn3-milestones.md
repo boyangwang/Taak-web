@@ -79,24 +79,21 @@ Indicator of whether you are Offline or Online
 Describe the problem that your application solves.
 
 @@@
-We want to make it easy for people to maintain and keep ahead of their daily routines and to-do tasks.  
-There are many people who have busy schedules with many to-do tasks to track, and wished that their their to-do task list could manage itself, without much manual intervention or rearrangement.
+We want to make it easy for people to maintain and keep ahead of their daily routines and to-do tasks.
 
-There are 3 main subsets to this problem.
+There are many people who have busy schedules with many to-do tasks to track, and often use sticky notes to help manage these tasks.
 
-1. You want to just know what you need to do when you open the app, instead of using some app where you have to click through numerous places just to see what you need to do.
-2. You do not want to add tasks and then try to manually arrange them. You should have everything arranged nicely for you, immediately after adding the task to do.
-3. Many a times, tasks also do not just take one day to complete, and needs to be kept on the calendar for many days.
-Yet it is troublesome to have to keep shifting these tasks.
+Although sticky notes work very well as to-do task planners and reminders, but they aren't conveniently portable. You can't exactly carry your physical sticky notes board around with you.
 
-The way we intend to solve these problems through well-designed interfaces that makes it easy to manage to-do tasks.
+Hence we wanted to create an app that makes sticky notes mobile.
+
 
 
 ####Milestone 1: @@PB
 Describe your application and explain how you intend to exploit the characteristics of mobile cloud computing to achieve your application’s objectives, i.e. why does it make most sense to implement your application as a mobile cloud application?
 
 @@@
-It should be a mobile application because you need to be able to refer to your to-do task list on the go, any time anywhere.
+It should be a mobile application because you need to be able to refer to your to-do stick notes on the go, any time anywhere.
 It should use the cloud because many interactions happen online and you need to be able to sync those online interactions and to-do tasks into the app.
 Another reason is that you should be able to access your data on any device, without having to manually transfer your data, since this syncing can be better done via the cloud.
 
@@ -110,7 +107,7 @@ Describe your target users. Explain how you plan to promote your application to 
 @@@ Third, further promotion can be done through Facebook/Twitter/Tumblr shares.
 
 ####Milestone 3: Pick a name for your mobile cloud application. (Not graded).
-DTaak (Daily Taak)
+Taak
 (Boyang: Taak is "task" in Dutch)
 
 ####Milestone 4: @@LD
@@ -165,10 +162,11 @@ Create an attractive icon and splash screen for your application. Try adding you
 ####Milestone 9: @@UX
 Style different UI components within the application using CSS in a structured way (i.e. marks will be deducted if you submit messy code). Explain why your UI design is the best possible UI for your application.
 
-@@@
-This is a mockup of the to do list. We try to keep everything as direct and simple as possible for the user, showing him only the main thing he wants to see (his tasks) at first glance. Rationale behind this is psychological - in normal memory retrieval cases, a strong trigger is all that is needed for users to recall everything about an event. In this case, just the title of the task would be sufficient for him to recall the details, such as deadline, location etc. The user can always tap to view more.
+We have made our UI resemble the good old sticky note board, to give users a sense of familiarity on the first time that they use our app.
 
-Moreover, seeing tasks is already enough for users to be more stressed, we do not want to cause additional stress by showing more information.
+On top of that, we have also made our UI feel right as if you were managing real sticky notes. Drag and drop sticky notes to create (paste) them. Drag to the bin to delete (peel) them off. Sticky notes can be placed anywhere on the board as you desire, and you can move them around subsequently, so that you can group tasks together, just like in real life. The similarities in the user experience reduces learning curve required for users, and makes the app feel like “it just works” so that anyone can easily pick the app up.
+
+There are also some little nuances in the UI that provides hints and makes it more intuitive. The shaded triangular patch at the corner of the sticky note is a hint that the sticky note can be resized, and when you hover over it, further hinting is provided via a change in the cursor of your mouse.
 
 
 ####Milestone 10: @@LD
@@ -225,3 +223,54 @@ During the user’s first visit to the site, we will tell the browser to quietly
 The Application Cache is how we will instruct it to retain all resources required for this “web page” to run in the absence of an internet connection. When used in conjunction with Web Storage or Web SQL Database, which allow storage of data on the local file system, your application can function like a native one.
 After which, the client can operate with limited functionality when it is offline and communicate with the server using AJAX calls while it has internet access. Requests typically take the form of JSON or XML formatted messages and they contain details of a job to be processed by the server, such as querying the database for some information or to update its records.
 The server then replies with a similarly formatted message response, which the client is responsible for decoding and notifying the user of.
+
+
+===========================================================================
+#Previous
+###Phase 1
+
+####Milestone 0: @@PB  
+Describe the problem that your application solves.
+
+@@@
+We want to make it easy for people to maintain and keep ahead of their daily routines and to-do tasks.  
+There are many people who have busy schedules with many to-do tasks to track, and wished that their their to-do task list could manage itself, without much manual intervention or rearrangement.
+
+There are 3 main subsets to this problem.
+
+1. You want to just know what you need to do when you open the app, instead of using some app where you have to click through numerous places just to see what you need to do.
+2. You do not want to add tasks and then try to manually arrange them. You should have everything arranged nicely for you, immediately after adding the task to do.
+3. Many a times, tasks also do not just take one day to complete, and needs to be kept on the calendar for many days.
+Yet it is troublesome to have to keep shifting these tasks.
+
+The way we intend to solve these problems through well-designed interfaces that makes it easy to manage to-do tasks.
+
+
+####Milestone 1: @@PB
+Describe your application and explain how you intend to exploit the characteristics of mobile cloud computing to achieve your application’s objectives, i.e. why does it make most sense to implement your application as a mobile cloud application?
+
+@@@
+It should be a mobile application because you need to be able to refer to your to-do task list on the go, any time anywhere.
+It should use the cloud because many interactions happen online and you need to be able to sync those online interactions and to-do tasks into the app.
+Another reason is that you should be able to access your data on any device, without having to manually transfer your data, since this syncing can be better done via the cloud.
+
+####Milestone 2: @@PB
+Describe your target users. Explain how you plan to promote your application to attract your target users.
+
+@@@ Our target users are university students and young working adults who have busy schedules with many to-do tasks to track, and wished that their their to-do list could manage itself, without much manual intervention or rearrangement.
+@@@ There are 3 main ways that we can promote the app.
+@@@ First, we can allow users to share their schedules and allow other people to add tasks to their schedules. This increases exposure of the app to other people.
+@@@ Second, some awesome features are unlockable only after you have invited X number of friends who use the app, which gives the user an incentive to invite more friends.
+@@@ Third, further promotion can be done through Facebook/Twitter/Tumblr shares.
+
+
+###Phase 3
+
+####Milestone 9: @@UX
+Style different UI components within the application using CSS in a structured way (i.e. marks will be deducted if you submit messy code). Explain why your UI design is the best possible UI for your application.
+
+@@@
+This is a mockup of the to do list. We try to keep everything as direct and simple as possible for the user, showing him only the main thing he wants to see (his tasks) at first glance. Rationale behind this is psychological - in normal memory retrieval cases, a strong trigger is all that is needed for users to recall everything about an event. In this case, just the title of the task would be sufficient for him to recall the details, such as deadline, location etc. The user can always tap to view more.
+
+Moreover, seeing tasks is already enough for users to be more stressed, we do not want to cause additional stress by showing more information.
+
