@@ -1,44 +1,10 @@
-body{
-	/*background-image: url('../img/background.png');*/
-	background-image: url('../img/background.jpg'); /* Switch to compressed version for fast loading */
-}
-
-/*
-#topbarView{
-	height: 40px;
-	bottom: 40px;
-	width: 100%;
-	border-bottom: 1px solid #f00;
-	background-color: #303030;
-	left: 0px;
-	top: 0px;
-	z-index: 1000;
-}
-*/
-
-/*
-#sidebarView{
-	height: 100%;
-	width: 200px;
-	position: fixed;
-	background-color: #e8dfd0;
-	border-left: 1px solid #9a876d;
-	border-right: 1px solid #9a876d;
-	left: 20px;
-	box-shadow: 3px 0px 2px #735734,-3px 0px 2px #735734;
-	top: 0px;
-	position: fixed;
-	z-index: 11;
-}
-*/
-
+/** User Info **/
 #userInfoDiv{
 	padding-top: 10px;
 	height: 60px;
 	padding-bottom: 10px;
 	border-bottom: 1px dashed grey;
 }
-
 #userInfoImage{
 	width: 40px;
 	height: 40px;
@@ -46,45 +12,26 @@ body{
 	position: absolute;
 	left: 20px;
 }
-
 #userInfoName{
 	padding-top: 1px;
 	width: 120px;
 	height: auto;
 	position: absolute;
 	font-size: 16px;
-	font-family: HelveticaNeue-Light;
+	font-family: HelveticaNeue-Light, Verdana, sans-serif;
 	color: #575757;
 	left: 70px;
 }
 
+/** Titles and names **/
 #addTaskTitle{
 	padding-left: 25px;
 	padding-top: 20px;
 	color: #575757;
 	font-size: 14px;
-	font-family: HelveticaNeue-Bold;
+	font-family: HelveticaNeue-Bold, Verdana, sans-serif;
 	width: 150px;
 }
-
-/*
-#addTaskDiv{
-	width: 180px;
-	padding-left: 10px;
-	border-bottom: 1px dashed grey;
-	padding-bottom: 20px;
-}
-*/
-/*
-#taskInstructions{
-	width: 170px;
-	padding-left: 10px;
-	font-size: 12px;
-	font-family: HelveticaNeue-Light;
-	color: #747474;
-}
-*/
-
 #topbarTitle{
 	width: 124px;
 	padding-top: 5px;
@@ -96,7 +43,6 @@ body{
 	position: absolute;
 	left: 50%;
 }
-
 #addWorkflowTitle{
 	padding-left: 25px;
 	padding-top: 20px;
@@ -106,21 +52,6 @@ body{
 	font-family: HelveticaNeue-Bold;
 	width: 150px;
 }
-
-.workflowView{
-	width: 100%;
-	/*height: 100%;*/
-	top: 0px;
-	/*top: 44px; Fix for mobile keyboard distorting view*/
-	bottom: 0px;
-	overflow: auto;
-	-webkit-overflow-scrolling: touch;
-	position: absolute;
-	/*position: relative;*/
-	/*left: 0px;
-	top: 0px;*/
-}
-
 .workflowName{
 	padding-left: 25px;
 	padding-top: 15px;
@@ -130,112 +61,109 @@ body{
 	width: 150px;
 }
 
+/** Workflow **/
+
+
+/** Footer **/
+.bottombar { /* currently unused */
+	height: 30px;
+	font-size: 1.2em;
+	padding: 5px;
+}
+
+/* Main content */
+.super-container {
+	position: absolute;
+	top: 44px;
+	bottom: 0px;
+	left: 0px;
+	right: 0px;
+	overflow: hidden;
+}
+.workflowView{
+	width: 100%;
+	top: 0px;
+	bottom: 0px;
+	overflow: auto;
+	-webkit-overflow-scrolling: touch;
+	position: absolute;
+}
+
+/** Task entry **/
 .task{
 	width: 250px;
 	height: 250px;
 	position: absolute;
-	/*background-color: rgba(255,255,0,0.5)*/;
 	left: 200px;
 	top: 50px;
 	border: 1px solid transparent;
 }
-
-.infoDiv{
+.task .infoDiv{
 	width: auto;
 	height: 20px;
 	position: absolute;
 	bottom: 10px;
 	left: 10px;
+	opacity: 0;
 }
-
-.taskUserDiv{
+.task .taskUserDiv{
 	width: auto;
 	height: 20px;
 	display: inline;
 }
-
-.taskUserIcon{
+.task .taskUserIcon{
 	width: auto;
 	height: 20px;
 	max-width: 100%;
 	display: inline;
 	padding-right: 5px;
 }
-
-.taskUsername{
+.task .taskUsername{
 	height: 20px;
-	font-family: Helvetica;
+	font-family: Helvetica, Verdana, sans-serif;
 	font-size: 17px;
 	color: #8d8344;
 	display: inline;
 	vertical-align: top;
 }
-
-.taskText{
+.task .taskText{
 	width: 90%;
 	height: 80%;
 	left: 5%;
 	top: 5%;
 	position: absolute;
-	/*font-size: 24px;*/
 	font-size: 1.4em;
-	font-family: HelveticaNeue-Light;
+	font-family: HelveticaNeue-Light, Verdana, sans-serif;
 	overflow: hidden;
 	word-wrap: break-word;
 }
 
+/** JQuery UI Draggable/resizable overrides **/
 .ui-state-disabled.ui-draggable-disabled {
 	opacity : 1;
 }
-
-/* Overrides */
-body {
-	font-family: HelveticaNeue-Light, Verdana, sans-serif;
-}
-.taskText.selected{
-}
-.taskText {
-	font-family: HelveticaNeue-Light, Verdana, sans-serif;
-}
-
 .task.ui-draggable-dragging { /* Semi transparent style when dragging */
 	opacity: 0.7;
-}
-.addTaskDiv{
-	cursor: pointer;
-	display: inline-block;
-}
-.addTaskContainer{
-	width: 64px;
-	height: 64px;
-	margin: 5px;
 }
 .ui-resizable-handle {
 	z-index: auto !important;
 }
-.stroke {
-	text-shadow: -1px -1px 0 rgba(0,0,0,0.6), 1px -1px 0 rgba(0,0,0,0.6), -1px 1px 0 rgba(0,0,0,0.6), 1px 1px 0 rgba(0,0,0,0.6);
-}
 
 /** Helper toolbar **/
-
 .helpertoolbar {
 	display: none;
 	color: #fff;
 	position: absolute;
 	padding: 5px;
-	/*padding: 10px;*/
 	background-color: #000;
 	background: -webkit-gradient(linear, left top, right top, color-stop(1%,rgba(0,0,0,0.6)), color-stop(20%,rgba(0,0,0,0.5)), color-stop(100%,rgba(0,0,0,0.3)));
 	background: -webkit-linear-gradient(to right, rgba(0,0,0,0.6) 1%, rgba(0,0,0,0.5) 20%,rgba(0,0,0,0.3) 100%);
 	background: linear-gradient(to right, rgba(0,0,0,0.6) 1%, rgba(0,0,0,0.5) 20%,rgba(0,0,0,0.3) 100%);
-	
 	box-shadow: 0px 2px 2px rgba(0,0,0,0.5);
 	border-radius: 10px;
 	z-index: 100;
 	line-height: 0;
 }
-
 .helpertoolbar .colorbutton {
 	width: 30px;
 	height: 30px;
@@ -248,19 +176,8 @@ body {
 }
 
 /** Login prompt **/
-.mid {
-	display: table;
-	text-align: center;
-	height: 100%;
-	margin: auto;
-}
-.mid .cell {
-	display: table-cell;
-	vertical-align: middle;
-}
 #loginPrompt {
 	display: none;
-	/*position: absolute;*/
 	position: fixed;
 	width: 100%;
 	height: 100%;
@@ -313,8 +230,7 @@ body {
 	text-decoration: none;
 }
 
-/** Task deletion **/
-
+/** Task deletion bar **/
 #deleteTaskIcon {
 	display: none;
 	width: 90px;
@@ -324,11 +240,8 @@ body {
 	background: linear-gradient(to right, rgba(150,28,0,0.6) 1%, rgba(150,28,0,0.5) 20%,rgba(150,28,0,0.3) 100%);
 	box-shadow: 3px 2px 2px rgba(0,0,0,0.5);
 	border-radius: 0px 10px 10px 0px;
-	
-	/*top: 64px;*/
 	top: 20px;
 	bottom: 20px;
-	/*position: fixed;*/
 	position: absolute;
 	z-index: 11;
 }
@@ -338,20 +251,20 @@ body {
 	background: -webkit-linear-gradient(to right, rgba(150,28,0,0.8) 1%, rgba(150,28,0,0.7) 20%,rgba(150,28,0,0.5) 100%);
 	background: linear-gradient(to right, rgba(150,28,0,0.8) 1%, rgba(150,28,0,0.7) 20%,rgba(150,28,0,0.5) 100%);
 }
-#deleteTaskContainer{
+#deleteTaskIcon #deleteTaskContainer{
 	width: 64px;
 	height: 64px;
 	top: 50%;
-	/*margin-left: -32px;*/
 	margin-left: 12px;
 	margin-top: -32px;
 	position: absolute;
 }
+
+/** Instructions **/
 #dragInstructions{
 	width: 100%;
 	height: 100%;
 	overflow: hidden;
-	/*position: absolute;*/
 	position: fixed;
 	left: 0px;
 	top: 0px;
@@ -363,6 +276,16 @@ body {
 	background-repeat: no-repeat;
 	background-position: center;
 }
+#taskInstructions{
+	position: absolute;
+	text-align: center;
+	width: 100%;
+	top: 0px;
+	bottom: 0px;
+	font-size: 2.3em;
+	font-family: HelveticaNeue-Light, Verdana, sans-serif;
+	color: #fff;
+}
 
 /* Make it easier to resize if task is selected */
 .selected .ui-resizable-s {
@@ -373,39 +296,14 @@ body {
 	right: 0;
 	width: 16px;
 }
-/** Comment out to disable top-bar **/
 
-.super-container {
-	position: absolute;
-	/*position: fixed;*/
-	top: 44px;
-	bottom: 0px;
-	left: 0px;
-	right: 0px;
-	overflow: hidden;
-}
-body {
-	padding: 0px !important;
-	margin: 0px !important;
-}
-html {
-	padding: 0px !important;
-	margin: 0px !important;
-}
-.smallicon {
-	width: 24px; 
-	height: 24px; 
-	margin-top: 10px; 
-	margin-left: 10px;
-}
-#sidebarView{
+/** Task add bar (side bar) **/
+#sidebarView {
 	width: 90px;
 	padding-top: 20px;
 	padding-bottom: 20px;
-	/*top: 44px;*/
 	top: 0px;
 	bottom: 0px;
-	/*position: fixed;*/
 	position: absolute;
 	z-index: 110;
 }
@@ -421,16 +319,14 @@ html {
 	height: 100%;
 	padding: 5px;
 }
-
-#taskInstructions{
-	position: absolute;
-	text-align: center;
-	width: 100%;
-	top: 0px;
-	bottom: 0px;
-	font-size: 2.3em;
-	font-family: HelveticaNeue-Light, Verdana, sans-serif;
-	color: #fff;
+#sidebarView .addTaskDiv{
+	cursor: pointer;
+	display: inline-block;
+}
+#sidebarView .addTaskContainer{
+	width: 64px;
+	height: 64px;
+	margin: 5px;
 }
 
 /*
@@ -446,9 +342,9 @@ White: fefefe, ebebeb, d7d7d7, a2a2a2
 .task { /* Base yellow */
 	border: 1px solid #e8e66e;
 	background-color: rgba(248,247,182,1);
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#fdfdcb), color-stop(100%,#fcf9a1)); /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(top, #fdfdcb 0%,#fcf9a1 100%); /* Chrome10+,Safari5.1+ */
-	background: linear-gradient(to bottom, #fdfdcb 0%,#fcf9a1 100%); /* W3C */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#fdfdcb), color-stop(100%,#fcf9a1));
+	background: -webkit-linear-gradient(top, #fdfdcb 0%,#fcf9a1 100%);
+	background: linear-gradient(to bottom, #fdfdcb 0%,#fcf9a1 100%);
 	-webkit-border-radius: 10px;
 	border-radius: 10px;
 	-webkit-box-shadow: 0 2px 2px rgba(0,0,0,0.5);
@@ -460,67 +356,63 @@ White: fefefe, ebebeb, d7d7d7, a2a2a2
 .task-yellow {
 	border: 1px solid #e8e66e;
 	background-color: rgba(248,247,182,1);
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#fdfdcb), color-stop(100%,#fcf9a1)); /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(top, #fdfdcb 0%,#fcf9a1 100%); /* Chrome10+,Safari5.1+ */
-	background: linear-gradient(to bottom, #fdfdcb 0%,#fcf9a1 100%); /* W3C */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#fdfdcb), color-stop(100%,#fcf9a1));
+	background: -webkit-linear-gradient(top, #fdfdcb 0%,#fcf9a1 100%);
+	background: linear-gradient(to bottom, #fdfdcb 0%,#fcf9a1 100%);
 }
 .task-red {
 	border: 1px solid #e2a6e2;
-	background: #f5d2f5; /* Old browsers */
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(1%,#f5d2f5), color-stop(100%,#ebaeeb)); /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(top, #f5d2f5 1%,#ebaeeb 100%); /* Chrome10+,Safari5.1+ */
-	background: linear-gradient(to bottom, #f5d2f5 1%,#ebaeeb 100%); /* W3C */
+	background: #f5d2f5;
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(1%,#f5d2f5), color-stop(100%,#ebaeeb));
+	background: -webkit-linear-gradient(top, #f5d2f5 1%,#ebaeeb 100%);
+	background: linear-gradient(to bottom, #f5d2f5 1%,#ebaeeb 100%);
 }
 .task-red.selected {
 	border: 1px solid #bb5cbb;
 }
 .task-green {
 	border: 1px solid #9be895;
-	background: #cffdc9; /* Old browsers */
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(1%,#cffdc9), color-stop(100%,#b1e8ae)); /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(top, #cffdc9 1%,#b1e8ae 100%); /* Chrome10+,Safari5.1+ */
-	background: linear-gradient(to bottom, #cffdc9 1%,#b1e8ae 100%); /* W3C */
+	background: #cffdc9;
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(1%,#cffdc9), color-stop(100%,#b1e8ae));
+	background: -webkit-linear-gradient(top, #cffdc9 1%,#b1e8ae 100%);
+	background: linear-gradient(to bottom, #cffdc9 1%,#b1e8ae 100%);
 }
 .task-green.selected {
 	border: 1px solid #4fb746;
 }
 .task-blue {
 	border: 1px solid #7bc4dd;
-	background: #d7f2fa; /* Old browsers */
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(1%,#d7f2fa), color-stop(100%,#b8dbf4)); /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(top, #d7f2fa 1%,#b8dbf4 100%); /* Chrome10+,Safari5.1+ */
-	background: linear-gradient(to bottom, #d7f2fa 1%,#b8dbf4 100%); /* W3C */
+	background: #d7f2fa;
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(1%,#d7f2fa), color-stop(100%,#b8dbf4));
+	background: -webkit-linear-gradient(top, #d7f2fa 1%,#b8dbf4 100%);
+	background: linear-gradient(to bottom, #d7f2fa 1%,#b8dbf4 100%);
 }
 .task-blue.selected {
 	border: 1px solid #4ea5c3;
 }
 .task-purple {
 	border: 1px solid #9e8aeb;
-	background: #ddd9fe; /* Old browsers */
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(1%,#ddd9fe), color-stop(100%,#c6b8fe)); /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(top, #ddd9fe 1%,#c6b8fe 100%); /* Chrome10+,Safari5.1+ */
-	background: linear-gradient(to bottom, #ddd9fe 1%,#c6b8fe 100%); /* W3C */
+	background: #ddd9fe;
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(1%,#ddd9fe), color-stop(100%,#c6b8fe));
+	background: -webkit-linear-gradient(top, #ddd9fe 1%,#c6b8fe 100%);
+	background: linear-gradient(to bottom, #ddd9fe 1%,#c6b8fe 100%);
 }
 .task-purple.selected {
 	border: 1px solid #7158d5;
 }
 .task-white {
 	border: 1px solid #999;
-	background: #fefefe; /* Old browsers */
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(1%,#fefefe), color-stop(100%,#ebebeb)); /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(top, #fefefe 1%,#ebebeb 100%); /* Chrome10+,Safari5.1+ */
-	background: linear-gradient(to bottom, #fefefe 1%,#ebebeb 100%); /* W3C */
+	background: #fefefe;
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(1%,#fefefe), color-stop(100%,#ebebeb));
+	background: -webkit-linear-gradient(top, #fefefe 1%,#ebebeb 100%);
+	background: linear-gradient(to bottom, #fefefe 1%,#ebebeb 100%);
 }
 .task-white.selected {
 	border: 1px solid #777;
 }
-.infoDiv { /* Hide, since not using currently */
-	opacity: 0;
-}
 
 /* Top bar */
 #topbarView {
-	/*position: fixed;*/
 	position: absolute;
 	height: 44px;
 	bottom: 44px;
@@ -528,15 +420,20 @@ White: fefefe, ebebeb, d7d7d7, a2a2a2
 	left: 0px;
 	top: 0px;
 	z-index: 1000;
-
 	background-color: #303030;
-	/*background: linear-gradient(to bottom, rgba(0,0,0,0.6) 1%, rgba(0,0,0,0.5) 20%,rgba(0,0,0,0.3) 100%);*/	
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(1%,#505050), color-stop(60%,#404040), color-stop(100%,#303030));
 	background: -webkit-linear-gradient(to bottom,#505050 0%, #404040 60%, #303030 100%);
 	background: linear-gradient(to bottom,#505050 0%, #404040 60%, #303030 100%);
 	box-shadow: 0px 2px 2px rgba(0,0,0,0.5);	
 }
-/* ios7 fix */
+#topbarView .smallicon {
+	width: 24px; 
+	height: 24px; 
+	margin-top: 10px; 
+	margin-left: 10px;
+}
+
+/* iOS7 Safari fix */
 .ios7fixer {
 	position: fixed;
 	left: 0px;

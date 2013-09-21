@@ -1,121 +1,41 @@
-html, body {
+html {
 	margin: 0px;
 	padding: 0px;
-	font-family: verdana;
 	height: 100%;
 }
-.round {
+body {
+	margin: 0px;
+	padding: 0px;
+	height: 100%;
+	font-family: HelveticaNeue-Light, Verdana, sans-serif;
+	background-image: url('../img/background.jpg');
+}
+/** Generics **/
+.stroke { /* Give a outline to the text */
+	text-shadow: -1px -1px 0 rgba(0,0,0,0.6), 1px -1px 0 rgba(0,0,0,0.6), -1px 1px 0 rgba(0,0,0,0.6), 1px 1px 0 rgba(0,0,0,0.6);
+}
+.round { /* Give rounded corners */
 	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
 	border-radius: 5px;
 }
-.box {
+.box { /* Make outer width = specified width */
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	-ms-box-sizing: border-box;
 	-o-box-sizing: border-box;
 	box-sizing: border-box;
 }
-.maintable {
-	width: 100%;
-	height: 100%;
-}
-.maintable .content {
-	/*height: 100%;*/
-	
-	background: #eee;
-}
-.addButton {
-	width: 100%;
-}
-.bottombar {
-	height: 30px;
-	font-size: 1.2em;
-	padding: 5px;
-}
-.header td {
-	padding: 5px;
-	font-size: 1.2em;
-	background-color: #777;
-	height: 30px;
-}
-.header td input {
-	font-size: 1.2em;
-}
-.twitter-typeahead  .tt-hint {
-	-webkit-box-sizing: border-box;
-	-moz-box-sizing: border-box;
-	-ms-box-sizing: border-box;
-	-o-box-sizing: border-box;
-	box-sizing: border-box;
-	width: 100%;
-	
-	/* Mobile Safari */
-	-webkit-text-fill-color: rgba(128, 128, 128, 1);
-	-webkit-opacity: 1;
-}
-#entryBox {
-	width: 100%;
-	/*background-color: rgba(255,255,255,1);
-	background-color: rgba(255,255,255,0);*/
-}
-#listings {
-	height: 100%;
-	overflow: auto;
-}
-#listings .entry {
-	background: #fff;
-	border: 1px solid #ccc;
-	margin: 5px;
-	margin-bottom: 10px;
-	padding: 10px;
-	box-shadow: 0 2px 2px rgba(0,0,0,0.3);
-	font-size: 1.2em;
-	position: relative;
-}
-#listings .entry:active {/*for testing*/
-	border: 1px solid #069;
-	box-shadow: 0 2px 2px rgba(0,40,100,0.5);
-}
-#listings .entry-active {
-	border: 1px solid #069;
-	box-shadow: 0 2px 2px rgba(0,40,100,0.5);
-}
-#listings .entry-active .entrytext {
+.hidden { /* Hide the element */
 	display: none;
 }
-#listings .entry-active .deleteButton {
-	display: inline-block;
-}
-#listings .entry-active .editbox {
-	display: inline-block;
-}
-#listings .entrytext {
-	float: left;
-}
-#listings .deleteButton {
-	display: none;
-	display: inline-block;
-	position: absolute;
-	right: 10px;
-	width: 30px;
+.mid { /* Make everything inside centered horizontally */
+	display: table;
 	text-align: center;
-	text-decoration: none;
-	color: #c00;
+	height: 100%;
+	margin: auto;
 }
-#listings  .editbox {
-	display: none;
-	width: 100%;
-}
-#listings .editbox input {
-	font-size: 1em;
-	width: 100%;
-	border: 0px;
-	padding: 0px;
-	margin: 0px;
-	font-family: verdana;
-}
-#listings .clear {
-	clear: both;
-	font-size: 1px;
+.mid .cell { /* Make everything inside centered vertically */
+	display: table-cell;
+	vertical-align: middle;
 }
