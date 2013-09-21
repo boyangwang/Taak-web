@@ -136,7 +136,8 @@ body {
 	
 	top: 64px;
 	bottom: 20px;
-	position: fixed;
+	/*position: fixed;*/
+	position: absolute;
 	z-index: 11;
 }
 #deleteTaskIcon.active {
@@ -182,12 +183,17 @@ body {
 /** Comment out to disable top-bar **/
 
 .super-container {
-	/*position: absolute;*/
-	position: fixed;
+	position: absolute;
+	/*position: fixed;*/
 	top: 44px;
 	bottom: 0px;
 	left: 0px;
 	right: 0px;
+	overflow: hidden;
+}
+body {
+	padding: 0px;
+	margin: 0px;
 }
 .smallicon {
 	width: 24px; 
@@ -199,9 +205,11 @@ body {
 	width: 90px;
 	padding-top: 20px;
 	padding-bottom: 20px;
-	top: 44px;
+	/*top: 44px;*/
+	top: 0px;
 	bottom: 0px;
-	position: fixed;
+	/*position: fixed;*/
+	position: absolute;
 	z-index: 110;
 }
 #sidebarView #addTaskDiv {
@@ -246,8 +254,8 @@ White: fefefe, ebebeb, d7d7d7, a2a2a2
 	background: linear-gradient(to bottom, #fdfdcb 0%,#fcf9a1 100%); /* W3C */
 	-webkit-border-radius: 10px;
 	border-radius: 10px;
-	-webkit-box-shadow: 0 2px 2px rgba(0,0,0,0.3);
-	box-shadow: 0 2px 2px rgba(0,0,0,0.3);
+	-webkit-box-shadow: 0 2px 2px rgba(0,0,0,0.5);
+	box-shadow: 0 2px 2px rgba(0,0,0,0.5);
 }
 .task.selected {
 	border: 1px solid #a7a51c;
@@ -315,7 +323,8 @@ White: fefefe, ebebeb, d7d7d7, a2a2a2
 
 /* Top bar */
 #topbarView {
-	position: fixed;
+	/*position: fixed;*/
+	position: absolute;
 	height: 44px;
 	bottom: 44px;
 	width: 100%;

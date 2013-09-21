@@ -53,7 +53,8 @@ function UI_init() {
 	$(".workflowView").click(function(e) {
 		if (!forceFocus) {
 			// Unfocus all children
-			$(".task").children(".taskText").blur();
+			//$(".task").children(".taskText").blur();
+			$(".selected").children(".taskText").blur();
 		}
 		forceFocus = false;
 	});
@@ -386,6 +387,7 @@ function UI_deleteTask(target) {
 }
 
 /** Fixes for mobile Safari scrolling **/
+/*
 $(document).on('touchmove',function(e){
 	e.preventDefault();
 });
@@ -405,3 +407,4 @@ $('body').on('touchmove','.scrollable',function(e) {
 		e.stopPropagation();
 	}
 });
+*/

@@ -109,12 +109,14 @@ body{
 
 .workflowView{
 	width: 100%;
-	height: 100%;
+	/*height: 100%;*/
+	top: 0px;
 	/*top: 44px; Fix for mobile keyboard distorting view*/
 	bottom: 0px;
 	overflow: auto;
 	-webkit-overflow-scrolling: touch;
 	position: absolute;
+	/*position: relative;*/
 	/*left: 0px;
 	top: 0px;*/
 }
