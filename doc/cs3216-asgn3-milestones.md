@@ -3,7 +3,6 @@
 ######Type:Total:Completed x RemainingFast Med Slow
 
 
-
 ===========================================================================
 ###Phase 1
 

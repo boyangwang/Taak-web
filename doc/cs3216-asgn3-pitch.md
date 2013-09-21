@@ -18,7 +18,7 @@ Sticky notes work very well as to-do task planners and reminders, but they aren'
 @@ We made our app as close to real-life as possible. Here are some of the real-life abilities you can do:
 
 * grab multiple sticky notes at once! (@@)
-* mark them with a special symbol to check the tasks as done (@@)
+* markers - mark them with a special symbol to check the tasks as done (@@)
 * a trophy wall of sticky notes showing the tasks completed (@@)
 
 ###Calendar of Progress(@@??)
