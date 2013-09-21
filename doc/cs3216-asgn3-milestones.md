@@ -2,75 +2,7 @@
 ######PB:3:0x, LD:4:0x, SD:3:0x, UX:3:0x, JS:1:0x
 ######Type:Total:Completed x RemainingFast Med Slow
 
-===========================================================================
-###App Goals & Corresponding Features
-Insert comments with `$yourname: and then backticks`.
 
-####App Goals
-* Every morning, when I open the app, I just want to see what I need to do today. That's it.
-* I don't want to spend time rearranging to-do tasks.
-
-####Fast & Easy User Input
-#####Autocomplete for common actions:
-* Info:: Ask, Tell, Check, Call, Email,  
-* Things:: Bring, Take, Buy, Sell, Download, Upload,  
-* Create:: Write, Code, Make, [Bake, …]  
-
-####Quick & Easy List Management
-#####Just See Everything You Need, Without Manually Arranging
-* Inputs for priority:: Four Quadrants, Association Tags (eg Family, Work, Friends), Deadline
-* Inputs for retention:: Frequency Tag (Daily, Fortnightly)
-* Priority Rules for Association Tags
-* Priority Calculation & Sorting based on above
-
-#####How Often Do You Perform These Actions
-We really need to ask existing users of to-do list apps on how often they use these actions. Because it affects which actions we are going to save our tap actions for… eg should we make users tap "edit" first before you can do that action.
-
-* Sort
-* Clear A Task
-* Clear Multiple Tasks
-
-#####Introspection of Existing To-Do Task Apps
-It would be good if we can have a list of existing to-do apps and look at what they do.
-
-Chenliang looking at
-
-* Tomorrow (iOS i think)
-
-Remaining
-
-* AnyList
-* Any.Do
-* RTM (Remember the Milk)
-* Orchestra
-* Wunderlist
-
-#####Quick Taps for List Management
-* Sort:: One Tap, Drag, and Drop
-	* Tap -> Entry Highlighted -> User can move it around
-* Double tap to view more details
-* Tap middle to clear task
-* Tap left to clear and indicate that task took a longer time than intended
-* Tap right to clear and indicate that task took a shorter time than intended
-
-#####Keep Long Tasks in Mind
-* Reverse: Out of sight out of mind
-* Keep tasks that take multiple days in view.
-* Perhaps as a small floating div at the bottom of app, taking the last two rows.
-* Can be hidden with a "double-down" arrow at floating div's top right corner
-* Can be shown again with a "double-up" arrow.
-* Regardless of hide/show the floating div will reappear the next day.
-
-#####Bring Over Uncleared Tasks
-* Remembers uncleared tasks from previous day
-* Brings them over automatically
-* Uncleared tasks for a few days become increasingly bolded and red, with number of days past indicated
-
-####Syncing
-Indicator of whether you are Offline or Online  
-
-####Analytics
-* Log of your most productive times (capture done time) and places (geolocation)
 
 ===========================================================================
 ###Phase 1
@@ -296,3 +228,72 @@ This is a mockup of the to do list. We try to keep everything as direct and simp
 
 Moreover, seeing tasks is already enough for users to be more stressed, we do not want to cause additional stress by showing more information.
 
+===========================================================================
+###App Goals & Corresponding Features
+Insert comments with `$yourname: and then backticks`.
+
+####App Goals
+* Every morning, when I open the app, I just want to see what I need to do today. That's it.
+* I don't want to spend time rearranging to-do tasks.
+
+####Fast & Easy User Input
+#####Autocomplete for common actions:
+* Info:: Ask, Tell, Check, Call, Email,  
+* Things:: Bring, Take, Buy, Sell, Download, Upload,  
+* Create:: Write, Code, Make, [Bake, …]  
+
+####Quick & Easy List Management
+#####Just See Everything You Need, Without Manually Arranging
+* Inputs for priority:: Four Quadrants, Association Tags (eg Family, Work, Friends), Deadline
+* Inputs for retention:: Frequency Tag (Daily, Fortnightly)
+* Priority Rules for Association Tags
+* Priority Calculation & Sorting based on above
+
+#####How Often Do You Perform These Actions
+We really need to ask existing users of to-do list apps on how often they use these actions. Because it affects which actions we are going to save our tap actions for… eg should we make users tap "edit" first before you can do that action.
+
+* Sort
+* Clear A Task
+* Clear Multiple Tasks
+
+#####Introspection of Existing To-Do Task Apps
+It would be good if we can have a list of existing to-do apps and look at what they do.
+
+Chenliang looking at
+
+* Tomorrow (iOS i think)
+
+Remaining
+
+* AnyList
+* Any.Do
+* RTM (Remember the Milk)
+* Orchestra
+* Wunderlist
+
+#####Quick Taps for List Management
+* Sort:: One Tap, Drag, and Drop
+	* Tap -> Entry Highlighted -> User can move it around
+* Double tap to view more details
+* Tap middle to clear task
+* Tap left to clear and indicate that task took a longer time than intended
+* Tap right to clear and indicate that task took a shorter time than intended
+
+#####Keep Long Tasks in Mind
+* Reverse: Out of sight out of mind
+* Keep tasks that take multiple days in view.
+* Perhaps as a small floating div at the bottom of app, taking the last two rows.
+* Can be hidden with a "double-down" arrow at floating div's top right corner
+* Can be shown again with a "double-up" arrow.
+* Regardless of hide/show the floating div will reappear the next day.
+
+#####Bring Over Uncleared Tasks
+* Remembers uncleared tasks from previous day
+* Brings them over automatically
+* Uncleared tasks for a few days become increasingly bolded and red, with number of days past indicated
+
+####Syncing
+Indicator of whether you are Offline or Online  
+
+####Analytics
+* Log of your most productive times (capture done time) and places (geolocation)
