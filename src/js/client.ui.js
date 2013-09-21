@@ -3,6 +3,21 @@
 $(document).ready(function(){
 	console.log("ready");
 
+	$("#workflowSelectorIcon").click(function(){
+		$("#workflowSelectorBox").toggle();
+	});
+
+	$("#addWorkflowIcon").click(function(){
+		$("#workflowTable").append("<tr class='workflowName' contenteditable><td></td></tr>");
+		$(".workflowName").last().get(0).focus();
+		$(".workflowName").last().focusout(function(){
+			$(this).attr("contenteditable","false");
+			bindWorkflows();
+		});
+	});
+
+	bindWorkflows();
+
 	$("#loginPrompt .window").click(function(e) {
 		e.stopPropagation();
 	});
@@ -12,25 +27,41 @@ $(document).ready(function(){
 		revert:function(){
 			console.log("offset: " + $(this).offset().left);
 			//if($(this).offset().left > 220){
-			if($(this).offset().left > 64){
-				var taskPositionX = $(this).offset().left+20;
-				var taskPositionY = $(this).offset().top-30;
-				var taskColor = $(this).attr('data-color');
-				console.log(taskColor);
-				addTask(taskPositionX,taskPositionY,taskColor);
-			}
-			return true;
-		},
-		revertDuration:0,
-		start:showDragInstructions,
-		stop:hideDragInstructions
-	}).mousedown(function() {
-		showDragInstructions();
-	}).mouseup(function() {
-		hideDragInstructions();
-	});
+				if($(this).offset().left > 64){
+					var taskPositionX = $(this).offset().left+20;
+					var taskPositionY = $(this).offset().top-30;
+					var taskColor = $(this).attr('data-color');
+					console.log(taskColor);
+					addTask(taskPositionX,taskPositionY,taskColor);
+				}
+				return true;
+			},
+			revertDuration:0,
+			start:showDragInstructions,
+			stop:hideDragInstructions
+		}).mousedown(function() {
+			showDragInstructions();
+		}).mouseup(function() {
+			hideDragInstructions();
+		});
 	UI_init(); // located in client.js
 });
+
+function bindWorkflows(){
+	$(".workflowName").unbind() // in case anything has been bound before
+	$(".workflowName").click(function(){
+		console.log($(this).text());
+		var currentWorkflow = $(this).text();
+		$("#workflowSelectorIcon").text(currentWorkflow);
+		$("#workflowSelectorBox").hide();
+		$(".task").hide();
+		$(".task").each(function(){
+			if($(this).attr('workflow') == currentWorkflow){
+				$(this).show();
+			}
+		});
+	});
+}
 
 // Show/hide drag instructions
 function showDragInstructions() {
@@ -235,6 +266,9 @@ function UI_setColor(obj, event) {
 // Create the element
 function UI_addTaskPanel(entry,baseOffsetX,baseOffsetY,taskColor) {
 	var task = $(document.createElement("div")).attr("class", "task");
+	
+	// associate the task with the workflow
+	task.attr('workflow',$("#workflowSelectorIcon").text());
 	
 	// Set up draggable element
 	task.draggable({
