@@ -3,16 +3,18 @@ body{
 	background-image: url('../img/background.jpg'); /* Switch to compressed version for fast loading */
 }
 
+/*
 #topbarView{
 	height: 40px;
+	bottom: 40px;
 	width: 100%;
-	/*position: fixed;*/ /* Disabled to prevent mobile keyboard distorting display */
+	border-bottom: 1px solid #f00;
 	background-color: #303030;
-	/*background-image: url('../img/topbar.png');*/
 	left: 0px;
 	top: 0px;
 	z-index: 1000;
 }
+*/
 
 /*
 #sidebarView{

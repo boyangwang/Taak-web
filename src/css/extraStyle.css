@@ -181,12 +181,9 @@ body {
 }
 /** Comment out to disable top-bar **/
 
-#topbarView{
-	position: relative;
-	height: 44px;
-}
 .super-container {
-	position: absolute;
+	/*position: absolute;*/
+	position: fixed;
 	top: 44px;
 	bottom: 0px;
 	left: 0px;
@@ -316,10 +313,18 @@ White: fefefe, ebebeb, d7d7d7, a2a2a2
 	opacity: 0;
 }
 
+/* Top bar */
 #topbarView {
+	position: fixed;
+	height: 44px;
+	bottom: 44px;
+	width: 100%;
+	left: 0px;
+	top: 0px;
+	z-index: 1000;
+
 	background-color: #303030;
-	/*background: linear-gradient(to bottom, rgba(0,0,0,0.6) 1%, rgba(0,0,0,0.5) 20%,rgba(0,0,0,0.3) 100%);*/
-	
+	/*background: linear-gradient(to bottom, rgba(0,0,0,0.6) 1%, rgba(0,0,0,0.5) 20%,rgba(0,0,0,0.3) 100%);*/	
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(1%,#505050), color-stop(60%,#404040), color-stop(100%,#303030));
 	background: -webkit-linear-gradient(to bottom,#505050 0%, #404040 60%, #303030 100%);
 	background: linear-gradient(to bottom,#505050 0%, #404040 60%, #303030 100%);
