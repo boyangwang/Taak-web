@@ -127,7 +127,6 @@ function UI_unselect() {
 		UI_updateEntry(taskText);
 		lastTask = null;
 		
-		
 		UI_resize();
 		
 		if(taskText.text() == ""){ // nothing is written
@@ -179,6 +178,7 @@ function UI_updateEntry(target, forced) {
 var forceFocus = false;
 var isEditing = false;
 var lastTask = null;
+var selectedTask = null;
 // Display a task entry
 function UI_showTaskPanel(entry) {
 	if (!entry) { // null entry
@@ -190,24 +190,27 @@ function UI_showTaskPanel(entry) {
 	} else {
 		// Element exists
 		var target = $("#task_" + entry.id);
-		//console.log("Show", entry, lastTask, target);
-		
 		// Do not update an item that is being edited by the user
 		if (!lastTask || lastTask.children(".taskText").get(0) != target.get(0)) {
-			target.attr("data-taskvalue", entry.value);
-			target.attr("data-taskposition", entry.x + "_" + entry.y);
-			target.attr("data-taskdimension", entry.w + "_" + entry.h);
-			target.attr("data-taskcolor", entry.color);
-			target.parent().addClass("task-" + entry.color);
-			target.html(entry.value);
-			target.parent().css({
-				"left": entry.x,
-				"top": entry.y,
-				"width": entry.w,
-				"height": entry.h
-			});
+			UI_setTaskPanel(entry, target.parent(), target);
 		}
 	}
+}
+
+// Sets visual information for the panel
+function UI_setTaskPanel(entry, task, taskText) {
+	taskText.attr("data-taskvalue", entry.value);
+	taskText.attr("data-taskposition", entry.x + "_" + entry.y);
+	taskText.attr("data-taskdimension", entry.w + "_" + entry.h);
+	taskText.attr("data-taskcolor", entry.color);
+	taskText.html(entry.value);
+	task.addClass("task-" + entry.color);
+	task.css({
+		"left": entry.x,
+		"top": entry.y,
+		"width": entry.w,
+		"height": entry.h
+	});
 }
 
 /*
@@ -239,28 +242,35 @@ function getFreeSpace(){
 	baseOffsetY = startPointY;
 }
 */
+// Convert "#px" to "#" and return as an integer
+function UI_getInt(pixel) {
+	return parseInt(pixel.replace("px", ""));
+}
+// Show color toolbar
 function UI_positionColorSwitcher(target) {
 	var selected = $(".selected");
 	if (selected.get(0) || target) {
 		var helper = $(".colortoolbar");
 		helper.css({
-			"left": (parseInt(selected.css("left").replace("px","")) + parseInt(selected.css("width").replace("px",""))/2 - parseInt(helper.css("width").replace("px",""))/2)+"px",
-			"top": (parseInt(selected.css("top").replace("px","")) + parseInt(selected.css("height").replace("px","")) + 10)+"px"
+			"left": (UI_getInt(selected.css("left")) + UI_getInt(selected.css("width"))/2 - UI_getInt(helper.css("width"))/2) + "px",
+			"top": (UI_getInt(selected.css("top")) + UI_getInt(selected.css("height")) + 10) + "px"
 		});
 		helper.fadeIn(200);
 	}
 }
+// Hide color toolbar
 function UI_hideColorSwitcher() {
 	$(".colortoolbar").fadeOut(200);
 }
+// Set the color
 function UI_setColor(obj, event) {
 	var obj = $(obj);
-	var selected = $(".selected");
+	//var selected = $(".selected");
+	var selected = selectedTask;
 	var taskText = selected.children(".taskText");
 	taskText.attr("data-taskcolor", obj.attr("data-color"));
-	// Remove old color classes
 	selected.removeClass (function (index, css) {
-		return (css.match (/\btask-\S+/g) || []).join(' ');
+		return (css.match (/\btask-\S+/g) || []).join(" ");
 	});
 	selected.addClass("task-" + obj.attr("data-color"));
 	UI_updateEntry(taskText, true);
@@ -312,7 +322,7 @@ function UI_addTaskPanel(entry,baseOffsetX,baseOffsetY,taskColor) {
 			var lastTaskText = lastTaskObj.children(".taskText");
 			
 			lastTaskObj.draggable("option", "disabled", false);
-			lastTaskText.removeClass("selected");
+			//lastTaskText.removeClass("selected");
 			lastTaskText.attr("contenteditable", "false");
 			lastTaskText.blur();
 			console.log("blur");
@@ -332,6 +342,7 @@ function UI_addTaskPanel(entry,baseOffsetX,baseOffsetY,taskColor) {
 		$(this).draggable("option", "disabled", true ); // dragging must be disabled for edit to be allowed
 		$(this).addClass("selected");
 		lastTask = $(this); // lastTask represents the current task being edited
+		selectedTask = lastTask;
 		UI_positionColorSwitcher(lastTask);
 		e.stopPropagation(); // don't send click event to parent
 	});
@@ -352,11 +363,11 @@ function UI_addTaskPanel(entry,baseOffsetX,baseOffsetY,taskColor) {
 	
 	// Called when element loses focus
 	taskText.blur(function(){
+		console.log("blur");
 		taskText.attr("contenteditable", "false"); // Make content uneditable after being deselected (fixes quirks pertaining to content-editable + dragging)
 		task.removeClass("selected");
 		task.draggable("option", "disabled", false); // re-enable dragging
 		UI_updateEntry($(this));
-		lastTask = null;
 		
 		UI_resize();
 		
@@ -369,49 +380,26 @@ function UI_addTaskPanel(entry,baseOffsetX,baseOffsetY,taskColor) {
 		isEditing = true; // keyboard is up
 	});
 
-	// Set initial position
-	if (!entry) {
-		task.css({
-			"position": "absolute",
-			"top": baseOffsetY,
-			"left": baseOffsetX,
-			"width": "250px",
-			"height": "250px",
-		});
-	} else {
-		task.css({
-			"position": "absolute",
-			"left": entry.x,
-			"top": entry.y,
-			"width": entry.w,
-			"height": entry.h
-		});
-	}
-	
 	// Create new entry if needed
 	var newEntry = false;
 	if (!entry) {
 		entry = manager.add("", true);
-		entry.x = task.css("left");
-		entry.y = task.css("top");
-		entry.w = task.css("width");
-		entry.h = task.css("height");
+		entry.x = baseOffsetX;
+		entry.y = baseOffsetY;
+		entry.w = "250px";
+		entry.h = "250px";
 		entry.color = taskColor;
 		UI_scrollTo(task); // scroll to new entry
 		newEntry = true;
 	}
+	task.css({
+		"position": "absolute",
+	});
 	
 	// Set attributes
 	taskText.attr("id", "task_" + entry.id);
 	taskText.attr("data-taskid", entry.id);
-	taskText.attr("data-taskvalue", entry.value);
-	taskText.attr("data-taskposition", entry.x + "_" + entry.y);
-	taskText.attr("data-taskdimension", entry.w + "_" + entry.h);
-	taskText.attr("data-taskcolor", entry.color);
-	taskText.html(entry.value);
-	
-	task.addClass("task-" + entry.color); // Set task color
-	//console.log("Color", entry.color);
+	UI_setTaskPanel(entry, task, taskText);
 	
 	// Quick submit
 	taskText.get(0).addEventListener("keydown", function(event) {
