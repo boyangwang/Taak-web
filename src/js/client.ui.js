@@ -24,26 +24,23 @@ $(document).ready(function(){
 	$('#loginPrompt').click(hideLoginPrompt);
 
 	$(".addTaskDiv").draggable({
-		revert:function(){
-			console.log("offset: " + $(this).offset().left);
-			//if($(this).offset().left > 220){
-				if($(this).offset().left > 64){
-					var taskPositionX = $(this).offset().left+20;
-					var taskPositionY = $(this).offset().top-30;
-					var taskColor = $(this).attr('data-color');
-					console.log(taskColor);
-					addTask(taskPositionX,taskPositionY,taskColor);
-				}
-				return true;
-			},
-			revertDuration:0,
-			start:showDragInstructions,
-			stop:hideDragInstructions
-		}).mousedown(function() {
-			showDragInstructions();
-		}).mouseup(function() {
-			hideDragInstructions();
-		});
+		revert: function(){
+			if($(this).offset().left > 64){
+				var taskPositionX = $(this).offset().left+20;
+				var taskPositionY = $(this).offset().top-30;
+				var taskColor = $(this).attr('data-color');
+				addTask(taskPositionX,taskPositionY,taskColor);
+			}
+			return true;
+		},
+		revertDuration:0,
+		start: showDragInstructions,
+		stop: hideDragInstructions
+	}).mousedown(function() {
+		showDragInstructions();
+	}).mouseup(function() {
+		hideDragInstructions();
+	});
 	UI_init(); // located in client.js
 });
 
@@ -124,6 +121,7 @@ function UI_unselect(task, doBlur) {
 		lastTask = null;
 		
 		if(taskText.text() == ""){ // nothing is written
+			UI_hideColorSwitcher();
 			UI_deleteTask(taskText.parent());
 		}
 		if (doBlur == true) {
@@ -153,6 +151,11 @@ function UI_scrollTo(obj) {
 // Target is the element with .taskText class
 function UI_updateEntry(target, forced) {
 	var target = $(target.get(0)); // get latest element copy
+	if (!target.attr("data-taskid")) {
+		console.log("Warning", "An undefined entry was flagged for updating");
+		return;
+	}
+	
 	var left = target.parent().css("left");
 	var top = target.parent().css("top");
 	var width = target.parent().css("width");
@@ -245,7 +248,10 @@ function UI_getInt(pixel) {
 // Show color toolbar
 function UI_showColorSwitcher(target) {
 	var selected = $(".selected");
-	if (selected.get(0) || target) {
+	if (target) {
+		selected = target;
+	}
+	if (selected.get(0)) {
 		var helper = $(".colortoolbar");
 		helper.css({
 			"left": (UI_getInt(selected.css("left")) + UI_getInt(selected.css("width"))/2 - UI_getInt(helper.css("width"))/2) + "px",
@@ -304,8 +310,8 @@ function UI_addTaskPanel(entry,baseOffsetX,baseOffsetY,taskColor) {
 		containment: ".workflowView", // jquery.ui off-screen scroll is quite buggy
 		scroll: false
 	}).resizable({
-		minHeight:150,
-		minWidth:200,
+		minHeight: 150,
+		minWidth: 200,
 		start: function() {
 			UI_hideColorSwitcher();
 		},
@@ -422,7 +428,7 @@ function UI_deleteTask(target) {
 	target.children(".taskText").attr("data-taskarchived", "true")
 
 	// Animate hide
-	target.animate({'opacity' : 0}, { queue: false, duration: 300 }).hide("scale",{origin:["middle","left"]}, 300);
+	target.animate({opacity: 0}, { queue: false, duration: 300 }).hide("scale",{origin:["middle","left"]}, 300);
 	
 	manager.remove(taskID);
 }
