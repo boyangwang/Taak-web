@@ -8,7 +8,7 @@ $(document).ready(function(){
 	});
 
 	$("#addWorkflowIcon").click(function(){
-		$("#workflowTable").append("<tr class='workflowName' contenteditable><td></td></tr>");
+		$("#workflowTable").append("<tr class='workflowName' contenteditable><td>&nbsp;</td></tr>");
 		$(".workflowName").last().get(0).focus();
 		$(".workflowName").last().focusout(function(){
 			$(this).attr("contenteditable","false");
@@ -47,13 +47,15 @@ $(document).ready(function(){
 function bindWorkflows(){
 	$(".workflowName").unbind() // in case anything has been bound before
 	$(".workflowName").click(function(){
+		$(".workflowName").removeClass("selectedworkflow");
+		$(this).addClass("selectedworkflow");
 		console.log($(this).text());
 		var currentWorkflow = $(this).text();
 		$("#workflowSelectorIcon").text(currentWorkflow);
 		$("#workflowSelectorBox").hide();
 		$(".task").hide();
 		$(".task").each(function(){
-			if($(this).attr('workflow') == currentWorkflow){
+			if($(this).attr("data-workflow") == currentWorkflow){
 				$(this).show();
 			}
 		});
@@ -97,6 +99,7 @@ function UI_init() {
 			$(".selected").children(".taskText").blur();
 		}
 		forceFocus = false;
+		$("#workflowSelectorBox").hide();
 	});
 	
 	UI_initDelete(); // configure delete box
@@ -286,7 +289,7 @@ function UI_addTaskPanel(entry,baseOffsetX,baseOffsetY,taskColor) {
 	var taskText = $(document.createElement("div")).attr("class", "taskText");
 	
 	// associate the task with the workflow
-	task.attr('workflow',$("#workflowSelectorIcon").text());
+	task.attr("data-workflow", $("#workflowSelectorIcon").text());
 	
 	// Set up draggable element
 	task.draggable({

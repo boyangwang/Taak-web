@@ -10,22 +10,28 @@ function TaskSync() {
 		this.net = {};
 	}
 	this.net.token = "";
-	this.online = false;
+	this.online = true;
 	this.latestTransaction = 0;
 	this.onconnect = function() { };
 	
 	// Update online state
 	var sync = this;
-	if (navigator.onLine) {
-		this.online = true;
+	if (typeof(navigator) != "undefined") {
+		if (navigator.onLine) {
+			this.online = true;
+		} else {
+			this.online = false;
+		}
 	}
-	window.addEventListener( 'online', function( event ) {
-		sync.online = true;
-		sync.onconnect();
-	}, false);
-	window.addEventListener( 'offline', function( event ) {
-		sync.online = false;
-	}, false);
+	if (typeof(window) != "undefined") {
+		window.addEventListener( 'online', function( event ) {
+			sync.online = true;
+			sync.onconnect();
+		}, false);
+		window.addEventListener( 'offline', function( event ) {
+			sync.online = false;
+		}, false);
+	}
 }
 // Fetch token from local storage
 TaskSync.prototype.initToken = function() {

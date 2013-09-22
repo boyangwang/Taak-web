@@ -435,20 +435,34 @@ White: fefefe, ebebeb, d7d7d7, a2a2a2
 	color: white;
 }
 #workflowSelectorIcon{
-	position: absolute;
-	right: 10px;
+	/*position: absolute;
+	right: 10px;*/
+	float: right;
+	
 	width: auto;
-	height: 20px;
-	padding-left: 10px;
-	padding-right: 10px;
-	top: 9px;
-	background-color: #303030;
+	/*height: 20px;*/
+	
+	/*padding-left: 10px;
+	padding-right: 10px;*/
+	
+	line-height: 16px;
+	padding: 5px 10px;
+	margin-top: 7px;
+	margin-right: 10px;
+	
+	/*top: 9px;*/
+	/*background-color: #303030;*/
+	background: #d7f2fa;
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(1%,#52aae9), color-stop(100%,#2c7fb5));
+	background: -webkit-linear-gradient(top, #52aae9 1%,#2c7fb5 100%);
+	background: linear-gradient(to bottom, #52aae9 1%,#2c7fb5 100%);
+	
 	border-radius: 4px;
 	border: 1px solid black;
 	font-size: 16px;
 	font-family: Helvetica, Verdana, sans-serif;
 	color: white;
-	padding-top: 5px;
+	/*padding-top: 5px;*/
 	vertical-align: middle;
 }
 #addWorkflowIcon {
@@ -458,7 +472,7 @@ White: fefefe, ebebeb, d7d7d7, a2a2a2
 	text-align: center;
 	font-family: HelveticaNeue-UltraLight, Verdana, sans-serif;
 }
-#workflowTableContainer  td.selectedworkflow {
+#workflowTableContainer  .selectedworkflow  td{
 	border: 1px solid #7bc4dd;
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(1%,#d7f2fa), color-stop(100%,#b8dbf4));
 	background: -webkit-linear-gradient(top, #d7f2fa 1%,#b8dbf4 100%);

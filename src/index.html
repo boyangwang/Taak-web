@@ -3,6 +3,8 @@
 <head><title>Taak</title>
 	<meta charset="utf8">
 	<meta name="viewport" content="width=768, initial-scale=1, minimum-scale=1, maximum-scale=1">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
 	<!--<meta name="viewport" content="width=device-width, user-scalable=false">-->
 	<link rel="icon" type="image/png" href="img/favicon.png">
 	<link rel="apple-touch-icon-precomposed" href="img/icon.png" />
@@ -17,17 +19,14 @@
 	<div id="topbarView" class="box" style="display:block;">
 		<a href="javascript:showLoginPrompt();"><img class="smallicon" src="img/changeIcon.png" style=""></a>
 		<span id="login_flag" style="display:none">Not Login</span>
-		<div id="workflowSelectorIcon">Default</div>
+		<div id="workflowSelectorIcon">Default Board</div>
 			<div id="workflowSelectorBox">
 				<div id="workflowTableContainer">
 					<table id="workflowTable" cellpadding="0" cellspacing="0">
-						<tr class="workflowName"><td class="selectedworkflow">Default</td></tr>
-					<!--
-						<tr class="workflowName"><td>Default</td></tr>
-						<tr class="workflowName"><td>Default</td></tr>-->
+						<tr class="workflowName selectedworkflow"><td>Default Board</td></tr>
 					</table>
 				</div>
-				<div id="addWorkflowIcon">Add workflow</div>
+				<div id="addWorkflowIcon">Add board</div>
 			</div>
 	</div>
 	<!-- End top bar -->
@@ -58,7 +57,7 @@
 						<div class="window-content box">
 							<p>Signing in allows you to synchronize tasks across multiple devices</p>
 							<a class="option box" id="fb_oauth_link_prompt" href="https://www.facebook.com/dialog/oauth?client_id=472743636174429&redirect_uri=http://taak.onfry.com/oauth.php">Login using Facebook</a>
-							<!--<a class="option box" id="fb_oauth_link_prompt" href="https://www.facebook.com/dialog/oauth?client_id=202826093232352&redirect_uri=http://localhost.onfry.com/cs3216/as3/repo/cs3216-as3/src/oauth.php">Login (private: 192.168.0.110)</a>-->
+							<a class="option box" id="fb_oauth_link_prompt" href="https://www.facebook.com/dialog/oauth?client_id=202826093232352&redirect_uri=http://localhost.onfry.com/cs3216/as3/repo/cs3216-as3/src/oauth.php">Login (private: 192.168.0.110)</a>
 							<a class="option-text" href="javascript:hideLoginPrompt();">No thanks, I do not want to sign in</a>
 						</div>
 					</div></div></div>
