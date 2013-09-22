@@ -16,6 +16,16 @@ manager.onupdate = function() {
 }
 manager.readLocal();
 
+/** Helpers **/
+function iOSversion() {
+	if (/iP(hone|od|ad)/.test(navigator.platform)) {
+		var v = (navigator.appVersion).match(/OS (\d+)_(\d+)_?(\d+)?/);
+		return [parseInt(v[1], 10)];
+	}
+	return 0;
+}
+var iosVersion = iOSversion();
+
 /** UI Interactions **/
 
 // Reload the page
@@ -24,7 +34,14 @@ function reload() {
 }
 // Hide mobile keyboard
 function hideKeyboard() {
-	document.activeElement.blur();
+	try {
+		if (iosVersion == 5) {
+			$("#dummyinput").get(0).focus();
+		}
+		document.activeElement.blur();
+		$("input").blur();
+	} catch (ex) {
+	}
 }
 // Perform synchronization
 function synchronize() {

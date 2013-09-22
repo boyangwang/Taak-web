@@ -41,6 +41,7 @@ $(document).ready(function(){
 	}).mouseup(function() {
 		hideDragInstructions();
 	});
+	
 	UI_init(); // located in client.js
 });
 
@@ -96,7 +97,8 @@ function UI_init() {
 		if (!forceFocus) {
 			// Unfocus children
 			UI_hideColorSwitcher();
-			$(".selected").children(".taskText").blur();
+			//$(".selected").children(".taskText").blur();
+			UI_unselect(lastTask, true);
 		}
 		forceFocus = false;
 		$("#workflowSelectorBox").hide();
@@ -116,6 +118,7 @@ function UI_init() {
 function UI_unselect(task, doBlur) {
 	if (task != null) {
 		var taskText = task.children(".taskText");
+
 		taskText.attr("contenteditable", "false"); // Make content uneditable after being deselected (fixes quirks pertaining to content-editable + dragging)
 		task.removeClass("selected");
 		task.draggable("option", "disabled", false); // re-enable dragging
@@ -127,8 +130,9 @@ function UI_unselect(task, doBlur) {
 			UI_hideColorSwitcher();
 			UI_deleteTask(taskText.parent());
 		}
+
 		if (doBlur == true) {
-			taskText.blur();
+			hideKeyboard();
 		}
 	}
 }

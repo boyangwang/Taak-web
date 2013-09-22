@@ -76,6 +76,7 @@
 	overflow: auto;
 	-webkit-overflow-scrolling: touch;
 	position: absolute;
+	-webkit-tap-highlight-color: rgba(0,0,0,0); /* prevent flicker */
 }
 
 /** Task entry **/
@@ -86,6 +87,7 @@
 	left: 200px;
 	top: 50px;
 	border: 1px solid transparent;
+	cursor: move;
 }
 .task .infoDiv{
 	width: auto;
@@ -125,6 +127,7 @@
 	font-family: HelveticaNeue-Light, Verdana, sans-serif;
 	overflow: hidden;
 	word-wrap: break-word;
+	cursor: text;
 }
 
 /** JQuery UI Draggable/resizable overrides **/
@@ -160,6 +163,7 @@
 	display: inline-block;
 	margin: 0px 0px 0px 0px;
 	border-radius: 5px;
+	cursor: pointer;
 }
 .helpertoolbar .colorbutton.active {
 	border: 1px solid #f30;
@@ -311,7 +315,7 @@
 	line-height: 0px;
 }
 #sidebarView .addTaskDiv{
-	cursor: pointer;
+	cursor: move;
 	display: inline-block;
 }
 #sidebarView .addTaskContainer{
@@ -434,49 +438,45 @@ White: fefefe, ebebeb, d7d7d7, a2a2a2
 .workflowName{
 	color: white;
 }
-#workflowSelectorIcon{
-	/*position: absolute;
-	right: 10px;*/
+#workflowSelectorIcon {
 	float: right;
-	
 	width: auto;
-	/*height: 20px;*/
-	
-	/*padding-left: 10px;
-	padding-right: 10px;*/
-	
 	line-height: 16px;
 	padding: 5px 10px;
 	margin-top: 7px;
 	margin-right: 10px;
-	
-	/*top: 9px;*/
-	/*background-color: #303030;*/
-	background: #d7f2fa;
+	background: #52aae9;
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(1%,#52aae9), color-stop(100%,#2c7fb5));
 	background: -webkit-linear-gradient(top, #52aae9 1%,#2c7fb5 100%);
 	background: linear-gradient(to bottom, #52aae9 1%,#2c7fb5 100%);
-	
 	border-radius: 4px;
 	border: 1px solid black;
 	font-size: 16px;
 	font-family: Helvetica, Verdana, sans-serif;
 	color: white;
-	/*padding-top: 5px;*/
 	vertical-align: middle;
+	cursor: pointer;
+}
+#workflowSelectorIcon:active {
+	background: #52aae9;
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(1%,#2c7fb5), color-stop(100%,#52aae9));
+	background: -webkit-linear-gradient(top, #2c7fb5 1%,#52aae9 100%);
+	background: linear-gradient(to bottom, #2c7fb5 1%,#52aae9 100%);
 }
 #addWorkflowIcon {
 	color: white;
 	padding-top: 10px;
 	padding-bottom: 5px;
 	text-align: center;
-	font-family: HelveticaNeue-UltraLight, Verdana, sans-serif;
+	font-family: HelveticaNeue-Light, Verdana, sans-serif;
+	cursor: pointer;
 }
 #workflowTableContainer  .selectedworkflow  td{
 	border: 1px solid #7bc4dd;
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(1%,#d7f2fa), color-stop(100%,#b8dbf4));
 	background: -webkit-linear-gradient(top, #d7f2fa 1%,#b8dbf4 100%);
 	background: linear-gradient(to bottom, #d7f2fa 1%,#b8dbf4 100%);
+	cursor: pointer;
 }
 #workflowTableContainer  td {
 	padding: 5px;
@@ -503,9 +503,9 @@ White: fefefe, ebebeb, d7d7d7, a2a2a2
 	top: 50px;
 	background-color: #303030;
 	
-	background: -webkit-gradient(linear, right top, left top, color-stop(1%,rgba(0,0,0,0.7)), color-stop(20%,rgba(0,0,0,0.7)), color-stop(100%,rgba(0,0,0,0.5)));
-	background: -webkit-linear-gradient(to left, rgba(0,0,0,0.7) 1%, rgba(0,0,0,0.7) 20%,rgba(0,0,0,0.5) 100%);
-	background: linear-gradient(to left, rgba(0,0,0,0.7) 1%, rgba(0,0,0,0.7) 20%,rgba(0,0,0,0.5) 100%);
+	background: -webkit-gradient(linear, right top, left top, color-stop(1%,rgba(0,0,0,0.3)), color-stop(80%,rgba(0,0,0,0.5)), color-stop(100%,rgba(0,0,0,0.3)));
+	background: -webkit-linear-gradient(to left, rgba(0,0,0,0.3) 1%, rgba(0,0,0,0.5) 50%,rgba(0,0,0,0.3) 100%);
+	background: linear-gradient(to left, rgba(0,0,0,0.3) 1%, rgba(0,0,0,0.5) 50%,rgba(0,0,0,0.3) 100%);
 	box-shadow: -2px 2px 2px rgba(0,0,0,0.5);
 	border-radius: 10px;
 	display: none;
