@@ -12,6 +12,8 @@ $(document).ready(function(){
 		$(".workflowName").last().get(0).focus();
 		$(".workflowName").last().focusout(function(){
 			$(this).attr("contenteditable","false");
+			var tempTimestamp = new Date().getTime(); // for unique identifier
+			$(this).attr("data-workflow",$(this).text()+tempTimestamp);
 			bindWorkflows();
 		});
 	});
@@ -51,8 +53,10 @@ function bindWorkflows(){
 		$(".workflowName").removeClass("selectedworkflow");
 		$(this).addClass("selectedworkflow");
 		console.log($(this).text());
-		var currentWorkflow = $(this).text();
-		$("#workflowSelectorIcon").text(currentWorkflow);
+		var currentWorkflow = $(this).attr('data-workflow');
+		var workflowText = $(this).text();
+		$("#workflowSelectorIcon").text(workflowText);
+		$("#workflowSelectorIcon").attr('data-workflow',currentWorkflow);
 		$("#workflowSelectorBox").hide();
 		$(".task").hide();
 		$(".task").each(function(){
@@ -293,7 +297,7 @@ function UI_addTaskPanel(entry,baseOffsetX,baseOffsetY,taskColor) {
 	var taskText = $(document.createElement("div")).attr("class", "taskText");
 	
 	// associate the task with the workflow
-	task.attr("data-workflow", $("#workflowSelectorIcon").text());
+	task.attr("data-workflow", $("#workflowSelectorIcon").attr('data-workflow'));
 	
 	// Set up draggable element
 	task.draggable({
