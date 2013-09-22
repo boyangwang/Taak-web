@@ -116,18 +116,23 @@ function UI_init() {
 // Unselect the task
 function UI_unselect() {
 	UI_hideColorSwitcher();
-	var task = $(".selected");
-	var taskText = task.children(".taskText");
-	taskText.attr("contenteditable", "false"); // Make content uneditable after being deselected (fixes quirks pertaining to content-editable + dragging)
-	task.removeClass("selected");
-	task.draggable("option", "disabled", false); // re-enable dragging
-	UI_updateEntry(taskText);
-	lastTask = null;
-	
-	UI_resize();
-	
-	if(taskText.text() == ""){ // nothing is written
-		UI_deleteTask(taskText.parent());
+	var task = lastTask;
+	if (task) {
+		UI_hideColorSwitcher();
+		var taskText = task.children(".taskText");
+		taskText.attr("contenteditable", "false"); // Make content uneditable after being deselected (fixes quirks pertaining to content-editable + dragging)
+		task.removeClass("selected");
+		task.draggable("option", "disabled", false); // re-enable dragging
+		taskText.blur();
+		UI_updateEntry(taskText);
+		lastTask = null;
+		
+		
+		UI_resize();
+		
+		if(taskText.text() == ""){ // nothing is written
+			UI_deleteTask(taskText.parent());
+		}
 	}
 }
 // Move caret to end of editable object
@@ -276,7 +281,7 @@ function UI_addTaskPanel(entry,baseOffsetX,baseOffsetY,taskColor) {
 		start: function() {
 			$("#deleteTaskIcon").show();
 			$("#sidebarView").hide();
-			//UI_unselect();
+			UI_unselect();
 			lastTask = $(this);
 		},
 		stop: function() {
