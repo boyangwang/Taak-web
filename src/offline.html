@@ -3,26 +3,34 @@
 <head><title>Taak</title>
 	<meta charset="utf8">
 	<meta name="viewport" content="width=768, initial-scale=1, minimum-scale=1, maximum-scale=1">
+	<!--<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">-->
 	<!--<meta name="viewport" content="width=device-width, user-scalable=false">-->
 	<link rel="icon" type="image/png" href="img/favicon.png">
 	<link rel="apple-touch-icon-precomposed" href="img/icon.png" />
 	<link rel="stylesheet" href="css/jquery-ui-1.10.3.custom.min.css" type="text/css" />
 	<link rel="stylesheet" href="css/style.css" type="text/css" />
 	<link rel="stylesheet" href="css/contentStyle.css" type="text/css" />
-	<link rel="stylesheet" href="css/extraStyle.css" type="text/css" />
-	<link rel="stylesheet" href="css/auth.css" type="text/css" />
 </head>
-<body>
+<body class="box">
+	<div class="ios7fixer box">
 	<div id="fb-root"></div>
-		
 	<!-- Top bar (re-added to test auth) -->
-	<div id="topbarView" style="display:block;">
+	<div id="topbarView" class="box" style="display:block;">
 		<a href="javascript:showLoginPrompt();"><img class="smallicon" src="img/changeIcon.png" style=""></a>
-		<span id="login_flag" style="display:none">Not Login</span>
-
+		<!--<span id="login_flag" style="display:none">Not Login</span><a href="javascript:reload();">Refresh</a>-->
+		<div id="workflowSelectorIcon">Default Board</div>
+			<div id="workflowSelectorBox">
+				<div id="workflowTableContainer">
+					<table id="workflowTable" cellpadding="0" cellspacing="0">
+						<tr class="workflowName selectedworkflow"><td>Default Board</td></tr>
+					</table>
+				</div>
+				<div id="addWorkflowIcon">Add board</div>
+			</div>
 	</div>
 	<!-- End top bar -->
-	<div class="super-container">
+	<div class="super-container box">
 		<div id="sidebarView" class="box"><div class="mid"><div id="addTaskDiv" class="box">			
 			<div class="addTaskDiv" data-color="yellow"><img class="addTaskContainer" src="img/task-yellow.png"></div>
 			<div class="addTaskDiv" data-color="blue"><img class="addTaskContainer" src="img/task-blue.png"></div>
@@ -32,7 +40,7 @@
 			<div class="addTaskDiv" data-color="white"><img class="addTaskContainer" src="img/task-white.png"></div>
 		</div></div></div>
 		<div class="content">
-			<div id="default" class="workflowView scrollable">
+			<div id="default" class="workflowView scrollable"><input type="text" id="dummyinput">
 				<div id="dragInstructions"></div>
 				<div class="helpertoolbar colortoolbar box">
 					<div class="colorbutton task-yellow" data-color="yellow" onclick="javascript:UI_setColor(this, event);"></div>
@@ -58,35 +66,33 @@
 			</div>
 		</div>
 	</div>
-<script type="text/javascript" src="js/jquery_1.10.2.js"></script>
-<script type="text/javascript" src="js/jquery-collision.min.js"></script>
-<script type="text/javascript" src="js/jquery.tools.min.js"></script>
-<script type="text/javascript" src="js/jquery-ui-1.10.3.custom.min.js"></script>
-<script type="text/javascript" src="js/jquery.ui.touch-punch.min.js"></script>
+	</div>
+	<script type="text/javascript" src="js/jquery_1.10.2.js"></script>
+	<script type="text/javascript" src="js/jquery-collision.min.js"></script>
+	<script type="text/javascript" src="js/jquery.tools.min.js"></script>
+	<script type="text/javascript" src="js/jquery-ui-1.10.3.custom.min.js"></script>
+	<script type="text/javascript" src="js/jquery.ui.touch-punch.min.js"></script>
+	<script type="text/javascript" src="js/cryptojs.sha1.js"></script>
+	<script type="text/javascript" src="js/client.net.js"></script>
+	<script type="text/javascript" src="js/client.sync.js"></script>
+	<script type="text/javascript" src="js/client.manager.js"></script>
+	<script type="text/javascript" src="js/client.js"></script>
+	<script type="text/javascript" src="js/client.ui.js"></script>
+	<script type="text/javascript" src="js/client.auth.js"></script>
+	<script type="text/javascript">
+		var _gaq = _gaq || [];
+		_gaq.push(['_setAccount', 'UA-43901195-1']);
+		_gaq.push(['_trackPageview']);
 
-<script type="text/javascript" src="js/client.net.js"></script>
-<script type="text/javascript" src="js/client.sync.js"></script>
-<script type="text/javascript" src="js/client.manager.js"></script>
-<script type="text/javascript" src="js/client.js"></script>
-<script type="text/javascript" src="js/client.ui.js"></script>
-<script type="text/javascript" src="js/uilogic.js"></script>
-
-<script type="text/javascript" src="js/cryptojs.sha1.js"></script>
-<script type="text/javascript" src="js/client.auth.js"></script>
-<script type="text/javascript">
-var _gaq = _gaq || [];
-_gaq.push(['_setAccount', 'UA-43901195-1']);
-_gaq.push(['_trackPageview']);
-
-(function() {
-	var ga = document.createElement('script');
-	ga.type = 'text/javascript';
-	ga.async = true;
-	ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-	var s = document.getElementsByTagName('script')[0];
-	s.parentNode.insertBefore(ga, s);
-}
-)();
-</script>
+		(function() {
+			var ga = document.createElement('script');
+			ga.type = 'text/javascript';
+			ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0];
+			s.parentNode.insertBefore(ga, s);
+		}
+		)();
+	</script>
 </body>
 </html>
