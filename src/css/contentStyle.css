@@ -433,6 +433,35 @@ White: fefefe, ebebeb, d7d7d7, a2a2a2
 	margin-left: 10px;
 }
 
+/** Refresh button **/
+
+#topbarView .button {
+	float: right;
+	width: auto;
+	line-height: 16px;
+	padding: 5px 10px;
+	margin-top: 7px;
+	margin-right: 10px;
+	background: #52aae9;
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(1%,#52aae9), color-stop(100%,#2c7fb5));
+	background: -webkit-linear-gradient(top, #52aae9 1%,#2c7fb5 100%);
+	background: linear-gradient(to bottom, #52aae9 1%,#2c7fb5 100%);
+	border-radius: 4px;
+	border: 1px solid black;
+	font-size: 16px;
+	font-family: Helvetica, Verdana, sans-serif;
+	color: white;
+	vertical-align: middle;
+	cursor: pointer;
+	text-decoration: none;
+}
+#topbarView .button:active {
+	background: #52aae9;
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(1%,#2c7fb5), color-stop(100%,#52aae9));
+	background: -webkit-linear-gradient(top, #2c7fb5 1%,#52aae9 100%);
+	background: linear-gradient(to bottom, #2c7fb5 1%,#52aae9 100%);
+}
+
 /** Work flow **/
 
 .workflowName{

@@ -342,6 +342,7 @@ function UI_addTaskPanel(entry,baseOffsetX,baseOffsetY,taskColor) {
 		}
 		
 		// Set select mode
+		UI_scrollTo(task);
 		taskText.attr("contenteditable", "true"); // make content editable
 		task.draggable("option", "disabled", true ); // dragging must be disabled for edit to be allowed
 		task.addClass("selected");

@@ -18,19 +18,21 @@
 	<!-- Top bar (re-added to test auth) -->
 	<div id="topbarView" class="box" style="display:block;">
 		<a href="javascript:showLoginPrompt();"><img class="smallicon" src="img/changeIcon.png" style=""></a>
-		<!--<span id="login_flag" style="display:none">Not Login</span><a href="javascript:reload();">Refresh</a>-->
+		
+		<span id="login_flag" style="display:none">Not Login</span>
 		<div id="workflowSelectorIcon">Default Board</div>
-			<div id="workflowSelectorBox">
-				<div id="workflowTableContainer">
-					<table id="workflowTable" cellpadding="0" cellspacing="0">
-						<tr class="workflowName selectedworkflow"><td>Default Board</td></tr>
-					</table>
-				</div>
-				<div id="addWorkflowIcon">Add board</div>
+		<a class="button" href="javascript:reload();">Refresh</a>
+		<div id="workflowSelectorBox">
+			<div id="workflowTableContainer">
+				<table id="workflowTable" cellpadding="0" cellspacing="0">
+					<tr class="workflowName selectedworkflow"><td>Default Board</td></tr>
+				</table>
 			</div>
+			<div id="addWorkflowIcon">Add board</div>
+		</div>
 	</div>
 	<!-- End top bar -->
-	<div class="super-container box">
+	<div class="super-container box" style="min-height: 500px;">
 		<div id="sidebarView" class="box"><div class="mid"><div id="addTaskDiv" class="box">			
 			<div class="addTaskDiv" data-color="yellow"><img class="addTaskContainer" src="img/task-yellow.png"></div>
 			<div class="addTaskDiv" data-color="blue"><img class="addTaskContainer" src="img/task-blue.png"></div>
