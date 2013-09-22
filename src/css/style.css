@@ -12,6 +12,7 @@ body {
 }
 #dummyinput { /* For hiding keyboard in iOS5 */
 	opacity: 0;
+	float: left;
 }
 /** Generics **/
 .stroke { /* Give a outline to the text */
