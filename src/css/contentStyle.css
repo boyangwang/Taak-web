@@ -455,13 +455,10 @@ White: fefefe, ebebeb, d7d7d7, a2a2a2
 	color: white;
 	padding-top: 10px;
 	padding-bottom: 5px;
-	/*position: absolute;
-	right: 15px;
-	bottom: 10px;*/
 	text-align: center;
 	font-family: HelveticaNeue-UltraLight, Verdana, sans-serif;
 }
-#workflowTableContainer  td.selected {
+#workflowTableContainer  td.selectedworkflow {
 	border: 1px solid #7bc4dd;
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(1%,#d7f2fa), color-stop(100%,#b8dbf4));
 	background: -webkit-linear-gradient(top, #d7f2fa 1%,#b8dbf4 100%);
@@ -478,10 +475,6 @@ White: fefefe, ebebeb, d7d7d7, a2a2a2
 	background: linear-gradient(to bottom, #fefefe 1%,#ebebeb 100%);
 }
 #workflowTableContainer {
-	/*position: absolute;*/
-	/*top: 20px;*/
-	/*width: 270px;*/
-	/*height: 240px;*/
 	overflow: auto;
 	background-color: #eee;
 	border: 1px solid #333;
@@ -489,9 +482,6 @@ White: fefefe, ebebeb, d7d7d7, a2a2a2
 }
 #workflowSelectorBox {
 	width: 180px;
-	/*height: 280px;
-	padding: 10px;
-	padding-top: 20px;*/
 	padding: 5px;
 	position: absolute;
 	color: white;
@@ -504,24 +494,13 @@ White: fefefe, ebebeb, d7d7d7, a2a2a2
 	background: linear-gradient(to left, rgba(0,0,0,0.7) 1%, rgba(0,0,0,0.7) 20%,rgba(0,0,0,0.5) 100%);
 	box-shadow: -2px 2px 2px rgba(0,0,0,0.5);
 	border-radius: 10px;
-	/**/
-	/*border: 1px solid black;
-	border-radius: 5px;*/
-	
-	/*overflow: auto;
-	overflow-x: hidden;*/
 	display: none;
 }
 #workflowTable {
-	/*width: 160px;*/
 	width: 100%;
 	overflow: auto;
 }
 .workflowName {
-	/*padding-left: 25px;
-	padding-top: 15px;
-	
-	*/
 	color: #575757;
 	font-size: 18px;
 	font-family: HelveticaNeue-Light, Verdana, sans-serif;
