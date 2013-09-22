@@ -72,7 +72,7 @@ function hideDragInstructions() {
 }
 
 // Called when adding a task
-function addTask(x,y,taskColor){
+function addTask(x, y, taskColor){
 	hideDragInstructions(); // already called earlier
 	UI_addTaskPanel(null,x,y,taskColor);
 }
@@ -95,8 +95,7 @@ function UI_resize() {
 function UI_init() {
 	$(".workflowView").click(function(e) {
 		if (!forceFocus) {
-			// Unfocus all children
-			//$(".task").children(".taskText").blur();
+			// Unfocus children
 			UI_hideColorSwitcher();
 			$(".selected").children(".taskText").blur();
 		}
@@ -114,23 +113,21 @@ function UI_init() {
 	}, 10000);
 }
 // Unselect the task
-function UI_unselect() {
-	UI_hideColorSwitcher();
-	var task = lastTask;
-	if (task) {
-		UI_hideColorSwitcher();
+function UI_unselect(task, doBlur) {
+	if (task != null) {
 		var taskText = task.children(".taskText");
 		taskText.attr("contenteditable", "false"); // Make content uneditable after being deselected (fixes quirks pertaining to content-editable + dragging)
 		task.removeClass("selected");
 		task.draggable("option", "disabled", false); // re-enable dragging
-		taskText.blur();
 		UI_updateEntry(taskText);
-		lastTask = null;
-		
 		UI_resize();
+		lastTask = null;
 		
 		if(taskText.text() == ""){ // nothing is written
 			UI_deleteTask(taskText.parent());
+		}
+		if (doBlur == true) {
+			taskText.blur();
 		}
 	}
 }
@@ -176,7 +173,6 @@ function UI_updateEntry(target, forced) {
 }
 // Add task using entry object
 var forceFocus = false;
-var isEditing = false;
 var lastTask = null;
 var selectedTask = null;
 // Display a task entry
@@ -247,7 +243,7 @@ function UI_getInt(pixel) {
 	return parseInt(pixel.replace("px", ""));
 }
 // Show color toolbar
-function UI_positionColorSwitcher(target) {
+function UI_showColorSwitcher(target) {
 	var selected = $(".selected");
 	if (selected.get(0) || target) {
 		var helper = $(".colortoolbar");
@@ -266,13 +262,13 @@ function UI_hideColorSwitcher() {
 function UI_setColor(obj, event) {
 	var obj = $(obj);
 	//var selected = $(".selected");
-	var selected = selectedTask;
-	var taskText = selected.children(".taskText");
+	var task = selectedTask;
+	var taskText = task.children(".taskText");
 	taskText.attr("data-taskcolor", obj.attr("data-color"));
-	selected.removeClass (function (index, css) {
+	task.removeClass (function (index, css) {
 		return (css.match (/\btask-\S+/g) || []).join(" ");
 	});
-	selected.addClass("task-" + obj.attr("data-color"));
+	task.addClass("task-" + obj.attr("data-color"));
 	UI_updateEntry(taskText, true);
 	if (event) {
 		event.stopPropagation();
@@ -281,6 +277,7 @@ function UI_setColor(obj, event) {
 // Create the element
 function UI_addTaskPanel(entry,baseOffsetX,baseOffsetY,taskColor) {
 	var task = $(document.createElement("div")).attr("class", "task");
+	var taskText = $(document.createElement("div")).attr("class", "taskText");
 	
 	// associate the task with the workflow
 	task.attr('workflow',$("#workflowSelectorIcon").text());
@@ -291,7 +288,9 @@ function UI_addTaskPanel(entry,baseOffsetX,baseOffsetY,taskColor) {
 		start: function() {
 			$("#deleteTaskIcon").show();
 			$("#sidebarView").hide();
-			UI_unselect();
+			UI_hideColorSwitcher();
+			UI_unselect(lastTask, true);
+			
 			lastTask = $(this);
 		},
 		stop: function() {
@@ -311,39 +310,31 @@ function UI_addTaskPanel(entry,baseOffsetX,baseOffsetY,taskColor) {
 			UI_hideColorSwitcher();
 		},
 		stop: function() {
-			UI_positionColorSwitcher();
+			UI_showColorSwitcher();
 			UI_updateEntry(task.children(".taskText"));
 		}
 	}).click(function(e){
 		if (lastTask != null && lastTask.get(0) != $(this).get(0)) {
-			var lastTaskObj = lastTask;
-			console.log("Child", lastTask);
-			lastTaskObj.removeClass("selected");
-			var lastTaskText = lastTaskObj.children(".taskText");
-			
-			lastTaskObj.draggable("option", "disabled", false);
-			//lastTaskText.removeClass("selected");
-			lastTaskText.attr("contenteditable", "false");
-			lastTaskText.blur();
-			console.log("blur");
-
-			console.log("Child", lastTaskObj);
-			UI_updateEntry(lastTaskObj.children(".taskText"));
-			
+			// Unselect last task
+			UI_unselect(lastTask, true);
 		}
-		$(".task").css("z-index","0");
-		$(this).css("z-index","1"); // bring to front
+		
+		// Bring active task to front
+		$(".task").css("z-index", "0");
+		$(this).css("z-index", "1"); 
 
 		if ($(this).parent().is('.ui-draggable-dragging') ) {
+			// Stop here if dragging
 			return;
 		}
+		
 		// Set select mode
 		taskText.attr("contenteditable", "true"); // make content editable
-		$(this).draggable("option", "disabled", true ); // dragging must be disabled for edit to be allowed
-		$(this).addClass("selected");
-		lastTask = $(this); // lastTask represents the current task being edited
-		selectedTask = lastTask;
-		UI_positionColorSwitcher(lastTask);
+		task.draggable("option", "disabled", true ); // dragging must be disabled for edit to be allowed
+		task.addClass("selected");
+		lastTask = task; // lastTask represents the current task being edited
+		selectedTask = task;
+		UI_showColorSwitcher(task);
 		e.stopPropagation(); // don't send click event to parent
 	});
 
@@ -358,26 +349,9 @@ function UI_addTaskPanel(entry,baseOffsetX,baseOffsetY,taskColor) {
 	taskUserDiv.append(taskUsername);
 	infoDiv.append(taskUserDiv);
 	
-	// Set up editable element
-	var taskText = $(document.createElement("div")).attr("class", "taskText");
-	
 	// Called when element loses focus
 	taskText.blur(function(){
-		console.log("blur");
-		taskText.attr("contenteditable", "false"); // Make content uneditable after being deselected (fixes quirks pertaining to content-editable + dragging)
-		task.removeClass("selected");
-		task.draggable("option", "disabled", false); // re-enable dragging
-		UI_updateEntry($(this));
-		
-		UI_resize();
-		
-		if($(this).text() == ""){ // nothing is written
-			UI_deleteTask($(this).parent());
-		}
-		
-	});
-	taskText.focusin(function() {
-		isEditing = true; // keyboard is up
+		UI_unselect(task);
 	});
 
 	// Create new entry if needed
@@ -387,16 +361,16 @@ function UI_addTaskPanel(entry,baseOffsetX,baseOffsetY,taskColor) {
 		entry.x = baseOffsetX;
 		entry.y = baseOffsetY;
 		entry.w = "250px";
-		entry.h = "250px";
+		entry.h = "200px";
 		entry.color = taskColor;
 		UI_scrollTo(task); // scroll to new entry
 		newEntry = true;
 	}
+	
+	// Set attributes
 	task.css({
 		"position": "absolute",
 	});
-	
-	// Set attributes
 	taskText.attr("id", "task_" + entry.id);
 	taskText.attr("data-taskid", entry.id);
 	UI_setTaskPanel(entry, task, taskText);
@@ -420,7 +394,7 @@ function UI_addTaskPanel(entry,baseOffsetX,baseOffsetY,taskColor) {
 		taskText.focus();
 	}
 	
-	// Perform update after element has been added (performed last to prevent race condition)
+	// Perform insertion after element has been added (performed last to prevent race condition)
 	if (newEntry) {
 		manager.onupdate();
 	}
@@ -437,7 +411,6 @@ function UI_initDelete() {
 			$("#deleteTaskIcon").hide();
 			$("#sidebarView").show();
 			UI_deleteTask(ui.draggable);
-			//console.log("Drop", ui.draggable.children(".taskText").attr("data-taskid"));
 		}
 	});
 	$("#deleteTaskContainer").droppable();
@@ -447,9 +420,7 @@ function UI_deleteTask(target) {
 	// Target is the element with ".task" class
 	var taskID = target.children(".taskText").attr("data-taskid");
 	target.children(".taskText").attr("data-taskarchived", "true")
-	//target.hide();
-	//target.remove(); // temp (cannot do this at the moment because references may still be present in concurrently running operations)
-	
+
 	// Animate hide
 	target.animate({'opacity' : 0}, { queue: false, duration: 300 }).hide("scale",{origin:["middle","left"]}, 300);
 	

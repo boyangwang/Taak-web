@@ -40,7 +40,7 @@ function checkUpdate() {
 }
 checkUpdate();
 
-/** UI Wrapper **/
+/** Submit on enter **/
 
 // Trigger callback when user hits enter key
 function submit(e, callback, argument) {
@@ -67,6 +67,7 @@ function showEntries() {
 	}
 }
 
+// Check if login
 function checkLogin() {
 	console.log(localStorage);
 	if (!localStorage.visited) {
@@ -79,10 +80,13 @@ function checkLogin() {
 	}
 	localStorage.visited = true;
 }
+
+// Show login
 function showLoginPrompt() {
 	$('#loginPrompt').fadeIn(300);
 }
 
+// Perform logout
 function logout(e) {
 	// 1. clear local
 	// 2. remove from db
