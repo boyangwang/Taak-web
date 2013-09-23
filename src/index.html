@@ -14,60 +14,62 @@
 </head>
 <body class="box">
 	<div class="ios7fixer box">
-	<div id="fb-root"></div>
-	<!-- Top bar (re-added to test auth) -->
-	<div id="topbarView" class="box" style="display:block;">
-		<a href="javascript:showLoginPrompt();"><img class="smallicon" src="img/changeIcon.png" style=""></a>
-		
-		<span id="login_flag" style="display:none">Not Login</span>
-		<div id="workflowSelectorIcon">Default Board</div>
-		<a class="button" href="javascript:reload();">Refresh</a>
-		<div id="workflowSelectorBox">
-			<div id="workflowTableContainer">
-				<table id="workflowTable" cellpadding="0" cellspacing="0">
-					<tr class="workflowName selectedworkflow"><td>Default Board</td></tr>
-				</table>
-			</div>
-			<div id="addWorkflowIcon">Add board</div>
-		</div>
-	</div>
-	<!-- End top bar -->
-	<div class="super-container box" style="min-height: 500px;">
-		<div id="sidebarView" class="box"><div class="mid"><div id="addTaskDiv" class="box">			
-			<div class="addTaskDiv" data-color="yellow"><img class="addTaskContainer" src="img/task-yellow.png"></div>
-			<div class="addTaskDiv" data-color="blue"><img class="addTaskContainer" src="img/task-blue.png"></div>
-			<div class="addTaskDiv" data-color="red"><img class="addTaskContainer" src="img/task-pink.png"></div>
-			<div class="addTaskDiv" data-color="green"><img class="addTaskContainer" src="img/task-green.png"></div>
-			<div class="addTaskDiv" data-color="purple"><img class="addTaskContainer" src="img/task-purple.png"></div>
-			<div class="addTaskDiv" data-color="white"><img class="addTaskContainer" src="img/task-white.png"></div>
-		</div></div></div>
-		<div class="content">
-			<div id="default" class="workflowView scrollable"><input type="text" id="dummyinput">
-				<div id="dragInstructions"></div>
-				<div class="helpertoolbar colortoolbar box">
-					<div class="colorbutton task-yellow" data-color="yellow" onclick="javascript:UI_setColor(this, event);"></div>
-					<div class="colorbutton task-blue" data-color="blue" onclick="javascript:UI_setColor(this, event);"></div>
-					<div class="colorbutton task-red" data-color="red" onclick="javascript:UI_setColor(this, event);"></div>
-					<div class="colorbutton task-green" data-color="green" onclick="javascript:UI_setColor(this, event);"></div>
-					<div class="colorbutton task-purple" data-color="purple" onclick="javascript:UI_setColor(this, event);"></div>
-					<div class="colorbutton task-white" data-color="white" onclick="javascript:UI_setColor(this, event);"></div>
-					</div>
-			
-				<div id="loginPrompt"><div class="mid"><div class="cell">
-					<div class="window">
-						<h2>Sign in</h2>
-						<div class="window-content box">
-							<p>Signing in allows you to synchronize tasks across multiple devices</p>
-							<a class="option box" id="fb_oauth_link_prompt" href="https://www.facebook.com/dialog/oauth?client_id=472743636174429&redirect_uri=http://taak.onfry.com/oauth.php">Login using Facebook</a>
-							<!--<a class="option box" id="fb_oauth_link_prompt" href="https://www.facebook.com/dialog/oauth?client_id=202826093232352&redirect_uri=http://localhost.onfry.com/cs3216/as3/repo/cs3216-as3/src/oauth.php">Login (private: 192.168.0.110)</a>-->
-							<a class="option-text" href="javascript:hideLoginPrompt();">No thanks, I do not want to sign in</a>
-						</div>
-					</div></div></div>
+		<div id="fb-root"></div>
+		<!-- Top bar (re-added to test auth) -->
+		<div id="topbarView" class="box" style="display:block;">
+			<a href="javascript:showLoginPrompt();"><img class="smallicon" src="img/changeIcon.png" style=""></a>
+
+			<span id="login_flag" style="display:none">Not Login</span>
+			<div id="workflowSelectorIcon" data-workflow="Default">Default Board</div>
+			<a class="button" href="javascript:reload();">Refresh</a>
+			<div id="workflowSelectorBox">
+				<div id="workflowTableContainer">
+					<table id="workflowTable" cellpadding="0" cellspacing="0">
+						<tr class="workflowName selectedworkflow" data-workflow="Default"><td>Default Board</td></tr>
+					</table>
 				</div>
-				<div id="deleteTaskIcon"><img id="deleteTaskContainer" src="img/deleteIcon.png"/></div>
+				<div id="addWorkflowIcon">Add board</div>
 			</div>
 		</div>
-	</div>
+		<!-- End top bar -->
+		<div class="super-container box" style="min-height: 500px;">
+			<div id="sidebarView" class="box"><div class="mid"><div id="addTaskDiv" class="box">			
+				<div class="addTaskDiv" data-color="yellow"><img class="addTaskContainer" src="img/task-yellow.png"></div>
+				<div class="addTaskDiv" data-color="blue"><img class="addTaskContainer" src="img/task-blue.png"></div>
+				<div class="addTaskDiv" data-color="red"><img class="addTaskContainer" src="img/task-pink.png"></div>
+				<div class="addTaskDiv" data-color="green"><img class="addTaskContainer" src="img/task-green.png"></div>
+				<div class="addTaskDiv" data-color="purple"><img class="addTaskContainer" src="img/task-purple.png"></div>
+				<div class="addTaskDiv" data-color="white"><img class="addTaskContainer" src="img/task-white.png"></div>
+			</div></div></div>
+			<div class="content">
+				<div id="default" class="workflowView scrollable"><input type="text" id="dummyinput">
+					<div id="dragInstructions"></div>
+					<div class="helpertoolbar colortoolbar box">
+						<div class="colorbutton task-yellow" data-color="yellow" onclick="javascript:UI_setColor(this, event);"></div>
+						<div class="colorbutton task-blue" data-color="blue" onclick="javascript:UI_setColor(this, event);"></div>
+						<div class="colorbutton task-red" data-color="red" onclick="javascript:UI_setColor(this, event);"></div>
+						<div class="colorbutton task-green" data-color="green" onclick="javascript:UI_setColor(this, event);"></div>
+						<div class="colorbutton task-purple" data-color="purple" onclick="javascript:UI_setColor(this, event);"></div>
+						<div class="colorbutton task-white" data-color="white" onclick="javascript:UI_setColor(this, event);"></div>
+					</div>
+
+					<div id="loginPrompt"><div class="mid"><div class="cell">
+						<div class="window">
+							<h2>Sign in</h2>
+							<div class="window-content box">
+								<p>Signing in allows you to synchronize tasks across multiple devices</p>
+								<a class="option box" id="fb_oauth_link_prompt" href="https://www.facebook.com/dialog/oauth?client_id=472743636174429&redirect_uri=http://taak.onfry.com/oauth.php">Login using Facebook</a>
+								<!--<a class="option box" id="fb_oauth_link_prompt" href="https://www.facebook.com/dialog/oauth?client_id=202826093232352&redirect_uri=http://localhost.onfry.com/cs3216/as3/repo/cs3216-as3/src/oauth.php">Login (private: 192.168.0.110)</a>-->
+								<a class="option-text" href="javascript:hideLoginPrompt();">No thanks, I do not want to sign in</a>
+							</div>
+						</div></div></div>
+					</div>
+					<div id="deleteTaskIcon"><img id="deleteTaskContainer" src="img/deleteIcon.png"/>
+					</div>
+					<img id="deleteWorkflowIcon" src="img/deleteWorkflowIcon.png"/>
+				</div>
+			</div>
+		</div>
 	</div>
 	<script type="text/javascript" src="js/jquery_1.10.2.js"></script>
 	<script type="text/javascript" src="js/jquery-collision.min.js"></script>
@@ -82,19 +84,19 @@
 	<script type="text/javascript" src="js/client.ui.js"></script>
 	<script type="text/javascript" src="js/client.auth.js"></script>
 	<script type="text/javascript">
-		var _gaq = _gaq || [];
-		_gaq.push(['_setAccount', 'UA-43901195-1']);
-		_gaq.push(['_trackPageview']);
+	var _gaq = _gaq || [];
+	_gaq.push(['_setAccount', 'UA-43901195-1']);
+	_gaq.push(['_trackPageview']);
 
-		(function() {
-			var ga = document.createElement('script');
-			ga.type = 'text/javascript';
-			ga.async = true;
-			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-			var s = document.getElementsByTagName('script')[0];
-			s.parentNode.insertBefore(ga, s);
-		}
-		)();
+	(function() {
+		var ga = document.createElement('script');
+		ga.type = 'text/javascript';
+		ga.async = true;
+		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		var s = document.getElementsByTagName('script')[0];
+		s.parentNode.insertBefore(ga, s);
+	}
+	)();
 	</script>
 </body>
 </html>

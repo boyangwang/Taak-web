@@ -3,6 +3,8 @@
 $(document).ready(function(){
 	console.log("ready");
 
+	bindDeleteWorkflow();
+
 	$("#workflowSelectorIcon").click(function(){
 		$("#workflowSelectorBox").toggle();
 	});
@@ -47,13 +49,58 @@ $(document).ready(function(){
 	UI_init(); // located in client.js
 });
 
+function deleteWorkflow(currentDialog){
+	$(".task").hide();
+	var workflowToDelete = $("#workflowSelectorIcon").attr('data-workflow');
+	$("#workflowSelectorIcon").text("Default Board");
+	$("#workflowSelectorIcon").attr('data-workflow','Default');
+	$("#deleteWorkflowIcon").hide();
+	$(".workflowName").each(function(){
+		if($(this).attr('data-workflow')=="Default"){
+			$(this).addClass('selectedworkflow');
+		}
+		if($(this).attr('data-workflow')==workflowToDelete){
+			$(this).remove();
+		}
+	});
+	$(".task").each(function(){
+		if($(this).attr('data-workflow')==workflowToDelete){
+			UI_deleteTask($(this));
+			$(this).remove();
+		}
+		if($(this).attr('data-workflow')=='Default'){
+			$(this).show();
+		}
+	});
+	currentDialog.dialog("close");
+}
+
+function bindDeleteWorkflow(){
+	$("#deleteWorkflowIcon").click(function(){
+		var newDialog = $('<div id="deleteDialogConfirm" title="Delete Workflow?"><p>All tasks in this workflow will be deleted.</p></div>');
+		newDialog.dialog({
+			modal: true,
+			buttons: [
+			{text: "Confirm", click: function() {deleteWorkflow($(this))}},
+			{text: "Cancel", click: function() {$(this).dialog("close");$(".ui-dialog").remove();}}
+			]
+		});
+	});
+}
+
 function bindWorkflows(){
 	$(".workflowName").unbind() // in case anything has been bound before
 	$(".workflowName").click(function(){
 		$(".workflowName").removeClass("selectedworkflow");
 		$(this).addClass("selectedworkflow");
-		console.log($(this).text());
 		var currentWorkflow = $(this).attr('data-workflow');
+		if(currentWorkflow == "Default"){
+			$("#deleteWorkflowIcon").hide();
+		}
+		else{
+			$("#deleteWorkflowIcon").show();
+		}
+		console.log(currentWorkflow);
 		var workflowText = $(this).text();
 		$("#workflowSelectorIcon").text(workflowText);
 		$("#workflowSelectorIcon").attr('data-workflow',currentWorkflow);
