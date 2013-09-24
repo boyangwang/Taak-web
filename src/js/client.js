@@ -86,6 +86,10 @@ function showEntries() {
 		var value = entries[entry].value;
 		if (value) {
 			if (entries[entry].archive) {
+				var entryObj = $("#task_" + entry);
+				if (entryObj.get(0)) { // task is deleted on other device
+					entryObj.parent().fadeOut(300);
+				}
 				continue;
 			}
 			UI_showTaskPanel(entries[entry]);

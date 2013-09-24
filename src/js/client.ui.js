@@ -246,6 +246,7 @@ function UI_showTaskPanel(entry) {
 		// Element not added yet
 		UI_addTaskPanel(entry);
 	} else {
+		console.log(entry);
 		// Element exists
 		var target = $("#task_" + entry.id);
 		// Do not update an item that is being edited by the user
@@ -262,6 +263,9 @@ function UI_setTaskPanel(entry, task, taskText) {
 	taskText.attr("data-taskdimension", entry.w + "_" + entry.h);
 	taskText.attr("data-taskcolor", entry.color);
 	taskText.html(entry.value);
+	task.removeClass (function (index, css) {
+		return (css.match (/\btask-\S+/g) || []).join(" ");
+	});
 	task.addClass("task-" + entry.color);
 	task.css({
 		"left": entry.x,
