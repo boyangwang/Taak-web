@@ -1,20 +1,29 @@
 var version = "0.17";
-var manager = new TaskManager();
+var manager;
+var sync;
 
-var sync = new TaskSync();
-sync.onconnect = synchronize;
-if (sync.online) {
-	synchronize();
-}
-checkLogin();
-sync.initToken();
+function init() {
+	manager = new TaskManager();
+	sync = new TaskSync();
+	
+	// Set up synchronizer
+	sync.onconnect = synchronize;
+	sync.initToken();
+	
+	if (sync.online) {
+		synchronize();
+	}
+	checkLogin();
+	
 
-// Set up manager
-manager.onupdate = function() {
-	showEntries();
-	sync.performSynchronize(manager, showEntries);
+	// Set up manager
+	manager.onupdate = function() {
+		showEntries();
+		sync.performSynchronize(manager, showEntries);
+	}
+	manager.readLocal();
 }
-manager.readLocal();
+init();
 
 /** Helpers **/
 function iOSversion() {
@@ -90,17 +99,21 @@ function checkLogin() {
 	if (!localStorage.visited) {
 		showLoginPrompt();
 	} else if (localStorage.fb_token) { // Logged in using Facebook
-		$('#login_flag').text('Logged in');
+		/*$('#login_flag').text('Logged in');
 		$('#fb_oauth_link').html('Log out');
 		$('#fb_oauth_link').attr('href', '#');
-		$('#fb_oauth_link').click(logout);
+		$('#fb_oauth_link').click(logout);*/
 	}
 	localStorage.visited = true;
 }
 
 // Show login
 function showLoginPrompt() {
-	$('#loginPrompt').fadeIn(300);
+	if (localStorage.fb_token) {
+		$('#logoutPrompt').fadeIn(300);
+	} else {
+		$('#loginPrompt').fadeIn(300);
+	}
 }
 
 // Perform logout
@@ -109,14 +122,25 @@ function logout(e) {
 	// 2. remove from db
 	// 3. back to unlogin page
 	
+	
+	
 	var token = localStorage.fb_token;
+	$(".task").remove();
+	
+	
 	localStorage.clear();
+	hideLoginPrompt();
+	init();
+	showEntries();
+	showLoginPrompt();
+	
 	$.ajax({
 		type: 'POST',
 		url: 'api/logout/',
 		data: "token="+token,
 		success: function(res) {
-			window.location = './index.html';
+			//window.location = './index.html';
 		},
 	});
+	
 }

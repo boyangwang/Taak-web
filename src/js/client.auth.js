@@ -2,6 +2,7 @@
 
 //$("#authSubmit").click(sendAuth);
 
+/* // DEPRECATED
 function sendAuth(e) {
 	var $username = $("#authForm input[name=username]");
 	var $pwd = $("#authForm input[name=pwd]");
@@ -16,10 +17,10 @@ function sendAuth(e) {
 		headers: {'Authorization': 'Basic ' + window.btoa($username.val()+':'+CryptoJS.SHA1($pwd.val()))},
 		success: function(response) {
 			if (response == true) {
-				var loginBtn = $('.loginBtn').eq(0)
+				//var loginBtn = $('.loginBtn').eq(0)
 				//loginBtn.html('Logout');
 				
-				loginBtn.off('click').click(logout);
+				//loginBtn.off('click').click(logout);
 				var authOverlay = $('#authOverlay');
 				$('.close', authOverlay).click();
 			}
@@ -31,7 +32,9 @@ function sendAuth(e) {
 	$username.val();
 	$pwd.val();
 }
-
+*/
+/* // DEPRECATED (client.js has the function)
 function logout(e) {
-	
+
 }
+*/

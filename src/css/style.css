@@ -43,3 +43,13 @@ body {
 	display: table-cell;
 	vertical-align: middle;
 }
+.right { /* Put object on right */
+	float: right;
+}
+.left { /* Put object on left */
+	float: left;
+}
+.clear { /* Make parent layer have correct dynamic height if using floats */
+	clear: both;
+	font-size: 1px;
+}

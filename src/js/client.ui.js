@@ -22,10 +22,10 @@ $(document).ready(function(){
 
 	bindWorkflows();
 
-	$("#loginPrompt .window").click(function(e) {
+	$(".dialog .window").click(function(e) {
 		e.stopPropagation();
 	});
-	$('#loginPrompt').click(hideLoginPrompt);
+	$('.dialog').click(hideLoginPrompt);
 
 	$(".addTaskDiv").draggable({
 		revert: function(){
@@ -130,7 +130,8 @@ function addTask(x, y, taskColor){
 
 // Hide login
 function hideLoginPrompt() {
-	$('#loginPrompt').fadeOut(300);
+	//$('#loginPrompt').fadeOut(300);
+	$('.dialog').fadeOut(300);
 }
 
 // Update UI for iOS after keyboard closed

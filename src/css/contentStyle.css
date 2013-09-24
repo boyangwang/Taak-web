@@ -186,8 +186,8 @@
 	border: 1px solid #f30;
 }
 
-/** Login prompt **/
-#loginPrompt {
+/** Dialog box **/
+.dialog {
 	display: none;
 	position: fixed;
 	width: 100%;
@@ -195,50 +195,81 @@
 	z-index: 100;
 	background-color: rgba(0,0,0,0.5);
 }
-#loginPrompt .window {
+.dialog .window {
 	width: 400px;
 	border-radius: 10px;
 	border: 1px solid #ccc;
 	background-color: #fff;
 	box-shadow: 0 2px 2px rgba(0,0,0,0.3);
+	position: relative;
 }
-#loginPrompt .window h2 {
+.dialog .window h2 {
 	font-size: 1.4em;
-	color #777;
-	background-color: #eee;
+	color: #444;
+	/*background-color: #eee;*/
+	background-color: #303030;
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(1%,#ddd), color-stop(60%,#dfdfdf), color-stop(100%,#eee));
+	background: -webkit-linear-gradient(to bottom,#ddd 0%, #dfdfdf 60%, #eee 100%);
+	background: linear-gradient(to bottom,#eee 0%, #dfdfdf 60%, #ddd 100%);
 	margin: 0px;
-	padding: 5px 10px;
+	padding: 5px 10px 7px 10px;
 	display: block;
 	border-bottom: 1px solid #ccc;
 	font-weight: normal;
 	border-radius: 10px 10px 0px 0px;
 }
-#loginPrompt .window-content {
+.dialog .window-content {
 	padding: 10px 30px;
 }
-#loginPrompt .window-content .option {
-	border: 1px solid #ccc;
+.dialog .window-content .option {
+	/*border: 1px solid #ccc;*/
+	
 	display: block;
-	padding: 10px;
-	width: 100%;
+	padding: 7px 20px;
+	/*width: 100%;*/
 	text-decoration: none;
-	color: #777;
+	/*color: #777;
 	background-color: #eee;
-	background: linear-gradient(to bottom, #fcfcfc 0%, #eee 100%);
+	background: linear-gradient(to bottom, #fcfcfc 0%, #eee 100%);*/
+	color: #fff;
+	border: 1px solid #000;
+	background: #52aae9;
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(1%,#52aae9), color-stop(100%,#2c7fb5));
+	background: -webkit-linear-gradient(top, #52aae9 1%,#2c7fb5 100%);
+	background: linear-gradient(to bottom, #52aae9 1%,#2c7fb5 100%);
+	
 	border-radius: 5px;
 	margin-top: 10px;
+	display: inline-block;
 }
-#loginPrompt .window-content .option:active{
-	background: linear-gradient(to bottom, #eee 0%, #fcfcfc 100%);
+.dialog .window-content .option:active{
+	/*background: linear-gradient(to bottom, #eee 0%, #fcfcfc 100%);
+	color: #fff;
+	background: #52aae9;*/
+	background: #52aae9;
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(1%,#2c7fb5), color-stop(100%,#52aae9));
+	background: -webkit-linear-gradient(top, #2c7fb5 1%,#52aae9 100%);
+	background: linear-gradient(to bottom, #2c7fb5 1%,#52aae9 100%);
 }
-#loginPrompt p {
+.dialog p {
 	margin: 0px;
 	padding: 0px;
 }
-#loginPrompt .window-content .option-text {
+.dialog .window-content .option-text {
 	display: block;
 	margin-top: 30px;
 	text-decoration: none;
+}
+.dialog .close-button {
+	/*float: right;*/
+	position: absolute;
+	right: 0px;
+	display: block;
+}
+.dialog .close-button img {
+	border: 0px;
+	margin-top: 5px;
+	margin-right: 5px;
 }
 
 /** Task deletion bar **/
@@ -443,22 +474,10 @@ White: fefefe, ebebeb, d7d7d7, a2a2a2
 	background: linear-gradient(to bottom,#505050 0%, #404040 60%, #303030 100%);
 	box-shadow: 0px 2px 2px rgba(0,0,0,0.5);	
 }
-#topbarView .smallicon {
-	width: 24px; 
-	height: 24px; 
-	margin-top: 10px; 
-	margin-left: 10px;
-}
-
-/** Refresh button **/
-
 #topbarView .button {
-	float: right;
-	width: auto;
 	line-height: 16px;
 	padding: 5px 10px;
 	margin-top: 7px;
-	margin-right: 10px;
 	background: #52aae9;
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(1%,#52aae9), color-stop(100%,#2c7fb5));
 	background: -webkit-linear-gradient(top, #52aae9 1%,#2c7fb5 100%);
@@ -478,6 +497,16 @@ White: fefefe, ebebeb, d7d7d7, a2a2a2
 	background: -webkit-linear-gradient(top, #2c7fb5 1%,#52aae9 100%);
 	background: linear-gradient(to bottom, #2c7fb5 1%,#52aae9 100%);
 }
+#topbarView .button  .smallicon {
+	width: 16px;
+	height: 16px;
+}
+#topbarView .right {
+	margin-right: 10px;
+}
+#topbarView .left {
+	margin-left: 10px;
+}
 
 /** Work flow **/
 
@@ -485,22 +514,6 @@ White: fefefe, ebebeb, d7d7d7, a2a2a2
 	color: white;
 }
 #workflowSelectorIcon {
-	float: right;
-	width: auto;
-	line-height: 16px;
-	padding: 5px 10px;
-	margin-top: 7px;
-	margin-right: 10px;
-	background: #52aae9;
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(1%,#52aae9), color-stop(100%,#2c7fb5));
-	background: -webkit-linear-gradient(top, #52aae9 1%,#2c7fb5 100%);
-	background: linear-gradient(to bottom, #52aae9 1%,#2c7fb5 100%);
-	border-radius: 4px;
-	border: 1px solid black;
-	font-size: 16px;
-	font-family: Helvetica, Verdana, sans-serif;
-	color: white;
-	vertical-align: middle;
 	cursor: pointer;
 }
 #workflowSelectorIcon:active {

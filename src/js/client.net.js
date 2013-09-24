@@ -32,13 +32,14 @@ TaskNet.prototype.doGet = function(callback) {
 	var data = {
 		token: this.token
 	};
+	//console.log("API User", this.user);
 	$.ajax({
 		url: "api/entry/" + this.user + "/",
 		type: "GET",
 		data: data,
 		success: function(result) {
 			if (callback != null) {
-				//console.log(result);
+				//console.log("API GET", result);
 				callback(result);
 			}
 		}
