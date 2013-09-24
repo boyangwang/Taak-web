@@ -275,35 +275,6 @@ function UI_setTaskPanel(entry, task, taskText) {
 	});
 }
 
-/*
-function getFreeSpace(){
-	var startPointX = 150;
-	var startPointY = 50;
-	var found = false;
-	while(!found){
-		console.log($(".task").length);
-		if($(".task").length == 0){
-			found = true;
-		}
-		$(".task").each(function(){
-			console.log("x: "+startPointX);
-			if($(this).offset().left > startPointX || ($(this).offset().left + $(this).width()) < startPointX){
-				if($(this).offset().left > (startPointX+250) || ($(this).offset().left + $(this).width()) < (startPointX+250)){
-					found = true;
-				}
-				else{
-					startPointX += 250;
-				}
-			}
-			else{
-				startPointX += 250;
-			}
-		});
-	}
-	baseOffsetX = startPointX;
-	baseOffsetY = startPointY;
-}
-*/
 // Convert "#px" to "#" and return as an integer
 function UI_getInt(pixel) {
 	return parseInt(pixel.replace("px", ""));
@@ -427,7 +398,7 @@ function UI_addTaskPanel(entry,baseOffsetX,baseOffsetY,taskColor) {
 	// Create new entry if needed
 	var newEntry = false;
 	if (!entry) {
-		entry = manager.add("", true);
+		entry = manager.add($("#workflowSelectorIcon").attr('data-workflow'),"", true);
 		entry.x = baseOffsetX;
 		entry.y = baseOffsetY;
 		entry.w = "250px";
@@ -441,6 +412,7 @@ function UI_addTaskPanel(entry,baseOffsetX,baseOffsetY,taskColor) {
 	task.css({
 		"position": "absolute",
 	});
+	taskText.attr("data-workflow",entry.workflow);
 	taskText.attr("id", "task_" + entry.id);
 	taskText.attr("data-taskid", entry.id);
 	UI_setTaskPanel(entry, task, taskText);
@@ -453,6 +425,12 @@ function UI_addTaskPanel(entry,baseOffsetX,baseOffsetY,taskColor) {
 	// Insert elements
 	task.append(taskText);
 	task.append(infoDiv);
+
+	// check if entry is in current workflow
+	if(entry.dataflow != $("#workflowSelectorIcon").attr('data-workflow')){
+		task.hide();
+	}
+
 	$(".workflowView").append(task);
 	
 	// Special treatment for new entries

@@ -32,7 +32,7 @@ TaskManager.prototype.writeLocal = function() {
 	localStorage.entries = JSON.stringify(this.entries);
 }
 // Add new entry
-TaskManager.prototype.add = function(value, noUpdate) {
+TaskManager.prototype.add = function(dflow,value, noUpdate) {
 	var entry = {
 		id: this.generateID(),
 		time: Date.now(),
@@ -40,7 +40,8 @@ TaskManager.prototype.add = function(value, noUpdate) {
 		x: 0,
 		y: 0,
 		w: 0,
-		h: 0
+		h: 0,
+		dataflow: dflow
 	};
 	this.entries[entry.id] = entry;
 	
