@@ -27,6 +27,7 @@ img/changeIcon.png
 img/clock.png
 img/close.png
 img/deleteIcon.png
+img/deleteWorkflowIcon.png
 img/dragInstructions.png
 img/task-blue.png
 img/task-green.png
@@ -36,6 +37,7 @@ img/task-white.png
 img/task-yellow.png
 img/topbar.png
 img/usermini.png
+img/reload.png
 js/jquery.tools.min.js
 js/jquery.ui.touch-punch.min.js
 js/jquery-ui-1.10.3.custom.min.js

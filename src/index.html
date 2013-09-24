@@ -17,9 +17,9 @@
 		<div id="fb-root"></div>
 		<!-- Top bar (re-added to test auth) -->
 		<div id="topbarView" class="box" style="display:block;">
-			<div id="workflowSelectorIcon" class="button right" data-workflow="Default">Default Board</div>
-			<a class="button right" href="javascript:reload();">Refresh</a>
-			<a class="button left" href="javascript:showLoginPrompt();"><img class="smallicon" src="img/changeIcon.png" style=""></a>
+			<a class="button right" href="javascript:toggleWorkflowSelector();" title="Change board"><span id="workflowSelectorIcon" data-workflow="Default">Default Board</span><span class="caret"></span></a>
+			<a class="button left" href="javascript:showLoginPrompt();" title="Login/out"><img class="smallicon" src="img/changeIcon.png" alt="Login/out"></a>
+			<a class="button left" href="javascript:reload();" title="Refresh"><img class="smallicon" src="img/reload.png" alt="Refresh"></a>
 			<span id="login_flag" style="display:none">Not Login</span>
 			
 			<div id="workflowSelectorBox">
@@ -71,7 +71,7 @@
 							<h2>Logout</h2>
 							<div class="window-content box">
 								<p>Your tasks can still be accessed when you sign in again</p>
-								<a class="option box" href="javascript:logout(event);">Logout</a>
+								<a class="option box" href="javascript:logout(event);">Switch Profile</a>
 							</div>
 						</div></div></div>
 					</div>

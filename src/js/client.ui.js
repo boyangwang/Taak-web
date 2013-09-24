@@ -4,11 +4,7 @@ $(document).ready(function(){
 	console.log("ready");
 
 	bindDeleteWorkflow();
-
-	$("#workflowSelectorIcon").click(function(){
-		$("#workflowSelectorBox").toggle();
-	});
-
+	
 	$("#addWorkflowIcon").click(function(){
 		$("#workflowTable").append("<tr class='workflowName' contenteditable><td>&nbsp;</td></tr>");
 		$(".workflowName").last().get(0).focus();
@@ -48,6 +44,10 @@ $(document).ready(function(){
 	
 	UI_init(); // located in client.js
 });
+
+function toggleWorkflowSelector() {
+	$("#workflowSelectorBox").toggle();
+}
 
 function deleteWorkflow(currentDialog){
 	$(".task").hide();
