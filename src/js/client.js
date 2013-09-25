@@ -100,8 +100,12 @@ function showEntries() {
 	if (currentWorkflow != $(".workflowName").attr('data-workflow')) {
 		$(".task").hide();
 		currentWorkflow = $(".workflowName").attr('data-workflow');
+		console.log("WORKFLOW", currentWorkflow);
 		$(".task").each(function(){
-			if($(this).attr("data-workflow") == $(".workflowName").attr('data-workflow')){
+			if (currentWorkflow == "Default" && typeof($(this).attr("data-workflow")) == "undefined") {
+				// For default workflow, tasks without a workflow will be considered part of default
+				$(this).show();
+			} else if($(this).attr("data-workflow") == $(".workflowName").attr('data-workflow')){
 				$(this).show();
 			}
 		});
