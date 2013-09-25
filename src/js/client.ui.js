@@ -8,6 +8,15 @@ $(document).ready(function(){
 	$("#addWorkflowIcon").click(function(){
 		$("#workflowTable").append("<tr class='workflowName' contenteditable><td>&nbsp;</td></tr>");
 		$(".workflowName").last().get(0).focus();
+		$(".workflowName").last().keydown(function(e) {
+			if (e.keyCode == 13 && !e.shiftKey) {
+				$(this).attr("contenteditable","false");
+				var tempTimestamp = new Date().getTime(); // for unique identifier
+				$(this).attr("data-workflow",$(this).text()+tempTimestamp);
+				bindWorkflows();
+				hideKeyboard();
+			}
+		});
 		$(".workflowName").last().focusout(function(){
 			$(this).attr("contenteditable","false");
 			var tempTimestamp = new Date().getTime(); // for unique identifier
@@ -42,11 +51,38 @@ $(document).ready(function(){
 		hideDragInstructions();
 	});
 	
+	
 	UI_init(); // located in client.js
 });
 
 function toggleWorkflowSelector() {
 	$("#workflowSelectorBox").toggle();
+}
+
+function doDeleteWorkflow() {
+	hideLoginPrompt();
+	$(".task").hide();
+	var workflowToDelete = $("#workflowSelectorIcon").attr('data-workflow');
+	$("#workflowSelectorIcon").text("Default Board");
+	$("#workflowSelectorIcon").attr('data-workflow','Default');
+	$("#deleteWorkflowIcon").hide();
+	$(".workflowName").each(function(){
+		if($(this).attr('data-workflow')=="Default"){
+			$(this).addClass('selectedworkflow');
+		}
+		if($(this).attr('data-workflow')==workflowToDelete){
+			$(this).remove();
+		}
+	});
+	$(".task").each(function(){
+		if($(this).attr('data-workflow')==workflowToDelete){
+			UI_deleteTask($(this));
+			$(this).remove();
+		}
+		if($(this).attr('data-workflow')=='Default'){
+			$(this).show();
+		}
+	});
 }
 
 function deleteWorkflow(currentDialog){
@@ -77,6 +113,7 @@ function deleteWorkflow(currentDialog){
 
 function bindDeleteWorkflow(){
 	$("#deleteWorkflowIcon").click(function(){
+	/*
 		var newDialog = $('<div id="deleteDialogConfirm" title="Delete Workflow?"><p>All tasks in this workflow will be deleted.</p></div>');
 		newDialog.dialog({
 			modal: true,
@@ -85,6 +122,8 @@ function bindDeleteWorkflow(){
 			{text: "Cancel", click: function() {$(this).dialog("close");$(".ui-dialog").remove();}}
 			]
 		});
+		*/
+		$("#deleteWorkflowPrompt").show();
 	});
 }
 
@@ -94,7 +133,7 @@ function bindWorkflows(){
 		$(".workflowName").removeClass("selectedworkflow");
 		$(this).addClass("selectedworkflow");
 		var currentWorkflow = $(this).attr('data-workflow');
-		if(currentWorkflow == "Default"){
+		if (currentWorkflow == "Default") {
 			$("#deleteWorkflowIcon").hide();
 		}
 		else{

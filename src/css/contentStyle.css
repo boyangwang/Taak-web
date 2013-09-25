@@ -61,7 +61,7 @@
 }
 
 /* Main content */
-.super-container {
+.super-container { /* Constrains the content to the window (part of iOS7 Safari fix) */
 	position: absolute;
 	top: 44px;
 	bottom: 0px;
@@ -79,20 +79,19 @@
 	-webkit-tap-highlight-color: rgba(0,0,0,0); /* prevent flicker */
 }
 
-
+/** Workflow deletion **/
 #deleteDialogConfirm{
 	font-family: HelveticaNeue-Light, Verdana, sans-serif;
 	font-size: 1.0em;
 }
-
-
 #deleteWorkflowIcon{
+/*
 	width: 50px;
 	height: 50px;
 	position: fixed;
 	bottom: 30px;
 	right: 30px;
-	max-width: 100%;
+	max-width: 100%;*/
 	display: none;
 }
 
@@ -210,8 +209,7 @@
 .dialog .window h2 {
 	font-size: 1.4em;
 	color: #444;
-	/*background-color: #eee;*/
-	background-color: #303030;
+	background-color: #eee;
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(1%,#ddd), color-stop(60%,#dfdfdf), color-stop(100%,#eee));
 	background: -webkit-linear-gradient(to bottom,#ddd 0%, #dfdfdf 60%, #eee 100%);
 	background: linear-gradient(to bottom,#eee 0%, #dfdfdf 60%, #ddd 100%);
@@ -226,31 +224,21 @@
 	padding: 10px 30px;
 }
 .dialog .window-content .option {
-	/*border: 1px solid #ccc;*/
-	
 	display: block;
 	padding: 7px 20px;
-	/*width: 100%;*/
 	text-decoration: none;
-	/*color: #777;
-	background-color: #eee;
-	background: linear-gradient(to bottom, #fcfcfc 0%, #eee 100%);*/
 	color: #fff;
 	border: 1px solid #000;
 	background: #52aae9;
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(1%,#52aae9), color-stop(100%,#2c7fb5));
 	background: -webkit-linear-gradient(top, #52aae9 1%,#2c7fb5 100%);
 	background: linear-gradient(to bottom, #52aae9 1%,#2c7fb5 100%);
-	
 	border-radius: 5px;
 	margin-top: 10px;
 	display: inline-block;
 	clear: both;
 }
 .dialog .window-content .option:active{
-	/*background: linear-gradient(to bottom, #eee 0%, #fcfcfc 100%);
-	color: #fff;
-	background: #52aae9;*/
 	background: #52aae9;
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(1%,#2c7fb5), color-stop(100%,#52aae9));
 	background: -webkit-linear-gradient(top, #2c7fb5 1%,#52aae9 100%);
@@ -534,7 +522,6 @@ White: fefefe, ebebeb, d7d7d7, a2a2a2
 }
 
 /** Work flow **/
-
 .workflowName{
 	color: white;
 }

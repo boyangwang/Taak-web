@@ -18,6 +18,7 @@
 		<!-- Top bar (re-added to test auth) -->
 		<div id="topbarView" class="box" style="display:block;">
 			<a class="button right" href="javascript:toggleWorkflowSelector();" title="Change board"><span id="workflowSelectorIcon" data-workflow="Default">Default Board</span><span class="caret"></span></a>
+			<div id="deleteWorkflowIcon"><a class="button right">Delete Board</a></div>
 			<a class="button left" href="javascript:showLoginPrompt();" title="Login/out"><img class="smallicon" src="img/changeIcon.png" alt="Login/out"></a>
 			<a class="button left" href="javascript:reload();" title="Refresh"><img class="smallicon" src="img/reload.png" alt="Refresh"></a>
 			<span id="login_flag" style="display:none">Not Login</span>
@@ -75,10 +76,20 @@
 							</div>
 						</div></div></div>
 					</div>
+					<div id="deleteWorkflowPrompt" class="dialog"><div class="mid"><div class="cell">
+						<div class="window">
+							<div class="close-button"><a href="javascript:hideLoginPrompt();" title="Close"><img src="img/close.png" alt="Close"></a></div>
+							<h2>Delete Board</h2>
+							<div class="window-content box">
+								<p>All tasks in this board will be deleted.</p>
+								<a class="option box" style="display: inline-block;" href="javascript:doDeleteWorkflow();">Delete Board</a> <a class="option box" style="display: inline-block;" href="javascript:hideLoginPrompt();">Cancel</a>
+							</div>
+						</div></div></div>
+					</div>
 					
 					<div id="deleteTaskIcon"><img id="deleteTaskContainer" src="img/deleteIcon.png"/>
 					</div>
-					<img id="deleteWorkflowIcon" src="img/deleteWorkflowIcon.png"/>
+					<!--<img id="deleteWorkflowIcon" src="img/deleteWorkflowIcon.png"/>-->
 				</div>
 			</div>
 		</div>
@@ -94,7 +105,6 @@
 	<script type="text/javascript" src="js/client.manager.js"></script>
 	<script type="text/javascript" src="js/client.js"></script>
 	<script type="text/javascript" src="js/client.ui.js"></script>
-	<script type="text/javascript" src="js/client.auth.js"></script>
 	<script type="text/javascript">
 	var _gaq = _gaq || [];
 	_gaq.push(['_setAccount', 'UA-43901195-1']);

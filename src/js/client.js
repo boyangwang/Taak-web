@@ -1,4 +1,4 @@
-var version = "0.17";
+var version = "0.34";
 var manager;
 var sync;
 
@@ -79,6 +79,7 @@ function submit(e, callback, argument) {
 }
 
 // Display all entries
+var currentWorkflow = "";
 function showEntries() {
 	var result = "";
 	var entries = manager.entries;
@@ -94,6 +95,16 @@ function showEntries() {
 			}
 			UI_showTaskPanel(entries[entry]);
 		}
+	}
+	// Show the current workflow
+	if (currentWorkflow != $(".workflowName").attr('data-workflow')) {
+		$(".task").hide();
+		currentWorkflow = $(".workflowName").attr('data-workflow');
+		$(".task").each(function(){
+			if($(this).attr("data-workflow") == $(".workflowName").attr('data-workflow')){
+				$(this).show();
+			}
+		});
 	}
 }
 
