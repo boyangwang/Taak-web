@@ -87,3 +87,7 @@ TaskManager.prototype.remove = function(id) {
 	this.onupdate();*/
 	this.markArchive(id);
 }
+// Perform synchronization operation
+TaskManager.prototype.doSync = function() {
+	this.onupdate();
+}

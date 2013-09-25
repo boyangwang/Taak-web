@@ -16,7 +16,11 @@ $(document).ready(function(){
 	}
 	console.log("hasSpecial: " + hasSpecial);
 	if(!hasSpecial){
-		manager.add("specialTask","",true);
+		//manager.add("specialTask","",true);
+		
+		// Create special entry
+		var specialEntry = manager.add("specialTask","", true);
+		manager.markArchive(specialEntry.id); // hide from view, and save
 	}
 	else{
 		preloadWorkflowTable();
@@ -30,6 +34,17 @@ $(document).ready(function(){
 				$(this).attr("contenteditable","false");
 				var tempTimestamp = new Date().getTime(); // for unique identifier
 				$(this).attr("data-workflow",$(this).text()+tempTimestamp);
+				var specialEntry = getSpecialEntry();
+				var entryValue = specialEntry.value;
+				if(entryValue == ""){
+					entryValue += $(this).text() + "\n" + $(this).text()+tempTimestamp;
+				}
+				else{
+					entryValue += "\n" + $(this).text() + "\n" + $(this).text()+tempTimestamp;
+				}
+				specialEntry.value = entryValue;
+				manager.update(specialEntry.id,specialEntry.value,specialEntry.x,specialEntry.y,specialEntry.w,specialEntry.h,specialEntry.color);
+				console.log(specialEntry.value);
 				bindWorkflows();
 				hideKeyboard();
 			}
@@ -90,7 +105,9 @@ function preloadWorkflowTable(){
 	for(var i = 0 ; i < workflowListArray.length ; i+=2){
 		var workflowName = workflowListArray[i];
 		var workflowIdentifier = workflowListArray[i+1];
-		$("#workflowTable").append("<tr class='workflowName' data-workflow='"+workflowIdentifier+"'><td>&nbsp;"+workflowName+"&nbsp;</td></tr>");
+		if (workflowIdentifier != null) {
+			$("#workflowTable").append("<tr class='workflowName' data-workflow='"+workflowIdentifier+"'><td>&nbsp;"+workflowName+"&nbsp;</td></tr>");
+		}
 	}
 }
 
@@ -110,7 +127,6 @@ function toggleWorkflowSelector() {
 }
 
 function doDeleteWorkflow() {
-	hideLoginPrompt();
 	$(".task").hide();
 	var workflowToDelete = $("#workflowSelectorIcon").attr('data-workflow');
 	$("#workflowSelectorIcon").text("Default Board");
@@ -121,6 +137,20 @@ function doDeleteWorkflow() {
 			$(this).addClass('selectedworkflow');
 		}
 		if($(this).attr('data-workflow')==workflowToDelete){
+			var specialEntry = getSpecialEntry();
+			var workflowList = specialEntry.value;
+			var workflowListArray = workflowList.split("\n");
+			var deleteIndex = -1;
+			for(var i = 0 ; i < workflowListArray.length ; i+=2){
+				if(workflowListArray[i+1] == workflowToDelete){
+					deleteIndex = i;
+				}
+			}
+			workflowListArray.splice(deleteIndex,2);
+			workflowList = workflowListArray.join("\n");
+			console.log("workflowList: " + workflowList);
+			specialEntry.value = workflowList;
+			manager.update(specialEntry.id,specialEntry.value,specialEntry.x,specialEntry.y,specialEntry.w,specialEntry.h,specialEntry.color);
 			$(this).remove();
 		}
 	});
@@ -129,12 +159,15 @@ function doDeleteWorkflow() {
 			UI_deleteTask($(this));
 			$(this).remove();
 		}
-		if($(this).attr('data-workflow')=='Default'){
+		if($(this).attr('data-workflow')=='Default' || $(this).attr('data-workflow') == null){
 			$(this).show();
 		}
 	});
+	
+	hideLoginPrompt();
 }
 
+/* // DEPRECATED, replaced by doDeleteWorkflow()
 function deleteWorkflow(currentDialog){
 	$(".task").hide();
 	var workflowToDelete = $("#workflowSelectorIcon").attr('data-workflow');
@@ -174,7 +207,7 @@ function deleteWorkflow(currentDialog){
 	});
 	currentDialog.dialog("close");
 }
-
+*/
 function bindDeleteWorkflow(){
 	$("#deleteWorkflowIcon").click(function(){
 	/*
