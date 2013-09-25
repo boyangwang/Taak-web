@@ -4,6 +4,23 @@ $(document).ready(function(){
 	console.log("ready");
 
 	bindDeleteWorkflow();
+
+	// show all entries (debug)
+	var allEntries = manager.entries;
+	var hasSpecial = false;
+	for(var entry in allEntries){
+		if(allEntries[entry].dataflow == "specialTask"){
+			hasSpecial = true;
+		}
+		console.log("val: " + allEntries[entry].value + ", workflow: " + allEntries[entry].dataflow);
+	}
+	console.log("hasSpecial: " + hasSpecial);
+	if(!hasSpecial){
+		manager.add("specialTask","",true);
+	}
+	else{
+		preloadWorkflowTable();
+	}
 	
 	$("#addWorkflowIcon").click(function(){
 		$("#workflowTable").append("<tr class='workflowName' contenteditable><td>&nbsp;</td></tr>");
@@ -21,6 +38,17 @@ $(document).ready(function(){
 			$(this).attr("contenteditable","false");
 			var tempTimestamp = new Date().getTime(); // for unique identifier
 			$(this).attr("data-workflow",$(this).text()+tempTimestamp);
+			var specialEntry = getSpecialEntry();
+			var entryValue = specialEntry.value;
+			if(entryValue == ""){
+				entryValue += $(this).text() + "\n" + $(this).text()+tempTimestamp;
+			}
+			else{
+				entryValue += "\n" + $(this).text() + "\n" + $(this).text()+tempTimestamp;
+			}
+			specialEntry.value = entryValue;
+			manager.update(specialEntry.id,specialEntry.value,specialEntry.x,specialEntry.y,specialEntry.w,specialEntry.h,specialEntry.color);
+			console.log(specialEntry.value);
 			bindWorkflows();
 		});
 	});
@@ -54,6 +82,28 @@ $(document).ready(function(){
 	
 	UI_init(); // located in client.js
 });
+
+function preloadWorkflowTable(){
+	var specialEntry = getSpecialEntry();
+	var workflowList = specialEntry.value;
+	var workflowListArray = workflowList.split("\n");
+	for(var i = 0 ; i < workflowListArray.length ; i+=2){
+		var workflowName = workflowListArray[i];
+		var workflowIdentifier = workflowListArray[i+1];
+		$("#workflowTable").append("<tr class='workflowName' data-workflow='"+workflowIdentifier+"'><td>&nbsp;"+workflowName+"&nbsp;</td></tr>");
+	}
+}
+
+function getSpecialEntry(){
+	var allEntries = manager.entries;
+	var specialTask = false;
+	for(var entry in allEntries){
+		if(allEntries[entry].dataflow == "specialTask"){
+			specialTask = allEntries[entry];
+		}
+	}
+	return specialTask;
+}
 
 function toggleWorkflowSelector() {
 	$("#workflowSelectorBox").toggle();
@@ -96,6 +146,20 @@ function deleteWorkflow(currentDialog){
 			$(this).addClass('selectedworkflow');
 		}
 		if($(this).attr('data-workflow')==workflowToDelete){
+			var specialEntry = getSpecialEntry();
+			var workflowList = specialEntry.value;
+			var workflowListArray = workflowList.split("\n");
+			var deleteIndex = -1;
+			for(var i = 0 ; i < workflowListArray.length ; i+=2){
+				if(workflowListArray[i+1] == workflowToDelete){
+					deleteIndex = i;
+				}
+			}
+			workflowListArray.splice(deleteIndex,2);
+			workflowList = workflowListArray.join("\n");
+			console.log("workflowList: " + workflowList);
+			specialEntry.value = workflowList;
+			manager.update(specialEntry.id,specialEntry.value,specialEntry.x,specialEntry.y,specialEntry.w,specialEntry.h,specialEntry.color);
 			$(this).remove();
 		}
 	});
@@ -202,7 +266,7 @@ function UI_init() {
 	// Periodically poll for changes
 	window.setInterval(function() {
 		sync.performSynchronize(manager, showEntries);
-		console.log("Polled");
+		//console.log("Polled");
 	}, 10000);
 }
 // Unselect the task
@@ -359,8 +423,12 @@ function UI_addTaskPanel(entry,baseOffsetX,baseOffsetY,taskColor) {
 	var taskText = $(document.createElement("div")).attr("class", "taskText");
 	
 	// associate the task with the workflow
-	task.attr("data-workflow", $("#workflowSelectorIcon").attr('data-workflow'));
-	
+	if(!entry){
+		task.attr("data-workflow", $("#workflowSelectorIcon").attr('data-workflow'));
+	}
+	else{
+		task.attr("data-workflow", entry.dataflow);
+	}
 	// Set up draggable element
 	task.draggable({
 		stack: ".task", // bring to front on drag
