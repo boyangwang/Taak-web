@@ -869,3 +869,45 @@ function rgbaObjToString(rgbaObject){
 function calcCanvasCenter(canvas){
 	return {x: (canvas.width/2), y: (canvas.height/2)}
 }
+
+function createCircle(canvas, coord, colorOffset, outlineColorOffset){ //SIMILAR to paintDot
+	var preCf = {
+		color: {r:(0+colorOffset.r), g:(0+colorOffset.g), b:(0+colorOffset.b), a:(1.0+colorOffset.a)},
+		outlineColor: {r:(255+colorOffset.r), g:(255+colorOffset.g), b:(255+colorOffset.b), a:(1.0+outlineColorOffset.a)},
+		radius: 35 //prev 70
+	}
+	var config = {
+		strokeStyle: rgbaObjToString(preCf.color),
+		lineWidth: 12,
+		outlineZoom: 1.06, //1.06 indicates 1.06x the size
+		outlineStyle: rgbaObjToString(preCf.outlineColor),
+		outlineWidth: 2, //prev -2
+		radius: preCf.radius,
+		x: coord.x,
+		y: coord.y,
+		startAngle: 0,
+		endAngle: 2*Math.PI,
+		counterClockwise: true
+	}
+
+	var ctx = canvas.getContext("2d");
+	/// TRANSLATE AND ZOOM IN (like google maps) http://stackoverflow.com/questions/2916081/zoom-in-on-a-point-using-scale-and-translate
+	ctx.save();
+	ctx.scale(config.outlineZoom,config.outlineZoom);
+	ctx.translate(
+		-( coord.x - coord.x/config.outlineZoom ),
+		-( coord.y - coord.y/config.outlineZoom )
+	);
+	drawCircle(ctx, config.outlineStyle, config.outlineWidth);
+	ctx.restore();
+	drawCircle(ctx, config.strokeStyle, 0);
+	function drawCircle(ctx, strokeStyle, lineWidth){
+		ctx.strokeStyle = strokeStyle;
+		ctx.lineWidth = config.lineWidth+lineWidth;
+		ctx.beginPath();
+		ctx.arc(config.x, config.y, config.radius, 0, 2*Math.PI, true);
+		ctx.stroke();
+	}
+}
+
+
