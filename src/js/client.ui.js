@@ -1,5 +1,5 @@
 /** UI Helpers **/
-var glMode=0; //mode 1: mark tasks done || mode 2: multi select
+var glMode=0; //mode 1: can mark tasks done || mode 2: multi select
 var glModeSaver=0;
 function haltModes(){
 	glModeSaver = glMode;
@@ -123,7 +123,7 @@ $(document).ready(function(){
 	$("#messagebar").fadeOut(0);
 	$("#markTaskDoneBtn").click(function(){
 		switch(glMode){
-		case 0: //Originally, innerText is "Mark Tasks Done".
+		case 0: //Originally, innerText is "Start Marking Tasks".
 			setMarkingTaskDone_inProgress();
 			break;
 		case 1: //Originally, innerText is "Stop Marking Tasks".
@@ -405,11 +405,10 @@ function UI_updateEntryLabels(target){ //param target must be the taskText div, 
 	}
 	var label_done = $(".donemark", target.parent()).hasClass("donemark");
 
-	if (label_done != target.attr("label_done")) {
+	if ( label_done != target.attr("label_done") ) {
 		manager.update(target.attr("data-taskid"),null,null,null,null,null,null,null,{done:label_done});
 		// target.attr("label_done", true); //different from "label_archived"
 	}
-
 }
 
 // Add task using entry object
