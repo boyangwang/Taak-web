@@ -372,7 +372,7 @@ function UI_scrollTo(obj) {
 }
 // Update an entry
 // Target is the element with .taskText class
-function UI_updateEntry(target, forced) {
+function UI_updateEntry(target, forced) { //the Wrapper that updates the Manager. **IMPT** //param target must be the taskText div, not the task div.
 	var target = $(target.get(0)); // get latest element copy
 	if (!target.attr("data-taskid")) {
 		console.log("Warning", "An undefined entry was flagged for updating");
@@ -397,6 +397,21 @@ function UI_updateEntry(target, forced) {
 		manager.update(target.attr("data-taskid"), value, left, top, width, height, target.attr("data-taskcolor"));
 	}
 }
+function UI_updateEntryLabels(target){ //param target must be the taskText div, not the task div.
+	var target = $(target.get(0)); // get latest element copy
+	if (!target.attr("data-taskid")) {
+		console.log("Warning", "An undefined entry was flagged for updating");
+		return;
+	}
+	var label_done = $(".donemark", target.parent()).hasClass("donemark");
+
+	if (label_done != target.attr("label_done")) {
+		manager.update(target.attr("data-taskid"),null,null,null,null,null,null,null,{done:label_done});
+		// target.attr("label_done", true); //different from "label_archived"
+	}
+
+}
+
 // Add task using entry object
 var forceFocus = false;
 var lastTask = null;
@@ -437,6 +452,15 @@ function UI_setTaskPanel(entry, task, taskText) {
 		"width": entry.w,
 		"height": entry.h
 	});
+	if(entry.labels && entry.labels.done) //[NEW_>_ver0.34] Need to check entry.labels because older versions don't have it. Can remove when people are no longer using client ver0.34.
+		UI_addDoneMark(task);
+}
+
+function UI_addDoneMark(target){ //the target TaskPanel
+	target.prepend("<img class='donemark' src='"+config.donemark+"'/>"); //use prepend so that it's at bottom layer.
+}
+function UI_delDoneMark(target){ //the target TaskPanel
+	$(".donemark", target).remove();
 }
 
 // Convert "#px" to "#" and return as an integer
@@ -541,10 +565,11 @@ function UI_addTaskPanel(entry,baseOffsetX,baseOffsetY,taskColor) {
 		}
 
 		if(glMode==1){
-			if ( $(".donemark", this).length<1 )
-				$(this).prepend("<img class='donemark' src='"+config.donemark+"'/>");
+			if ( !$(".donemark", this).hasClass("donemark") ) //.length<1 //.hasClass("donemark") 
+				UI_addDoneMark(task);
 			else
-				$(".donemark", this).remove();
+				UI_delDoneMark(task);
+			UI_updateEntryLabels(task.children(".taskText"));
 			return; //return here! dont allow user to edit text.
 		}//endof glMode==1
 		
