@@ -11,6 +11,9 @@ function restoreModes(){
 		setMarkingTaskDone_inProgress();
 }
 
+var config = {};
+config.donemark = "img/markdone/done2.png";
+
 $(document).ready(function(){
 	console.log("ready");
 
@@ -534,7 +537,7 @@ function UI_addTaskPanel(entry,baseOffsetX,baseOffsetY,taskColor) {
 
 		if(glMode==1){
 			if ( $(".donemark", this).length<1 )
-				$(this).prepend("<img class='donemark' src='img/markdone/done1.png'/>");
+				$(this).prepend("<img class='donemark' src='"+config.donemark+"'/>");
 			else
 				$(".donemark", this).remove();
 			return; //return here! dont allow user to edit text.
