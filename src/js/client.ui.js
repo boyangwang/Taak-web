@@ -849,6 +849,12 @@ function tapScreenSaver(screensaverCanvas, desiredWorkflow){
 	}
 }//endof tapScreenSaver()
 
-function stopScreenSaver(screensaverCanvas, desiredWorkflow){}
+function stopScreenSaver(screensaverCanvas, desiredWorkflow){
+	desiredWorkflow.click();
+	screensaverCanvas.hidden = true;
+	clearCanvas(screensaverCanvas);
+	window.screensaver = false;
+	//this will then trigger the if-condition in the setInterval.
+}
 
 
