@@ -54,8 +54,5 @@ body {
 	font-size: 1px;
 }
 
-.donemark{
-	position: absolute;
-	bottom:0;
-	right:0;
-}
+.floatLeft{ float:left; }
+.floatNone{ float:none; }

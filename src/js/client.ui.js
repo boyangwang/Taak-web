@@ -111,29 +111,34 @@ $(document).ready(function(){
 		hideDragInstructions();
 	});
 
-	resetMarkingTaskDone();
-
-	UI_init();
-});
-
-
-function resetMarkingTaskDone(){
-	glMode = 0;
-	$("#markTaskDoneBtn").text("Mark Tasks Done");
+	//Don't put inside resetMarkingTaskDone() //The create function will call the func multiple times, which adds on multiple "onclick" functions.
+	$("#messagebar").fadeOut(0);
 	$("#markTaskDoneBtn").click(function(){
 		switch(glMode){
-		case 0: //Originally, text is "Mark Tasks Done".
-			glMode = 1;
-			this.innerText = "Stop Marking Tasks";
+		case 0: //Originally, innerText is "Mark Tasks Done".
+			setMarkingTaskDone_inProgress();
 			break;
-		case 1: //Originally, text is "Stop Marking Tasks".
-			glMode = 0;
-			this.innerText = "Mark Tasks Done";
+		case 1: //Originally, innerText is "Stop Marking Tasks".
+			resetMarkingTaskDone();
 			break;
 		}
 		console.log("MarkingTaskDone");
 
 	});
+
+	UI_init();
+});
+
+function resetMarkingTaskDone(){
+	slowflashMessagebar("Stopping task marking.");
+	glMode = 0;
+	$("#markTaskDoneBtn").text("Start Marking Tasks");
+	console.log("resetMarkingTaskDone");
+}
+function setMarkingTaskDone_inProgress(){
+	slowflashMessagebar("You can start marking your tasks.");
+	glMode = 1;
+	$("#markTaskDoneBtn").text("Stop Marking");
 }
 // function setMarkingTaskDone_inProgress(){ //code for causing recursive lag :)
 // 	glMode = 1;
@@ -301,6 +306,19 @@ function bindWorkflows(){
 			}
 		});
 	});
+}
+
+// Show/hide messagebar
+function slowflashMessagebar(messageString){
+	showMessagebar(messageString);
+	hideMessagebar();
+}
+function showMessagebar(messageString) {
+	$("#messagebar").text(messageString);
+	$("#messagebar").stop(true,true).fadeIn(100); ///http://stackoverflow.com/questions/2805906/jquery-stop-fadein-fadeout	///http://stackoverflow.com/questions/1421298/how-do-you-cancel-a-jquery-fadeout-once-it-has-began
+}
+function hideMessagebar() {
+	$("#messagebar").stop(true,true).fadeOut(3000);
 }
 
 // Show/hide drag instructions
@@ -505,8 +523,10 @@ function UI_setColor(obj, event) {
 }
 // Create the element
 function UI_addTaskPanel(entry,baseOffsetX,baseOffsetY,taskColor) {
-	haltModes();
-	resetMarkingTaskDone(); //needed to avoid adding the done-mark on this newly created note (due to the "click")
+	if(glMode!=0){ //We dont want this to trigger every time. ONLY if the glMode is non-zero and has been set to other state.
+		haltModes();
+		resetMarkingTaskDone(); //needed to avoid adding the done-mark on this newly created note (due to the "click")
+	}
 	var task = $(document.createElement("div")).attr("class", "task");
 	var taskText = $(document.createElement("div")).attr("class", "taskText");
 	
@@ -703,3 +723,7 @@ $('body').on("touchmove", ".scrollable", function(e) {
 		e.stopPropagation();
 	}
 });
+
+
+
+
