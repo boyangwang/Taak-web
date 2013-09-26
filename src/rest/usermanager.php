@@ -1,32 +1,31 @@
 <?php
+include_once("./rest/config.php");
 
 class UserManager {
-
 	private $db;
 
 	public function __construct() {
 		// Set up database connection
-		$this->db = new PDO('mysql:host=localhost;dbname=deployas3;chatset=utf8', 'deployas3', 'deployas3');
-		$this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+		$this->db = getDatabase();
 	}
 
-	public function deleteRecord($id) {
-		// id is token since it has to be unique.
-		// user is the userid
+	// Delete token from database
+	public function deleteRecord($token) {
 		$db = $this->db;
-		$id = $db->quote($id);
-		$query = "DELETE FROM user WHERE token=$id";
+		$token = $db->quote($token);
+		$query = "DELETE FROM user WHERE token=$token";
 		$db->exec($query);
 		return true;
 	}
 
-	public function addRecord($user, $id) {
+	// Add token and id mapping
+	public function addRecord($user, $token) {
 		$db = $this->db;
-		$id = $db->quote($id);
+		$token = $db->quote($token);
 		$user = $db->quote($user);
 		$refid = "ref_".uniqid();
 		
-		$query = "INSERT INTO user(id, realid, token) VALUES('$refid', $user, $id)";
+		$query = "INSERT INTO user(id, realid, token) VALUES('$refid', $user, $token)";
 		
 		$result = $db->exec($query);
 		
