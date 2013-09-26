@@ -758,3 +758,40 @@ function initScreensaver(){
 
 }
 
+function startScreensaver(){
+	window.screensaver = true;
+	var screensaverCanvas = document.getElementById("screensaverCanvas");
+	screensaverCanvas.hidden = false;
+	var original_selectedworkflow = $("selectedworkflow").get(0);
+
+	var wi=0;
+	// var changeWorkflowInterval = setInterval( function(){
+	// 	wi = (wi+1)%($(".workflowName").length);
+	// }, 3000);
+
+	// var clickWorkflowInterval = setInterval( function(){
+	// 	if (window.screensaver == false){
+	// 		clearInterval(changeWorkflowInterval);
+	// 		clearInterval(clickWorkflowInterval);
+	// 		wi=0;
+			// return; //do not click if there's no more screensaver.
+	// 	}
+	// 	$(".workflowName").get(wi).click();
+	// }, 3000);
+	
+	screensaverCanvas.onclick = function(){
+		var desiredWorkflow = $(".workflowName").get(wi);
+		this.className += " nonclickable"; //"pointer-events: none" only works for Firefox >= 3.6, Safari >= 4.0 and Chrome >= 2 //Screw the older browsers. ///http://stackoverflow.com/questions/1401658/html-overlay-which-allows-clicks-to-fall-through-to-elements-behind-it
+		this.getContext("2d").fillStyle = "rgba(0,0,0,0.7)";
+		this.getContext("2d").fillRect(0,0,this.width,this.height);
+		tapScreenSaver(screensaverCanvas, desiredWorkflow);
+	};
+}//endof startScreensaver()
+function clearCanvas(theDOM){
+	theDOM.getContext("2d").clearRect(0,0,this.width,this.height);
+	theDOM.className = theDOM.className.replace(/ nonclickable/, "");
+}
+
+function tapScreenSaver(screensaverCanvas, desiredWorkflow){
+}
+
