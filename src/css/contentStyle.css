@@ -85,13 +85,6 @@
 	font-size: 1.0em;
 }
 #deleteWorkflowIcon{
-/*
-	width: 50px;
-	height: 50px;
-	position: fixed;
-	bottom: 30px;
-	right: 30px;
-	max-width: 100%;*/
 	display: none;
 }
 
@@ -155,7 +148,6 @@
 }
 .ui-resizable-handle {
 	z-index: auto !important;
-	/*background-position: -64px -224px !important;*/
 	background-position: -80px -224px !important;
 }
 
@@ -197,7 +189,6 @@
 	background-color: rgba(0,0,0,0.5);
 }
 .dialog .window {
-	/*width: 500px;*/
 	max-width: 550px;
 	margin: auto;
 	border-radius: 10px;
@@ -254,7 +245,6 @@
 	text-decoration: none;
 }
 .dialog .close-button {
-	/*float: right;*/
 	position: absolute;
 	right: 0px;
 	display: block;
@@ -592,11 +582,22 @@ White: fefefe, ebebeb, d7d7d7, a2a2a2
 	width: 150px;
 }
 
-/* iOS7 Safari fix */
+/* Task marking */
+.donemark{
+	position: absolute;
+	bottom:0;
+	right:0;
+}
+
+/* iOS Safari fixes */
 .ios7fixer {
 	position: fixed;
 	left: 0px;
 	top: 0px;
 	bottom: 0px;
 	right: 0px;
+}
+#dummyinput { /* For hiding keyboard in iOS5 */
+	opacity: 0;
+	float: left;
 }

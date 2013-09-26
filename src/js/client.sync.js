@@ -1,3 +1,4 @@
+// Perform synchronization and merging of data sets
 function TaskSync() {
 	this.localCopy = new Array();
 	this.workingCopy = new Array();

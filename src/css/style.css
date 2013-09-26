@@ -10,10 +10,6 @@ body {
 	font-family: HelveticaNeue-Light, Verdana, sans-serif;
 	background-image: url('../img/background.jpg');
 }
-#dummyinput { /* For hiding keyboard in iOS5 */
-	opacity: 0;
-	float: left;
-}
 /** Generics **/
 .stroke { /* Give a outline to the text */
 	text-shadow: -1px -1px 0 rgba(0,0,0,0.6), 1px -1px 0 rgba(0,0,0,0.6), -1px 1px 0 rgba(0,0,0,0.6), 1px 1px 0 rgba(0,0,0,0.6);
@@ -54,8 +50,3 @@ body {
 	font-size: 1px;
 }
 
-.donemark{
-	position: absolute;
-	bottom:0;
-	right:0;
-}
