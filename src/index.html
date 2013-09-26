@@ -58,19 +58,19 @@
 
 					<div id="loginPrompt" class="dialog"><div class="mid"><div class="cell">
 						<div class="window">
-							<div class="close-button"><a href="javascript:hideLoginPrompt();" title="Close"><img src="img/close.png" alt="Close"></a></div>
+							<div class="close-button"><a href="javascript:hideDialog();" title="Close"><img src="img/close.png" alt="Close"></a></div>
 							<h2>Sign in</h2>
 							<div class="window-content box">
 								<p>Signing in allows you to synchronize tasks across multiple devices</p>
 								<a class="option box" id="fb_oauth_link_prompt" href="https://www.facebook.com/dialog/oauth?client_id=472743636174429&redirect_uri=http://taak.onfry.com/oauth.php">Login using Facebook</a>
-								<!--<a class="option box" id="fb_oauth_link_prompt" href="https://www.facebook.com/dialog/oauth?client_id=202826093232352&redirect_uri=http://localhost.onfry.com/cs3216/as3/repo/cs3216-as3/src/oauth.php">Login (private: 192.168.0.110)</a>-->
-								<a class="option-text" href="javascript:hideLoginPrompt();">No thanks, I do not want to sign in</a>
+								<!--<a class="option box" id="fb_oauth_link_prompt" href="https://www.facebook.com/dialog/oauth?client_id=202826093232352&redirect_uri=http://localhost.onfry.com/cs3216/as3/repo/cs3216-as3/src/oauth.php">Login (private)</a>-->
+								<a class="option-text" href="javascript:hideDialog();">No thanks, I do not want to sign in</a>
 							</div>
 						</div></div></div>
 					</div>
 					<div id="logoutPrompt" class="dialog"><div class="mid"><div class="cell">
 						<div class="window">
-							<div class="close-button"><a href="javascript:hideLoginPrompt();" title="Close"><img src="img/close.png" alt="Close"></a></div>
+							<div class="close-button"><a href="javascript:hideDialog();" title="Close"><img src="img/close.png" alt="Close"></a></div>
 							<h2>Logout</h2>
 							<div class="window-content box">
 								<p>Your tasks can still be accessed when you sign in again</p>
@@ -80,11 +80,11 @@
 					</div>
 					<div id="deleteWorkflowPrompt" class="dialog"><div class="mid"><div class="cell">
 						<div class="window">
-							<div class="close-button"><a href="javascript:hideLoginPrompt();" title="Close"><img src="img/close.png" alt="Close"></a></div>
+							<div class="close-button"><a href="javascript:hideDialog();" title="Close"><img src="img/close.png" alt="Close"></a></div>
 							<h2>Delete Board</h2>
 							<div class="window-content box">
 								<p>All tasks in this board will be deleted.</p>
-								<a class="option box" style="display: inline-block;" href="javascript:doDeleteWorkflow();">Delete Board</a> <a class="option box" style="display: inline-block;" href="javascript:hideLoginPrompt();">Cancel</a>
+								<a class="option box" style="display: inline-block;" href="javascript:doDeleteWorkflow();">Delete Board</a> <a class="option box" style="display: inline-block;" href="javascript:hideDialog();">Cancel</a>
 							</div>
 						</div></div></div>
 					</div>
