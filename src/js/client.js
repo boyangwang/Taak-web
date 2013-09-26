@@ -113,20 +113,22 @@ function showEntries() {
 			UI_showTaskPanel(entries[entry]);
 		}
 	}
+
 	// Show the current workflow
 	if (currentWorkflow != $(".workflowName").attr('data-workflow')) {
 		$(".task").hide();
 		currentWorkflow = $(".workflowName").attr('data-workflow');
-		console.log("WORKFLOW", currentWorkflow);
-		$(".task").each(function(){
-			if (currentWorkflow == "Default" && typeof($(this).attr("data-workflow")) == "undefined") {
-				// For default workflow, tasks without a workflow will be considered part of default
-				$(this).show();
-			} else if($(this).attr("data-workflow") == $(".workflowName").attr('data-workflow')){
-				$(this).show();
-			}
-		});
 	}
+		
+	$(".task").each(function(){
+		if (currentWorkflow == "Default" && typeof($(this).attr("data-workflow")) == "undefined") {
+			// For default workflow, tasks without a workflow will be considered part of default
+			$(this).show();
+		} else if($(this).attr("data-workflow") == $(".workflowName").attr('data-workflow')){
+			$(this).show();
+		}
+	});
+	
 }
 
 // Check if login
@@ -165,7 +167,7 @@ function logout(e) {
 	
 	
 	localStorage.clear();
-	hideLoginPrompt();
+	hideDialog();
 	init();
 	showEntries();
 	showLoginPrompt();

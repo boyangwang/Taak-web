@@ -90,7 +90,7 @@ $(document).ready(function(){
 	$(".dialog .window").click(function(e) {
 		e.stopPropagation();
 	});
-	$('.dialog').click(hideLoginPrompt);
+	$('.dialog').click(hideDialog);
 
 	$(".addTaskDiv").draggable({
 		revert: function(){
@@ -219,62 +219,11 @@ function doDeleteWorkflow() {
 		}
 	});
 	
-	hideLoginPrompt();
+	hideDialog();
 }
 
-/* // DEPRECATED, replaced by doDeleteWorkflow()
-function deleteWorkflow(currentDialog){
-	$(".task").hide();
-	var workflowToDelete = $("#workflowSelectorIcon").attr('data-workflow');
-	$("#workflowSelectorIcon").text("Default Board");
-	$("#workflowSelectorIcon").attr('data-workflow','Default');
-	$("#deleteWorkflowIcon").hide();
-	$(".workflowName").each(function(){
-		if($(this).attr('data-workflow')=="Default"){
-			$(this).addClass('selectedworkflow');
-		}
-		if($(this).attr('data-workflow')==workflowToDelete){
-			var specialEntry = getSpecialEntry();
-			var workflowList = specialEntry.value;
-			var workflowListArray = workflowList.split("\n");
-			var deleteIndex = -1;
-			for(var i = 0 ; i < workflowListArray.length ; i+=2){
-				if(workflowListArray[i+1] == workflowToDelete){
-					deleteIndex = i;
-				}
-			}
-			workflowListArray.splice(deleteIndex,2);
-			workflowList = workflowListArray.join("\n");
-			console.log("workflowList: " + workflowList);
-			specialEntry.value = workflowList;
-			manager.update(specialEntry.id,specialEntry.value,specialEntry.x,specialEntry.y,specialEntry.w,specialEntry.h,specialEntry.color);
-			$(this).remove();
-		}
-	});
-	$(".task").each(function(){
-		if($(this).attr('data-workflow')==workflowToDelete){
-			UI_deleteTask($(this));
-			$(this).remove();
-		}
-		if($(this).attr('data-workflow')=='Default'){
-			$(this).show();
-		}
-	});
-	currentDialog.dialog("close");
-}
-*/
 function bindDeleteWorkflow(){
 	$("#deleteWorkflowIcon").click(function(){
-	/*
-		var newDialog = $('<div id="deleteDialogConfirm" title="Delete Workflow?"><p>All tasks in this workflow will be deleted.</p></div>');
-		newDialog.dialog({
-			modal: true,
-			buttons: [
-			{text: "Confirm", click: function() {deleteWorkflow($(this))}},
-			{text: "Cancel", click: function() {$(this).dialog("close");$(".ui-dialog").remove();}}
-			]
-		});
-	*/
 	$("#deleteWorkflowPrompt").show();
 });
 }
@@ -336,7 +285,7 @@ function addTask(x, y, taskColor){
 }
 
 // Hide login
-function hideLoginPrompt() {
+function hideDialog() {
 	//$('#loginPrompt').fadeOut(300);
 	$('.dialog').fadeOut(300);
 }
