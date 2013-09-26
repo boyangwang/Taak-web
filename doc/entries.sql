@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Sep 12, 2013 at 05:20 AM
+-- Generation Time: Sep 26, 2013 at 11:15 AM
 -- Server version: 5.1.53-community
 -- PHP Version: 5.5.1
 
@@ -28,9 +28,9 @@ SET time_zone = "+00:00";
 
 CREATE TABLE IF NOT EXISTS `entries` (
   `id` varchar(255) NOT NULL,
-  `user` text NOT NULL,
+  `user` varchar(255) NOT NULL,
   `value` text NOT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`,`user`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

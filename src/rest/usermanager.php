@@ -1,7 +1,6 @@
 <?php
 
 class UserManager {
-
 	private $db;
 
 	public function __construct() {
