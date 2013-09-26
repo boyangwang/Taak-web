@@ -756,6 +756,9 @@ function initScreensaver(){
 	glowingCanvas.width = 100; glowingCanvas.height = 100;
 	scoreCanvas.width = 100; scoreCanvas.height = 100;
 
+	var canvasCenter_coord = calcCanvasCenter(clickCanvas);
+	createCircle( clickCanvas, canvasCenter_coord, {r:0,g:0,b:0,a:-0.2},{a:-0.5} );
+	createCircle( glowingCanvas, canvasCenter_coord, {r:0,g:0,b:0,a:-0.2},{a:-0.7} );
 }
 
 function startScreensaver(){
