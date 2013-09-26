@@ -53,3 +53,9 @@ body {
 	clear: both;
 	font-size: 1px;
 }
+
+.donemark{
+	position: absolute;
+	bottom:0;
+	right:0;
+}

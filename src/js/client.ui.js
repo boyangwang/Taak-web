@@ -1,4 +1,15 @@
 /** UI Helpers **/
+var glMode=0; //mode 1: mark tasks done || mode 2: multi select
+var glModeSaver=0;
+function haltModes(){
+	glModeSaver = glMode;
+	resetMarkingTaskDone();
+}
+function restoreModes(){
+	glMode = glModeSaver;
+	if (glMode==1)
+		setMarkingTaskDone_inProgress();
+}
 
 $(document).ready(function(){
 	console.log("ready");
@@ -94,9 +105,39 @@ $(document).ready(function(){
 		hideDragInstructions();
 	});
 	
-	
+	resetMarkingTaskDone();
+
 	UI_init(); // located in client.js
 });
+
+
+function resetMarkingTaskDone(){
+	glMode = 0;
+	$("#markTaskDoneBtn").text("Mark Tasks Done");
+	$("#markTaskDoneBtn").click(function(){
+		switch(glMode){
+		case 0: //Originally, text is "Mark Tasks Done".
+			glMode = 1;
+			this.innerText = "Stop Marking Tasks";
+			break;
+		case 1: //Originally, text is "Stop Marking Tasks".
+			glMode = 0;
+			this.innerText = "Mark Tasks Done";
+			break;
+		}
+		console.log("MarkingTaskDone");
+
+	});
+}
+// function setMarkingTaskDone_inProgress(){ //code for causing recursive lag :)
+// 	glMode = 1;
+// 	$("#markTaskDoneBtn").text("Stop Marking Tasks");
+// 	$("#markTaskDoneBtn").click(function(){
+// 		console.log("--MTD");
+// 		resetMarkingTaskDone();
+// 	});
+// }
+
 
 function preloadWorkflowTable(){
 	var specialEntry = getSpecialEntry();
@@ -455,6 +496,8 @@ function UI_setColor(obj, event) {
 }
 // Create the element
 function UI_addTaskPanel(entry,baseOffsetX,baseOffsetY,taskColor) {
+	haltModes();
+	resetMarkingTaskDone(); //needed to avoid adding the done-mark on this newly created note (due to the "click")
 	var task = $(document.createElement("div")).attr("class", "task");
 	var taskText = $(document.createElement("div")).attr("class", "taskText");
 	
@@ -510,6 +553,14 @@ function UI_addTaskPanel(entry,baseOffsetX,baseOffsetY,taskColor) {
 			// Stop here if dragging
 			return;
 		}
+
+		if(glMode==1){
+			if ( $(".donemark", this).length<1 )
+				$(this).prepend("<img class='donemark' src='img/markdone/done1.png'/>");
+			else
+				$(".donemark", this).remove();
+			return; //return here! dont allow user to edit text.
+		}//endof glMode==1
 		
 		// Set select mode
 		UI_scrollTo(task);
@@ -590,8 +641,11 @@ function UI_addTaskPanel(entry,baseOffsetX,baseOffsetY,taskColor) {
 		manager.onupdate();
 	}
 
+	//restoreModes() aims to have the addTaskPanel action not be an interruption to the markTaskDone action.
+	//restoreModes(); //but it seems more confusing to have your item suddenly marked while you are adding it, then if you are forced out of the marking mode.
 	return taskText;
-}
+}//endof UI_addTaskPanel
+
 // Initialize deletion box
 function UI_initDelete() {
 	$("#deleteTaskIcon").droppable({
