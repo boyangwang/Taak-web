@@ -258,7 +258,7 @@ function showDragInstructions() {
 	$("#dragInstructions").fadeIn(100);
 }
 function hideDragInstructions() {
-	$("#dragInstructions").fadeOut(100);
+	$("#dragInstructions").fadeOut(1000); //longer fade out than fade in so that instructions dont flicker when user does a quick click and doesnt hold
 }
 
 // Called when adding a task
