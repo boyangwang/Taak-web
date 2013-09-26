@@ -10,10 +10,10 @@ CACHE MANIFEST
 # For development, rename the cache file so that it is disabled and your changes appear immediately.
 # For deployment, cache should be named as "cache.manifest"
 
+./
 index.html
 offline.html
 js/cryptojs.sha1.js
-js/client.auth.js
 js/client.ui.js
 js/client.manager.js
 js/client.sync.js

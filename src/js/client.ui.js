@@ -12,7 +12,7 @@ $(document).ready(function(){
 		if(allEntries[entry].dataflow == "specialTask"){
 			hasSpecial = true;
 		}
-		console.log("val: " + allEntries[entry].value + ", workflow: " + allEntries[entry].dataflow);
+		//console.log("val: " + allEntries[entry].value + ", workflow: " + allEntries[entry].dataflow);
 	}
 	console.log("hasSpecial: " + hasSpecial);
 	if(!hasSpecial){
