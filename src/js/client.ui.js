@@ -793,5 +793,62 @@ function clearCanvas(theDOM){
 }
 
 function tapScreenSaver(screensaverCanvas, desiredWorkflow){
-}
+	var tapscore = 0; var unlockTimeout;
+	resetUnlockTimeout();
+	function resetUnlockTimeout(){
+		clearTimeout(unlockTimeout);
+		unlockTimeout = setTimeout(function(){
+			clearCanvas(screensaverCanvas);
+			return tapscore;
+		}, 2000);
+	}
+
+	var randomCoord = {x:150,y:150};
+	var clickCanvas = document.getElementById("clickCanvas");
+	var glowingCanvas = document.getElementById("glowingCanvas");
+	var scoreCanvas = document.getElementById("scoreCanvas");
+	setCanvasPositions(randomCoord);
+	showClickCanvas();
+
+	clickCanvas.onclick = function(){
+		++tapscore;
+		switch(tapscore){
+		case 1:
+			randomCoord = {x:400, y:500};
+			setCanvasPositions(randomCoord);
+			break;
+		case 2:
+			randomCoord = {x:900, y:300};
+			setCanvasPositions(randomCoord);
+			break;
+		case 3:
+			hideClickCanvas();
+			stopScreenSaver(screensaverCanvas, desiredWorkflow);
+			break;
+		}
+		resetUnlockTimeout();
+	};//if no click detected, doNothing and wait for Timeout
+	function setCanvasPositions(coord){
+		setCanvasPosition(clickCanvas, coord);
+		setCanvasPosition(glowingCanvas, coord);
+		setCanvasPosition(scoreCanvas, coord);
+	}
+	function setCanvasPosition(canvas, coord){
+		canvas.style.left = coord.x+"px";
+		canvas.style.top = coord.y+"px";
+	}
+	function showClickCanvas(){
+		clickCanvas.hidden = false;
+		glowingCanvas.hidden = false;
+		scoreCanvas.hidden = false;
+	}
+	function hideClickCanvas(){
+		clickCanvas.hidden = true;
+		glowingCanvas.hidden = true;
+		scoreCanvas.hidden = true;
+	}
+}//endof tapScreenSaver()
+
+function stopScreenSaver(screensaverCanvas, desiredWorkflow){}
+
 
