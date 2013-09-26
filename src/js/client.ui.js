@@ -858,3 +858,14 @@ function stopScreenSaver(screensaverCanvas, desiredWorkflow){
 }
 
 
+//==================================================
+// CANVAS
+
+function rgbaObjToString(rgbaObject){
+  return "rgba("+rgbaObject.r+","+rgbaObject.g+","+rgbaObject.b+","+rgbaObject.a+")"; //color
+}
+
+// Canvas Positioning Geometry
+function calcCanvasCenter(canvas){
+	return {x: (canvas.width/2), y: (canvas.height/2)}
+}
