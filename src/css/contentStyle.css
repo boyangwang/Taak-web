@@ -618,6 +618,15 @@ White: fefefe, ebebeb, d7d7d7, a2a2a2
 	opacity: 1; /*If it's not 1, the white tick will get tainted by the yellow/pink background of the sticky note. */
 }
 
+/* Screensaver */
+#screensaverCanvas{ z-index: 2222;}
+#clickCanvas{ z-index: 3333; }
+#glowingCanvas{ z-index: 3332; }
+#scoreCanvas{ z-index: 3332; }
+
+#screensaverCanvas, #clickCanvas, #glowingCanvas, #scoreCanvas{
+	position:absolute; 
+}
 /* iOS Safari fixes */
 .ios7fixer {
 	position: fixed;

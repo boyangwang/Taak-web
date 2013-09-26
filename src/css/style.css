@@ -49,3 +49,7 @@ body {
 	clear: both;
 	font-size: 1px;
 }
+
+.nonclickable { /* Makes element nonclickable. Prevents element from being the target of mouse events; however, mouse events may target its descendant elements */
+	pointer-events: none;
+}

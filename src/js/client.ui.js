@@ -1,5 +1,5 @@
 /** UI Helpers **/
-var glMode=0; //mode 1: can mark tasks done || mode 2: multi select
+var glMode=0; //mode 1: can mark tasks done || mode 2: screensaver || mode 3: multi select
 var glModeSaver=0;
 function haltModes(){
 	glModeSaver = glMode;
@@ -134,6 +134,7 @@ $(".addTaskDiv").draggable({
 });
 
 	UI_init();
+	initScreensaver();
 });
 
 function resetMarkingTaskDone(){
@@ -742,5 +743,18 @@ $('body').on("touchmove", ".scrollable", function(e) {
 });
 
 
+//==================================================
+// SCREENSAVER MODE
+function initScreensaver(){
+	var screensaverCanvas = document.getElementById("screensaverCanvas");
+	var clickCanvas = document.getElementById("clickCanvas");
+	var glowingCanvas = document.getElementById("glowingCanvas");
+	var scoreCanvas = document.getElementById("glowingCanvas");
+	
+	screensaverCanvas.width = window.innerWidth; screensaverCanvas.height = window.innerHeight;
+	clickCanvas.width = 100; clickCanvas.height = 100;
+	glowingCanvas.width = 100; glowingCanvas.height = 100;
+	scoreCanvas.width = 100; scoreCanvas.height = 100;
 
+}
 
