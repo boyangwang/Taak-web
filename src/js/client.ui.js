@@ -16,7 +16,6 @@ config.donemark = "img/markdone/done2.png";
 
 $(document).ready(function(){
 	console.log("ready");
-
 	bindDeleteWorkflow();
 
 	// show all entries (debug)
@@ -93,46 +92,46 @@ $(document).ready(function(){
 		});
 	});
 
-	bindWorkflows();
+bindWorkflows();
 
-	$(".dialog .window").click(function(e) {
-		e.stopPropagation();
-	});
-	$('.dialog').click(hideDialog);
+$(".dialog .window").click(function(e) {
+	e.stopPropagation();
+});
+$('.dialog').click(hideDialog);
 
-	$(".addTaskDiv").draggable({
-		revert: function(){
-			if($(this).offset().left > 64){
-				var taskPositionX = $(this).offset().left+20;
-				var taskPositionY = $(this).offset().top-30;
-				var taskColor = $(this).attr('data-color');
-				addTask(taskPositionX,taskPositionY,taskColor);
-			}
-			return true;
-		},
-		revertDuration:0,
-		start: showDragInstructions,
-		stop: hideDragInstructions
-	}).mousedown(function() {
-		showDragInstructions();
-	}).mouseup(function() {
-		hideDragInstructions();
-	});
+$(".addTaskDiv").draggable({
+	revert: function(){
+		if($(this).offset().left > 64){
+			var taskPositionX = $(this).offset().left+20;
+			var taskPositionY = $(this).offset().top-30;
+			var taskColor = $(this).attr('data-color');
+			addTask(taskPositionX,taskPositionY,taskColor);
+		}
+		return true;
+	},
+	revertDuration:0,
+	start: showDragInstructions,
+	stop: hideDragInstructions
+}).mousedown(function() {
+	showDragInstructions();
+}).mouseup(function() {
+	hideDragInstructions();
+});
 
 	//Don't put inside resetMarkingTaskDone() //The create function will call the func multiple times, which adds on multiple "onclick" functions.
 	$("#messagebar").fadeOut(0);
 	$("#markTaskDoneBtn").click(function(){
 		switch(glMode){
 		case 0: //Originally, innerText is "Start Marking Tasks".
-			setMarkingTaskDone_inProgress();
-			break;
+		setMarkingTaskDone_inProgress();
+		break;
 		case 1: //Originally, innerText is "Stop Marking Tasks".
-			resetMarkingTaskDone();
-			break;
-		}
-		console.log("MarkingTaskDone");
+		resetMarkingTaskDone();
+		break;
+	}
+	console.log("MarkingTaskDone");
 
-	});
+});
 
 	UI_init();
 });
@@ -232,8 +231,8 @@ function doDeleteWorkflow() {
 
 function bindDeleteWorkflow(){
 	$("#deleteWorkflowIcon").click(function(){
-	$("#deleteWorkflowPrompt").show();
-});
+		$("#deleteWorkflowPrompt").show();
+	});
 }
 
 function bindWorkflows(){
@@ -307,6 +306,42 @@ function UI_resize() {
 	$(".ios7fixer").css({position:'fixed'});
 }
 
+function workflowListener(){
+	console.log("workflowListener");
+	var workflowTable = $(".workflowName");
+	var specialEntry = getSpecialEntry();
+	var workflowArray = JSON.parse(specialEntry.value);
+	console.log(workflowArray);
+	workflowTable.each(function(){ // for removing (if in UI but not in specialTask)
+		console.log($(this).attr('data-workflow'));
+		if($.inArray($(this).attr('data-workflow'),workflowArray) == -1 && $(this).attr('data-workflow')!="Default"){ // not in array
+			console.log("Sync delete workflow");
+			if($("#workflowSelectorIcon").text() == $(this).text()){
+				$("#workflowSelectorIcon").text("Default Board");
+				$("#workflowSelectorIcon").attr('data-workflow','Default');
+				$("[data-workflow='Default']").addClass('selectedworkflow');
+			}
+			$(this).remove();
+			bindWorkflows();
+		}
+	});
+	for(var i = 0 ; i < workflowArray.length ; i+=2){ // for adding (if in specialTask but not in UI)
+		var workflowIdentifier = workflowArray[i+1];
+		var workflowName = workflowArray[i];
+		var containsWorkflow = false;
+		workflowTable.each(function(){
+			if($(this).attr('data-workflow')==workflowIdentifier){
+				containsWorkflow = true;
+			}
+		});
+		if(!containsWorkflow){ // add to table
+			console.log("Sync add workflow");
+			$("#workflowTable").append("<tr class='workflowName' data-workflow='"+workflowIdentifier+"'><td>&nbsp;"+workflowName+"&nbsp;</td></tr>");
+			bindWorkflows();
+		}
+	}
+};
+
 // Load the entries for first run
 function UI_init() {
 	$(".workflowView").click(function(e) {
@@ -327,6 +362,7 @@ function UI_init() {
 	// Periodically poll for changes
 	window.setInterval(function() {
 		sync.performSynchronize(manager, showEntries);
+		workflowListener();
 		console.log("Polled", manager);
 	}, 10000);
 }
