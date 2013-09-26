@@ -451,7 +451,7 @@ function UI_setTaskPanel(entry, task, taskText) {
 		"width": entry.w,
 		"height": entry.h
 	});
-	if(entry.labels && entry.labels.done) //[NEW_>_ver0.55] Need to check entry.labels because older versions don't have it. Can remove when people are no longer using client ver0.34.
+	if(entry.labels && entry.labels.done) //[NEW_>_ver0.55] Need to check entry.labels because older versions don't have it. Can remove when people are no longer using client ver0.55.
 		UI_addDoneMark(task);
 }
 
