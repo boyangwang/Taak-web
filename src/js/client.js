@@ -115,16 +115,16 @@ function showEntries() {
 	}
 
 	// Show the current workflow
-	if (currentWorkflow != $(".workflowName").attr('data-workflow')) {
+	if (currentWorkflow != $("#workflowSelectorIcon").attr('data-workflow')) {
 		$(".task").hide();
-		currentWorkflow = $(".workflowName").attr('data-workflow');
+		currentWorkflow = $("#workflowSelectorIcon").attr('data-workflow');
 	}
-		
+	console.log("WORK", currentWorkflow);
 	$(".task").each(function(){
 		if (currentWorkflow == "Default" && typeof($(this).attr("data-workflow")) == "undefined") {
 			// For default workflow, tasks without a workflow will be considered part of default
 			$(this).show();
-		} else if($(this).attr("data-workflow") == $(".workflowName").attr('data-workflow')){
+		} else if($(this).attr("data-workflow") == currentWorkflow){
 			$(this).show();
 		}
 	});

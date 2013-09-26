@@ -40,18 +40,23 @@ $(document).ready(function(){
 		$(".workflowName").last().get(0).focus();
 		$(".workflowName").last().keydown(function(e) {
 			if (e.keyCode == 13 && !e.shiftKey) {
-				if($(this).html()!="<td>&nbsp;</td>"){
+				if($(this).html() != "<td>&nbsp;</td>") {
 					$(this).attr("contenteditable","false");
-					var tempTimestamp = new Date().getTime();
-					$(this).attr("data-workflow",$(this).text()+tempTimestamp);
+					var tempTimestamp = Date.now(); 
+					$(this).attr("data-workflow", $(this).text() + tempTimestamp);
 					var specialEntry = getSpecialEntry();
-					var entryValueArray = JSON.parse(specialEntry.value);
+					var entryValueArray;
+					try {
+						entryValueArray = JSON.parse(specialEntry.value);
+					} catch (ex) {
+						entryValueArray = new Array();
+					}
 					entryValueArray.push($(this).text());
-					entryValueArray.push($(this).text()+tempTimestamp);
+					entryValueArray.push($(this).text() + tempTimestamp);
 					specialEntry.value = JSON.stringify(entryValueArray);
-					manager.update(specialEntry.id,specialEntry.value,specialEntry.x,specialEntry.y,specialEntry.w,specialEntry.h,specialEntry.color);
+					manager.update(specialEntry.id, specialEntry.value);
 					bindWorkflows();
-					hideKeyboard();
+					
 					$("#workflowSelectorBox").hide();
 				}
 				else{
@@ -64,8 +69,8 @@ $(document).ready(function(){
 			console.log("text:" + $(this).html() + "end");
 			if($(this).html()!= "<td>&nbsp;</td>"){
 				$(this).attr("contenteditable","false");
-				var tempTimestamp = new Date().getTime(); 
-				$(this).attr("data-workflow",$(this).text()+tempTimestamp);
+				var tempTimestamp = Date.now(); 
+				$(this).attr("data-workflow", $(this).text() + tempTimestamp);
 				var specialEntry = getSpecialEntry();
 				var entryValueArray;
 				try {
@@ -74,9 +79,9 @@ $(document).ready(function(){
 					entryValueArray = new Array();
 				}
 				entryValueArray.push($(this).text());
-				entryValueArray.push($(this).text()+tempTimestamp);
+				entryValueArray.push($(this).text() + tempTimestamp);
 				specialEntry.value = JSON.stringify(entryValueArray);
-				manager.update(specialEntry.id,specialEntry.value,specialEntry.x,specialEntry.y,specialEntry.w,specialEntry.h,specialEntry.color);
+				manager.update(specialEntry.id, specialEntry.value);
 				bindWorkflows();
 			}
 			else{
@@ -200,7 +205,7 @@ function doDeleteWorkflow() {
 			}
 			workflowListArray.splice(deleteIndex,2);
 			specialEntry.value = JSON.stringify(workflowListArray);
-			manager.update(specialEntry.id,specialEntry.value,specialEntry.x,specialEntry.y,specialEntry.w,specialEntry.h,specialEntry.color);
+			manager.update(specialEntry.id, specialEntry.value);
 			$(this).remove();
 		}
 	});
