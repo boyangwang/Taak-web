@@ -614,6 +614,7 @@ White: fefefe, ebebeb, d7d7d7, a2a2a2
 	position: absolute;
 	bottom:0;
 	right:0;
+	opacity: 1; /*If it's not 1, the white tick will get tainted by the yellow/pink background of the sticky note. */
 }
 
 /* iOS Safari fixes */
