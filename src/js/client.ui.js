@@ -34,13 +34,11 @@ $(document).ready(function(){
 					var tempTimestamp = new Date().getTime();
 					$(this).attr("data-workflow",$(this).text()+tempTimestamp);
 					var specialEntry = getSpecialEntry();
-					console.log("specialEntry: " + specialEntry);
 					var entryValueArray = JSON.parse(specialEntry.value);
 					entryValueArray.push($(this).text());
 					entryValueArray.push($(this).text()+tempTimestamp);
 					specialEntry.value = JSON.stringify(entryValueArray);
 					manager.update(specialEntry.id,specialEntry.value,specialEntry.x,specialEntry.y,specialEntry.w,specialEntry.h,specialEntry.color);
-					console.log(specialEntry.value);
 					bindWorkflows();
 					hideKeyboard();
 				}
@@ -62,7 +60,6 @@ $(document).ready(function(){
 				entryValueArray.push($(this).text()+tempTimestamp);
 				specialEntry.value = JSON.stringify(entryValueArray);
 				manager.update(specialEntry.id,specialEntry.value,specialEntry.x,specialEntry.y,specialEntry.w,specialEntry.h,specialEntry.color);
-				console.log(specialEntry.value);
 				bindWorkflows();
 			}
 			else{
@@ -104,7 +101,6 @@ $(".addTaskDiv").draggable({
 function preloadWorkflowTable(){
 	var specialEntry = getSpecialEntry();
 	var workflowList = specialEntry.value;
-	console.log("workflowList: " + workflowList);
 	var workflowListArray = JSON.parse(workflowList);
 	for(var i = 0 ; i < workflowListArray.length ; i+=2){
 		var workflowName = workflowListArray[i];
