@@ -81,7 +81,7 @@ TaskManager.prototype.update = function(id, value, x, y, w, h, color, metadata, 
 			this.entries[id].metadata = metadata;
 		}
 		if (labels != null) {
-			if (typeof this.entries[id].labels == "undefined") //[NEW_>_ver0.34] Need to check entries[id].labels because older versions don't have it. Can remove when people are no longer using client ver0.34.
+			if (typeof this.entries[id].labels == "undefined") //[NEW_>_ver0.55] Need to check entries[id].labels because older versions don't have it. Can remove when people are no longer using client ver0.34.
 				this.entries[id].labels = new Labels();
 			for (var name in labels)
 				this.entries[id].labels[name] = labels[name];
