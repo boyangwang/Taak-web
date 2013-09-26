@@ -41,6 +41,7 @@ $(document).ready(function(){
 					manager.update(specialEntry.id,specialEntry.value,specialEntry.x,specialEntry.y,specialEntry.w,specialEntry.h,specialEntry.color);
 					bindWorkflows();
 					hideKeyboard();
+					$("#workflowSelectorBox").hide();
 				}
 				else{
 					$(this).remove();
@@ -55,7 +56,12 @@ $(document).ready(function(){
 				var tempTimestamp = new Date().getTime(); 
 				$(this).attr("data-workflow",$(this).text()+tempTimestamp);
 				var specialEntry = getSpecialEntry();
-				var entryValueArray = JSON.parse(specialEntry.value);
+				var entryValueArray;
+				try {
+					entryValueArray = JSON.parse(specialEntry.value);
+				} catch (ex) {
+					entryValueArray = new Array();
+				}
 				entryValueArray.push($(this).text());
 				entryValueArray.push($(this).text()+tempTimestamp);
 				specialEntry.value = JSON.stringify(entryValueArray);
@@ -68,46 +74,50 @@ $(document).ready(function(){
 		});
 	});
 
-bindWorkflows();
+	bindWorkflows();
 
-$(".dialog .window").click(function(e) {
-	e.stopPropagation();
-});
-$('.dialog').click(hideLoginPrompt);
+	$(".dialog .window").click(function(e) {
+		e.stopPropagation();
+	});
+	$('.dialog').click(hideLoginPrompt);
 
-$(".addTaskDiv").draggable({
-	revert: function(){
-		if($(this).offset().left > 64){
-			var taskPositionX = $(this).offset().left+20;
-			var taskPositionY = $(this).offset().top-30;
-			var taskColor = $(this).attr('data-color');
-			addTask(taskPositionX,taskPositionY,taskColor);
-		}
-		return true;
-	},
-	revertDuration:0,
-	start: showDragInstructions,
-	stop: hideDragInstructions
-}).mousedown(function() {
-	showDragInstructions();
-}).mouseup(function() {
-	hideDragInstructions();
-});
+	$(".addTaskDiv").draggable({
+		revert: function(){
+			if($(this).offset().left > 64){
+				var taskPositionX = $(this).offset().left+20;
+				var taskPositionY = $(this).offset().top-30;
+				var taskColor = $(this).attr('data-color');
+				addTask(taskPositionX,taskPositionY,taskColor);
+			}
+			return true;
+		},
+		revertDuration:0,
+		start: showDragInstructions,
+		stop: hideDragInstructions
+	}).mousedown(function() {
+		showDragInstructions();
+	}).mouseup(function() {
+		hideDragInstructions();
+	});
 
-
-	UI_init(); // located in client.js
+	UI_init();
 });
 
 function preloadWorkflowTable(){
 	var specialEntry = getSpecialEntry();
 	var workflowList = specialEntry.value;
-	var workflowListArray = JSON.parse(workflowList);
-	for(var i = 0 ; i < workflowListArray.length ; i+=2){
-		var workflowName = workflowListArray[i];
-		var workflowIdentifier = workflowListArray[i+1];
-		if (workflowIdentifier != null) {
-			$("#workflowTable").append("<tr class='workflowName' data-workflow='"+workflowIdentifier+"'><td>&nbsp;"+workflowName+"&nbsp;</td></tr>");
+	try {
+		var workflowListArray = JSON.parse(workflowList);
+		for(var i = 0 ; i < workflowListArray.length ; i+=2){
+			var workflowName = workflowListArray[i];
+			var workflowIdentifier = workflowListArray[i+1];
+			if (workflowIdentifier != null) {
+				$("#workflowTable").append("<tr class='workflowName' data-workflow='"+workflowIdentifier+"'><td>&nbsp;"+workflowName+"&nbsp;</td></tr>");
+			}
 		}
+	} catch (ex) {
+		// Error passing workflow
+		console.log("Workflow parse error", workflowList);
 	}
 }
 
@@ -300,7 +310,7 @@ function UI_init() {
 	// Periodically poll for changes
 	window.setInterval(function() {
 		sync.performSynchronize(manager, showEntries);
-		//console.log("Polled");
+		console.log("Polled", manager);
 	}, 10000);
 }
 // Unselect the task
@@ -383,7 +393,7 @@ function UI_showTaskPanel(entry) {
 		// Element not added yet
 		UI_addTaskPanel(entry);
 	} else {
-		console.log(entry);
+		//console.log(entry);
 		// Element exists
 		var target = $("#task_" + entry.id);
 		// Do not update an item that is being edited by the user

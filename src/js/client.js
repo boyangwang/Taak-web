@@ -15,7 +15,6 @@ function init() {
 	}
 	checkLogin();
 	
-
 	// Set up manager
 	manager.onupdate = function() {
 		showEntries();
