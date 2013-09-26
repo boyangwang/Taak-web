@@ -25,6 +25,21 @@ function init() {
 }
 init();
 
+/** Cache Helper **/
+// Check if a new cache is available on page load.
+window.addEventListener('load', function(e) {
+	window.applicationCache.addEventListener('updateready', function(e) {
+		if (window.applicationCache.status == window.applicationCache.UPDATEREADY) {
+			// Browser downloaded a new app cache.
+			// Swap it in and reload the page to get the new hotness.
+			window.applicationCache.swapCache();
+			if (confirm('A new version is available. Update?')) {
+				window.location.reload();
+			}
+		}
+	}, false);
+}, false);
+
 /** Helpers **/
 function iOSversion() {
 	if (/iP(hone|od|ad)/.test(navigator.platform)) {
@@ -40,6 +55,9 @@ var iosVersion = iOSversion();
 // Reload the page
 function reload() {
 	window.location.reload();
+	if (sync.online) {
+		window.applicationCache.update();
+	}
 }
 // Hide mobile keyboard
 function hideKeyboard() {

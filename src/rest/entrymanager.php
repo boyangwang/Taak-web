@@ -1,11 +1,11 @@
 <?php
+include_once("./rest/config.php");
 
 class EntryManager {
 	private $db;
 	public function __construct() {
 		// Set up database connection
-		$this->db = new PDO('mysql:host=localhost;dbname=deployas3;chatset=utf8', 'deployas3', 'deployas3');
-		$this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+		$this->db = getDatabase();
 	}
 	public function throwUnauthorized() {
 		$result["code"] = 401;
