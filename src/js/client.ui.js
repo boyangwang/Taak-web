@@ -12,14 +12,12 @@ $(document).ready(function(){
 		if(allEntries[entry].dataflow == "specialTask"){
 			hasSpecial = true;
 		}
-		//console.log("val: " + allEntries[entry].value + ", workflow: " + allEntries[entry].dataflow);
 	}
 	console.log("hasSpecial: " + hasSpecial);
 	if(!hasSpecial){
-		//manager.add("specialTask","",true);
-		
 		// Create special entry
-		var specialEntry = manager.add("specialTask","", true);
+		var tempArray = new Array();
+		var specialEntry = manager.add("specialTask",JSON.stringify(tempArray), true);
 		manager.markArchive(specialEntry.id); // hide from view, and save
 	}
 	else{
@@ -31,77 +29,83 @@ $(document).ready(function(){
 		$(".workflowName").last().get(0).focus();
 		$(".workflowName").last().keydown(function(e) {
 			if (e.keyCode == 13 && !e.shiftKey) {
-				$(this).attr("contenteditable","false");
-				var tempTimestamp = new Date().getTime(); // for unique identifier
-				$(this).attr("data-workflow",$(this).text()+tempTimestamp);
-				var specialEntry = getSpecialEntry();
-				var entryValue = specialEntry.value;
-				if(entryValue == ""){
-					entryValue += $(this).text() + "\n" + $(this).text()+tempTimestamp;
+				if($(this).html()!="<td>&nbsp;</td>"){
+					$(this).attr("contenteditable","false");
+					var tempTimestamp = new Date().getTime();
+					$(this).attr("data-workflow",$(this).text()+tempTimestamp);
+					var specialEntry = getSpecialEntry();
+					console.log("specialEntry: " + specialEntry);
+					var entryValueArray = JSON.parse(specialEntry.value);
+					entryValueArray.push($(this).text());
+					entryValueArray.push($(this).text()+tempTimestamp);
+					specialEntry.value = JSON.stringify(entryValueArray);
+					manager.update(specialEntry.id,specialEntry.value,specialEntry.x,specialEntry.y,specialEntry.w,specialEntry.h,specialEntry.color);
+					console.log(specialEntry.value);
+					bindWorkflows();
+					hideKeyboard();
 				}
 				else{
-					entryValue += "\n" + $(this).text() + "\n" + $(this).text()+tempTimestamp;
+					$(this).remove();
+					hideKeyboard();
 				}
-				specialEntry.value = entryValue;
-				manager.update(specialEntry.id,specialEntry.value,specialEntry.x,specialEntry.y,specialEntry.w,specialEntry.h,specialEntry.color);
-				console.log(specialEntry.value);
-				bindWorkflows();
-				hideKeyboard();
 			}
 		});
 		$(".workflowName").last().focusout(function(){
-			$(this).attr("contenteditable","false");
-			var tempTimestamp = new Date().getTime(); // for unique identifier
-			$(this).attr("data-workflow",$(this).text()+tempTimestamp);
-			var specialEntry = getSpecialEntry();
-			var entryValue = specialEntry.value;
-			if(entryValue == ""){
-				entryValue += $(this).text() + "\n" + $(this).text()+tempTimestamp;
+			console.log("text:" + $(this).html() + "end");
+			if($(this).html()!= "<td>&nbsp;</td>"){
+				$(this).attr("contenteditable","false");
+				var tempTimestamp = new Date().getTime(); 
+				$(this).attr("data-workflow",$(this).text()+tempTimestamp);
+				var specialEntry = getSpecialEntry();
+				var entryValueArray = JSON.parse(specialEntry.value);
+				entryValueArray.push($(this).text());
+				entryValueArray.push($(this).text()+tempTimestamp);
+				specialEntry.value = JSON.stringify(entryValueArray);
+				manager.update(specialEntry.id,specialEntry.value,specialEntry.x,specialEntry.y,specialEntry.w,specialEntry.h,specialEntry.color);
+				console.log(specialEntry.value);
+				bindWorkflows();
 			}
 			else{
-				entryValue += "\n" + $(this).text() + "\n" + $(this).text()+tempTimestamp;
+				$(this).remove();
 			}
-			specialEntry.value = entryValue;
-			manager.update(specialEntry.id,specialEntry.value,specialEntry.x,specialEntry.y,specialEntry.w,specialEntry.h,specialEntry.color);
-			console.log(specialEntry.value);
-			bindWorkflows();
 		});
 	});
 
-	bindWorkflows();
+bindWorkflows();
 
-	$(".dialog .window").click(function(e) {
-		e.stopPropagation();
-	});
-	$('.dialog').click(hideLoginPrompt);
+$(".dialog .window").click(function(e) {
+	e.stopPropagation();
+});
+$('.dialog').click(hideLoginPrompt);
 
-	$(".addTaskDiv").draggable({
-		revert: function(){
-			if($(this).offset().left > 64){
-				var taskPositionX = $(this).offset().left+20;
-				var taskPositionY = $(this).offset().top-30;
-				var taskColor = $(this).attr('data-color');
-				addTask(taskPositionX,taskPositionY,taskColor);
-			}
-			return true;
-		},
-		revertDuration:0,
-		start: showDragInstructions,
-		stop: hideDragInstructions
-	}).mousedown(function() {
-		showDragInstructions();
-	}).mouseup(function() {
-		hideDragInstructions();
-	});
-	
-	
+$(".addTaskDiv").draggable({
+	revert: function(){
+		if($(this).offset().left > 64){
+			var taskPositionX = $(this).offset().left+20;
+			var taskPositionY = $(this).offset().top-30;
+			var taskColor = $(this).attr('data-color');
+			addTask(taskPositionX,taskPositionY,taskColor);
+		}
+		return true;
+	},
+	revertDuration:0,
+	start: showDragInstructions,
+	stop: hideDragInstructions
+}).mousedown(function() {
+	showDragInstructions();
+}).mouseup(function() {
+	hideDragInstructions();
+});
+
+
 	UI_init(); // located in client.js
 });
 
 function preloadWorkflowTable(){
 	var specialEntry = getSpecialEntry();
 	var workflowList = specialEntry.value;
-	var workflowListArray = workflowList.split("\n");
+	console.log("workflowList: " + workflowList);
+	var workflowListArray = JSON.parse(workflowList);
 	for(var i = 0 ; i < workflowListArray.length ; i+=2){
 		var workflowName = workflowListArray[i];
 		var workflowIdentifier = workflowListArray[i+1];
@@ -139,7 +143,7 @@ function doDeleteWorkflow() {
 		if($(this).attr('data-workflow')==workflowToDelete){
 			var specialEntry = getSpecialEntry();
 			var workflowList = specialEntry.value;
-			var workflowListArray = workflowList.split("\n");
+			var workflowListArray = JSON.parse(workflowList);
 			var deleteIndex = -1;
 			for(var i = 0 ; i < workflowListArray.length ; i+=2){
 				if(workflowListArray[i+1] == workflowToDelete){
@@ -147,9 +151,7 @@ function doDeleteWorkflow() {
 				}
 			}
 			workflowListArray.splice(deleteIndex,2);
-			workflowList = workflowListArray.join("\n");
-			console.log("workflowList: " + workflowList);
-			specialEntry.value = workflowList;
+			specialEntry.value = JSON.stringify(workflowListArray);
 			manager.update(specialEntry.id,specialEntry.value,specialEntry.x,specialEntry.y,specialEntry.w,specialEntry.h,specialEntry.color);
 			$(this).remove();
 		}
@@ -219,9 +221,9 @@ function bindDeleteWorkflow(){
 			{text: "Cancel", click: function() {$(this).dialog("close");$(".ui-dialog").remove();}}
 			]
 		});
-		*/
-		$("#deleteWorkflowPrompt").show();
-	});
+	*/
+	$("#deleteWorkflowPrompt").show();
+});
 }
 
 function bindWorkflows(){
