@@ -359,6 +359,7 @@
 /** Message Bar **/
 #messagebar{
 	position:absolute;
+	margin-top: 5px;
 	margin-left:105px;
 
 	width: 230px;
