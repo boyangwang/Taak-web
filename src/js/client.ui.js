@@ -859,11 +859,11 @@ function clearCanvas(theDOM){
 }
 
 function tapScreenSaver(screensaverCanvas, desiredWorkflow){
-	var tapscore = 0; var unlockTimeout;
-	resetUnlockTimeout();
-	function resetUnlockTimeout(){
-		clearTimeout(unlockTimeout);
-		unlockTimeout = setTimeout(function(){
+	var tapscore = 0; var unlockPromptTimeout;
+	resetUnlockPromptTimeout();
+	function resetUnlockPromptTimeout(){
+		clearTimeout(unlockPromptTimeout); //for first time, clearing undefined just does nothing.
+		unlockPromptTimeout = setTimeout(function(){
 			killGlowingCircle();
 			hideCanvasSet(); //the sweeper. must be after kill, to ensure no further alternating.
 			clearCanvas(screensaverCanvas);
@@ -905,7 +905,7 @@ function tapScreenSaver(screensaverCanvas, desiredWorkflow){
 				stopScreenSaver(screensaverCanvas, desiredWorkflow);
 			}, 1000);
 			return true; }
-		resetUnlockTimeout();
+		resetUnlockPromptTimeout();
 	};//if no click detected, doNothing and wait for Timeout
 	function setCanvasPositions(coord){
 		setCanvasPosition(clickCanvas, coord);
