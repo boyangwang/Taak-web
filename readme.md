@@ -7,9 +7,9 @@
 ## Chen Liang
 
 * Task marking system
-* Auto-View for boards
-* Lockscreen and unlock mechanism (not compatible w Android)
-* Documentation and Final documents
+* Auto-Viewing for boards
+* Lockscreen and unlock mechanism (not compatible with IE, Android)
+* Documentation and final milestone and pitch documents
 
 ## Kwan Yong Kang Nicholas
 

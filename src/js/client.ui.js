@@ -1,5 +1,5 @@
 /** UI Helpers **/
-var glMode=0; //mode 1: can mark tasks done || mode 2: multi select || mode X: lockscreen
+var glMode=0; /*mode 1: can mark tasks done || mode 2: multi select || mode X: lockscreen*/ console.log("To check out the unofficial easter eggs, type eastereggs_init(); in the Javascript Console.");
 var glModeSaver=0;
 function haltModes(){
 	glModeSaver = glMode;
@@ -13,6 +13,7 @@ function restoreModes(){
 
 var config = {};
 config.donemark = "img/markdone/done2.png";
+var eastereggsEnabled = false; //modifiable via javascript console.
 
 $(document).ready(function(){
 	console.log("ready");
@@ -134,11 +135,6 @@ $(document).ready(function(){
 
 	UI_init();
 
-	initLockscreen();
-	$("#lockscreenBtn").click(function(){
-		startLockscreen();
-		console.log("Starting Lockscreen");
-	});
 });//endof $(document).ready()
 
 function resetMarkingTaskDone() {
@@ -781,12 +777,38 @@ $('body').on("touchmove", ".scrollable", function(e) {
 
 
 
+
+//==================================================
+//EASTER EGGS
+function eastereggs_init(){
+	eastereggsEnabled = true;
+
+	initLockscreen(); //Sadly the button is commented out in the HTML file.
+	//You can only call the functions in the Javascript Console command line.
+	// $("#lockscreenBtn").click(function(){
+	// 	startLockscreen();
+	// 	console.log("Starting Lockscreen");
+	// });
+	
+	alert("You have enabled the easter egg features.\nSee the Javascript Console for more details.");
+	console.log("You have enabled the easter egg features.");
+	console.log("Here are the commands you can call on the Javascript Console:\n");
+
+	console.log("Change the grey check-mark to the original better looking one:\n changeToTheOriginalDoneMark();\n");
+
+	console.log("Lockscreen Mode:   startLockscreen();"+"\n To stop this mode, simply touch the screen for the Unlock Mechanism to appear, and follow the subsequent instructions.\n");
+
+	console.log("Auto-View Boards Mode:   startAutoViewBoards();\n\t\t\t\t\t\t stopAutoViewBoards();\n");
+}
+
 //==================================================
 //MULTI-SELECT
 
 //Modified to "multi-select and mark tasks as done." See above.
 
-
+function changeToOriginalDoneMark(){
+	config.donemark = "img/markdone/done2_THE_REAL_ONE.png";
+}
 
 //==================================================
 // LOCKSCREEN MODE
@@ -975,12 +997,11 @@ function calcCanvasCenter(canvas){
 }
 
 function createCircle(canvas, coord, colorOffset, outlineColorOffset, newRadius){ //SIMILAR to paintDot
-	console.log(newRadius);
 	var preCf = {
 		color: {r:(0+colorOffset.r), g:(0+colorOffset.g), b:(0+colorOffset.b), a:(1.0+colorOffset.a)},
 		outlineColor: {r:(255+colorOffset.r), g:(255+colorOffset.g), b:(255+colorOffset.b), a:(1.0+outlineColorOffset.a)},
 		radius: newRadius||35 //prev 70
-	};console.log(preCf.radius);
+	};
 	var config = {
 		strokeStyle: rgbaObjToString(preCf.color),
 		lineWidth: 12,
