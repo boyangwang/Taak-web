@@ -55,17 +55,25 @@ TaskManager.prototype.add = function(dflow, value, noUpdate) {
 	}
 	return entry;
 }
+// Save the entry
+TaskManager.prototype.saveEntry = function(id) {
+	if (this.entries[id] != null) {
+		this.writeLocal();
+		this.onupdate();
+	} else {
+		console.log("Warning", "A attempt to update a non-existant entry was made", id);
+		return null;
+	}
+}
 // Update attribute of existing entry
-// id: ID of task, parameter: Parameter of task, value: Value of parameter, doUpdate: is set to true, do sync
+// id: ID of task, parameter: Parameter of task, value: Value of parameter, doUpdate: is set to true, save the entry
 TaskManager.prototype.updateAttribute = function(id, parameter, value, doUpdate) {
 	if (this.entries[id] != null) {
 		if (parameter != null && value != null) {
 			this.entries[id][parameter] = value;
 		}
 		if (doUpdate) {
-			this.writeLocal();
-			this.onupdate();
-			console.log("Attribute Update", this.entries[id]);
+			this.saveEntry(id);
 		}
 		return this.entries[id];
 	} else {
@@ -92,8 +100,7 @@ TaskManager.prototype.update = function(id, value, x, y, w, h, color, metadata) 
 		this.updateAttribute(id, "h", h);
 		this.updateAttribute(id, "color", color);
 		this.updateAttribute(id, "metadata", metadata);
-		this.writeLocal();
-		this.onupdate();
+		this.saveEntry(id);
 	} else {
 		console.log("Warning", "A attempt to update a non-existant entry was made", id);
 		return null;

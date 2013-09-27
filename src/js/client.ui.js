@@ -453,7 +453,16 @@ function UI_updateEntryLabels(target){ //param target must be the taskText div, 
 
 	if ( label_done != target.attr("label_done") ) {
 		//manager.update(target.attr("data-taskid"),null,null,null,null,null,null,null,{done:label_done});
-		manager.updateAttribute(target.attr("data-taskid"), "labels", {done:label_done}, true);
+		var labels = {done:label_done};
+		var id = target.attr("data-taskid");
+		if (labels != null) {
+			if (typeof manager.entries[id].labels == "undefined") //[NEW_>_ver0.55] Need to check entries[id].labels because older versions don't have it. Can remove when people are no longer using client ver0.55.
+				manager.entries[id].labels = new Labels();
+			for (var name in labels)
+				manager.entries[id].labels[name] = labels[name];
+		}
+		manager.saveEntry(id);
+		//manager.updateAttribute(target.attr("data-taskid"), "labels", {done:label_done}, true);
 		
 		// target.attr("label_done", true); //different from "label_archived"
 	}
