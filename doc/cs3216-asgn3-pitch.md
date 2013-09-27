@@ -3,6 +3,8 @@
 ###Goodness of Sticky Notes On The Go
 Sticky notes work very well as to-do task planners and reminders, but they aren't conveniently portable. You can't exactly carry your physical sticky notes board around with you.
 
+=====
+###[insertion for shift up here]
 
 ###All Tasks In A Glance (Auto-View Display)
 
@@ -35,6 +37,10 @@ To unlock the screen, simply touch the screen to activate the unlock-prompt, and
 * Once you have made the 3 correct touches, the glowing circle will have a flashing animation.
 * In the event that it is a mistouch, the unlock-prompt disappears after 5 seconds and resets the number of touches required before unlock.
 
+Due to the varying support for Canvas, this only works on Desktops and Apple mobile devices, and does not work well on Android mobile devices, hence this is removed and unavailable for Android devices.
+
+=====
+
 
 ###No Sign-up Required (@@??)
 @@ A slight expansion from the sharing of a single sticky note.
@@ -43,14 +49,59 @@ To unlock the screen, simply touch the screen to activate the unlock-prompt, and
 
 @@Of course, for users who want to have private sticky note boards that are not accessible via a public url, we have also implemented user accounts and a sign-up process.
 
+=====
+###[to be shifted up to the top]
+
 ###Familiar User Experience Ported ($$ shift up?)
 Sticky note users love sticky notes because of the ways that they can interact with them. The peeling, the sticking and the marking.
 
 Our app brings all that familiarity into tablet devices. From the nostalgic colors of the sticky notes, to the customary corkboard, and all the way down to the beautiful Helvetical and Verdana fonts.
 
 
+###Likeness to real life
+We made our app as close to real-life as possible. Here are some of the real-life abilities you can do:
+ 
+* Grab multiple sticky notes at once! (@@)
+* Markers - mark them with a special symbol to check the tasks as done
+* A trophy wall of sticky notes showing the tasks completed (@@)
+
+
+###Stable & Reliable Sync Mechanism
+Our sync mechanism is reasonably stable and reliable even when you use multiple instances of the app on multiple different types of devices.
+
+This is a key feature of our app in helping users to manage their tasks at hand.
+
+
+###Syncs even if you forget to login
+Even if you forget to login before creating data, our sync mechanism is smart enough to transfer and sync those data to your account once you log in.
+
+This lowers the barriers of entry for users to get onboard the app, since they can try it out without any consequences, and then continue with their data when they first log in (create an account on our server database) to the app.
+
+More importantly, it also allows users to try our app any time any where once the app has been loaded onto their browser, even if they subsequently lose their Internet connection for days or even months.
+
+
+###No Sign-up Required (@@??)
+@@ A slight expansion from the sharing of a single sticky note.
+
+@@Have a public url
+
+@@Of course, for users who want to have private sticky note boards that are not accessible via a public url, we have also implemented user accounts and a sign-up process.
+
+=====
+
+###Calendar of Progress (Archived Done)
+@@@@@ No time to implement :(
+
+
+###Sticky Notes Giving
+@@@@@ No time to implement :(
+
+Give friends or family sticky notes.
+
+=====
+
 ###Comfortable View & Easy Scrolling
-@@We wanted users to feel comfortable viewing a sticky notes board on a tablet device, so we designed and made it very easy to scroll.
+We wanted users to feel comfortable viewing a sticky notes board on a tablet device, so we designed and made it very easy to scroll around and navigate.
 
 ###Access on any device
 @@Responsive. Landscape or Portrait.
