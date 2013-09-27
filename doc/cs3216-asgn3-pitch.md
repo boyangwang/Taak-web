@@ -95,7 +95,3 @@ Our app makes use of Responsive Design. It works regardless of whether the devic
 
 
 
-
-
-
-
