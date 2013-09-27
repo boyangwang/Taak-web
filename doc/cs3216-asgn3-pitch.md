@@ -90,7 +90,7 @@ We wanted users to feel comfortable viewing a sticky notes board on a tablet dev
 
 
 ###Access on any device
-Our app makes use of Responsive Design. It works regardless of whether the device is Landscape or Portrait, on Desktop or Mobile.
+We designed our app with Responsive Design in mind. Hence our app works regardless of whether the device is Landscape or Portrait, on Desktop or Mobile.
 
 
 
