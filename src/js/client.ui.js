@@ -1,5 +1,5 @@
 /** UI Helpers **/
-var glMode=0; //mode 1: can mark tasks done || mode 2: multi select || mode X: screensaver
+var glMode=0; //mode 1: can mark tasks done || mode 2: multi select || mode X: lockscreen
 var glModeSaver=0;
 function haltModes(){
 	glModeSaver = glMode;
@@ -134,10 +134,10 @@ $(document).ready(function(){
 
 	UI_init();
 
-	initScreensaver();
-	$("#screensaverBtn").click(function(){
-		startScreensaver();
-		console.log("Starting Screensaver");
+	initLockscreen();
+	$("#lockscreenBtn").click(function(){
+		startLockscreen();
+		console.log("Starting Lockscreen");
 	});
 });//endof $(document).ready()
 
@@ -787,15 +787,15 @@ $('body').on("touchmove", ".scrollable", function(e) {
 
 
 //==================================================
-// SCREENSAVER MODE
-function initScreensaver(){
-	var screensaverCanvas = document.getElementById("screensaverCanvas");
+// LOCKSCREEN MODE
+function initLockscreen(){
+	var lockscreenCanvas = document.getElementById("lockscreenCanvas");
 	var clickCanvas = document.getElementById("clickCanvas");
 	var glowingCanvas = document.getElementById("glowingCanvas");
 	var scoreCanvas = document.getElementById("scoreCanvas");
 	var unlockInstructions = document.getElementById("unlockInstructions");
 	
-	screensaverCanvas.width = window.innerWidth; screensaverCanvas.height = window.innerHeight;
+	lockscreenCanvas.width = window.innerWidth; lockscreenCanvas.height = window.innerHeight;
 	clickCanvas.width = 100; clickCanvas.height = 100;
 	glowingCanvas.width = 100; glowingCanvas.height = 100;
 	scoreCanvas.width = 100; scoreCanvas.height = 100;
@@ -806,7 +806,7 @@ function initScreensaver(){
 	var canvasCenter_coord = calcCanvasCenter(clickCanvas);
 	createCircle( clickCanvas, canvasCenter_coord, {r:0,g:0,b:0,a:-0.2},{a:-0.5} );
 	createCircle( glowingCanvas, canvasCenter_coord, {r:0,g:0,b:0,a:-0.2},{a:-0.7} );
-}//endof initScreensaver()
+}//endof initLockscreen()
 function createScoreCircle(scoreCanvas, canvasCenter_coord, opacityInc, pos){ ///[New]
 	//takes scoreCanvas, canvasCenter_coord
 	var newCoord = {x:0,y:0};
@@ -825,13 +825,13 @@ function createScoreCircle(scoreCanvas, canvasCenter_coord, opacityInc, pos){ //
 	createCircle( scoreCanvas, newCoord, colorOffset,outlineColorOffset, 5 );
 }
 
-function startScreensaver(){
-	window.screensaver = true;
-	var screensaverCanvas = document.getElementById("screensaverCanvas");
+function startLockscreen(){
+	window.lockscreen_on = true;
+	var lockscreenCanvas = document.getElementById("lockscreenCanvas");
 	//Create the non-permanent circles for scoreCanvas. Need to recreate each time coz it will be overwritten later when user successfully taps.
 	for (var pos=0; pos<3; ++pos)
 		createScoreCircle(scoreCanvas, canvasCenter_coord, 0, pos);
-	screensaverCanvas.hidden = false;
+	lockscreenCanvas.hidden = false;
 	var original_selectedworkflow = $("selectedworkflow").get(0);
 
 	var wi=0;
@@ -840,29 +840,29 @@ function startScreensaver(){
 	}, 3000);
 
 	var clickWorkflowInterval = setInterval( function(){
-		if (window.screensaver == false){
+		if (window.lockscreen_on == false){
 			clearInterval(changeWorkflowInterval);
 			clearInterval(clickWorkflowInterval);
 			wi=0;
-			return; //do not click if there's no more screensaver.
+			return; //do not click if there's no more lockscreen.
 		}
 		$(".workflowName").get(wi).click();
 	}, 3000);
 	
-	screensaverCanvas.onclick = function(){
+	lockscreenCanvas.onclick = function(){
 		var desiredWorkflow = $(".workflowName").get(wi);
 		this.className += " nonclickable"; //"pointer-events: none" only works for Firefox >= 3.6, Safari >= 4.0 and Chrome >= 2 //Screw the older browsers. ///http://stackoverflow.com/questions/1401658/html-overlay-which-allows-clicks-to-fall-through-to-elements-behind-it
 		this.getContext("2d").fillStyle = "rgba(0,0,0,0.7)";
 		this.getContext("2d").fillRect(0,0,this.width,this.height);
-		tapScreenSaver(screensaverCanvas, desiredWorkflow);
+		tapLockscreen(lockscreenCanvas, desiredWorkflow);
 	};
-}//endof startScreensaver()
+}//endof startLockscreen()
 function clearCanvas(theDOM){
 	theDOM.getContext("2d").clearRect(0,0,theDOM.width,theDOM.height);
 	theDOM.className = theDOM.className.replace(/ nonclickable/, "");
 }
 
-function tapScreenSaver(screensaverCanvas, desiredWorkflow){
+function tapLockscreen(lockscreenCanvas, desiredWorkflow){
 	var tapscore = 0; var unlockPromptTimeout;
 	resetUnlockPromptTimeout();
 	function resetUnlockPromptTimeout(){
@@ -870,7 +870,7 @@ function tapScreenSaver(screensaverCanvas, desiredWorkflow){
 		unlockPromptTimeout = setTimeout(function(){
 			killGlowingCircle();
 			hideCanvasSet(); //the sweeper. must be after kill, to ensure no further alternating.
-			clearCanvas(screensaverCanvas);
+			clearCanvas(lockscreenCanvas);
 			return tapscore;
 		}, 5000); //2000 is too fast
 	}
@@ -906,8 +906,8 @@ function tapScreenSaver(screensaverCanvas, desiredWorkflow){
 			setTimeout(function(){
 				killGlowingCircle();
 				hideCanvasSet();
-				clearCanvas(screensaverCanvas);
-				stopScreenSaver(screensaverCanvas, desiredWorkflow);
+				clearCanvas(lockscreenCanvas);
+				stopLockscreen(lockscreenCanvas, desiredWorkflow);
 			}, 1000);
 			return true; }
 		resetUnlockPromptTimeout();
@@ -935,13 +935,13 @@ function tapScreenSaver(screensaverCanvas, desiredWorkflow){
 		unlockInstructions.hidden = true;
 	}
 
-}//endof tapScreenSaver()
+}//endof tapLockscreen()
 
-function stopScreenSaver(screensaverCanvas, desiredWorkflow){
+function stopLockscreen(lockscreenCanvas, desiredWorkflow){
 	desiredWorkflow.click();
-	screensaverCanvas.hidden = true;
-	clearCanvas(screensaverCanvas);
-	window.screensaver = false;
+	lockscreenCanvas.hidden = true;
+	clearCanvas(lockscreenCanvas);
+	window.lockscreen_on = false;
 	//this will then trigger the if-condition in the setInterval.
 }
 
