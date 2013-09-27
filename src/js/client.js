@@ -63,7 +63,7 @@ var iosVersion = iOSversion();
 function reload() {
 	window.location.reload();
 	if (sync.online) {
-		window.applicationCache.update();
+		//window.applicationCache.update();
 	}
 }
 // Hide mobile keyboard
