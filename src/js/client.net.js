@@ -50,6 +50,7 @@ TaskNet.prototype.doPut = function(entries, callback, time) {
 	if (time == null) {
 		time = Date.now();
 	}
+	console.log("PUT", entries);
 	var data = {
 		token: this.token,
 		time: time,

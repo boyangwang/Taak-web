@@ -145,14 +145,23 @@ function resetMarkingTaskDone(){
 	//slowflashMessagebar("Stopping task marking.");
 	hideMessagebar();
 	glMode = 0;
-	$("#markTaskDoneBtn").text("Start Marking Tasks");
+	//$("#markTaskDoneBtn").text("Start Marking Tasks");
+	$("#markTaskDoneBtn").removeClass("toggledbutton");
+	$("#markTaskDoneBtn").addClass("button");
 	console.log("resetMarkingTaskDone");
 }
 function setMarkingTaskDone_inProgress(){
 	//slowflashMessagebar("You can start marking your tasks.");
-	showMessagebar("Mark/unmark tasks by clicking on them.");
+	var isMobile = mobileCheck();
+	if (!isMobile) {
+		showMessagebar("Mark/unmark tasks by clicking on them.");
+	} else {
+		showMessagebar("Mark/unmark tasks by tapping on them.");
+	}
 	glMode = 1;
-	$("#markTaskDoneBtn").text("Stop Marking");
+	//$("#markTaskDoneBtn").text("Stop Marking");
+	$("#markTaskDoneBtn").removeClass("button");
+	$("#markTaskDoneBtn").addClass("toggledbutton");
 }
 // function setMarkingTaskDone_inProgress(){ //code for causing recursive lag :)
 // 	glMode = 1;
@@ -513,7 +522,7 @@ function UI_setTaskPanel(entry, task, taskText) {
 	});
 
 	if (entry.labels) {
-		if (entry.labels.done) {
+		if (entry.labels.done == "true" || entry.labels.done == true) {
 			UI_addDoneMark(task);
 		} else {
 			// Remove any stray marks

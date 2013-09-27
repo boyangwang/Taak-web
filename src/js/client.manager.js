@@ -58,6 +58,7 @@ TaskManager.prototype.add = function(dflow, value, noUpdate) {
 // Save the entry
 TaskManager.prototype.saveEntry = function(id) {
 	if (this.entries[id] != null) {
+		this.entries[id].time = Date.now();
 		this.writeLocal();
 		this.onupdate();
 	} else {
@@ -69,6 +70,7 @@ TaskManager.prototype.saveEntry = function(id) {
 // id: ID of task, parameter: Parameter of task, value: Value of parameter, doUpdate: is set to true, save the entry
 TaskManager.prototype.updateAttribute = function(id, parameter, value, doUpdate) {
 	if (this.entries[id] != null) {
+		this.entries[id].time = Date.now();
 		if (parameter != null && value != null) {
 			this.entries[id][parameter] = value;
 		}
