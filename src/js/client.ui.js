@@ -801,8 +801,8 @@ function tapScreenSaver(screensaverCanvas, desiredWorkflow){
 	function resetUnlockTimeout(){
 		clearTimeout(unlockTimeout);
 		unlockTimeout = setTimeout(function(){
-			hideCanvasSet();
 			killGlowingCircle();
+			hideCanvasSet(); //the sweeper. must be after kill, to ensure no further alternating.
 			clearCanvas(screensaverCanvas);
 			return tapscore;
 		}, 5000); //2000 is too fast
@@ -828,6 +828,7 @@ function tapScreenSaver(screensaverCanvas, desiredWorkflow){
 			setCanvasPositions(randomCoord);
 			break;
 		case 3:
+			killGlowingCircle();
 			hideCanvasSet();
 			stopScreenSaver(screensaverCanvas, desiredWorkflow);
 			break;
@@ -843,17 +844,17 @@ function tapScreenSaver(screensaverCanvas, desiredWorkflow){
 		canvas.style.left = coord.x+"px";
 		canvas.style.top = coord.y+"px";
 	}
-	function showCanvasSet(){
-		clickCanvas.hidden = false;
-		glowingCanvas.hidden = false;
-		scoreCanvas.hidden = false;
-	}
-	function hideCanvasSet(){
-		clickCanvas.hidden = true;
-		glowingCanvas.hidden = true;
-		scoreCanvas.hidden = true;
-	}
 }//endof tapScreenSaver()
+function showCanvasSet(){
+	clickCanvas.hidden = false;
+	glowingCanvas.hidden = false;
+	scoreCanvas.hidden = false;
+}
+function hideCanvasSet(){
+	clickCanvas.hidden = true;
+	glowingCanvas.hidden = true;
+	scoreCanvas.hidden = true;
+}
 
 function stopScreenSaver(screensaverCanvas, desiredWorkflow){
 	desiredWorkflow.click();
@@ -939,6 +940,7 @@ function alternateTheCircle(){
 }
 function killGlowingCircle(){
 	clearInterval(window.glowingCircleInterval);
+	//hideClickCanvas
 	isGlowingSolid = true;
 }//Endof killGlowingCircle()
 function showClickCanvas(){
