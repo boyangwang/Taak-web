@@ -6,13 +6,11 @@ Sticky notes work very well as to-do task planners and reminders, but they aren'
 =====
 
 
-###Familiar User Experience Ported
-Sticky note users love sticky notes because of the ways that they can interact with them. The peeling, the sticking and the marking.
+###Familiarity from Likeness to Real Life
+Sticky note users love sticky notes because of the ways that they can interact with them. The peeling, the sticking and the marking. In real life.
 
-Our app brings all that familiarity into tablet devices. From the nostalgic colors of the sticky notes, to the customary corkboard, and all the way down to the beautiful Helvetical and Verdana fonts.
+We also aimed for familiarity by attending to the details. From the nostalgic colors of the sticky notes, to the customary corkboard, and all the way down to the beautiful Helvetical and Verdana fonts.
 
-
-###Likeness to real life
 We made our app as close to real-life as possible. Here are some of the real-life abilities you can do:
  
 * Grab multiple sticky notes at once! (@@)
@@ -95,8 +93,9 @@ Give friends or family sticky notes.
 ###Comfortable View & Easy Scrolling
 We wanted users to feel comfortable viewing a sticky notes board on a tablet device, so we designed and made it very easy to scroll around and navigate.
 
+
 ###Access on any device
-@@Responsive. Landscape or Portrait.
+Our app makes use of Responsive Design. It works regardless of whether the device is Landscape or Portrait, on Desktop or Mobile.
 
 
 
