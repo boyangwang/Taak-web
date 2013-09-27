@@ -258,6 +258,7 @@ function bindWorkflows(){
 		$("#workflowSelectorIcon").attr('data-workflow',currentWorkflow);
 		$("#workflowSelectorBox").hide();
 		$(".task").hide();
+		///### bug: Click sticky note. ColorSwitcher shows. Click workflowName. ColorSwitcher is still there. Stuck.
 		$(".task").each(function(){
 			if (currentWorkflow == "Default" && typeof($(this).attr("data-workflow")) == "undefined") {
 				// For default workflow, tasks without a workflow will be considered part of default
