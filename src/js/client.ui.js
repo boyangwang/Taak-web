@@ -749,7 +749,7 @@ function initScreensaver(){
 	var screensaverCanvas = document.getElementById("screensaverCanvas");
 	var clickCanvas = document.getElementById("clickCanvas");
 	var glowingCanvas = document.getElementById("glowingCanvas");
-	var scoreCanvas = document.getElementById("glowingCanvas");
+	var scoreCanvas = document.getElementById("scoreCanvas");
 	
 	screensaverCanvas.width = window.innerWidth; screensaverCanvas.height = window.innerHeight;
 	clickCanvas.width = 100; clickCanvas.height = 100;
@@ -759,8 +759,27 @@ function initScreensaver(){
 	var canvasCenter_coord = calcCanvasCenter(clickCanvas);
 	createCircle( clickCanvas, canvasCenter_coord, {r:0,g:0,b:0,a:-0.2},{a:-0.5} );
 	createCircle( glowingCanvas, canvasCenter_coord, {r:0,g:0,b:0,a:-0.2},{a:-0.7} );
+	for (var pos=0; pos<3; ++pos)
+		createScoreCircle(scoreCanvas, canvasCenter_coord, 0, pos);
+}//endof initScreensaver()
+function createScoreCircle(scoreCanvas, canvasCenter_coord, opacityInc, pos){ ///[New]
+	//takes scoreCanvas, canvasCenter_coord
+	var newCoord = {x:0,y:0};
+	var colorOffset = {r:0,g:0,b:0,a:-0.65+opacityInc};
+	var outlineColorOffset = {a:-0.95+opacityInc};
+	var newRadius = 5;
+	switch(pos){
+	case 1:
+		newCoord = {x:canvasCenter_coord.x, y:canvasCenter_coord.y/3}; break;
+		//createCircle( scoreCanvas, newCoord, {r:0,g:0,b:0,a:-0.2},{a:-0.9}, 5 );
+	case 0:
+		newCoord = {x:canvasCenter_coord.x*1/3, y:canvasCenter_coord.y/3}; break;
+	case 2:
+		newCoord = {x:canvasCenter_coord.x*5/3, y:canvasCenter_coord.y/3}; break;
+	}
+	createCircle( scoreCanvas, newCoord, colorOffset,outlineColorOffset, 5 );
 }
-
+startScreensaver();
 function startScreensaver(){
 	window.screensaver = true;
 	var screensaverCanvas = document.getElementById("screensaverCanvas");
@@ -814,7 +833,7 @@ function tapScreenSaver(screensaverCanvas, desiredWorkflow){
 	var scoreCanvas = document.getElementById("scoreCanvas");
 	setCanvasPositions(randomCoord);
 	showCanvasSet();
-	reviveGlowingCircle();
+	reviveGlowingCircle(1);
 
 	clickCanvas.onclick = function(){tappedCorrectly();}
 	glowingCanvas.onclick = function(){tappedCorrectly();}
@@ -829,18 +848,24 @@ function tapScreenSaver(screensaverCanvas, desiredWorkflow){
 			randomCoord = {x:900, y:300};
 			setCanvasPositions(randomCoord);
 			break;
-		case 3:
-			killGlowingCircle();
-			hideCanvasSet();
-			stopScreenSaver(screensaverCanvas, desiredWorkflow);
-			break;
 		}
+		var canvasCenter_coord = calcCanvasCenter(clickCanvas);
+		createScoreCircle(scoreCanvas, canvasCenter_coord, 0.8, tapscore-1);
+		if(tapscore == 3){
+			killGlowingCircle();
+			reviveGlowingCircle(0.15);
+			setTimeout(function(){
+				killGlowingCircle();
+				hideCanvasSet();
+				stopScreenSaver(screensaverCanvas, desiredWorkflow);
+			}, 1000);
+			return true; }
 		resetUnlockTimeout();
 	};//if no click detected, doNothing and wait for Timeout
 	function setCanvasPositions(coord){
 		setCanvasPosition(clickCanvas, coord);
 		setCanvasPosition(glowingCanvas, coord);
-		setCanvasPosition(scoreCanvas, coord);
+		setCanvasPosition(scoreCanvas, {x:coord.x,y:coord.y+100}); //we want scoreCanvas to appear below
 	}
 	function setCanvasPosition(canvas, coord){
 		canvas.style.left = coord.x+"px";
@@ -879,12 +904,13 @@ function calcCanvasCenter(canvas){
 	return {x: (canvas.width/2), y: (canvas.height/2)}
 }
 
-function createCircle(canvas, coord, colorOffset, outlineColorOffset){ //SIMILAR to paintDot
+function createCircle(canvas, coord, colorOffset, outlineColorOffset, newRadius){ //SIMILAR to paintDot
+	console.log(newRadius);
 	var preCf = {
 		color: {r:(0+colorOffset.r), g:(0+colorOffset.g), b:(0+colorOffset.b), a:(1.0+colorOffset.a)},
 		outlineColor: {r:(255+colorOffset.r), g:(255+colorOffset.g), b:(255+colorOffset.b), a:(1.0+outlineColorOffset.a)},
-		radius: 35 //prev 70
-	}
+		radius: newRadius||35 //prev 70
+	};console.log(preCf.radius);
 	var config = {
 		strokeStyle: rgbaObjToString(preCf.color),
 		lineWidth: 12,
@@ -897,7 +923,7 @@ function createCircle(canvas, coord, colorOffset, outlineColorOffset){ //SIMILAR
 		startAngle: 0,
 		endAngle: 2*Math.PI,
 		counterClockwise: true
-	}
+	};
 
 	var ctx = canvas.getContext("2d");
 	/// TRANSLATE AND ZOOM IN (like google maps) http://stackoverflow.com/questions/2916081/zoom-in-on-a-point-using-scale-and-translate
@@ -922,11 +948,11 @@ function createCircle(canvas, coord, colorOffset, outlineColorOffset){ //SIMILAR
 
 var isGlowingSolid = true;
 window.glowingCircleInterval=null;
-function reviveGlowingCircle(){
+function reviveGlowingCircle(fraction){ ///[New]
 	// showClickCanvas(); //There seems to be some lag creating the setInterval function.
-	setTimeout(alternateTheCircle, 250); //for the initial flash
+	setTimeout(alternateTheCircle, 250*fraction); //for the initial flash
 	//So this is meant to cover up for it.
-	window.glowingCircleInterval = setInterval(alternateTheCircle, 500);
+	window.glowingCircleInterval = setInterval(alternateTheCircle, 500*fraction);
 }//Endof reviveGlowingCircle()
 function alternateTheCircle(){
 	if(window.isGlowingSolid){
