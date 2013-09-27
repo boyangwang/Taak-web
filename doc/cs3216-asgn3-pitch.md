@@ -46,12 +46,6 @@ To sync all those new tasks, you can simply log in on those devices. (Subsequent
 ###No Sign-up Required
 The second possibility is that no sign-up is required to use the app.
 
-Have a public url. (@@@ No time to implement this)
-
-@@Of course, for users who want to have private sticky note boards that are not accessible via a public url, we have also implemented user accounts and a sign-up process.
-
-[DELETE]
-
 =====
 
 
@@ -87,20 +81,6 @@ To unlock the screen, simply touch the screen to activate the unlock-prompt, and
 * In the event that it is a mistouch, the unlock-prompt disappears after 5 seconds and resets the number of touches required before unlock.
 
 Due to the varying support for Canvas, this only works on Desktops and Apple mobile devices, and does not work well on Android mobile devices, hence this is removed and unavailable for Android devices.
-
-=====
-
-
-###Calendar of Progress (Archived Done)
-@@@@@ No time to implement :(
-[DELETE]
-
-
-###Sticky Notes Giving
-@@@@@ No time to implement :(
-
-Give friends or family sticky notes.
-[DELETE]
 
 =====
 
