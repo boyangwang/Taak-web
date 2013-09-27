@@ -816,7 +816,9 @@ function tapScreenSaver(screensaverCanvas, desiredWorkflow){
 	showCanvasSet();
 	reviveGlowingCircle();
 
-	clickCanvas.onclick = function(){
+	clickCanvas.onclick = function(){tappedCorrectly();}
+	glowingCanvas.onclick = function(){tappedCorrectly();}
+	function tappedCorrectly(){
 		++tapscore;
 		switch(tapscore){
 		case 1:
