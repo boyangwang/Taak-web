@@ -135,6 +135,10 @@ $(document).ready(function(){
 	UI_init();
 
 	initScreensaver();
+	$("#screensaverBtn").click(function(){
+		startScreensaver();
+		console.log("Starting Screensaver");
+	});
 });//endof $(document).ready()
 
 function resetMarkingTaskDone(){
