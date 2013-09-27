@@ -9,10 +9,12 @@ Sticky notes work very well as to-do task planners and reminders, but they aren'
 ###Familiarity from Likeness to Real Life
 Sticky note users love sticky notes because of the ways that they can interact with them. The peeling, the sticking and the marking. In real life.
 
+We felt that it was important to bring that likeness to real life into our app to provide a familiar User Experience on the tablet device.
+
 We also aimed for familiarity by attending to the details. From the nostalgic colors of the sticky notes, to the customary corkboard, and all the way down to the beautiful Helvetical and Verdana fonts.
 
-We made our app as close to real-life as possible. Here are some of the real-life abilities you can do:
- 
+So we made our app as close to real-life as possible. Here are some of the real-life abilities you can do:
+
 * Grab multiple sticky notes at once! (@@)
 * Markers - mark them with a special symbol to check the tasks as done
 * A trophy wall of sticky notes showing the tasks completed (@@)
