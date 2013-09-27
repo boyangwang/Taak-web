@@ -16,7 +16,7 @@ So we made our app as close to real-life as possible. Here are some of the real-
 * A trophy wall of sticky notes showing the tasks completed (@@)
 * [DELETE]??
 
-We also aimed for familiarity by attending to the details. From the nostalgic colors of the sticky notes, to the customary corkboard, and all the way down to the beautiful Helvetical and Verdana fonts.
+We also aimed for familiarity by attending to the details. From the nostalgic colors of the sticky notes, to the customary corkboard, and all the way down to the beautiful Helvetica and Verdana fonts.
 
 For the background of the sticky notes, we chose colors that are lower in saturation and higher in lightness, to once again give familiarity through resembling the colors of real sticky notes and to also make it easier for users to see the text written on their sticky notes.For the font of the sticky note text, we chose sans-serif fonts such as Helvetica to utilize native fonts used in mobile devices such as the iPhone and iPad.There are also some little nuances in the UI that provides hints and makes it more intuitive.The notes can be resized. The resize handle used resembles typical handles seen in Windows and Mac OSX, giving a hint that they can be resized.We deliberately chose images of a pile of sticky notes for the icons where you drag and drop sticky notes from. This is a replication of real life where you tear and get your sticky notes from a pile.
 
