@@ -358,7 +358,6 @@
 
 /** Message Bar **/
 #messagebar{
-	opacity: 0;
 	/*position:absolute;
 	margin-top: 5px;
 	margin-left:105px;*/
@@ -369,7 +368,8 @@
 	min-height: 10px;
 	color: rgba(255,255,255,0.85);
 
-	display: inline-block;
+	/*display: inline-block;*/
+	display: none;
 	/*display: table-cell;*/
 	/*vertical-align: middle;*/ /*this screws with text alignment*/	
 	background-color: #000;

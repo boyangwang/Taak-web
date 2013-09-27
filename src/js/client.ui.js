@@ -290,11 +290,13 @@ function slowflashMessagebar(messageString){
 }
 function showMessagebar(messageString) {
 	$("#messagebar").text(messageString);
-	$("#messagebar").stop(true,true).fadeIn(100); ///http://stackoverflow.com/questions/2805906/jquery-stop-fadein-fadeout	///http://stackoverflow.com/questions/1421298/how-do-you-cancel-a-jquery-fadeout-once-it-has-began
+	$("#messagebar").fadeIn(100).css("display","inline-block");;
+	//$("#messagebar").stop(true,true).fadeIn(100); ///http://stackoverflow.com/questions/2805906/jquery-stop-fadein-fadeout	///http://stackoverflow.com/questions/1421298/how-do-you-cancel-a-jquery-fadeout-once-it-has-began
 }
 function hideMessagebar() {
 	//$("#messagebar").stop(true,true).fadeOut(3000);
-	$("#messagebar").stop(true,true).fadeOut(100);
+	//$("#messagebar").stop(true,true).fadeOut(100);
+	$("#messagebar").fadeOut(100);
 }
 
 // Show/hide drag instructions
