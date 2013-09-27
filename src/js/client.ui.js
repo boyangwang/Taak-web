@@ -1,5 +1,5 @@
 /** UI Helpers **/
-var glMode=0; //mode 1: can mark tasks done || mode 2: multi select
+var glMode=0; //mode 1: can mark tasks done || mode 2: multi select || mode X: screensaver
 var glModeSaver=0;
 function haltModes(){
 	glModeSaver = glMode;
@@ -92,49 +92,54 @@ $(document).ready(function(){
 		});
 	});
 
-bindWorkflows();
+	bindWorkflows();
 
-$(".dialog .window").click(function(e) {
-	e.stopPropagation();
-});
-$('.dialog').click(hideDialog);
+	$(".dialog .window").click(function(e) {
+		e.stopPropagation();
+	});
+	$('.dialog').click(hideDialog);
 
-$(".addTaskDiv").draggable({
-	revert: function(){
-		if($(this).offset().left > 64){
-			var taskPositionX = $(this).offset().left+20;
-			var taskPositionY = $(this).offset().top-30;
-			var taskColor = $(this).attr('data-color');
-			addTask(taskPositionX,taskPositionY,taskColor);
-		}
-		return true;
-	},
-	revertDuration:0,
-	start: showDragInstructions,
-	stop: hideDragInstructions
-}).mousedown(function() {
-	showDragInstructions();
-}).mouseup(function() {
-	hideDragInstructions();
-});
+	$(".addTaskDiv").draggable({
+		revert: function(){
+			if($(this).offset().left > 64){
+				var taskPositionX = $(this).offset().left+20;
+				var taskPositionY = $(this).offset().top-30;
+				var taskColor = $(this).attr('data-color');
+				addTask(taskPositionX,taskPositionY,taskColor);
+			}
+			return true;
+		},
+		revertDuration:0,
+		start: showDragInstructions,
+		stop: hideDragInstructions
+	}).mousedown(function() {
+		showDragInstructions();
+	}).mouseup(function() {
+		hideDragInstructions();
+	});
 
 	//Don't put inside resetMarkingTaskDone() //The create function will call the func multiple times, which adds on multiple "onclick" functions.
 	$("#messagebar").fadeOut(0);
 	$("#markTaskDoneBtn").click(function(){
 		switch(glMode){
 		case 0: //Originally, innerText is "Start Marking Tasks".
-		setMarkingTaskDone_inProgress();
-		break;
+			setMarkingTaskDone_inProgress();
+			break;
 		case 1: //Originally, innerText is "Stop Marking Tasks".
-		resetMarkingTaskDone();
-		break;
-	}
-	console.log("MarkingTaskDone");
-
-});
+			resetMarkingTaskDone();
+			break;
+		}
+		console.log("MarkingTaskDone");
+	});
 
 	UI_init();
-});
+
+	initScreensaver();
+	$("#screensaverBtn").click(function(){
+		startScreensaver();
+		console.log("Starting Screensaver");
+	});
+});//endof $(document).ready()
 
 function resetMarkingTaskDone(){
 	slowflashMessagebar("Stopping task marking.");
@@ -253,6 +258,7 @@ function bindWorkflows(){
 		$("#workflowSelectorIcon").attr('data-workflow',currentWorkflow);
 		$("#workflowSelectorBox").hide();
 		$(".task").hide();
+		///### bug: Click sticky note. ColorSwitcher shows. Click workflowName. ColorSwitcher is still there. Stuck.
 		$(".task").each(function(){
 			if (currentWorkflow == "Default" && typeof($(this).attr("data-workflow")) == "undefined") {
 				// For default workflow, tasks without a workflow will be considered part of default
@@ -616,6 +622,10 @@ function UI_addTaskPanel(entry,baseOffsetX,baseOffsetY,taskColor) {
 		lastTask = task; // lastTask represents the current task being edited
 		selectedTask = task;
 		UI_showColorSwitcher(task);
+		///### BUG: Drag drop. Click color on ColorSwitcher. Drag drop.
+		///### Click to edit text. With empty textbox and press enter.
+		///### Now you get infinite recursive new notes each time you press enter.
+		///### Repeat drag drop click colorswitcher for more notes appearing with each enter.
 		e.stopPropagation(); // don't send click event to parent
 	});
 
@@ -743,4 +753,252 @@ $('body').on("touchmove", ".scrollable", function(e) {
 
 
 
+//==================================================
+//MULTI-SELECT
 
+
+
+//==================================================
+// SCREENSAVER MODE
+function initScreensaver(){
+	var screensaverCanvas = document.getElementById("screensaverCanvas");
+	var clickCanvas = document.getElementById("clickCanvas");
+	var glowingCanvas = document.getElementById("glowingCanvas");
+	var scoreCanvas = document.getElementById("scoreCanvas");
+	var unlockInstructions = document.getElementById("unlockInstructions");
+	
+	screensaverCanvas.width = window.innerWidth; screensaverCanvas.height = window.innerHeight;
+	clickCanvas.width = 100; clickCanvas.height = 100;
+	glowingCanvas.width = 100; glowingCanvas.height = 100;
+	scoreCanvas.width = 100; scoreCanvas.height = 100;
+
+	var canvasCenter_coord = calcCanvasCenter(clickCanvas);
+	createCircle( clickCanvas, canvasCenter_coord, {r:0,g:0,b:0,a:-0.2},{a:-0.5} );
+	createCircle( glowingCanvas, canvasCenter_coord, {r:0,g:0,b:0,a:-0.2},{a:-0.7} );
+	for (var pos=0; pos<3; ++pos)
+		createScoreCircle(scoreCanvas, canvasCenter_coord, 0, pos);
+}//endof initScreensaver()
+function createScoreCircle(scoreCanvas, canvasCenter_coord, opacityInc, pos){ ///[New]
+	//takes scoreCanvas, canvasCenter_coord
+	var newCoord = {x:0,y:0};
+	var colorOffset = {r:0,g:0,b:0,a:-0.65+opacityInc};
+	var outlineColorOffset = {a:-0.95+opacityInc};
+	var newRadius = 5;
+	switch(pos){
+	case 1:
+		newCoord = {x:canvasCenter_coord.x, y:canvasCenter_coord.y/3}; break;
+		//createCircle( scoreCanvas, newCoord, {r:0,g:0,b:0,a:-0.2},{a:-0.9}, 5 );
+	case 0:
+		newCoord = {x:canvasCenter_coord.x*1/3, y:canvasCenter_coord.y/3}; break;
+	case 2:
+		newCoord = {x:canvasCenter_coord.x*5/3, y:canvasCenter_coord.y/3}; break;
+	}
+	createCircle( scoreCanvas, newCoord, colorOffset,outlineColorOffset, 5 );
+}
+
+function startScreensaver(){
+	window.screensaver = true;
+	var screensaverCanvas = document.getElementById("screensaverCanvas");
+	screensaverCanvas.hidden = false;
+	var original_selectedworkflow = $("selectedworkflow").get(0);
+
+	var wi=0;
+	var changeWorkflowInterval = setInterval( function(){
+		wi = (wi+1)%($(".workflowName").length);
+	}, 3000);
+
+	var clickWorkflowInterval = setInterval( function(){
+		if (window.screensaver == false){
+			clearInterval(changeWorkflowInterval);
+			clearInterval(clickWorkflowInterval);
+			wi=0;
+			return; //do not click if there's no more screensaver.
+		}
+		$(".workflowName").get(wi).click();
+	}, 3000);
+	
+	screensaverCanvas.onclick = function(){
+		var desiredWorkflow = $(".workflowName").get(wi);
+		this.className += " nonclickable"; //"pointer-events: none" only works for Firefox >= 3.6, Safari >= 4.0 and Chrome >= 2 //Screw the older browsers. ///http://stackoverflow.com/questions/1401658/html-overlay-which-allows-clicks-to-fall-through-to-elements-behind-it
+		this.getContext("2d").fillStyle = "rgba(0,0,0,0.7)";
+		this.getContext("2d").fillRect(0,0,this.width,this.height);
+		tapScreenSaver(screensaverCanvas, desiredWorkflow);
+	};
+}//endof startScreensaver()
+function clearCanvas(theDOM){
+	theDOM.getContext("2d").clearRect(0,0,theDOM.width,theDOM.height);
+	theDOM.className = theDOM.className.replace(/ nonclickable/, "");
+}
+
+function tapScreenSaver(screensaverCanvas, desiredWorkflow){
+	var tapscore = 0; var unlockTimeout;
+	resetUnlockTimeout();
+	function resetUnlockTimeout(){
+		clearTimeout(unlockTimeout);
+		unlockTimeout = setTimeout(function(){
+			killGlowingCircle();
+			hideCanvasSet(); //the sweeper. must be after kill, to ensure no further alternating.
+			clearCanvas(screensaverCanvas);
+			return tapscore;
+		}, 5000); //2000 is too fast
+	}
+
+	var randomCoord = {x:150,y:150};
+	var clickCanvas = document.getElementById("clickCanvas");
+	var glowingCanvas = document.getElementById("glowingCanvas");
+	var scoreCanvas = document.getElementById("scoreCanvas");
+	var unlockInstructions = document.getElementById("unlockInstructions");
+	setCanvasPositions(randomCoord);
+	showCanvasSet();
+	reviveGlowingCircle(1);
+
+	clickCanvas.onclick = function(){tappedCorrectly();}
+	glowingCanvas.onclick = function(){tappedCorrectly();}
+	function tappedCorrectly(){
+		++tapscore;
+		switch(tapscore){
+		case 1:
+			randomCoord = {x:400, y:500};
+			setCanvasPositions(randomCoord);
+			break;
+		case 2:
+			randomCoord = {x:900, y:300};
+			setCanvasPositions(randomCoord);
+			break;
+		}
+		var canvasCenter_coord = calcCanvasCenter(clickCanvas);
+		createScoreCircle(scoreCanvas, canvasCenter_coord, 0.8, tapscore-1);
+		if(tapscore == 3){
+			killGlowingCircle();
+			reviveGlowingCircle(0.15);
+			setTimeout(function(){
+				killGlowingCircle();
+				hideCanvasSet();
+				stopScreenSaver(screensaverCanvas, desiredWorkflow);
+			}, 1000);
+			return true; }
+		resetUnlockTimeout();
+	};//if no click detected, doNothing and wait for Timeout
+	function setCanvasPositions(coord){
+		setCanvasPosition(clickCanvas, coord);
+		setCanvasPosition(glowingCanvas, coord);
+		setCanvasPosition(scoreCanvas, {x:coord.x,y:coord.y+100}); //we want scoreCanvas to appear below
+		setCanvasPosition(unlockInstructions, {x:coord.x-50,y:coord.y-40});
+	}
+	function setCanvasPosition(canvas, coord){
+		canvas.style.left = coord.x+"px";
+		canvas.style.top = coord.y+"px";
+	}
+	function showCanvasSet(){
+		clickCanvas.hidden = false;
+		glowingCanvas.hidden = false;
+		scoreCanvas.hidden = false;
+		unlockInstructions.hidden = false;
+	}
+	function hideCanvasSet(){
+		clickCanvas.hidden = true;
+		glowingCanvas.hidden = true;
+		scoreCanvas.hidden = true;
+		unlockInstructions.hidden = true;
+	}
+
+}//endof tapScreenSaver()
+
+function stopScreenSaver(screensaverCanvas, desiredWorkflow){
+	desiredWorkflow.click();
+	screensaverCanvas.hidden = true;
+	clearCanvas(screensaverCanvas);
+	window.screensaver = false;
+	//this will then trigger the if-condition in the setInterval.
+}
+
+
+//==================================================
+// CANVAS
+
+function rgbaObjToString(rgbaObject){
+  return "rgba("+rgbaObject.r+","+rgbaObject.g+","+rgbaObject.b+","+rgbaObject.a+")"; //color
+}
+
+// Canvas Positioning Geometry
+function calcCanvasCenter(canvas){
+	return {x: (canvas.width/2), y: (canvas.height/2)}
+}
+
+function createCircle(canvas, coord, colorOffset, outlineColorOffset, newRadius){ //SIMILAR to paintDot
+	console.log(newRadius);
+	var preCf = {
+		color: {r:(0+colorOffset.r), g:(0+colorOffset.g), b:(0+colorOffset.b), a:(1.0+colorOffset.a)},
+		outlineColor: {r:(255+colorOffset.r), g:(255+colorOffset.g), b:(255+colorOffset.b), a:(1.0+outlineColorOffset.a)},
+		radius: newRadius||35 //prev 70
+	};console.log(preCf.radius);
+	var config = {
+		strokeStyle: rgbaObjToString(preCf.color),
+		lineWidth: 12,
+		outlineZoom: 1.06, //1.06 indicates 1.06x the size
+		outlineStyle: rgbaObjToString(preCf.outlineColor),
+		outlineWidth: 2, //prev -2
+		radius: preCf.radius,
+		x: coord.x,
+		y: coord.y,
+		startAngle: 0,
+		endAngle: 2*Math.PI,
+		counterClockwise: true
+	};
+
+	var ctx = canvas.getContext("2d");
+	/// TRANSLATE AND ZOOM IN (like google maps) http://stackoverflow.com/questions/2916081/zoom-in-on-a-point-using-scale-and-translate
+	ctx.save();
+	ctx.scale(config.outlineZoom,config.outlineZoom);
+	ctx.translate(
+		-( coord.x - coord.x/config.outlineZoom ),
+		-( coord.y - coord.y/config.outlineZoom )
+	);
+	drawCircle(ctx, config.outlineStyle, config.outlineWidth);
+	ctx.restore();
+	drawCircle(ctx, config.strokeStyle, 0);
+	function drawCircle(ctx, strokeStyle, lineWidth){
+		ctx.strokeStyle = strokeStyle;
+		ctx.lineWidth = config.lineWidth+lineWidth;
+		ctx.beginPath();
+		ctx.arc(config.x, config.y, config.radius, 0, 2*Math.PI, true);
+		ctx.stroke();
+	}
+}
+
+
+var isGlowingSolid = true;
+window.glowingCircleInterval=null;
+function reviveGlowingCircle(fraction){ ///[New]
+	// showClickCanvas(); //There seems to be some lag creating the setInterval function.
+	setTimeout(alternateTheCircle, 250*fraction); //for the initial flash
+	//So this is meant to cover up for it.
+	window.glowingCircleInterval = setInterval(alternateTheCircle, 500*fraction);
+}//Endof reviveGlowingCircle()
+function alternateTheCircle(){
+	if(window.isGlowingSolid){
+		//hide fixedCanvas which has Solid Circle, and unhide glowingCanvas
+		showGlowingCanvas();
+		window.isGlowingSolid = false;
+	}
+	else if(!isGlowingSolid){
+		//hide glowingCanvas, and unhide fixedCanvas which has Solid Circle
+		showClickCanvas();
+		window.isGlowingSolid = true;
+	}  
+}
+function killGlowingCircle(){
+	clearInterval(window.glowingCircleInterval);
+	//hideClickCanvas
+	isGlowingSolid = true;
+}//Endof killGlowingCircle()
+function showClickCanvas(){
+	//console.log("SolidCircle");
+ 	document.getElementById("clickCanvas").hidden = false;
+	document.getElementById("glowingCanvas").hidden = true;
+}
+function showGlowingCanvas(){
+	//console.log("GlowingCircle");
+	document.getElementById("glowingCanvas").hidden = false;
+ 	document.getElementById("clickCanvas").hidden = true;
+}

@@ -13,6 +13,14 @@
 	<link rel="stylesheet" href="css/contentStyle.css" type="text/css" />
 </head>
 <body class="box">
+	<canvas id="screensaverCanvas" hidden></canvas>
+	<canvas id="clickCanvas" hidden></canvas>
+	<canvas id="glowingCanvas" hidden></canvas>
+	<canvas id="scoreCanvas" hidden></canvas>
+	<div id="unlockInstructions" hidden>
+		<div>Touch the Glowing Circle</div>
+		<div>to Unlock the Screen</div>
+	</div>
 	<div class="ios7fixer box">
 		<div id="fb-root"></div>
 		<!-- Top bar (re-added to test auth) -->
@@ -22,7 +30,8 @@
 			<a class="button left" href="javascript:showLoginPrompt();" title="Login/out"><img class="smallicon" src="img/changeIcon.png" alt="Login/out"></a>
 			<a class="button left" href="javascript:reload();" title="Refresh"><img class="smallicon" src="img/reload.png" alt="Refresh"></a>
 			<!-- <span id="multiSelectBtn" class="button left" hidden>Select Multiple</span> -->
-			<span id="markTaskDoneBtn" class="button left">Mark Tasks Done</span>
+			<span id="screensaverBtn" class="button left">Start Auto-View</span>
+			<span id="markTaskDoneBtn" class="button left">Start Marking Tasks</span>
 			<span id="login_flag" style="display:none">Not Login</span>
 			
 			<div id="workflowSelectorBox">
