@@ -16,6 +16,7 @@ So we made our app as close to real-life as possible. Here are some of the real-
 * Grab multiple sticky notes at once! (@@)
 * Markers - mark them with a special symbol to check the tasks as done
 * A trophy wall of sticky notes showing the tasks completed (@@)
+* [DELETE]??
 
 We also aimed for familiarity by attending to the details. From the nostalgic colors of the sticky notes, to the customary corkboard, and all the way down to the beautiful Helvetical and Verdana fonts.
 
@@ -33,12 +34,14 @@ This lowers the barriers of entry for users to get onboard the app, since they c
 
 More importantly, it also allows users to try our app any time any where once the app has been loaded onto their browser, even if they subsequently lose their Internet connection for days or even months.
 
-In turn, this opens up 2 possibilities.
+In turn, this opens up 2 interesting possibilities.
+
 
 ###Allows any number of other to edit your board
 The first possibility is it allows any number of other people to add tasks to your board. Anyone can share sticky notes with you now.
 
 To sync all those new tasks, you can simply log in on those devices. (Subsequently, we can build upon this and allow users to give other people one-way time-sensitive keys to add new tasks.)
+
 
 ###No Sign-up Required
 The second possibility is that no sign-up is required to use the app.
@@ -46,6 +49,8 @@ The second possibility is that no sign-up is required to use the app.
 Have a public url. (@@@ No time to implement this)
 
 @@Of course, for users who want to have private sticky note boards that are not accessible via a public url, we have also implemented user accounts and a sign-up process.
+
+[DELETE]
 
 =====
 
@@ -88,12 +93,14 @@ Due to the varying support for Canvas, this only works on Desktops and Apple mob
 
 ###Calendar of Progress (Archived Done)
 @@@@@ No time to implement :(
+[DELETE]
 
 
 ###Sticky Notes Giving
 @@@@@ No time to implement :(
 
 Give friends or family sticky notes.
+[DELETE]
 
 =====
 
