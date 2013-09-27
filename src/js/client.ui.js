@@ -626,10 +626,6 @@ function UI_addTaskPanel(entry,baseOffsetX,baseOffsetY,taskColor) {
 		lastTask = task; // lastTask represents the current task being edited
 		selectedTask = task;
 		UI_showColorSwitcher(task);
-		///### BUG: Drag drop. Click color on ColorSwitcher. Drag drop.
-		///### Click to edit text. With empty textbox and press enter.
-		///### Now you get infinite recursive new notes each time you press enter.
-		///### Repeat drag drop click colorswitcher for more notes appearing with each enter.
 		e.stopPropagation(); // don't send click event to parent
 	});
 
