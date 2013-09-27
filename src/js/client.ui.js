@@ -791,7 +791,7 @@ function startScreensaver(){
 	};
 }//endof startScreensaver()
 function clearCanvas(theDOM){
-	theDOM.getContext("2d").clearRect(0,0,this.width,this.height);
+	theDOM.getContext("2d").clearRect(0,0,theDOM.width,theDOM.height);
 	theDOM.className = theDOM.className.replace(/ nonclickable/, "");
 }
 
@@ -801,6 +801,8 @@ function tapScreenSaver(screensaverCanvas, desiredWorkflow){
 	function resetUnlockTimeout(){
 		clearTimeout(unlockTimeout);
 		unlockTimeout = setTimeout(function(){
+			hideCanvasSet();
+			killGlowingCircle();
 			clearCanvas(screensaverCanvas);
 			return tapscore;
 		}, 2000);
@@ -811,7 +813,8 @@ function tapScreenSaver(screensaverCanvas, desiredWorkflow){
 	var glowingCanvas = document.getElementById("glowingCanvas");
 	var scoreCanvas = document.getElementById("scoreCanvas");
 	setCanvasPositions(randomCoord);
-	showClickCanvas();
+	showCanvasSet();
+	reviveGlowingCircle();
 
 	clickCanvas.onclick = function(){
 		++tapscore;
@@ -825,7 +828,7 @@ function tapScreenSaver(screensaverCanvas, desiredWorkflow){
 			setCanvasPositions(randomCoord);
 			break;
 		case 3:
-			hideClickCanvas();
+			hideCanvasSet();
 			stopScreenSaver(screensaverCanvas, desiredWorkflow);
 			break;
 		}
@@ -840,12 +843,12 @@ function tapScreenSaver(screensaverCanvas, desiredWorkflow){
 		canvas.style.left = coord.x+"px";
 		canvas.style.top = coord.y+"px";
 	}
-	function showClickCanvas(){
+	function showCanvasSet(){
 		clickCanvas.hidden = false;
 		glowingCanvas.hidden = false;
 		scoreCanvas.hidden = false;
 	}
-	function hideClickCanvas(){
+	function hideCanvasSet(){
 		clickCanvas.hidden = true;
 		glowingCanvas.hidden = true;
 		scoreCanvas.hidden = true;
@@ -914,3 +917,37 @@ function createCircle(canvas, coord, colorOffset, outlineColorOffset){ //SIMILAR
 }
 
 
+var isGlowingSolid = true;
+window.glowingCircleInterval=null;
+function reviveGlowingCircle(){
+	setTimeout(alternateTheCircle, 200); //for the initial flash
+	showClickCanvas(); //There seems to be some lag creating the setInterval function.
+	//So this is meant to cover up for it.
+	window.glowingCircleInterval = setInterval(alternateTheCircle, 450);
+}//Endof reviveGlowingCircle()
+function alternateTheCircle(){
+	if(window.isGlowingSolid){
+		//hide fixedCanvas which has Solid Circle, and unhide glowingCanvas
+		showGlowingCanvas();
+		window.isGlowingSolid = false;
+	}
+	else if(!isGlowingSolid){
+		//hide glowingCanvas, and unhide fixedCanvas which has Solid Circle
+		showClickCanvas();
+		window.isGlowingSolid = true;
+	}  
+}
+function killGlowingCircle(){
+	clearInterval(window.glowingCircleInterval);
+	isGlowingSolid = true;
+}//Endof killGlowingCircle()
+function showClickCanvas(){
+	//console.log("SolidCircle");
+ 	document.getElementById("clickCanvas").hidden = false;
+	document.getElementById("glowingCanvas").hidden = true;
+}
+function showGlowingCanvas(){
+	//console.log("GlowingCircle");
+	document.getElementById("glowingCanvas").hidden = false;
+ 	document.getElementById("clickCanvas").hidden = true;
+}
