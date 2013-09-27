@@ -784,6 +784,8 @@ $('body').on("touchmove", ".scrollable", function(e) {
 //==================================================
 //MULTI-SELECT
 
+//Modified to "multi-select and mark tasks as done." See above.
+
 
 
 //==================================================
@@ -825,6 +827,33 @@ function createScoreCircle(scoreCanvas, canvasCenter_coord, opacityInc, pos){ //
 	createCircle( scoreCanvas, newCoord, colorOffset,outlineColorOffset, 5 );
 }
 
+function startAutoViewBoards(){ //For use on Javascript Console.
+	startAutoViewBoards_innerFunc(false);
+}
+function startAutoViewBoards_innerFunc(isForLockscreen){
+	var wi=0;
+	window.incBoardIdxInterval = setInterval( function(){ //prev changeWorkflowInterval
+		wi = (wi+1)%($(".workflowName").length);
+	}, 3000);
+
+	window.viewNextBoardInterval = setInterval( function(){ //prev clickWorkflowInterval
+		if (isForLockscreen){ //This is being called in startLockscreen, for the purposes of the lockscreen?
+			if (window.lockscreen_on == false){ //If yes, then we'll check the current state of the lockscreen.
+				stopAutoViewBoards();
+				return; //cut the Interval here. Do not click if there's no more lockscreen.
+			}			
+		}//Else, if it's indepedently called, it's business as usual.
+		 //In that case, it will require a manual call of the stopAutoViewBoards() function.
+		$(".workflowName").get(wi).click();
+	}, 3000);
+}
+function stopAutoViewBoards(){
+	clearInterval(window.incBoardIdxInterval); 
+	clearInterval(window.viewNextBoardInterval);
+	//wi=0;
+	return 0;
+}
+
 function startLockscreen(){
 	window.lockscreen_on = true;
 	var lockscreenCanvas = document.getElementById("lockscreenCanvas");
@@ -834,20 +863,7 @@ function startLockscreen(){
 	lockscreenCanvas.hidden = false;
 	var original_selectedworkflow = $("selectedworkflow").get(0);
 
-	var wi=0;
-	var changeWorkflowInterval = setInterval( function(){
-		wi = (wi+1)%($(".workflowName").length);
-	}, 3000);
-
-	var clickWorkflowInterval = setInterval( function(){
-		if (window.lockscreen_on == false){
-			clearInterval(changeWorkflowInterval);
-			clearInterval(clickWorkflowInterval);
-			wi=0;
-			return; //do not click if there's no more lockscreen.
-		}
-		$(".workflowName").get(wi).click();
-	}, 3000);
+	startAutoViewBoards_innerFunc(true);
 	
 	lockscreenCanvas.onclick = function(){
 		var desiredWorkflow = $(".workflowName").get(wi);
