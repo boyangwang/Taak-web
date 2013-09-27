@@ -121,11 +121,13 @@ function showEntries() {
 	}
 	console.log("WORKFLOW", currentWorkflow);
 	$(".task").each(function(){
-		if (currentWorkflow == "Default" && typeof($(this).attr("data-workflow")) == "undefined") {
-			// For default workflow, tasks without a workflow will be considered part of default
-			$(this).show();
-		} else if($(this).attr("data-workflow") == currentWorkflow){
-			$(this).show();
+		if ($(this).children(".taskText").attr("data-taskarchived") != "true") { // Show non-deleted tasks
+			if (currentWorkflow == "Default" && typeof($(this).attr("data-workflow")) == "undefined") {
+				// For default workflow, tasks without a workflow will be considered part of default
+				$(this).show();
+			} else if($(this).attr("data-workflow") == currentWorkflow){
+				$(this).show();
+			}
 		}
 	});
 	
