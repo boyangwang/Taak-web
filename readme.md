@@ -1,8 +1,31 @@
-# TaakA task manager powered by the cloud. Taak combines both the user-friendliness of Sticky Notes, as well as the convenience of having your TODO lists being accessible from anywhere online.URL: [http://taak.onfry.com/](http://taak.onfry.com/)# Developers* Benjamin Yap Yan Han (A0073006U)* Chen Liang (A0072963X)* Kwan Yong Kang Nicholas (A0080933E)* Wang Boyang (A0078695H)# Contributions## Benjamin Yap Yan Han
+# Taak
+
+A task manager powered by the cloud. Taak combines both the user-friendliness of Sticky Notes, as well as the convenience of having your TODO lists being accessible from anywhere online.
+
+URL: [http://taak.onfry.com/](http://taak.onfry.com/)
+
+Tested platforms: 
+
+* Safari iOS (5 and 7) for iPad
+* Google Chrome mobile for iPad
+* Mozilla Firefox
+* Google Chrome
+* Internet Explorer 10+
+
+# Developers
+
+* Benjamin Yap Yan Han (A0073006U)
+* Chen Liang (A0072963X)
+* Kwan Yong Kang Nicholas (A0080933E)
+* Wang Boyang (A0078695H)
+
+# Contributions
+
+## Benjamin Yap Yan Han
 
 * Multiple boards/workflow
 * User Interface
-* Sticky Note Interface
+* Sticky Note Drag & Drop Interface
 
 ## Chen Liang
 
