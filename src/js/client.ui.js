@@ -141,25 +141,21 @@ $(document).ready(function(){
 	});
 });//endof $(document).ready()
 
-function resetMarkingTaskDone(){
-	//slowflashMessagebar("Stopping task marking.");
+function resetMarkingTaskDone() {
 	hideMessagebar();
 	glMode = 0;
-	//$("#markTaskDoneBtn").text("Start Marking Tasks");
 	$("#markTaskDoneBtn").removeClass("toggledbutton");
 	$("#markTaskDoneBtn").addClass("button");
 	console.log("resetMarkingTaskDone");
 }
-function setMarkingTaskDone_inProgress(){
-	//slowflashMessagebar("You can start marking your tasks.");
+function setMarkingTaskDone_inProgress() {
 	var isMobile = mobileCheck();
 	if (!isMobile) {
-		showMessagebar("Mark/unmark tasks by clicking on them.");
+		showMessagebar("Mark/unmark tasks by clicking on them. <a href=\"javascript:resetMarkingTaskDone();\">Cancel</a>");
 	} else {
-		showMessagebar("Mark/unmark tasks by tapping on them.");
+		showMessagebar("Mark/unmark tasks by tapping on them. <a href=\"javascript:resetMarkingTaskDone();\">Cancel</a>");
 	}
 	glMode = 1;
-	//$("#markTaskDoneBtn").text("Stop Marking");
 	$("#markTaskDoneBtn").removeClass("button");
 	$("#markTaskDoneBtn").addClass("toggledbutton");
 }
@@ -171,7 +167,6 @@ function setMarkingTaskDone_inProgress(){
 // 		resetMarkingTaskDone();
 // 	});
 // }
-
 
 function preloadWorkflowTable(){
 	var specialEntry = getSpecialEntry();
@@ -289,13 +284,12 @@ function slowflashMessagebar(messageString){
 	hideMessagebar();
 }
 function showMessagebar(messageString) {
-	$("#messagebar").text(messageString);
+	$("#messagebar").html(messageString);
 	$("#messagebar").fadeIn(100).css("display","inline-block");;
 	//$("#messagebar").stop(true,true).fadeIn(100); ///http://stackoverflow.com/questions/2805906/jquery-stop-fadein-fadeout	///http://stackoverflow.com/questions/1421298/how-do-you-cancel-a-jquery-fadeout-once-it-has-began
 }
 function hideMessagebar() {
 	//$("#messagebar").stop(true,true).fadeOut(3000);
-	//$("#messagebar").stop(true,true).fadeOut(100);
 	$("#messagebar").fadeOut(100);
 }
 
