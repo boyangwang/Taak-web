@@ -4,6 +4,14 @@ A task manager powered by the cloud. Taak combines both the user-friendliness of
 
 URL: [http://taak.onfry.com/](http://taak.onfry.com/)
 
+Tested platforms: 
+
+* Safari iOS (5 and 7) for iPad
+* Google Chrome mobile for iPad
+* Mozilla Firefox
+* Google Chrome
+* Internet Explorer 10+
+
 # Developers
 
 * Benjamin Yap Yan Han (A0073006U)
