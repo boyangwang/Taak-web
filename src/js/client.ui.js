@@ -805,7 +805,7 @@ function tapScreenSaver(screensaverCanvas, desiredWorkflow){
 			killGlowingCircle();
 			clearCanvas(screensaverCanvas);
 			return tapscore;
-		}, 2000);
+		}, 5000); //2000 is too fast
 	}
 
 	var randomCoord = {x:150,y:150};
@@ -920,10 +920,10 @@ function createCircle(canvas, coord, colorOffset, outlineColorOffset){ //SIMILAR
 var isGlowingSolid = true;
 window.glowingCircleInterval=null;
 function reviveGlowingCircle(){
-	setTimeout(alternateTheCircle, 200); //for the initial flash
-	showClickCanvas(); //There seems to be some lag creating the setInterval function.
+	// showClickCanvas(); //There seems to be some lag creating the setInterval function.
+	setTimeout(alternateTheCircle, 250); //for the initial flash
 	//So this is meant to cover up for it.
-	window.glowingCircleInterval = setInterval(alternateTheCircle, 450);
+	window.glowingCircleInterval = setInterval(alternateTheCircle, 500);
 }//Endof reviveGlowingCircle()
 function alternateTheCircle(){
 	if(window.isGlowingSolid){
