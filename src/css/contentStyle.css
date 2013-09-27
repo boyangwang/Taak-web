@@ -616,14 +616,32 @@ White: fefefe, ebebeb, d7d7d7, a2a2a2
 }
 
 /* Screensaver */
+#screensaverCanvas, #clickCanvas, #glowingCanvas, #scoreCanvas{
+	position:absolute; 
+}
 #screensaverCanvas{ z-index: 2222;}
 #clickCanvas{ z-index: 3333; }
 #glowingCanvas{ z-index: 3332; }
 #scoreCanvas{ z-index: 3332; }
-
-#screensaverCanvas, #clickCanvas, #glowingCanvas, #scoreCanvas{
-	position:absolute; 
+#unlockInstructions{
+	z-index: 3332;
+	position: absolute;
+	font-size: 1.0em;
+	font-family: HelveticaNeue-Bold, Verdana, sans-serif;
+	width:200px;
+	height:100px;
 }
+#unlockInstructions div{
+	color: rgba(0,0,0,1);
+	width:100%;
+	text-align: center;
+	text-shadow:
+	-1px -1px 0 rgba(255,255,255,0.08),  
+	1px -1px 0 rgba(255,255,255,0.08),
+	-2px 2px 0 rgba(255,255,255,0.08),
+	2px 2px 0 rgba(255,255,255,0.08);
+}
+
 /* iOS Safari fixes */
 .ios7fixer {
 	position: fixed;
