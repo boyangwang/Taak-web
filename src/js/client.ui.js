@@ -523,7 +523,7 @@ function UI_setTaskPanel(entry, task, taskText) {
 }
 
 function UI_addDoneMark(target){ //the target TaskPanel
-	if (target.parent().children(".donemark").get(0) == null) {
+	if (target.children(".donemark").get(0) == null) {
 		target.prepend("<img class='donemark' src='"+config.donemark+"'/>"); //use prepend so that it's at bottom layer.
 	}
 }
