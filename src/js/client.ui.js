@@ -750,6 +750,7 @@ function initScreensaver(){
 	var clickCanvas = document.getElementById("clickCanvas");
 	var glowingCanvas = document.getElementById("glowingCanvas");
 	var scoreCanvas = document.getElementById("scoreCanvas");
+	var unlockInstructions = document.getElementById("unlockInstructions");
 	
 	screensaverCanvas.width = window.innerWidth; screensaverCanvas.height = window.innerHeight;
 	clickCanvas.width = 100; clickCanvas.height = 100;
@@ -831,6 +832,7 @@ function tapScreenSaver(screensaverCanvas, desiredWorkflow){
 	var clickCanvas = document.getElementById("clickCanvas");
 	var glowingCanvas = document.getElementById("glowingCanvas");
 	var scoreCanvas = document.getElementById("scoreCanvas");
+	var unlockInstructions = document.getElementById("unlockInstructions");
 	setCanvasPositions(randomCoord);
 	showCanvasSet();
 	reviveGlowingCircle(1);
@@ -866,22 +868,26 @@ function tapScreenSaver(screensaverCanvas, desiredWorkflow){
 		setCanvasPosition(clickCanvas, coord);
 		setCanvasPosition(glowingCanvas, coord);
 		setCanvasPosition(scoreCanvas, {x:coord.x,y:coord.y+100}); //we want scoreCanvas to appear below
+		setCanvasPosition(unlockInstructions, {x:coord.x-50,y:coord.y-40});
 	}
 	function setCanvasPosition(canvas, coord){
 		canvas.style.left = coord.x+"px";
 		canvas.style.top = coord.y+"px";
 	}
+	function showCanvasSet(){
+		clickCanvas.hidden = false;
+		glowingCanvas.hidden = false;
+		scoreCanvas.hidden = false;
+		unlockInstructions.hidden = false;
+	}
+	function hideCanvasSet(){
+		clickCanvas.hidden = true;
+		glowingCanvas.hidden = true;
+		scoreCanvas.hidden = true;
+		unlockInstructions.hidden = true;
+	}
+
 }//endof tapScreenSaver()
-function showCanvasSet(){
-	clickCanvas.hidden = false;
-	glowingCanvas.hidden = false;
-	scoreCanvas.hidden = false;
-}
-function hideCanvasSet(){
-	clickCanvas.hidden = true;
-	glowingCanvas.hidden = true;
-	scoreCanvas.hidden = true;
-}
 
 function stopScreenSaver(screensaverCanvas, desiredWorkflow){
 	desiredWorkflow.click();
