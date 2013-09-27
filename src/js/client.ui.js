@@ -92,31 +92,31 @@ $(document).ready(function(){
 		});
 	});
 
-bindWorkflows();
+	bindWorkflows();
 
-$(".dialog .window").click(function(e) {
-	e.stopPropagation();
-});
-$('.dialog').click(hideDialog);
+	$(".dialog .window").click(function(e) {
+		e.stopPropagation();
+	});
+	$('.dialog').click(hideDialog);
 
-$(".addTaskDiv").draggable({
-	revert: function(){
-		if($(this).offset().left > 64){
-			var taskPositionX = $(this).offset().left+20;
-			var taskPositionY = $(this).offset().top-30;
-			var taskColor = $(this).attr('data-color');
-			addTask(taskPositionX,taskPositionY,taskColor);
-		}
-		return true;
-	},
-	revertDuration:0,
-	start: showDragInstructions,
-	stop: hideDragInstructions
-}).mousedown(function() {
-	showDragInstructions();
-}).mouseup(function() {
-	hideDragInstructions();
-});
+	$(".addTaskDiv").draggable({
+		revert: function(){
+			if($(this).offset().left > 64){
+				var taskPositionX = $(this).offset().left+20;
+				var taskPositionY = $(this).offset().top-30;
+				var taskColor = $(this).attr('data-color');
+				addTask(taskPositionX,taskPositionY,taskColor);
+			}
+			return true;
+		},
+		revertDuration:0,
+		start: showDragInstructions,
+		stop: hideDragInstructions
+	}).mousedown(function() {
+		showDragInstructions();
+	}).mouseup(function() {
+		hideDragInstructions();
+	});
 
 	//Don't put inside resetMarkingTaskDone() //The create function will call the func multiple times, which adds on multiple "onclick" functions.
 	$("#messagebar").fadeOut(0);
@@ -134,9 +134,8 @@ $(".addTaskDiv").draggable({
 
 	UI_init();
 
-
 	initScreensaver();
-});
+});//endof $(document).ready()
 
 function resetMarkingTaskDone(){
 	slowflashMessagebar("Stopping task marking.");
