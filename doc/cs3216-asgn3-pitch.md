@@ -3,8 +3,6 @@
 ###Goodness of Sticky Notes On The Go
 Sticky notes work very well as to-do task planners and reminders, but they aren't conveniently portable. You can't exactly carry your physical sticky notes board around with you.
 
-=====
-
 
 ###Familiarity from Likeness to Real Life
 Sticky note users love sticky notes because of the ways that they can interact with them. The peeling, the sticking and the marking. In real life.
@@ -19,6 +17,8 @@ So we made our app as close to real-life as possible. Here are some of the real-
 * [DELETE]??
 
 We also aimed for familiarity by attending to the details. From the nostalgic colors of the sticky notes, to the customary corkboard, and all the way down to the beautiful Helvetical and Verdana fonts.
+
+=====
 
 
 ###Stable & Reliable Sync Mechanism
