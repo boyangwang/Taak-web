@@ -768,19 +768,19 @@ function startScreensaver(){
 	var original_selectedworkflow = $("selectedworkflow").get(0);
 
 	var wi=0;
-	// var changeWorkflowInterval = setInterval( function(){
-	// 	wi = (wi+1)%($(".workflowName").length);
-	// }, 3000);
+	var changeWorkflowInterval = setInterval( function(){
+		wi = (wi+1)%($(".workflowName").length);
+	}, 3000);
 
-	// var clickWorkflowInterval = setInterval( function(){
-	// 	if (window.screensaver == false){
-	// 		clearInterval(changeWorkflowInterval);
-	// 		clearInterval(clickWorkflowInterval);
-	// 		wi=0;
-			// return; //do not click if there's no more screensaver.
-	// 	}
-	// 	$(".workflowName").get(wi).click();
-	// }, 3000);
+	var clickWorkflowInterval = setInterval( function(){
+		if (window.screensaver == false){
+			clearInterval(changeWorkflowInterval);
+			clearInterval(clickWorkflowInterval);
+			wi=0;
+			return; //do not click if there's no more screensaver.
+		}
+		$(".workflowName").get(wi).click();
+	}, 3000);
 	
 	screensaverCanvas.onclick = function(){
 		var desiredWorkflow = $(".workflowName").get(wi);
