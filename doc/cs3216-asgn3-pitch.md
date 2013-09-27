@@ -13,14 +13,6 @@ However, mobile devices have small screens that can only display so much. Many o
 So we wanted to reproduce this highly valued user experience for the sticky note board on our mobile app. We allow the user to "lock the screen", which triggers the Auto-View Display where we automatically cycle through the sticky note boards.
 
 
-###Likeness to real life (@@??)
-@@ We made our app as close to real-life as possible. Here are some of the real-life abilities you can do:
-
-* grab multiple sticky notes at once! (@@)
-* markers - mark them with a special symbol to check the tasks as done (@@)
-* a trophy wall of sticky notes showing the tasks completed (@@)
-
-
 ###Portable Sticky Note Board with Lock-Screen, Viewable Any Time
 To maximize the usefulness of the Auto-View Display on a mobile device, it has to be viewable on the go, just like how you would put your time table on one side of your clear hardcover plastic folder, for easy viewing any time on the go.
 
@@ -33,8 +25,6 @@ Hence, we made a lock-screen feature on our app, so that the Sticky Note Board c
 When you lock the screen, the app is locked down and all usual buttons are disabled.
 
 
-###Calendar of Progress(@@??)@@
-
 ###Animated & Prominent Unlock Mechanism
 To unlock the screen, simply touch the screen to activate the unlock-prompt, and touch the unlock-prompt 3 times. We made the unlock-prompt especially prominent so that it is impossible for users to miss it:
 
@@ -45,12 +35,6 @@ To unlock the screen, simply touch the screen to activate the unlock-prompt, and
 * Once you have made the 3 correct touches, the glowing circle will have a flashing animation.
 * In the event that it is a mistouch, the unlock-prompt disappears after 5 seconds and resets the number of touches required before unlock.
 
-
-
-###Sticky Notes Giving
-@@@@@ No time to implement :(
-
-@@Give friends or family sticky notes.
 
 ###No Sign-up Required (@@??)
 @@ A slight expansion from the sharing of a single sticky note.
