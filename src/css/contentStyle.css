@@ -378,9 +378,6 @@
 	/*line-height: 0px;*/ /*WARNING: This screws with your min-height and the line of text*/
 
 }
-#messagebar innerText{
-	font-color:white;
-}
 
 
 /*
