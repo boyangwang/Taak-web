@@ -142,13 +142,15 @@ $(document).ready(function(){
 });//endof $(document).ready()
 
 function resetMarkingTaskDone(){
-	slowflashMessagebar("Stopping task marking.");
+	//slowflashMessagebar("Stopping task marking.");
+	hideMessagebar();
 	glMode = 0;
 	$("#markTaskDoneBtn").text("Start Marking Tasks");
 	console.log("resetMarkingTaskDone");
 }
 function setMarkingTaskDone_inProgress(){
-	slowflashMessagebar("You can start marking your tasks.");
+	//slowflashMessagebar("You can start marking your tasks.");
+	showMessagebar("Mark/unmark tasks by clicking on them.");
 	glMode = 1;
 	$("#markTaskDoneBtn").text("Stop Marking");
 }
@@ -282,7 +284,8 @@ function showMessagebar(messageString) {
 	$("#messagebar").stop(true,true).fadeIn(100); ///http://stackoverflow.com/questions/2805906/jquery-stop-fadein-fadeout	///http://stackoverflow.com/questions/1421298/how-do-you-cancel-a-jquery-fadeout-once-it-has-began
 }
 function hideMessagebar() {
-	$("#messagebar").stop(true,true).fadeOut(3000);
+	//$("#messagebar").stop(true,true).fadeOut(3000);
+	$("#messagebar").stop(true,true).fadeOut(100);
 }
 
 // Show/hide drag instructions
@@ -508,8 +511,15 @@ function UI_setTaskPanel(entry, task, taskText) {
 		"width": entry.w,
 		"height": entry.h
 	});
-	if(entry.labels && entry.labels.done) //[NEW_>_ver0.55] Need to check entry.labels because older versions don't have it. Can remove when people are no longer using client ver0.55.
-		UI_addDoneMark(task);
+
+	if (entry.labels) {
+		if (entry.labels.done) {
+			UI_addDoneMark(task);
+		} else {
+			// Remove any stray marks
+			UI_delDoneMark(task);
+		}
+	}
 }
 
 function UI_addDoneMark(target){ //the target TaskPanel
