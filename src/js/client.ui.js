@@ -800,11 +800,12 @@ function initScreensaver(){
 	glowingCanvas.width = 100; glowingCanvas.height = 100;
 	scoreCanvas.width = 100; scoreCanvas.height = 100;
 
+	//Now create the permanent circles for clickCanvas and glowingCanvas.
+	//For scoreCanvas, it is not permanent as it will be overwritten.
+	//Hence create new empty copy of 3 hollow circles only when you start the screen saver.
 	var canvasCenter_coord = calcCanvasCenter(clickCanvas);
 	createCircle( clickCanvas, canvasCenter_coord, {r:0,g:0,b:0,a:-0.2},{a:-0.5} );
 	createCircle( glowingCanvas, canvasCenter_coord, {r:0,g:0,b:0,a:-0.2},{a:-0.7} );
-	for (var pos=0; pos<3; ++pos)
-		createScoreCircle(scoreCanvas, canvasCenter_coord, 0, pos);
 }//endof initScreensaver()
 function createScoreCircle(scoreCanvas, canvasCenter_coord, opacityInc, pos){ ///[New]
 	//takes scoreCanvas, canvasCenter_coord
@@ -827,6 +828,9 @@ function createScoreCircle(scoreCanvas, canvasCenter_coord, opacityInc, pos){ //
 function startScreensaver(){
 	window.screensaver = true;
 	var screensaverCanvas = document.getElementById("screensaverCanvas");
+	//Create the non-permanent circles for scoreCanvas. Need to recreate each time coz it will be overwritten later when user successfully taps.
+	for (var pos=0; pos<3; ++pos)
+		createScoreCircle(scoreCanvas, canvasCenter_coord, 0, pos);
 	screensaverCanvas.hidden = false;
 	var original_selectedworkflow = $("selectedworkflow").get(0);
 
@@ -902,6 +906,7 @@ function tapScreenSaver(screensaverCanvas, desiredWorkflow){
 			setTimeout(function(){
 				killGlowingCircle();
 				hideCanvasSet();
+				clearCanvas(screensaverCanvas);
 				stopScreenSaver(screensaverCanvas, desiredWorkflow);
 			}, 1000);
 			return true; }
