@@ -1,6 +1,6 @@
 CACHE MANIFEST
 # Change version number when updating files so cached files are updated
-# version 0.82
+# version 0.83
 
 # Note:
 # To update files on browser after changing them
@@ -41,6 +41,7 @@ img/task-yellow.png
 img/topbar.png
 img/usermini.png
 img/reload.png
+img/tickmark.png
 js/jquery.tools.min.js
 js/jquery.ui.touch-punch.min.js
 js/jquery-ui-1.10.3.custom.min.js
