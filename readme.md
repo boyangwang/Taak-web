@@ -2,22 +2,24 @@
 
 * Multiple boards/workflow
 * User Interface
+* Sticky Note Interface
 
 ## Chen Liang
 
-* Documentation
-* Final Documents
 * Task marking system
+* Auto-View for boards
+* Lockscreen and unlock mechanism (not compatible w Android)
+* Documentation and Final documents
 
 ## Kwan Yong Kang Nicholas
 
 * Draft Documentation
 * Part of Authentication System
-* Synchronization System
+* Synchronization System (Data & App Version)
+* Version Management System
 * User Interface
 
 ## Wang Boyang
 
 * Authentication System
-
 
