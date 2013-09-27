@@ -780,7 +780,7 @@ function createScoreCircle(scoreCanvas, canvasCenter_coord, opacityInc, pos){ //
 	}
 	createCircle( scoreCanvas, newCoord, colorOffset,outlineColorOffset, 5 );
 }
-startScreensaver();
+
 function startScreensaver(){
 	window.screensaver = true;
 	var screensaverCanvas = document.getElementById("screensaverCanvas");
