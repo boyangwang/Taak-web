@@ -123,17 +123,18 @@ $(".addTaskDiv").draggable({
 	$("#markTaskDoneBtn").click(function(){
 		switch(glMode){
 		case 0: //Originally, innerText is "Start Marking Tasks".
-		setMarkingTaskDone_inProgress();
-		break;
+			setMarkingTaskDone_inProgress();
+			break;
 		case 1: //Originally, innerText is "Stop Marking Tasks".
-		resetMarkingTaskDone();
-		break;
-	}
-	console.log("MarkingTaskDone");
-
-});
+			resetMarkingTaskDone();
+			break;
+		}
+		console.log("MarkingTaskDone");
+	});
 
 	UI_init();
+
+
 	initScreensaver();
 });
 
