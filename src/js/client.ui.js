@@ -245,6 +245,7 @@ function bindWorkflows(){
 	$(".workflowName").click(function(){
 		$(".workflowName").removeClass("selectedworkflow");
 		$(this).addClass("selectedworkflow");
+		
 		var currentWorkflow = $(this).attr('data-workflow');
 		if (currentWorkflow == "Default") {
 			$("#deleteWorkflowIcon").hide();
@@ -258,7 +259,8 @@ function bindWorkflows(){
 		$("#workflowSelectorIcon").attr('data-workflow',currentWorkflow);
 		$("#workflowSelectorBox").hide();
 		$(".task").hide();
-		///### bug: Click sticky note. ColorSwitcher shows. Click workflowName. ColorSwitcher is still there. Stuck.
+		UI_unselect(lastTask, true);
+		
 		$(".task").each(function(){
 			if (currentWorkflow == "Default" && typeof($(this).attr("data-workflow")) == "undefined") {
 				// For default workflow, tasks without a workflow will be considered part of default
@@ -352,9 +354,10 @@ function workflowListener(){
 function UI_init() {
 	$(".workflowView").click(function(e) {
 		if (!forceFocus) {
-			// Unfocus children
 			UI_hideColorSwitcher();
 			//$(".selected").children(".taskText").blur();
+			
+			// Unfocus children
 			UI_unselect(lastTask, true);
 		}
 		forceFocus = false;
@@ -390,6 +393,7 @@ function UI_unselect(task, doBlur) {
 		}
 
 		if (doBlur == true) {
+			UI_hideColorSwitcher();
 			hideKeyboard();
 		}
 	}

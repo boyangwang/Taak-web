@@ -119,7 +119,7 @@ function showEntries() {
 		$(".task").hide();
 		currentWorkflow = $("#workflowSelectorIcon").attr('data-workflow');
 	}
-	console.log("WORK", currentWorkflow);
+	console.log("WORKFLOW", currentWorkflow);
 	$(".task").each(function(){
 		if (currentWorkflow == "Default" && typeof($(this).attr("data-workflow")) == "undefined") {
 			// For default workflow, tasks without a workflow will be considered part of default
@@ -159,9 +159,7 @@ function logout(e) {
 	// 1. clear local
 	// 2. remove from db
 	// 3. back to unlogin page
-	
-	
-	
+
 	var token = localStorage.fb_token;
 	$(".task").remove();
 	

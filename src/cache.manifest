@@ -1,6 +1,6 @@
 CACHE MANIFEST
 # Change version number when updating files so cached files are updated
-# version 0.56
+# version 0.57
 
 # Note:
 # To update files on browser after changing them
@@ -21,7 +21,7 @@ js/client.js
 img/markdone/done1.png
 img/markdone/done2.png
 img/markdone/done3.png
-img/markdone/done4.png
+img/markdone/done3x.png
 img/icon.png
 img/favicon.png
 img/addIcon.png
