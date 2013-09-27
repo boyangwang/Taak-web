@@ -55,40 +55,45 @@ TaskManager.prototype.add = function(dflow, value, noUpdate) {
 	}
 	return entry;
 }
-// Update existing entry
-TaskManager.prototype.update = function(id, value, x, y, w, h, color, metadata, labels) {
+// Update attribute of existing entry
+// id: ID of task, parameter: Parameter of task, value: Value of parameter, doUpdate: is set to true, do sync
+TaskManager.prototype.updateAttribute = function(id, parameter, value, doUpdate) {
 	if (this.entries[id] != null) {
-		this.entries[id].time = Date.now();
-		if (value != null) {
-			this.entries[id].value = value;
+		if (parameter != null && value != null) {
+			this.entries[id][parameter] = value;
 		}
-		if (x != null) {
-			this.entries[id].x = x;
+		if (doUpdate) {
+			this.writeLocal();
+			this.onupdate();
+			console.log("Attribute Update", this.entries[id]);
 		}
-		if (y != null) {
-			this.entries[id].y = y;
-		}
-		if (w != null) {
-			this.entries[id].w = w;
-		}
-		if (h != null) {
-			this.entries[id].h = h;
-		}
-		if (color != null) {
-			this.entries[id].color = color;
-		}
-		if (metadata != null) {
-			this.entries[id].metadata = metadata;
-		}
-		if (labels != null) {
-			if (typeof this.entries[id].labels == "undefined") //[NEW_>_ver0.55] Need to check entries[id].labels because older versions don't have it. Can remove when people are no longer using client ver0.55.
-				this.entries[id].labels = new Labels();
-			for (var name in labels)
-				this.entries[id].labels[name] = labels[name];
-		}
+		return this.entries[id];
+	} else {
+		console.log("Warning", "A attempt to update a non-existant entry was made", id);
+		return null;
+	}
+}
+// Get attribute of existing entry
+TaskManager.prototype.getAttribute = function(id, parameter) {
+	if (this.entries[id] != null) {
+		return this.entries[id][parameter];
+	} else {
+		console.log("Warning", "A attempt to update a non-existant entry was made", id);
+		return null;
+	}
+}
+// Update existing entry
+TaskManager.prototype.update = function(id, value, x, y, w, h, color, metadata) {
+	if (this.entries[id] != null) {
+		this.updateAttribute(id, "value", value);
+		this.updateAttribute(id, "x", x);
+		this.updateAttribute(id, "y", y);
+		this.updateAttribute(id, "w", w);
+		this.updateAttribute(id, "h", h);
+		this.updateAttribute(id, "color", color);
+		this.updateAttribute(id, "metadata", metadata);
 		this.writeLocal();
 		this.onupdate();
-		return this.entries[id];
 	} else {
 		console.log("Warning", "A attempt to update a non-existant entry was made", id);
 		return null;

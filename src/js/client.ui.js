@@ -452,7 +452,9 @@ function UI_updateEntryLabels(target){ //param target must be the taskText div, 
 	var label_done = $(".donemark", target.parent()).hasClass("donemark");
 
 	if ( label_done != target.attr("label_done") ) {
-		manager.update(target.attr("data-taskid"),null,null,null,null,null,null,null,{done:label_done});
+		//manager.update(target.attr("data-taskid"),null,null,null,null,null,null,null,{done:label_done});
+		manager.updateAttribute(target.attr("data-taskid"), "labels", {done:label_done}, true);
+		
 		// target.attr("label_done", true); //different from "label_archived"
 	}
 }
@@ -502,7 +504,9 @@ function UI_setTaskPanel(entry, task, taskText) {
 }
 
 function UI_addDoneMark(target){ //the target TaskPanel
-	target.prepend("<img class='donemark' src='"+config.donemark+"'/>"); //use prepend so that it's at bottom layer.
+	if (target.parent().children(".donemark").get(0) == null) {
+		target.prepend("<img class='donemark' src='"+config.donemark+"'/>"); //use prepend so that it's at bottom layer.
+	}
 }
 function UI_delDoneMark(target){ //the target TaskPanel
 	$(".donemark", target).remove();
