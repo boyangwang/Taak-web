@@ -134,7 +134,7 @@ $(document).ready(function(){
 
 	UI_init();
 
-	initScreensaver();
+	//initScreensaver();
 	$("#screensaverBtn").click(function(){
 		startScreensaver();
 		console.log("Starting Screensaver");
@@ -270,9 +270,14 @@ function bindWorkflows(){
 		$(".task").each(function(){
 			if (currentWorkflow == "Default" && typeof($(this).attr("data-workflow")) == "undefined") {
 				// For default workflow, tasks without a workflow will be considered part of default
-				$(this).show();
+				if ($(this).children(".taskText").attr("data-taskarchived") + "" != "true") {
+					$(this).show();
+				}
 			} else if($(this).attr("data-workflow") == currentWorkflow){
-				$(this).show();
+				if ($(this).children(".taskText").attr("data-taskarchived") + "" != "true") {
+					$(this).show();
+				}
+				
 			}
 		});
 	});
@@ -788,6 +793,7 @@ $('body').on("touchmove", ".scrollable", function(e) {
 
 //==================================================
 // SCREENSAVER MODE
+/*
 function initScreensaver(){
 	var screensaverCanvas = document.getElementById("screensaverCanvas");
 	var clickCanvas = document.getElementById("clickCanvas");
@@ -1030,3 +1036,4 @@ function showGlowingCanvas(){
 	document.getElementById("glowingCanvas").hidden = false;
  	document.getElementById("clickCanvas").hidden = true;
 }
+*/
