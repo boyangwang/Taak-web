@@ -25,23 +25,24 @@ Tested platforms:
 
 * Multiple boards/workflow
 * User Interface
-* Drag & Drop
+* Sticky Note Drag & Drop Interface
 
 ## Chen Liang
 
-* Documentation
-* Final Documents
 * Task marking system
+* Auto-Viewing for boards
+* Lockscreen and unlock mechanism (not compatible with IE, Android)
+* Documentation and final milestone and pitch documents
 
 ## Kwan Yong Kang Nicholas
 
 * Draft Documentation
 * Part of Authentication System
-* Synchronization System
+* Synchronization System (Data & App Version)
+* Version Management System
 * User Interface
 
 ## Wang Boyang
 
 * Authentication System
-
 
